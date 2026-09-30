@@ -9,7 +9,8 @@ Layer 1 (analyze) = deterministic facts. Layer 2 (write) = one LLM call.
 Every number in the LLM text is checked against the facts; if any is
 unsupported it retries once, then falls back to a no-LLM template.
 """
-import json, os, re, sys, time, pathlib, urllib.request
+import json, os, re, sys, time, pathlib, urllib.request, datetime
+import theme
 
 CFG = {
     "league_id": os.environ.get("SLEEPER_LEAGUE_ID", "1313254837680357376"),
@@ -56,7 +57,15 @@ def fetch(lid, week):
         "matchups": {w: get(f"/league/{lid}/matchups/{w}") for w in range(1, week + 1)},
         "transactions": get(f"/league/{lid}/transactions/{week}"),
         "next": next_pairings(lid, week + 1),
+        "bracket": bracket(lid),
     }
+
+
+def bracket(lid):
+    try:
+        return get(f"/league/{lid}/winners_bracket") or []
+    except Exception:                                   # not set until the regular season ends
+        return []
 
 
 def next_pairings(lid, week):
@@ -74,8 +83,13 @@ def r2(x):
 def check_complete(raw, week):
     """Refuse to recap partial data. Raises ValueError."""
     rids = {r["roster_id"] for r in raw["rosters"]}
+    ps = (raw["league"].get("settings") or {}).get("playoff_week_start") or 99
     for w in range(1, week + 1):
         seen = {m["roster_id"] for m in raw["matchups"].get(w) or [] if m.get("matchup_id") is not None}
+        if w >= ps:                                     # playoffs: eliminated teams have no game
+            if not any(m.get("points") for m in raw["matchups"].get(w) or [] if m.get("matchup_id") is not None):
+                raise ValueError(f"week {w}: no playoff points yet")
+            continue
         if seen != rids:
             raise ValueError(f"week {w}: matchups cover {len(seen)} of {len(rids)} rosters")
         if all(not m.get("points") for m in raw["matchups"][w]):
@@ -121,7 +135,9 @@ def analyze(raw, P, week, cfg=CFG, aliases=None):
             rec[rid]["rank"] = n
         return rec
 
-    now, before = table(week), (table(week - 1) if week > 1 else None)
+    ps = settings.get("playoff_week_start") or 99
+    reg = lambda upto: max(0, min(upto, ps - 1))        # records/power count regular season only
+    now, before = table(reg(week)), (table(reg(week - 1)) if week > 1 and week <= ps else None)
 
     def lineup(m):
         """Top 2 starters + worst skill starter: story material, kept small."""
@@ -266,10 +282,10 @@ def analyze(raw, P, week, cfg=CFG, aliases=None):
         order = sorted(owner, key=lambda i: (-score[i], -pf[i]))
         return ap_all, ap3, score, {rid: n for n, rid in enumerate(order, 1)}
 
-    ap, ap3, pscore, prank = power_order(week)
-    prev_prank = power_order(week - 1)[3] if week > 1 else {}
+    ap, ap3, pscore, prank = power_order(reg(week))
+    prev_prank = power_order(reg(week - 1))[3] if 1 < week <= ps else {}
     pa = {rid: 0.0 for rid in owner}
-    for w in range(1, week + 1):
+    for w in range(1, reg(week) + 1):
         for a, b in games(w):
             pa[a["roster_id"]] += b["points"] or 0
             pa[b["roster_id"]] += a["points"] or 0
@@ -334,6 +350,22 @@ def analyze(raw, P, week, cfg=CFG, aliases=None):
     if lst["streak"].startswith("L") and streak_n(lst["streak"]) >= 2:
         lore["cold_streak"] = {"manager": lst["manager"], "streak": lst["streak"]}
 
+    # ---- playoffs: race, bracket, champion ----
+    pteams = settings.get("playoff_teams") or 6
+    phase = theme.playoff_phase(week, settings.get("playoff_week_start"), pteams)
+    race = None
+    if phase and phase["phase"] == "race":
+        race = {"weeks_left": phase["weeks_left"], "playoff_teams": pteams,
+                "in": [s["manager"] for s in standings[:pteams]],
+                "bubble": [{"manager": s["manager"], "record": s["record"], "rank": s["rank"]}
+                           for s in standings[max(0, pteams - 2): pteams + 2]]}
+    nm = lambda x: owner.get(x) if isinstance(x, int) else None
+    bracket_rows = [{"round": b.get("r"), "a": nm(b.get("t1")), "b": nm(b.get("t2")), "winner": nm(b.get("w")),
+                     "place": b.get("p")} for b in raw.get("bracket") or []]
+    final = next((b for b in bracket_rows if b["place"] == 1 and b["winner"]), None)
+    champion = ({"manager": final["winner"], "runner_up": final["b"] if final["winner"] == final["a"] else final["a"]}
+                if final and phase and phase["phase"] in ("champion", "offseason") else None)
+
     by_margin = sorted(results, key=lambda g: g["margin"])
     return {
         "league": lg["name"], "season": lg["season"], "week": week, "teams": len(owner),
@@ -348,6 +380,7 @@ def analyze(raw, P, week, cfg=CFG, aliases=None):
         "faab_budget": budget,
         "standings": standings, "movers": movers, "upsets": upsets,
         "power_rankings": power, "next_week": marquee, "awards": awards, "lore": lore,
+        "playoff_teams": pteams, "playoff_race": race, "bracket": bracket_rows or None, "champion": champion,
     }
 
 
@@ -497,6 +530,11 @@ Hard rules (both parts):
 - Satire targets on-field fantasy performance and league behavior only. Never touch real
   players' or managers' personal lives, family, health, legal matters, appearance, or any
   protected characteristic.
+Edition theme (facts.edition): weave it in lightly: the banner, a joke or two and the comic
+strip. Halloween = spooky puns, Thanksgiving = feast puns, winter/Christmas/New Year = cold,
+gifts, resolutions. Playoff race (playoff_race): who is in, who is on the bubble, weeks left.
+Playoffs (bracket): stakes are elimination, survive-and-advance language. Championship
+(champion): crown the champion like a coronation; roast the runner-up gently.
 Tone: {tone}"""
 
 
@@ -679,6 +717,9 @@ def main(argv):
         lastp = last_strip_poses(lid, week)
         if lastp:
             facts["last_strip_poses"] = lastp
+        facts["edition_date"] = datetime.date.today().isoformat()
+        ed = theme.edition(facts)
+        facts["edition"] = {"theme": ed["key"], "label": ed["label"], "playoff": ed["playoff"]}
         prior = used_puns(lid, week)
         if prior:
             facts["used_pun_names"] = prior                # the writer must not repeat these

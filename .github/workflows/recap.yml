@@ -2,7 +2,7 @@ name: gazette
 on:
   push:
     branches: [main]
-    paths: ["posts/**", "site.py", "comic.py", "leagues.json", "fonts/**"]
+    paths: ["posts/**", "site.py", "comic.py", "theme.py", "leagues.json", "fonts/**"]
   workflow_dispatch:
 permissions:
   pages: write

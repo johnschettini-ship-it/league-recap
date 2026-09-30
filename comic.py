@@ -67,6 +67,25 @@ def accessory(kind):
                    f'<path d="M122 66 q8 12 4 30" fill="none" stroke="{INK}" stroke-width="1.2"/>',
         "cap": f'<path d="M74 42 q0 -18 26 -18 q26 0 26 18z" fill="{INK}"/><path d="M122 40 q18 0 22 6 h-24z" fill="{INK}"/>',
     }
+    k.update({
+        "witch": f'<path d="M66 42 h68" stroke="{INK}" stroke-width="4"/><path d="M78 42 L104 2 L122 42z" fill="{INK}"/>'
+                 f'<rect x="84" y="34" width="32" height="5" fill="{PAPER}"/>',
+        "cape": f'<path d="M72 94 q-22 40 -8 64 l20 -8 z M128 94 q22 40 8 64 l-20 -8 z" fill="{INK}"/>'
+                f'<path d="M86 88 l-6 8 h40 l-6 -8" fill="{INK}"/>',
+        "pilgrim": f'<rect x="80" y="14" width="40" height="26" fill="{INK}"/><rect x="68" y="38" width="64" height="5" rx="2" fill="{INK}"/>'
+                   f'<rect x="92" y="28" width="16" height="10" fill="{PAPER}" stroke="{INK}" stroke-width="2"/><rect x="97" y="31" width="6" height="4" fill="{INK}"/>',
+        "earmuffs": f'<path d="M68 60 q0 -38 32 -38 q32 0 32 38" fill="none" stroke="{INK}" stroke-width="3"/>'
+                    + "".join(f'<circle cx="{x}" cy="63" r="9" fill="{PAPER}" stroke="{INK}" stroke-width="2.5"/>'
+                              f'<circle cx="{x}" cy="63" r="4" fill="{INK}"/>' for x in (66, 134)),
+        "santa": f'<path d="M72 42 q10 -30 44 -24 q14 4 20 22" fill="{INK}"/><circle cx="140" cy="44" r="6" fill="{PAPER}" stroke="{INK}" stroke-width="2.5"/>'
+                 f'<rect x="68" y="36" width="64" height="9" rx="4" fill="{PAPER}" stroke="{INK}" stroke-width="2.5"/>',
+        "party": f'<path d="M86 42 L100 4 L114 42z" fill="{PAPER}" stroke="{INK}" stroke-width="2.5"/>'
+                 f'<path d="M91 30 l18 0 M95 18 l10 0" stroke="{INK}" stroke-width="2"/><circle cx="100" cy="4" r="4" fill="{INK}"/>',
+        "helmet": f'<path d="M68 58 q0 -36 32 -36 q32 0 32 36 v10 h-12 v-12 h-40 v12 h-12z" fill="{INK}"/>'
+                  f'<path d="M100 22 v34" stroke="{PAPER}" stroke-width="3"/><path d="M80 70 h40 M84 76 h32" stroke="{INK}" stroke-width="2.5"/>',
+        "crown": f'<path d="M76 42 l2 -22 l11 12 l11 -18 l11 18 l11 -12 l2 22z" fill="{PAPER}" stroke="{INK}" stroke-width="2.5"/>'
+                 + "".join(f'<circle cx="{x}" cy="36" r="2.5" fill="{INK}"/>' for x in (86, 100, 114)),
+    })
     return k.get(kind, "")
 
 
@@ -83,15 +102,39 @@ def scene(kind):
         "scoreboard": f'<rect x="4" y="100" width="44" height="30" fill="{INK}"/><rect x="10" y="106" width="14" height="18" fill="{PAPER}"/>'
                       f'<rect x="28" y="106" width="14" height="18" fill="{PAPER}"/><line x1="26" y1="130" x2="26" y2="184" stroke="{INK}" stroke-width="3"/>',
     }
+    star = lambda x, y, r=5: f'<path d="M{x} {y - r} l{r * .3} {r * .7} l{r * .7} 0 l-{r * .55} {r * .45} l{r * .25} {r * .75} l-{r * .7} -{r * .45} l-{r * .7} {r * .45} l{r * .25} -{r * .75} l-{r * .55} -{r * .45} l{r * .7} 0z" fill="{INK}"/>'
+    s.update({
+        "bats": f'<circle cx="170" cy="30" r="15" fill="none" stroke="{INK}" stroke-width="2"/>'
+                + "".join(f'<path d="M{x} {y} q-6 -8 -14 -2 q6 0 8 6 q2 -4 6 -4 q4 0 6 4 q2 -6 8 -6 q-8 -6 -14 2z" fill="{INK}"/>'
+                          for x, y in ((30, 34), (52, 22), (158, 70))),
+        "leaves": "".join(f'<g transform="rotate({r} {x} {y})"><path d="M{x} {y - 8} q8 8 0 16 q-8 -8 0 -16z" fill="{PAPER}" stroke="{INK}" stroke-width="1.6"/>'
+                          f'<line x1="{x}" y1="{y - 8}" x2="{x}" y2="{y + 10}" stroke="{INK}" stroke-width="1"/></g>'
+                          for x, y, r in ((24, 40, 30), (170, 30, -40), (40, 110, 70), (168, 120, 10), (150, 170, 50), (30, 172, -20))),
+        "snow": "".join(f'<g stroke="{INK}" stroke-width="1.4"><path d="M{x - 5} {y} h10 M{x} {y - 5} v10 M{x - 3.5} {y - 3.5} l7 7 M{x + 3.5} {y - 3.5} l-7 7"/></g>'
+                        for x, y in ((22, 28), (48, 70), (18, 120), (172, 24), (158, 76), (182, 130), (60, 150), (146, 160)))
+                + f'<path d="M20 184 q40 -10 80 0 q40 -10 80 0" fill="{PAPER}" stroke="{INK}" stroke-width="2"/>',
+        "lights": f'<path d="M0 12 q50 22 100 0 q50 22 100 0" fill="none" stroke="{INK}" stroke-width="1.5"/>'
+                  + "".join(f'<ellipse cx="{x}" cy="{y}" rx="3.5" ry="5.5" fill="{INK if i % 2 else PAPER}" stroke="{INK}" stroke-width="1.5"/>'
+                            for i, (x, y) in enumerate(((20, 22), (45, 27), (70, 24), (130, 24), (155, 27), (180, 22)))),
+        "fireworks": "".join(f'<g stroke="{INK}" stroke-width="1.6">' + "".join(
+                                 f'<line x1="{x}" y1="{y}" x2="{x + 12 * dx}" y2="{y + 12 * dy}"/>'
+                                 for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1), (.7, .7), (-.7, .7), (.7, -.7), (-.7, -.7))) + "</g>"
+                             for x, y in ((32, 36), (168, 44))),
+        "confetti": "".join(f'<rect x="{x}" y="{y}" width="5" height="3" transform="rotate({r} {x} {y})" fill="{INK}"/>'
+                            for x, y, r in ((20, 30, 20), (40, 60, -30), (160, 30, 45), (176, 70, 10), (28, 100, 60), (150, 110, -20), (60, 20, 80), (140, 60, 30)))
+                    + star(30, 150) + star(172, 150),
+    })
     return s.get(kind, "")
 
 
-def look(week, panel=1):
-    """Deterministic per week: costume changes every week, backdrop rotates per week and panel."""
-    return ACCESSORIES[week % len(ACCESSORIES)], SCENES[(week * 2 + panel) % len(SCENES)]
+def look(week, panel=1, edition=None):
+    """Costume changes every week; seasonal/playoff editions swap in their own wardrobe and backdrops."""
+    costumes = (edition or {}).get("costumes") or ACCESSORIES
+    scenes = (edition or {}).get("scenes") or SCENES
+    return costumes[week % len(costumes)], scenes[(week * 2 + panel) % len(scenes)]
 
 
-def rivet(pose, week=0, panel=1):
+def rivet(pose, week=0, panel=1, edition=None):
     """Rivet: boxy tin head, rivets, spring antenna topped with a football, chest dial, stubby legs."""
     pose = pose if pose in ARMS else "default"
     shocked = pose in ("sweat", "facepalm")
@@ -109,7 +152,7 @@ def rivet(pose, week=0, panel=1):
     brows = (f'<path d="M80 54 l14 -5 M120 54 l-14 -5" stroke="{INK}" stroke-width="2.5"/>' if pose == "shrug" else "")
     rivets = "".join(f'<circle cx="{x}" cy="{y}" r="1.8" fill="{INK}"/>' for x, y in ((75, 45), (125, 45), (75, 83), (125, 83), (76, 97), (124, 97), (76, 141), (124, 141)))
     hatch = "".join(f'<line x1="{x}" y1="94" x2="{x - 10}" y2="144" stroke="{INK}" stroke-width=".8"/>' for x in range(116, 128, 4))
-    acc, bg = look(week, panel)
+    acc, bg = look(week, panel, edition)
     return (
         f'<svg viewBox="0 0 200 200" class="rivet" role="img" aria-label="Rivet the robot, {html.escape(pose)}">{scene(bg)}'
         f'<line x1="20" y1="184" x2="180" y2="184" stroke="{INK}" stroke-width="2"/>'

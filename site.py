@@ -6,6 +6,7 @@ never from the LLM. The LLM only supplies story prose.
 """
 import html, json, re, pathlib
 import comic
+import theme
 
 HERE = pathlib.Path(__file__).resolve().parent
 POSTS, SITE = HERE / "posts", HERE / "site"
@@ -148,6 +149,21 @@ td .up,td .down{font-size:.8em;margin-left:1px;white-space:nowrap}
 .bubble::before{content:"";position:absolute;left:calc(46% + 3px);bottom:-8px;border:4px solid transparent;border-top:9px solid var(--paper);border-bottom:0;z-index:1}
 .panel .rivet{width:100%;max-width:220px;margin:auto auto 0;display:block}
 .pn{position:absolute;right:6px;bottom:4px;font:italic 12px 'IM Fell English',serif;color:var(--muted)}
+
+/* ---- editions: ornaments, playoff line, bracket, champion ---- */
+.orn-row{display:flex;justify-content:center;gap:18px;margin:-12px 0 16px;opacity:.9}.orn-row svg{width:20px;height:20px}
+.sheet{border-top:6px solid var(--accent)}
+tr.cut td{border-bottom:2px dashed var(--accent)}
+.cutnote{font:italic 14px 'IM Fell English',serif;margin:8px 0 0;display:flex;align-items:center;gap:8px}
+.cutkey{display:inline-block;width:28px;border-top:2px dashed var(--accent)}
+.bracket{margin:6px 0 26px}.brs{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(180px,1fr);gap:18px;overflow-x:auto;padding-bottom:6px}
+.br h4{font:700 13px/1 'Old Standard TT',serif;text-transform:uppercase;letter-spacing:2px;text-align:center;margin:0 0 10px}
+.br{display:flex;flex-direction:column;justify-content:space-around;gap:12px}
+.bm{border:2px solid var(--ink);font:15px/1.3 'Old Standard TT',serif}.bt{padding:6px 10px}.bt+.bt{border-top:1px dotted var(--ink)}
+.bt.won{font-weight:700;background:color-mix(in srgb,var(--accent) 10%,transparent)}
+.champ{text-align:center;border:3px double var(--ink);padding:14px;margin:0 0 22px;background:color-mix(in srgb,var(--accent) 6%,transparent)}
+.champ .rivet{width:150px}.champ-k{font:700 13px/1 'Old Standard TT',serif;text-transform:uppercase;letter-spacing:3px;color:var(--accent)}
+.champ-n{font:700 clamp(30px,6vw,56px)/1.1 'Old Standard TT',serif;text-transform:uppercase}.ru{font:italic 17px 'IM Fell English',serif;margin:4px 0 0}
 """
 
 
@@ -385,14 +401,67 @@ def power_html(f, md):
 def standings(f):
     head = ('<colgroup><col class="c-rk"><col><col class="c-rec"><col class="c-pf"><col class="c-st"></colgroup>'
             "<tr><th>#</th><th>Manager</th><th>Rec</th><th class=n>PF</th><th class=st>Strk</th></tr>")
-    rows = [f"<tr><td>{s['rank']}</td><td>{E(s['manager'])}{arrow(s.get('prev_rank'), s['rank'])}</td><td>{s['record']}</td>"
+    race = f.get("playoff_race")
+    cut = (race or {}).get("playoff_teams")
+    rows = [f"<tr{' class=cut' if cut and s['rank'] == cut else ''}><td>{s['rank']}</td><td>{E(s['manager'])}{arrow(s.get('prev_rank'), s['rank'])}</td><td>{s['record']}</td>"
             f"<td class=n>{n2(s['pf'])}</td><td class=st>{s['streak']}</td></tr>" for s in f["standings"]]
     half = (len(rows) + 1) // 2
+    note = ""
+    if race:
+        left = race["weeks_left"]
+        when = "The field is set." if left == 0 else f"{left} week{'s' if left > 1 else ''} left in the regular season."
+        note = f'<p class="cutnote"><span class="cutkey"></span> Playoff line: top {cut} advance. {when}</p>'
     return (f'<div class="st2"><table>{head}{"".join(rows[:half])}</table>'
-            f'<table>{head}{"".join(rows[half:])}</table></div>')
+            f'<table>{head}{"".join(rows[half:])}</table></div>{note}')
 
 
-def strip_html(md, week=0):
+def bracket_html(f):
+    rows = [b for b in f.get("bracket") or [] if b.get("place") in (None, 1)]
+    if not rows:
+        return ""
+    rounds = sorted({b["round"] for b in rows if b.get("round")})
+    last = rounds[-1] if rounds else 0
+    name = lambda r: theme.ROUND_NAMES.get(last - r + 1, f"Round {r}")
+    def match(b):
+        side = lambda t: (f'<div class="bt{" won" if b["winner"] and t == b["winner"] else ""}">{E(t) if t else "<i>TBD</i>"}'
+                          f'{" ✓" if b["winner"] and t == b["winner"] else ""}</div>')
+        return f'<div class="bm">{side(b["a"])}{side(b["b"])}</div>'
+    cols = "".join(f'<div class="br"><h4>{name(r)}</h4>{"".join(match(b) for b in rows if b["round"] == r)}</div>' for r in rounds)
+    return f'<section class="bracket" id="bracket"><div class="section-h">The Bracket</div><div class="brs">{cols}</div></section>'
+
+
+def champion_html(f):
+    c = f.get("champion")
+    if not c:
+        return ""
+    ru = f'<p class="ru">Defeated {E(c["runner_up"])} in the final.</p>' if c.get("runner_up") else ""
+    return (f'<section class="champ"><div class="champ-k">Your {f["season"]} Champion</div>'
+            f'{comic.rivet("trophy", 0, 1, {"costumes": ("crown",), "scenes": ("confetti",)})}'
+            f'<div class="champ-n">{E(c["manager"])}</div>{ru}</section>')
+
+
+ORN = {
+    "pumpkin": '<ellipse cx="12" cy="14" rx="9" ry="7"/><path d="M12 7 q1 -4 4 -4" fill="none"/><path d="M8 13 l2 -2 l2 2 M12 13 l2 -2 l2 2 M8 17 q4 3 8 0" fill="none" stroke="var(--paper)"/>',
+    "leaf": '<path d="M12 3 q9 9 0 18 q-9 -9 0 -18z"/><path d="M12 3 v19" stroke="var(--paper)" fill="none"/>',
+    "turkey": '<circle cx="12" cy="15" r="6"/><path d="M4 12 a8 8 0 0 1 16 0" fill="none" stroke-width="3"/><circle cx="12" cy="8" r="3"/>',
+    "snowflake": '<path d="M12 2 v20 M3 7 l18 10 M3 17 l18 -10" fill="none" stroke-width="2"/>',
+    "holly": '<path d="M4 12 q4 -6 8 0 q4 -6 8 0 q-4 6 -8 0 q-4 6 -8 0z"/><circle cx="12" cy="7" r="2.5"/><circle cx="9" cy="5" r="2"/>',
+    "star": '<path d="M12 2 l3 7 h7 l-6 4 l2 8 l-6 -5 l-6 5 l2 -8 l-6 -4 h7z"/>',
+    "football": '<path d="M3 12 q9 -10 18 0 q-9 10 -18 0z"/><path d="M9 12 h6 M10 10 v4 M12 10 v4 M14 10 v4" fill="none" stroke="var(--paper)"/>',
+    "trophy": '<path d="M7 3 h10 v5 q0 6 -5 7 q-5 -1 -5 -7z"/><rect x="10" y="15" width="4" height="4"/><rect x="7" y="19" width="10" height="3"/>',
+}
+
+
+def ornaments(ed):
+    o = ORN.get(ed.get("ornament") or "")
+    if not o:
+        return ""
+    icon = f'<svg viewBox="0 0 24 24" aria-hidden="true" fill="var(--accent)" stroke="var(--accent)" stroke-width="1.5">{o}</svg>'
+    return f'<div class="orn-row" aria-hidden="true">{icon * 9}</div>'
+
+
+
+def strip_html(md, week=0, edition=None):
     m = re.search(rf"^STRIP:[ \t]*(.*?)\n(.*?){BLOCKS}", md, flags=re.M | re.S)
     if not m:
         return ""
@@ -400,7 +469,7 @@ def strip_html(md, week=0):
     if len(panels) < 3:
         return ""
     cells = "".join(
-        f'<figure class="panel"><div class="bubble">{wa(line)}</div>{comic.rivet(pose, week, n)}'
+        f'<figure class="panel"><div class="bubble">{wa(line)}</div>{comic.rivet(pose, week, n, edition)}'
         f'<figcaption class="pn">{n}</figcaption></figure>' for n, (pose, line) in enumerate(panels, 1))
     return (f'<section class="funnies" id="funnies"><div class="section-h">The Funnies</div>'
             f'<p class="strip-title">“{wa(title)}” <span>starring Rivet, our robot correspondent</span></p>'
@@ -422,6 +491,7 @@ def finder(f, stories):
 
 def page(f, text, stories, weeks, title_prefix="", others="", og_url=""):
     league = E(f["league"])
+    ed = theme.edition(f)
     head, deck = headline(f, banner_of(stories))
     desc = E(f"{head}. {deck}")
     archive = " · ".join(f'<a href="week-{w}.html">Week {w}</a>' for w in sorted(weeks, reverse=True))
@@ -441,6 +511,7 @@ def page(f, text, stories, weeks, title_prefix="", others="", og_url=""):
               f'<meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image">'
               if og_url else "")
     jump = [("#review", "Review") if lead_of(stories) else None, ("#matchups", "Matchups") if stories else None,
+            ("#bracket", "Bracket") if f.get("bracket") else None,
             ("#power", "Power") if f.get("power_rankings") else None, ("#standings", "Standings"),
             ("#funnies", "Funnies") if re.search(r"^STRIP:", stories or "", re.M) else None]
     jumpbar = '<nav class="jump" aria-label="Sections">' + "".join(f'<a href="{h}">{t}</a>' for h, t in filter(None, jump)) + "</nav>"
@@ -453,20 +524,23 @@ def page(f, text, stories, weeks, title_prefix="", others="", og_url=""):
 <meta property="og:type" content="article">{og_img}
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
-<meta name='color-scheme' content='light'><style>{CSS}</style></head><body><main class="sheet">
+<meta name='color-scheme' content='light'><style>{CSS}:root{{--accent:{ed['accent']}}}</style></head><body><main class="sheet">
 <header class="mast">
-<div class="ear">Week {f['week']} Edition<small>Waivers &amp; wagers within</small></div>
+<div class="ear">{E(ed['label'])}<small>{E(ed['sub'])}</small></div>
 <a href="index.html"><h1>The {league} Gazette</h1></a>
 <div class="ear">Price: One FAAB Dollar<small>{f['teams']} clubs reporting</small></div>
 </header>
 <div class="rules"></div>
-<div class="dateline"><span>Vol. {f['season']} · No. {f['week']}</span><i>“All the Scores That Are Fit to Print”</i><span>Late City Final</span></div>
+<div class="dateline"><span>Vol. {f['season']} · No. {f['week']}</span><i>“{E(ed['tagline'])}”</i><span>{"Late City Final" if ed['key'] == "regular" and not ed['playoff'] else E(ed['label'])}</span></div>
+{ornaments(ed)}
 {jumpbar}
+{champion_html(f)}
 <section class="lead"><h2 class="head">{E(head)}</h2><p class="deck">{E(deck)}</p>{finder(f, stories)}{tiles(f)}</section>
 {lead_html(stories)}
 <div class="body">
 {cols}
 {features}
+{bracket_html(f)}
 {power_html(f, stories)}
 <div class="band">
 <section id="standings"><h3>The Official Standings</h3>{standings(f)}</section>
@@ -476,7 +550,7 @@ def page(f, text, stories, weeks, title_prefix="", others="", og_url=""):
 </div>
 </div>
 </div>
-{strip_html(stories, f["week"])}
+{strip_html(stories, f["week"], ed)}
 <footer>{others}Every figure verified against the Sleeper wire. The jokes are not.</footer>
 </main>
 <script>
@@ -539,8 +613,13 @@ def og_image(f, head, path):
     d.line([48, 158, W - 48, 158], fill=ink, width=1)
     dl = font("OldStandard-Bold.ttf", 20)
     d.text((48, 182), f"VOL. {f['season']} · NO. {f['week']}", font=dl, fill=ink, anchor="lm")
-    d.text((W - 48, 182), "LATE CITY FINAL", font=dl, fill=ink, anchor="rm")
-    d.text((W / 2, 182), "“All the Scores That Are Fit to Print”", font=font("OldStandard-Italic.ttf", 21), fill=muted, anchor="mm")
+    ed = theme.edition(f)
+    right = "LATE CITY FINAL" if ed["key"] == "regular" and not ed["playoff"] else ed["label"].upper()
+    d.text((W - 48, 182), right, font=dl, fill=ink, anchor="rm")
+    d.text((W / 2, 182), f"“{ed['tagline']}”", font=fit(f"“{ed['tagline']}”", "OldStandard-Italic.ttf", 21, 520, 14), fill=muted, anchor="mm")
+    if ed["key"] != "regular" or ed["playoff"]:
+        acc = tuple(int(ed["accent"][i:i + 2], 16) for i in (1, 3, 5))
+        d.rectangle([18, 18, W - 19, 30], fill=acc)
     d.line([48, 204, W - 48, 204], fill=ink, width=1)
     # banner headline: up to 2 lines, shrink to fit
     words, size = head.upper().split(), 70

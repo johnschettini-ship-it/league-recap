@@ -184,6 +184,37 @@ class T(unittest.TestCase):
         finally:
             recap.POSTS = orig
 
+    def test_theme_calendar(self):
+        import theme, datetime as dt
+        k = lambda m, d: theme.season(dt.date(2026, m, d))[0]
+        self.assertEqual([k(9, 30), k(10, 21), k(10, 28), k(11, 1), k(11, 11), k(11, 25), k(12, 9), k(12, 23), k(12, 30)],
+                         ["regular", "regular", "halloween", "halloween", "fall", "thanksgiving", "snow", "christmas", "newyear"])
+        self.assertEqual(theme.season(dt.date(2027, 1, 6))[0], "newyear")                 # wraps the year
+        self.assertEqual(theme.edition_date({"season": "2026", "week": 3}).isoformat(), "2026-09-30")
+
+    def test_playoff_phases(self):
+        from theme import playoff_phase as pp
+        self.assertIsNone(pp(10, 15, 6))
+        self.assertEqual((pp(11, 15, 6)["phase"], pp(11, 15, 6)["weeks_left"]), ("race", 3))
+        self.assertEqual(pp(14, 15, 6)["label"], "Playoff Field Set")
+        self.assertEqual((pp(15, 15, 6)["round"], pp(16, 15, 6)["round"]), ("Quarterfinals", "Semifinals"))
+        self.assertEqual(pp(17, 15, 6)["phase"], "champion")                             # 6 teams = 3 rounds
+        self.assertEqual(pp(16, 15, 4)["phase"], "champion")                             # 4 teams = 2 rounds
+
+    def test_playoff_week_eliminated_teams_ok(self):
+        r = raw()
+        r["league"]["settings"]["playoff_week_start"] = 2
+        r["league"]["settings"]["playoff_teams"] = 2
+        r["matchups"][2] = [m(1, 1, ["q1", "r1", "w1"], [30, 30, 30.5]), m(2, 1, ["q1", "r1", "w9"], [20, 20, 20.4]),
+                            {"roster_id": 3, "matchup_id": None, "points": 0}, {"roster_id": 4, "matchup_id": None, "points": 0}]
+        r["bracket"] = [{"r": 1, "m": 1, "t1": 1, "t2": 2, "w": 1, "l": 2, "p": 1}]
+        check_complete(r, 2)                                                           # no error for byes/eliminated
+        f = analyze(r, P, 2)
+        st = {s["manager"]: s["record"] for s in f["standings"]}
+        self.assertEqual(st["John"], "1-0")                                            # playoff game not in record
+        self.assertEqual(f["champion"], {"manager": "John", "runner_up": "Mike"})
+        self.assertEqual(f["bracket"][0]["winner"], "John")
+
     def test_incomplete_data_refused(self):
         r = raw()
         r["matchups"][2] = r["matchups"][2][:3]
