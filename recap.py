@@ -404,10 +404,24 @@ def write(facts, cfg=CFG):
 
 
 # ---------------------------------------------------------------- main
-def finalize():
+def league_path(lid):
+    """Folder for this league's Gazette ('' = site root). From leagues.json."""
+    f = HERE / "leagues.json"
+    for lg in json.loads(f.read_text(encoding="utf-8")) if f.exists() else []:
+        if lg["id"] == lid:
+            return lg.get("path", "")
+    return ""
+
+
+def page_url(site, lid, week):
+    p = league_path(lid)
+    return f"{site.rstrip('/')}/{p + '/' if p else ''}week-{week}.html"
+
+
+def finalize(lid):
     """Routine mode: Claude wrote the .txt/.stories.md by hand. Check every number
     against the facts, then add the Gazette link. No network. Exit 1 on failure."""
-    facts_files = sorted(POSTS.glob("*_recap.facts.json"),
+    facts_files = sorted(POSTS.glob(f"{lid}_*_recap.facts.json"),
                          key=lambda p: [int(n) for n in re.findall(r"_(\d{4})_w(\d+)_", p.name)[0]])
     if not facts_files:
         sys.exit("No facts file found. Run recap.py first.")
@@ -424,7 +438,7 @@ def finalize():
         sys.exit(f"FAIL {txt.name}: numbers not in facts: {bad}")
     site = os.environ.get("GAZETTE_URL")
     if site and stories and link not in text:
-        text = text.rstrip() + f"\n\n{link} {site.rstrip('/')}/week-{facts['week']}.html"
+        text = text.rstrip() + f"\n\n{link} {page_url(site, lid, facts['week'])}"
         txt.write_text(text, encoding="utf-8")
     print(f"OK {txt.name}: every number verified" + (" + stories" if stories else ""))
 
@@ -435,10 +449,10 @@ def main(argv):
             s.reconfigure(encoding="utf-8")
         except AttributeError:
             pass
+    lid = next((a.split("=", 1)[1] for a in argv if a.startswith("--league=")), CFG["league_id"])
     if "--finalize" in argv:
-        return finalize()
+        return finalize(lid)
     args = [a for a in argv if not a.startswith("--")]
-    lid = CFG["league_id"]
     state = get("/state/nfl")
     week = int(args[0]) if args else state["week"] - 1
     if week < 1:
@@ -466,7 +480,7 @@ def main(argv):
     text, stories, source, usage = write(facts)
     site = os.environ.get("GAZETTE_URL")
     if site and stories:                              # appended after validation, by code
-        text += f"\n\n📰 Full matchup stories: {site.rstrip('/')}/week-{week}.html"
+        text += f"\n\n📰 Full matchup stories: {page_url(site, lid, week)}"
     (POSTS / f"{key}.facts.json").write_text(json.dumps(facts, indent=1, ensure_ascii=False), encoding="utf-8")
     if stories:
         (POSTS / f"{key}.stories.md").write_text(stories, encoding="utf-8")

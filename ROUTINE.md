@@ -1,18 +1,22 @@
 # Weekly Gazette run
 
-Follow these steps exactly. Stop and report if any step fails. Never invent a number.
+Follow these steps exactly. Stop and report if a step fails. Never invent a number.
 
 1. `python test_recap.py` — must pass.
-2. `python recap.py` — builds `posts/<key>.facts.json` and a plain `posts/<key>.txt`.
-   If it prints "already generated", stop: this week is done.
-   If it says Sleeper data is not ready, stop and report the error. Publish nothing.
-3. Open `recap.py`, read the `SYSTEM` prompt (tone: `CFG["tone"]`), and read the new
+2. For EACH league `id` in `leagues.json`, in order, do steps 3–6. One league failing
+   (e.g. Sleeper not ready) must not stop the others; report it and move on.
+3. `python recap.py --league=<id>` — builds `posts/<key>.facts.json` and a plain `posts/<key>.txt`.
+   If it prints "already generated", skip this league: that week is done.
+   If it says Sleeper data is not ready, skip this league and report the error.
+4. Open `recap.py`, read the `SYSTEM` prompt (tone: `CFG["tone"]`), and read the new
    `posts/<key>.facts.json`. Following that prompt exactly:
    - overwrite `posts/<key>.txt` with PART 1 (the WhatsApp recap)
-   - write PART 2 (the matchup stories) to `posts/<key>.stories.md`
-4. `python recap.py --finalize` — checks every number against the facts and adds the
-   Gazette link. If it fails, fix only the flagged numbers from the facts and rerun.
-   After 2 failures: delete `posts/<key>.stories.md`, run `python recap.py --regen`
+   - write PART 2 (banner + matchup stories) to `posts/<key>.stories.md`
+5. `python recap.py --league=<id> --finalize` — checks every number against the facts and
+   adds the Gazette link. If it fails, fix only the flagged numbers from the facts and rerun.
+   After 2 failures: delete `posts/<key>.stories.md`, run `python recap.py --league=<id> --regen`
    to restore the plain template, and continue.
-5. Commit only the `posts/` folder with message `Week <N> recap` and push to `main`.
-6. Reply with the full contents of `posts/<key>.txt` so it can be pasted into WhatsApp.
+6. Next league.
+7. Commit only the `posts/` folder with message `Week <N> recaps` and push to `main`.
+8. Reply with each league's `posts/<key>.txt`, each under a heading with the league name,
+   so each can be pasted into its own WhatsApp group.

@@ -83,13 +83,13 @@ class T(unittest.TestCase):
             (d / "L_2026_w2_recap.facts.json").write_text(json.dumps(self.f))
             (d / "L_2026_w2_recap.txt").write_text("John 90.5")
             (d / "L_2026_w2_recap.stories.md").write_text("### Hi\nMike by 0.4")
-            recap.finalize()
+            recap.finalize("L")
             self.assertIn("week-2.html", (d / "L_2026_w2_recap.txt").read_text())
-            recap.finalize()                                   # idempotent: one link only
+            recap.finalize("L")                                   # idempotent: one link only
             self.assertEqual((d / "L_2026_w2_recap.txt").read_text().count("📰"), 1)
             (d / "L_2026_w2_recap.stories.md").write_text("### Hi\nMike by 9.9")
             with self.assertRaises(SystemExit):
-                recap.finalize()
+                recap.finalize("L")
         finally:
             recap.POSTS = orig
             del os.environ["GAZETTE_URL"]

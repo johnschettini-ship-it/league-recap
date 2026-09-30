@@ -189,7 +189,7 @@ def standings(f):
             f'<table>{head}{"".join(rows[half:])}</table></div>')
 
 
-def page(f, text, stories, weeks, title_prefix=""):
+def page(f, text, stories, weeks, title_prefix="", others=""):
     league = E(f["league"])
     head, deck = headline(f, banner_of(stories))
     desc = E(f"{head}. {deck}")
@@ -223,7 +223,7 @@ def page(f, text, stories, weeks, title_prefix=""):
 </div>
 </div>
 </div>
-<footer>Every figure verified against the Sleeper wire. The jokes are not.</footer>
+<footer>{others}Every figure verified against the Sleeper wire. The jokes are not.</footer>
 </main>
 <script>
 /* one-line headlines: shrink until they fit; wrap only as a last resort */
@@ -235,10 +235,9 @@ document.fonts&&document.fonts.ready.then(fit);fit();addEventListener('resize',f
 </script></body></html>"""
 
 
-def build():
-    SITE.mkdir(exist_ok=True)
+def load(lid):
     issues = {}
-    for p in POSTS.glob("*_recap.txt"):
+    for p in POSTS.glob(f"{lid}_*_recap.txt"):
         m = NAME.search(p.name)
         facts = p.with_name(p.name.replace(".txt", ".facts.json"))
         if m and facts.exists():
@@ -246,23 +245,42 @@ def build():
             text = "\n".join(l for l in p.read_text(encoding="utf-8").splitlines() if not l.startswith("📰"))
             issues[(int(m[1]), int(m[2]))] = (json.loads(facts.read_text(encoding="utf-8")), text.strip(),
                                               st.read_text(encoding="utf-8") if st.exists() else "")
-    if not issues:
-        (SITE / "index.html").write_text(
-            f"<!doctype html><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'>"
-            f"<title>Gazette</title><meta name='color-scheme' content='light'><style>{CSS}</style><main><header class=mast><h1>The Gazette</h1></header>"
-            f"<p class=deck style='text-align:center;margin-top:24px'>First edition hits the stands Wednesday morning.</p></main>",
-            encoding="utf-8")
-        print("no issues yet; placeholder front page")
-        return
-    latest = max(issues)
-    season = latest[0]
-    weeks = [w for (s, w) in issues if s == season]
-    for (s, w), (f, text, stories) in issues.items():
-        if s == season:
-            (SITE / f"week-{w}.html").write_text(page(f, text, stories, weeks, f"Week {w} · "), encoding="utf-8")
-    f, text, stories = issues[latest]
-    (SITE / "index.html").write_text(page(f, text, stories, weeks), encoding="utf-8")
-    print(f"built {len(weeks)} issue(s); front page = week {latest[1]}")
+    return issues
+
+
+def placeholder(name):
+    return (f"<!doctype html><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'>"
+            f"<title>{E(name)} Gazette</title><style>{CSS}</style><main class=sheet><header class=mast><h1>The {E(name)} Gazette</h1></header>"
+            f"<p class=deck style='text-align:center;margin-top:24px'>First edition hits the stands Wednesday morning.</p></main>")
+
+
+def build():
+    lf = HERE / "leagues.json"
+    leagues = json.loads(lf.read_text(encoding="utf-8")) if lf.exists() else [{"id": "", "path": ""}]
+    papers = []
+    for lg in leagues:
+        issues = load(lg["id"])
+        name = issues[max(issues)][0]["league"] if issues else (lg["path"] or "League").title()
+        papers.append((lg, issues, name))
+    for lg, issues, name in papers:
+        out = SITE / lg["path"] if lg["path"] else SITE
+        out.mkdir(parents=True, exist_ok=True)
+        up = "../" if lg["path"] else ""
+        links = " · ".join(f'<a href="{up}{(o["path"] + "/") if o["path"] else ""}index.html">The {E(n)} Gazette</a>'
+                           for o, _, n in papers if o is not lg)
+        others = f"Also on the newsstand: {links}<br>" if links else ""
+        if not issues:
+            (out / "index.html").write_text(placeholder(name), encoding="utf-8")
+            print(f"{name}: no issues yet; placeholder")
+            continue
+        latest = max(issues)
+        weeks = [w for (s, w) in issues if s == latest[0]]
+        for (s, w), (f, text, stories) in issues.items():
+            if s == latest[0]:
+                (out / f"week-{w}.html").write_text(page(f, text, stories, weeks, f"Week {w} · ", others), encoding="utf-8")
+        f, text, stories = issues[latest]
+        (out / "index.html").write_text(page(f, text, stories, weeks, "", others), encoding="utf-8")
+        print(f"{name}: {len(weeks)} issue(s); front page = week {latest[1]}")
 
 
 if __name__ == "__main__":
