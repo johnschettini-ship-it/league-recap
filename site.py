@@ -5,6 +5,7 @@ Headlines, scoreboxes, tiles and tables come from the verified facts JSON,
 never from the LLM. The LLM only supplies story prose.
 """
 import html, json, re, pathlib
+import comic
 
 HERE = pathlib.Path(__file__).resolve().parent
 POSTS, SITE = HERE / "posts", HERE / "site"
@@ -132,6 +133,21 @@ td .up,td .down{font-size:.8em;margin-left:1px;white-space:nowrap}
  .pw th.roast{display:none}
  .pw td.roast{grid-column:2/-1;padding:2px 3px 2px 3px!important;line-height:1.4}
 }
+
+/* ---- The Funnies ---- */
+.funnies{margin:30px 0 8px}
+.strip-title{text-align:center;font:italic 20px/1.3 'IM Fell English',serif;margin:0 0 12px}
+.strip-title span{display:block;font-size:14px;color:var(--muted)}
+.strip{display:grid;grid-template-columns:1fr;gap:12px;max-width:1100px;margin:0 auto}
+@media(min-width:640px){.strip{grid-template-columns:repeat(3,1fr)}}
+.panel{position:relative;margin:0;border:3px solid var(--ink);background:var(--paper);padding:10px 10px 4px;display:flex;flex-direction:column;min-height:330px;
+ background-image:radial-gradient(color-mix(in srgb,var(--ink) 9%,transparent) 1px,transparent 1.2px);background-size:7px 7px}
+.bubble{position:relative;align-self:center;max-width:92%;background:var(--paper);border:2px solid var(--ink);border-radius:18px;padding:8px 12px;
+ font:700 14px/1.3 'Old Standard TT',serif;text-transform:uppercase;letter-spacing:.4px;text-align:center;margin-bottom:14px}
+.bubble::after{content:"";position:absolute;left:46%;bottom:-13px;border:7px solid transparent;border-top:13px solid var(--ink);border-bottom:0}
+.bubble::before{content:"";position:absolute;left:calc(46% + 3px);bottom:-8px;border:4px solid transparent;border-top:9px solid var(--paper);border-bottom:0;z-index:1}
+.panel .rivet{width:100%;max-width:220px;margin:auto auto 0;display:block}
+.pn{position:absolute;right:6px;bottom:4px;font:italic 12px 'IM Fell English',serif;color:var(--muted)}
 """
 
 
@@ -222,7 +238,7 @@ def banner_of(md):
     return m.group(1).strip(" *") if m else ""
 
 
-BLOCKS = r"(?=^(?:BANNER|LEAD|MARQUEE|POWER|PUNS|EPITHETS):|^###|\Z)"
+BLOCKS = r"(?=^(?:BANNER|LEAD|MARQUEE|POWER|STRIP|PUNS|EPITHETS):|^###|\Z)"
 
 
 def block(md, name):
@@ -247,7 +263,7 @@ def lead_html(md):
 def stories_html(md, f):
     out = []
     md = re.sub(r"^(?:BANNER|PUNS|EPITHETS):.*$", "", md, flags=re.M)
-    md = re.sub(rf"^(?:LEAD|MARQUEE|POWER):.*?{BLOCKS}", "", md, flags=re.M | re.S)
+    md = re.sub(rf"^(?:LEAD|MARQUEE|POWER|STRIP):.*?{BLOCKS}", "", md, flags=re.M | re.S)
     for block in re.split(r"^###\s*", md, flags=re.M):
         block = block.strip()
         if not block:
@@ -376,6 +392,21 @@ def standings(f):
             f'<table>{head}{"".join(rows[half:])}</table></div>')
 
 
+def strip_html(md):
+    m = re.search(rf"^STRIP:[ \t]*(.*?)\n(.*?){BLOCKS}", md, flags=re.M | re.S)
+    if not m:
+        return ""
+    title, panels = m.group(1).strip(" *"), comic.parse(m.group(2))
+    if len(panels) < 3:
+        return ""
+    cells = "".join(
+        f'<figure class="panel"><div class="bubble">{wa(line)}</div>{comic.rivet(pose)}'
+        f'<figcaption class="pn">{n}</figcaption></figure>' for n, (pose, line) in enumerate(panels, 1))
+    return (f'<section class="funnies" id="funnies"><div class="section-h">The Funnies</div>'
+            f'<p class="strip-title">“{wa(title)}” <span>starring Rivet, our robot correspondent</span></p>'
+            f'<div class="strip">{cells}</div></section>')
+
+
 def finder(f, stories):
     """'Find your team': each manager links to their matchup story."""
     links = []
@@ -410,7 +441,8 @@ def page(f, text, stories, weeks, title_prefix="", others="", og_url=""):
               f'<meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image">'
               if og_url else "")
     jump = [("#review", "Review") if lead_of(stories) else None, ("#matchups", "Matchups") if stories else None,
-            ("#power", "Power") if f.get("power_rankings") else None, ("#standings", "Standings")]
+            ("#power", "Power") if f.get("power_rankings") else None, ("#standings", "Standings"),
+            ("#funnies", "Funnies") if re.search(r"^STRIP:", stories or "", re.M) else None]
     jumpbar = '<nav class="jump" aria-label="Sections">' + "".join(f'<a href="{h}">{t}</a>' for h, t in filter(None, jump)) + "</nav>"
     return upright_page(f"""<!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -444,6 +476,7 @@ def page(f, text, stories, weeks, title_prefix="", others="", og_url=""):
 </div>
 </div>
 </div>
+{strip_html(stories)}
 <footer>{others}Every figure verified against the Sleeper wire. The jokes are not.</footer>
 </main>
 <script>

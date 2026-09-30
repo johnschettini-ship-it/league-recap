@@ -436,6 +436,14 @@ POWER:
 <power_rank>. <manager> — <roast, max 15 words, drawn from their facts; all_play vs record = luck,
 last3_all_play = current form. Call all_play the "true record", never "all-play".>
 Then one story per game in "results", biggest margin last.
+Then the comic strip starring Rivet, the Gazette's tin-can robot reporter, reacting to
+this week's biggest moment. Three panels; panel 3 is the punchline:
+STRIP: <strip title, a pun>
+1. <pose>: <Rivet's line, max 14 words>
+2. <pose>: <line>
+3. <pose>: <punchline>
+pose is one of: reading, celebrate, shrug, facepalm, sweat, bench, trophy, money.
+Match the pose to the joke (bench = bench crime, money = FAAB, trophy = top dog).
 End PART 2 with two lines listing, exactly as written, every pun-name and manager epithet
 you used anywhere this week (they are logged so next week can't repeat them):
 PUNS: <pun-name> | <pun-name> | ...
