@@ -113,6 +113,16 @@ footer{margin-top:36px;border-top:3px double var(--rule);padding-top:10px;font:i
 :root{--muted:#57524a}
 .tm-meta,.box .meta,.box .foot,.bout .sub,.h2h,.tile .w{font-size:14px}
 @media(max-width:759px){.bout p,.lead-cols p,.preview{text-align:left;hyphens:manual;-webkit-hyphens:manual}.jump{gap:4px 14px;letter-spacing:1px}}
+
+/* ---- tables: fixed, matching columns ---- */
+.st2 table,.pw{table-layout:fixed}
+.c-rk{width:2.4em}.c-rec{width:3.6em}.c-pf{width:5.2em}.c-st{width:3.4em}.c-mg{width:30%}.c-ap{width:6.6em}
+td,th{overflow-wrap:anywhere;vertical-align:baseline}
+td.n,th.n{text-align:right;padding-right:14px;font-variant-numeric:tabular-nums lining-nums}
+td.st,th.st{text-align:left;padding-left:8px;font-variant-numeric:tabular-nums}
+.pw th.roast,.pw td.roast{padding-left:14px}
+td .up,td .down{font-size:.8em;margin-left:4px;white-space:nowrap}
+@media(max-width:640px){.c-mg{width:auto}.pw .c-ap{width:0}}
 """
 
 
@@ -342,13 +352,15 @@ def power_html(f, md):
         for p in pr)
     return (f'<section class="power" id="power"><div class="section-h">Power Rankings</div>'
             f'<p class="note">Ranked by all-play record: how each team would fare against every team, every week.</p>'
-            f'<table><tr><th>#</th><th>Manager</th><th>Rec</th><th class=n>All-play</th><th>The word on the street</th></tr>{rows}</table></section>')
+            f'<table class="pw"><colgroup><col class="c-rk"><col class="c-mg"><col class="c-rec"><col class="c-ap"><col></colgroup>'
+            f'<tr><th>#</th><th>Manager</th><th>Rec</th><th class=n>All-play</th><th class=roast>The word on the street</th></tr>{rows}</table></section>')
 
 
 def standings(f):
-    head = "<tr><th>#</th><th>Manager</th><th>Rec</th><th class=n>PF</th><th>Strk</th></tr>"
+    head = ('<colgroup><col class="c-rk"><col><col class="c-rec"><col class="c-pf"><col class="c-st"></colgroup>'
+            "<tr><th>#</th><th>Manager</th><th>Rec</th><th class=n>PF</th><th class=st>Strk</th></tr>")
     rows = [f"<tr><td>{s['rank']}</td><td>{E(s['manager'])}{arrow(s.get('prev_rank'), s['rank'])}</td><td>{s['record']}</td>"
-            f"<td class=n>{n2(s['pf'])}</td><td>{s['streak']}</td></tr>" for s in f["standings"]]
+            f"<td class=n>{n2(s['pf'])}</td><td class=st>{s['streak']}</td></tr>" for s in f["standings"]]
     half = (len(rows) + 1) // 2
     return (f'<div class="st2"><table>{head}{"".join(rows[:half])}</table>'
             f'<table>{head}{"".join(rows[half:])}</table></div>')
