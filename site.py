@@ -219,7 +219,7 @@ def page(f, text, stories, weeks, title_prefix="", others=""):
 <section><h3>The Standings</h3>{standings(f)}</section>
 <div class="side">
 <section><h3>Back Issues</h3><nav class="archive">{archive}</nav></section>
-<section><details><summary>📱 Wire copy (WhatsApp)</summary><article>{wa_html}</article></details></section>
+<section><details><summary>📱 Wire copy (Mobile)</summary><article>{wa_html}</article></details></section>
 </div>
 </div>
 </div>
