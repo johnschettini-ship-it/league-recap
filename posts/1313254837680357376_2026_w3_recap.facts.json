@@ -1,0 +1,909 @@
+{
+ "league": "Beer Den 3.0",
+ "season": "2026",
+ "week": 3,
+ "teams": 12,
+ "playoff_week_start": 15,
+ "results": [
+  {
+   "winner": "HowDidIOnceWin",
+   "winner_pts": 107.08,
+   "loser": "Marc_Katz",
+   "loser_pts": 85.94,
+   "margin": 21.14,
+   "tie": false,
+   "winner_lineup": {
+    "stars": [
+     {
+      "player": "Christian Watson",
+      "slot": "WR",
+      "pts": 22.6
+     },
+     {
+      "player": "Chuba Hubbard",
+      "slot": "FLEX",
+      "pts": 15.0
+     }
+    ],
+    "dud": {
+     "player": "De'Von Achane",
+     "slot": "RB",
+     "pts": 1.7
+    }
+   },
+   "loser_lineup": {
+    "stars": [
+     {
+      "player": "George Pickens",
+      "slot": "WR",
+      "pts": 15.2
+     },
+     {
+      "player": "Bryce Young",
+      "slot": "QB",
+      "pts": 13.64
+     }
+    ],
+    "dud": {
+     "player": "Isaiah Likely",
+     "slot": "TE",
+     "pts": 3.3
+    }
+   },
+   "winner_record": "2-1",
+   "winner_rank": 5,
+   "winner_streak": "W1",
+   "winner_prev_rank": 4,
+   "loser_record": "2-1",
+   "loser_rank": 4,
+   "loser_streak": "L1",
+   "loser_prev_rank": 2,
+   "winner_bench_crime": {
+    "manager": "HowDidIOnceWin",
+    "benched": "Kalif Raymond",
+    "benched_pts": 21.0,
+    "started": "Malik Nabers",
+    "started_pts": 7.6,
+    "slot": "WR",
+    "gap": 13.4
+   },
+   "loser_bench_crime": {
+    "manager": "Marc_Katz",
+    "benched": "Wan'Dale Robinson",
+    "benched_pts": 18.7,
+    "started": "Stefon Diggs",
+    "started_pts": 7.3,
+    "slot": "FLEX",
+    "gap": 11.4
+   }
+  },
+  {
+   "winner": "ChelseaClub",
+   "winner_pts": 166.18,
+   "loser": "CUTHISYR",
+   "loser_pts": 109.14,
+   "margin": 57.04,
+   "tie": false,
+   "winner_lineup": {
+    "stars": [
+     {
+      "player": "Drake London",
+      "slot": "WR",
+      "pts": 28.4
+     },
+     {
+      "player": "Garrett Wilson",
+      "slot": "WR",
+      "pts": 26.7
+     }
+    ],
+    "dud": {
+     "player": "David Montgomery",
+     "slot": "RB",
+     "pts": 6.8
+    }
+   },
+   "loser_lineup": {
+    "stars": [
+     {
+      "player": "Jeremiyah Love",
+      "slot": "RB",
+      "pts": 21.9
+     },
+     {
+      "player": "Dak Prescott",
+      "slot": "QB",
+      "pts": 18.94
+     }
+    ],
+    "dud": {
+     "player": "Jadarian Price",
+     "slot": "FLEX",
+     "pts": 1.2
+    }
+   },
+   "winner_record": "1-2",
+   "winner_rank": 9,
+   "winner_streak": "W1",
+   "winner_prev_rank": 11,
+   "loser_record": "0-3",
+   "loser_rank": 12,
+   "loser_streak": "L3",
+   "loser_prev_rank": 12
+  },
+  {
+   "winner": "Dumpsterfire007",
+   "winner_pts": 154.66,
+   "loser": "stufflydogs",
+   "loser_pts": 128.44,
+   "margin": 26.22,
+   "tie": false,
+   "winner_lineup": {
+    "stars": [
+     {
+      "player": "Ja'Marr Chase",
+      "slot": "WR",
+      "pts": 24.8
+     },
+     {
+      "player": "Jakobi Meyers",
+      "slot": "WR",
+      "pts": 19.4
+     }
+    ],
+    "dud": {
+     "player": "Quinshon Judkins",
+     "slot": "FLEX",
+     "pts": 9.9
+    }
+   },
+   "loser_lineup": {
+    "stars": [
+     {
+      "player": "Brock Bowers",
+      "slot": "FLEX",
+      "pts": 27.6
+     },
+     {
+      "player": "Kenneth Walker",
+      "slot": "RB",
+      "pts": 21.3
+     }
+    ],
+    "dud": {
+     "player": "Dontayvion Wicks",
+     "slot": "WR",
+     "pts": 5.2
+    }
+   },
+   "winner_record": "1-2",
+   "winner_rank": 7,
+   "winner_streak": "W1",
+   "winner_prev_rank": 10,
+   "loser_record": "2-1",
+   "loser_rank": 2,
+   "loser_streak": "L1",
+   "loser_prev_rank": 3
+  },
+  {
+   "winner": "flips390",
+   "winner_pts": 135.34,
+   "loser": "DM_Me_to_Collude",
+   "loser_pts": 113.68,
+   "margin": 21.66,
+   "tie": false,
+   "winner_lineup": {
+    "stars": [
+     {
+      "player": "Bijan Robinson",
+      "slot": "RB",
+      "pts": 35.3
+     },
+     {
+      "player": "Michael Wilson",
+      "slot": "WR",
+      "pts": 25.9
+     }
+    ],
+    "dud": {
+     "player": "Hunter Henry",
+     "slot": "FLEX",
+     "pts": 1.5
+    }
+   },
+   "loser_lineup": {
+    "stars": [
+     {
+      "player": "Trevor Lawrence",
+      "slot": "QB",
+      "pts": 19.78
+     },
+     {
+      "player": "Chris Olave",
+      "slot": "WR",
+      "pts": 19.7
+     }
+    ],
+    "dud": {
+     "player": "Mark Andrews",
+     "slot": "TE",
+     "pts": 5.4
+    }
+   },
+   "winner_record": "2-1",
+   "winner_rank": 6,
+   "winner_streak": "W2",
+   "winner_prev_rank": 9,
+   "loser_record": "1-2",
+   "loser_rank": 10,
+   "loser_streak": "L2",
+   "loser_prev_rank": 8,
+   "loser_bench_crime": {
+    "manager": "DM_Me_to_Collude",
+    "benched": "Kenyon Sadiq",
+    "benched_pts": 23.5,
+    "started": "Mark Andrews",
+    "started_pts": 5.4,
+    "slot": "TE",
+    "gap": 18.1
+   }
+  },
+  {
+   "winner": "EvanBrand",
+   "winner_pts": 151.58,
+   "loser": "jessestern",
+   "loser_pts": 137.32,
+   "margin": 14.26,
+   "tie": false,
+   "winner_lineup": {
+    "stars": [
+     {
+      "player": "Brock Purdy",
+      "slot": "QB",
+      "pts": 31.28
+     },
+     {
+      "player": "Harold Fannin",
+      "slot": "TE",
+      "pts": 24.1
+     }
+    ],
+    "dud": {
+     "player": "TreVeyon Henderson",
+     "slot": "FLEX",
+     "pts": 3.9
+    }
+   },
+   "loser_lineup": {
+    "stars": [
+     {
+      "player": "Derrick Henry",
+      "slot": "RB",
+      "pts": 21.9
+     },
+     {
+      "player": "Tee Higgins",
+      "slot": "WR",
+      "pts": 21.0
+     }
+    ],
+    "dud": {
+     "player": "Tetairoa McMillan",
+     "slot": "WR",
+     "pts": 3.7
+    }
+   },
+   "winner_record": "2-1",
+   "winner_rank": 3,
+   "winner_streak": "W1",
+   "winner_prev_rank": 6,
+   "loser_record": "1-2",
+   "loser_rank": 8,
+   "loser_streak": "L1",
+   "loser_prev_rank": 5,
+   "winner_bench_crime": {
+    "manager": "EvanBrand",
+    "benched": "Luther Burden",
+    "benched_pts": 19.8,
+    "started": "TreVeyon Henderson",
+    "started_pts": 3.9,
+    "slot": "FLEX",
+    "gap": 15.9
+   }
+  },
+  {
+   "winner": "dookkk",
+   "winner_pts": 185.82,
+   "loser": "haze4daze",
+   "loser_pts": 111.56,
+   "margin": 74.26,
+   "tie": false,
+   "winner_lineup": {
+    "stars": [
+     {
+      "player": "Jahmyr Gibbs",
+      "slot": "RB",
+      "pts": 41.4
+     },
+     {
+      "player": "Jaxon Smith-Njigba",
+      "slot": "WR",
+      "pts": 35.36
+     }
+    ],
+    "dud": {
+     "player": "Jalen Coker",
+     "slot": "WR",
+     "pts": 3.8
+    }
+   },
+   "loser_lineup": {
+    "stars": [
+     {
+      "player": "Christian McCaffrey",
+      "slot": "RB",
+      "pts": 21.6
+     },
+     {
+      "player": "CeeDee Lamb",
+      "slot": "WR",
+      "pts": 20.2
+     }
+    ],
+    "dud": {
+     "player": "Drake Maye",
+     "slot": "QB",
+     "pts": 3.76
+    }
+   },
+   "winner_record": "3-0",
+   "winner_rank": 1,
+   "winner_streak": "W3",
+   "winner_prev_rank": 1,
+   "loser_record": "1-2",
+   "loser_rank": 11,
+   "loser_streak": "L1",
+   "loser_prev_rank": 7
+  }
+ ],
+ "high": {
+  "manager": "dookkk",
+  "pts": 185.82
+ },
+ "low": {
+  "manager": "Marc_Katz",
+  "pts": 85.94
+ },
+ "closest": {
+  "winner": "EvanBrand",
+  "winner_pts": 151.58,
+  "loser": "jessestern",
+  "loser_pts": 137.32,
+  "margin": 14.26,
+  "tie": false,
+  "winner_lineup": {
+   "stars": [
+    {
+     "player": "Brock Purdy",
+     "slot": "QB",
+     "pts": 31.28
+    },
+    {
+     "player": "Harold Fannin",
+     "slot": "TE",
+     "pts": 24.1
+    }
+   ],
+   "dud": {
+    "player": "TreVeyon Henderson",
+    "slot": "FLEX",
+    "pts": 3.9
+   }
+  },
+  "loser_lineup": {
+   "stars": [
+    {
+     "player": "Derrick Henry",
+     "slot": "RB",
+     "pts": 21.9
+    },
+    {
+     "player": "Tee Higgins",
+     "slot": "WR",
+     "pts": 21.0
+    }
+   ],
+   "dud": {
+    "player": "Tetairoa McMillan",
+    "slot": "WR",
+    "pts": 3.7
+   }
+  },
+  "winner_record": "2-1",
+  "winner_rank": 3,
+  "winner_streak": "W1",
+  "winner_prev_rank": 6,
+  "loser_record": "1-2",
+  "loser_rank": 8,
+  "loser_streak": "L1",
+  "loser_prev_rank": 5,
+  "winner_bench_crime": {
+   "manager": "EvanBrand",
+   "benched": "Luther Burden",
+   "benched_pts": 19.8,
+   "started": "TreVeyon Henderson",
+   "started_pts": 3.9,
+   "slot": "FLEX",
+   "gap": 15.9
+  }
+ },
+ "blowout": {
+  "winner": "dookkk",
+  "winner_pts": 185.82,
+  "loser": "haze4daze",
+  "loser_pts": 111.56,
+  "margin": 74.26,
+  "tie": false,
+  "winner_lineup": {
+   "stars": [
+    {
+     "player": "Jahmyr Gibbs",
+     "slot": "RB",
+     "pts": 41.4
+    },
+    {
+     "player": "Jaxon Smith-Njigba",
+     "slot": "WR",
+     "pts": 35.36
+    }
+   ],
+   "dud": {
+    "player": "Jalen Coker",
+    "slot": "WR",
+    "pts": 3.8
+   }
+  },
+  "loser_lineup": {
+   "stars": [
+    {
+     "player": "Christian McCaffrey",
+     "slot": "RB",
+     "pts": 21.6
+    },
+    {
+     "player": "CeeDee Lamb",
+     "slot": "WR",
+     "pts": 20.2
+    }
+   ],
+   "dud": {
+    "player": "Drake Maye",
+    "slot": "QB",
+    "pts": 3.76
+   }
+  },
+  "winner_record": "3-0",
+  "winner_rank": 1,
+  "winner_streak": "W3",
+  "winner_prev_rank": 1,
+  "loser_record": "1-2",
+  "loser_rank": 11,
+  "loser_streak": "L1",
+  "loser_prev_rank": 7
+ },
+ "bench_crimes": [
+  {
+   "manager": "DM_Me_to_Collude",
+   "benched": "Kenyon Sadiq",
+   "benched_pts": 23.5,
+   "started": "Mark Andrews",
+   "started_pts": 5.4,
+   "slot": "TE",
+   "gap": 18.1
+  },
+  {
+   "manager": "EvanBrand",
+   "benched": "Luther Burden",
+   "benched_pts": 19.8,
+   "started": "TreVeyon Henderson",
+   "started_pts": 3.9,
+   "slot": "FLEX",
+   "gap": 15.9
+  },
+  {
+   "manager": "HowDidIOnceWin",
+   "benched": "Kalif Raymond",
+   "benched_pts": 21.0,
+   "started": "Malik Nabers",
+   "started_pts": 7.6,
+   "slot": "WR",
+   "gap": 13.4
+  }
+ ],
+ "most_bench_pts": {
+  "manager": "EvanBrand",
+  "bench_pts": 48.5
+ },
+ "empty_slots": [],
+ "booms": [
+  {
+   "player": "Jahmyr Gibbs",
+   "pts": 41.4,
+   "manager": "dookkk"
+  },
+  {
+   "player": "Jaxon Smith-Njigba",
+   "pts": 35.36,
+   "manager": "dookkk"
+  },
+  {
+   "player": "Bijan Robinson",
+   "pts": 35.3,
+   "manager": "flips390"
+  }
+ ],
+ "busts": [
+  {
+   "player": "Jadarian Price",
+   "pts": 1.2,
+   "manager": "CUTHISYR"
+  },
+  {
+   "player": "Hunter Henry",
+   "pts": 1.5,
+   "manager": "flips390"
+  },
+  {
+   "player": "De'Von Achane",
+   "pts": 1.7,
+   "manager": "HowDidIOnceWin"
+  }
+ ],
+ "adds": [
+  {
+   "manager": "stufflydogs",
+   "player": "Ollie Gordon",
+   "via": "waiver",
+   "faab": 30,
+   "faab_left": 61
+  },
+  {
+   "manager": "CUTHISYR",
+   "player": "Braelon Allen",
+   "via": "waiver",
+   "faab": 25,
+   "faab_left": 52
+  },
+  {
+   "manager": "haze4daze",
+   "player": "Keenan Allen",
+   "via": "waiver",
+   "faab": 10,
+   "faab_left": 52
+  },
+  {
+   "manager": "stufflydogs",
+   "player": "Ryan Flournoy",
+   "via": "free_agent",
+   "pts_this_week": 4.2
+  },
+  {
+   "manager": "flips390",
+   "player": "Kayshon Boutte",
+   "via": "free_agent",
+   "pts_this_week": 4.1
+  },
+  {
+   "manager": "stufflydogs",
+   "player": "Emmett Johnson",
+   "via": "free_agent"
+  },
+  {
+   "manager": "dookkk",
+   "player": "Carolina Panthers",
+   "via": "free_agent",
+   "pts_this_week": 6.0
+  },
+  {
+   "manager": "DM_Me_to_Collude",
+   "player": "Kaleb Johnson",
+   "via": "free_agent",
+   "pts_this_week": 2.6
+  },
+  {
+   "manager": "HowDidIOnceWin",
+   "player": "Kalif Raymond",
+   "via": "free_agent",
+   "pts_this_week": 21.0
+  },
+  {
+   "manager": "haze4daze",
+   "player": "Rashod Bateman",
+   "via": "free_agent",
+   "pts_this_week": 5.7
+  },
+  {
+   "manager": "HowDidIOnceWin",
+   "player": "Harrison Butker",
+   "via": "free_agent",
+   "pts_this_week": 5.0
+  },
+  {
+   "manager": "EvanBrand",
+   "player": "Emanuel Wilson",
+   "via": "free_agent",
+   "pts_this_week": 1.4
+  },
+  {
+   "manager": "HowDidIOnceWin",
+   "player": "C.J. Stroud",
+   "via": "free_agent",
+   "pts_this_week": 11.68
+  },
+  {
+   "manager": "dookkk",
+   "player": "Jared Goff",
+   "via": "free_agent",
+   "pts_this_week": 19.36
+  },
+  {
+   "manager": "Dumpsterfire007",
+   "player": "Kansas City Chiefs",
+   "via": "free_agent",
+   "pts_this_week": 8.0
+  },
+  {
+   "manager": "Dumpsterfire007",
+   "player": "Chase McLaughlin",
+   "via": "free_agent",
+   "pts_this_week": 12.0
+  }
+ ],
+ "drops": [
+  {
+   "manager": "CUTHISYR",
+   "player": "Tank Bigsby"
+  },
+  {
+   "manager": "stufflydogs",
+   "player": "Ryan Flournoy"
+  },
+  {
+   "manager": "haze4daze",
+   "player": "Rashod Bateman"
+  },
+  {
+   "manager": "stufflydogs",
+   "player": "Emmett Johnson"
+  },
+  {
+   "manager": "stufflydogs",
+   "player": "Jonathon Brooks"
+  },
+  {
+   "manager": "dookkk",
+   "player": "Los Angeles Chargers"
+  },
+  {
+   "manager": "DM_Me_to_Collude",
+   "player": "MarShawn Lloyd"
+  },
+  {
+   "manager": "HowDidIOnceWin",
+   "player": "Malachi Fields"
+  },
+  {
+   "manager": "haze4daze",
+   "player": "Brenton Strange"
+  },
+  {
+   "manager": "HowDidIOnceWin",
+   "player": "Tyler Bass"
+  },
+  {
+   "manager": "EvanBrand",
+   "player": "Cyrus Allen"
+  },
+  {
+   "manager": "HowDidIOnceWin",
+   "player": "Dallas Goedert"
+  },
+  {
+   "manager": "dookkk",
+   "player": "Woody Marks"
+  },
+  {
+   "manager": "Dumpsterfire007",
+   "player": "Tampa Bay Buccaneers"
+  },
+  {
+   "manager": "Dumpsterfire007",
+   "player": "Cairo Santos"
+  }
+ ],
+ "trades": [
+  {
+   "receives": {
+    "DM_Me_to_Collude": [
+     "Colston Loveland"
+    ],
+    "Dumpsterfire007": [
+     "Kenyon Sadiq"
+    ]
+   }
+  }
+ ],
+ "faab_budget": 130,
+ "standings": [
+  {
+   "rank": 1,
+   "manager": "dookkk",
+   "record": "3-0",
+   "pf": 548.1,
+   "streak": "W3",
+   "prev_rank": 1
+  },
+  {
+   "rank": 2,
+   "manager": "stufflydogs",
+   "record": "2-1",
+   "pf": 419.16,
+   "streak": "L1",
+   "prev_rank": 3
+  },
+  {
+   "rank": 3,
+   "manager": "EvanBrand",
+   "record": "2-1",
+   "pf": 409.76,
+   "streak": "W1",
+   "prev_rank": 6
+  },
+  {
+   "rank": 4,
+   "manager": "Marc_Katz",
+   "record": "2-1",
+   "pf": 397.92,
+   "streak": "L1",
+   "prev_rank": 2
+  },
+  {
+   "rank": 5,
+   "manager": "HowDidIOnceWin",
+   "record": "2-1",
+   "pf": 374.98,
+   "streak": "W1",
+   "prev_rank": 4
+  },
+  {
+   "rank": 6,
+   "manager": "flips390",
+   "record": "2-1",
+   "pf": 374.94,
+   "streak": "W2",
+   "prev_rank": 9
+  },
+  {
+   "rank": 7,
+   "manager": "Dumpsterfire007",
+   "record": "1-2",
+   "pf": 405.64,
+   "streak": "W1",
+   "prev_rank": 10
+  },
+  {
+   "rank": 8,
+   "manager": "jessestern",
+   "record": "1-2",
+   "pf": 396.6,
+   "streak": "L1",
+   "prev_rank": 5
+  },
+  {
+   "rank": 9,
+   "manager": "ChelseaClub",
+   "record": "1-2",
+   "pf": 378.12,
+   "streak": "W1",
+   "prev_rank": 11
+  },
+  {
+   "rank": 10,
+   "manager": "DM_Me_to_Collude",
+   "record": "1-2",
+   "pf": 368.34,
+   "streak": "L2",
+   "prev_rank": 8
+  },
+  {
+   "rank": 11,
+   "manager": "haze4daze",
+   "record": "1-2",
+   "pf": 368.1,
+   "streak": "L1",
+   "prev_rank": 7
+  },
+  {
+   "rank": 12,
+   "manager": "CUTHISYR",
+   "record": "0-3",
+   "pf": 316.78,
+   "streak": "L3",
+   "prev_rank": 12
+  }
+ ],
+ "movers": [
+  {
+   "rank": 3,
+   "manager": "EvanBrand",
+   "record": "2-1",
+   "pf": 409.76,
+   "streak": "W1",
+   "prev_rank": 6
+  },
+  {
+   "rank": 4,
+   "manager": "Marc_Katz",
+   "record": "2-1",
+   "pf": 397.92,
+   "streak": "L1",
+   "prev_rank": 2
+  },
+  {
+   "rank": 6,
+   "manager": "flips390",
+   "record": "2-1",
+   "pf": 374.94,
+   "streak": "W2",
+   "prev_rank": 9
+  },
+  {
+   "rank": 7,
+   "manager": "Dumpsterfire007",
+   "record": "1-2",
+   "pf": 405.64,
+   "streak": "W1",
+   "prev_rank": 10
+  },
+  {
+   "rank": 8,
+   "manager": "jessestern",
+   "record": "1-2",
+   "pf": 396.6,
+   "streak": "L1",
+   "prev_rank": 5
+  },
+  {
+   "rank": 9,
+   "manager": "ChelseaClub",
+   "record": "1-2",
+   "pf": 378.12,
+   "streak": "W1",
+   "prev_rank": 11
+  },
+  {
+   "rank": 10,
+   "manager": "DM_Me_to_Collude",
+   "record": "1-2",
+   "pf": 368.34,
+   "streak": "L2",
+   "prev_rank": 8
+  },
+  {
+   "rank": 11,
+   "manager": "haze4daze",
+   "record": "1-2",
+   "pf": 368.1,
+   "streak": "L1",
+   "prev_rank": 7
+  }
+ ],
+ "upsets": [
+  {
+   "winner": "Dumpsterfire007",
+   "winner_prev_rank": 10,
+   "loser": "stufflydogs",
+   "loser_prev_rank": 3
+  }
+ ]
+}
