@@ -260,15 +260,12 @@ def build():
     papers = []
     for lg in leagues:
         issues = load(lg["id"])
-        name = issues[max(issues)][0]["league"] if issues else (lg["path"] or "League").title()
+        name = lg.get("display_name") or (issues[max(issues)][0]["league"] if issues else (lg["path"] or "League").replace("-", " ").title())
         papers.append((lg, issues, name))
     for lg, issues, name in papers:
         out = SITE / lg["path"] if lg["path"] else SITE
         out.mkdir(parents=True, exist_ok=True)
-        up = "../" if lg["path"] else ""
-        links = " · ".join(f'<a href="{up}{(o["path"] + "/") if o["path"] else ""}index.html">The {E(n)} Gazette</a>'
-                           for o, _, n in papers if o is not lg)
-        others = f"Also on the newsstand: {links}<br>" if links else ""
+        others = ""                                   # papers never link to each other
         if not issues:
             (out / "index.html").write_text(placeholder(name), encoding="utf-8")
             print(f"{name}: no issues yet; placeholder")

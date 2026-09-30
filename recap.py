@@ -473,6 +473,8 @@ def main(argv):
         raw = fetch(lid, week)
         check_complete(raw, week)
         facts = analyze(raw, players_db(), week)
+        if league_cfg(lid).get("display_name"):        # masthead override from leagues.json
+            facts["league"] = league_cfg(lid)["display_name"]
     except Exception as e:                            # no fabrication on bad data
         with open(POSTS / "errors.log", "a", encoding="utf-8") as log:
             log.write(f"{time.strftime('%Y-%m-%d %H:%M')} {key} {e!r}\n")
