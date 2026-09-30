@@ -83,6 +83,42 @@ details{font:14px/1.5 'Old Standard TT',serif;border:1px solid var(--rule);paddi
 summary{cursor:pointer;font-weight:700;text-transform:uppercase;letter-spacing:1px;font-size:12px}details article{margin-top:8px;font-family:system-ui,sans-serif;font-size:13px}
 .archive{text-align:center}.archive a{display:inline-block;margin:0 8px 6px;color:var(--accent);font-style:italic}
 footer{margin-top:36px;border-top:3px double var(--rule);padding-top:10px;font:italic 13px 'IM Fell English',serif;color:var(--muted);text-align:center}
+
+/* ---- Modern theme: white, Apple-style ---- */
+body.apple{--bg:#fff;--paper:#fff;--ink:#1d1d1f;--muted:#6e6e73;--rule:#d2d2d7;--soft:#f5f5f7;--accent:#0071e3;--up:#248a3d;--down:#d70015;background:#fff;font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','SF Pro Text','Helvetica Neue',Arial,sans-serif;-webkit-font-smoothing:antialiased}
+.apple .sheet{background:#fff;background-image:none;box-shadow:none;max-width:1400px}
+.apple .mast{grid-template-columns:1fr!important}.apple .ear,.apple .rules{display:none}
+.apple .mast h1{font:700 clamp(34px,6vw,64px)/1.05 -apple-system,BlinkMacSystemFont,'SF Pro Display','SF Pro Text','Helvetica Neue',Arial,sans-serif;letter-spacing:-.03em}
+.apple .dateline{border:0;justify-content:center;gap:6px 18px;font:500 13px/1.4 -apple-system,BlinkMacSystemFont,'SF Pro Display','SF Pro Text','Helvetica Neue',Arial,sans-serif;text-transform:none;letter-spacing:0;color:var(--muted);margin-bottom:28px}
+.apple .dateline i{font:inherit}
+.apple h2.head{font:700 clamp(32px,5vw,58px)/1.05 -apple-system,BlinkMacSystemFont,'SF Pro Display','SF Pro Text','Helvetica Neue',Arial,sans-serif;text-transform:none;letter-spacing:-.03em;max-width:22ch}
+.apple .deck{font:400 clamp(17px,2vw,21px)/1.4 -apple-system,BlinkMacSystemFont,'SF Pro Display','SF Pro Text','Helvetica Neue',Arial,sans-serif;color:var(--muted)}
+.apple .tiles{border:0;gap:12px}.apple .tile{background:var(--soft);border:0!important;border-radius:18px;padding:18px}
+.apple .tile .k{font:600 12px/1 -apple-system,BlinkMacSystemFont,'SF Pro Display','SF Pro Text','Helvetica Neue',Arial,sans-serif;text-transform:none;letter-spacing:0;color:var(--muted)}
+.apple .tile .v{font:700 34px/1.1 -apple-system,BlinkMacSystemFont,'SF Pro Display','SF Pro Text','Helvetica Neue',Arial,sans-serif;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.apple .tile .w{font:400 14px/1.3 -apple-system,BlinkMacSystemFont,'SF Pro Display','SF Pro Text','Helvetica Neue',Arial,sans-serif}
+.apple .orn{filter:none}
+.apple .section-h,.apple .band h3{border:0;text-align:left;font:700 28px/1.1 -apple-system,BlinkMacSystemFont,'SF Pro Display','SF Pro Text','Helvetica Neue',Arial,sans-serif;letter-spacing:-.02em;text-transform:none;padding:0;margin:36px 0 16px}
+.apple .cols{gap:20px}
+.apple .bout{margin:0;background:#fff;border:1px solid #e8e8ed!important;border-radius:22px;padding:22px!important;box-shadow:0 2px 14px rgba(0,0,0,.05)}
+.apple .bout h4{font:700 22px/1.2 -apple-system,BlinkMacSystemFont,'SF Pro Display','SF Pro Text','Helvetica Neue',Arial,sans-serif;text-transform:none;text-align:left;letter-spacing:-.01em}
+.apple .bout .sub{text-align:left;font:500 13px/1.3 -apple-system,BlinkMacSystemFont,'SF Pro Display','SF Pro Text','Helvetica Neue',Arial,sans-serif;color:var(--muted)}.apple .bout .sub::before,.apple .bout .sub::after{content:none}
+.apple .box{border:0;background:var(--soft);border-radius:14px;font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','SF Pro Text','Helvetica Neue',Arial,sans-serif}
+.apple .box .row{padding:9px 14px}.apple .box .row+.row{border-top:1px solid #e8e8ed}
+.apple .box .tm{text-transform:none;font-size:15px;letter-spacing:0}.apple .box .meta{font-style:normal}
+.apple .box .pts{font-variant-numeric:tabular-nums}.apple .box .foot{border-top:1px solid #e8e8ed;font:400 12px/1.3 -apple-system,BlinkMacSystemFont,'SF Pro Display','SF Pro Text','Helvetica Neue',Arial,sans-serif;text-align:left;padding:7px 14px}
+.apple .bout p{text-align:left;text-indent:0;hyphens:manual;-webkit-hyphens:manual;font:400 16px/1.55 -apple-system,BlinkMacSystemFont,'SF Pro Display','SF Pro Text','Helvetica Neue',Arial,sans-serif}
+.apple .bout .lede::first-letter{float:none;font:inherit;margin:0;padding:0;border:0}
+.apple blockquote{border:0;border-left:3px solid var(--accent);text-align:left;margin:14px 0;padding:2px 0 2px 14px;font:italic 500 17px/1.45 -apple-system,BlinkMacSystemFont,'SF Pro Display','SF Pro Text','Helvetica Neue',Arial,sans-serif}
+.apple .kicker{text-align:left;font:15px/1.45 -apple-system,BlinkMacSystemFont,'SF Pro Display','SF Pro Text','Helvetica Neue',Arial,sans-serif;border:0}.apple .kicker b{font-variant:normal;text-transform:uppercase;font-size:11px;letter-spacing:.06em}
+.apple table{font:14px/1.3 -apple-system,BlinkMacSystemFont,'SF Pro Display','SF Pro Text','Helvetica Neue',Arial,sans-serif}.apple td,.apple th{border-bottom:1px solid #e8e8ed}.apple th{letter-spacing:0;color:var(--muted);text-transform:none;font-weight:600}
+.apple .n{font-variant-numeric:tabular-nums}
+.apple details{border:0;background:var(--soft);border-radius:14px;font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','SF Pro Text','Helvetica Neue',Arial,sans-serif;padding:12px 14px}
+.apple summary{text-transform:none;letter-spacing:0;font-size:14px}
+.apple .archive{text-align:left}.apple .archive a{font-style:normal;margin:0 12px 6px 0}
+.apple footer{border-top:1px solid #e8e8ed;font:13px -apple-system,BlinkMacSystemFont,'SF Pro Display','SF Pro Text','Helvetica Neue',Arial,sans-serif}
+.skin{position:fixed;bottom:16px;right:16px;z-index:9;font:600 12px/1 -apple-system,BlinkMacSystemFont,'SF Pro Display','SF Pro Text','Helvetica Neue',Arial,sans-serif;background:var(--ink);color:var(--paper);border:0;border-radius:999px;padding:9px 14px;cursor:pointer;box-shadow:0 2px 10px rgba(0,0,0,.2)}
+.skin:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 """
 
 
@@ -207,7 +243,9 @@ def page(f, text, stories, weeks, title_prefix=""):
 <meta property="og:description" content="{desc}"><meta name="description" content="{desc}">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
-<style>{CSS}</style></head><body><main class="sheet">
+<style>{CSS}</style></head><body>
+<button class="skin" id="skin" type="button" aria-label="Switch design">Modern look</button>
+<main class="sheet">
 <header class="mast">
 <div class="ear">Week {f['week']} Edition<small>Waivers &amp; wagers within</small></div>
 <a href="index.html"><h1>The {league} Gazette</h1></a>
@@ -234,7 +272,11 @@ function fit(){{document.querySelectorAll('.bout h4').forEach(function(h){{
   h.classList.remove('fit-wrap');h.style.fontSize='';var s=parseFloat(getComputedStyle(h).fontSize);
   while(h.scrollWidth>h.clientWidth&&s>14){{s-=.5;h.style.fontSize=s+'px';}}
   if(h.scrollWidth>h.clientWidth)h.classList.add('fit-wrap');}});}}
-document.fonts&&document.fonts.ready.then(fit);fit();addEventListener('resize',fit);
+var K='gazette-skin',b=document.body,btn=document.getElementById('skin');
+function skin(m){{b.classList.toggle('apple',m==='apple');btn.textContent=m==='apple'?'Classic look':'Modern look';fit();}}
+var cur='classic';try{{cur=localStorage.getItem(K)||'classic'}}catch(e){{}}skin(cur);
+btn.onclick=function(){{cur=cur==='apple'?'classic':'apple';try{{localStorage.setItem(K,cur)}}catch(e){{}}skin(cur);}};
+document.fonts&&document.fonts.ready.then(fit);addEventListener('resize',fit);
 </script></body></html>"""
 
 
