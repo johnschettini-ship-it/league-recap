@@ -114,6 +114,12 @@ class T(unittest.TestCase):
         self.assertEqual((pr["John"]["all_play"], pr["Mike"]["all_play"], pr["Dave"]["all_play"]), ("6-0", "2-4", "1-5"))
         self.assertEqual((pr["Mike"]["luck"], pr["Dave"]["luck"]), (0.3, -0.3))
 
+    def test_power_blend_rewards_recent_form(self):
+        f = self.f["power_rankings"]
+        self.assertTrue(all("power_score" in p and "last3_all_play" in p for p in f))
+        self.assertEqual(f[0]["power_score"], 100.0)                 # perfect true record, last 3 and points
+        self.assertTrue(f[0]["power_score"] > f[1]["power_score"] > f[3]["power_score"])
+
     def test_awards_and_lore(self):
         a, l = self.f["awards"], self.f["lore"]
         self.assertEqual((a["boom"]["player"], a["boom"]["pts"]), ("WR One", 30.5))

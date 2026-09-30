@@ -244,8 +244,30 @@ def analyze(raw, P, week, cfg=CFG, aliases=None):
                 ap[rid][1] += sum(p < q for o, q in pts.items() if o != rid)
         order = sorted(ap, key=lambda i: (-(ap[i][0] / max(1, sum(ap[i]))), -now[i]["pf"]))
         return ap, {rid: n for n, rid in enumerate(order, 1)}
-    ap, prank = allplay(week)
-    _, prev_prank = allplay(week - 1) if week > 1 else (None, {})
+    POWER_W = {"true_record": 0.60, "last3": 0.25, "points": 0.15}   # blend weights
+
+    def power_order(upto):
+        """Blend: season all-play % (60%) + last-3-weeks all-play % (25%) + points vs leader (15%)."""
+        ap_all, _ = allplay(upto)
+        lo = max(1, upto - 2)
+        ap3 = {rid: [0, 0] for rid in owner}
+        pf = {rid: 0.0 for rid in owner}
+        for w in range(1, upto + 1):
+            pts = {m["roster_id"]: m["points"] or 0 for m in raw["matchups"][w] if m.get("matchup_id") is not None}
+            for rid, p in pts.items():
+                pf[rid] += p
+                if w >= lo:
+                    ap3[rid][0] += sum(p > q for o, q in pts.items() if o != rid)
+                    ap3[rid][1] += sum(p < q for o, q in pts.items() if o != rid)
+        top = max(pf.values()) or 1
+        pct = lambda x: x[0] / max(1, sum(x))
+        score = {rid: POWER_W["true_record"] * pct(ap_all[rid]) + POWER_W["last3"] * pct(ap3[rid])
+                 + POWER_W["points"] * pf[rid] / top for rid in owner}
+        order = sorted(owner, key=lambda i: (-score[i], -pf[i]))
+        return ap_all, ap3, score, {rid: n for n, rid in enumerate(order, 1)}
+
+    ap, ap3, pscore, prank = power_order(week)
+    prev_prank = power_order(week - 1)[3] if week > 1 else {}
     pa = {rid: 0.0 for rid in owner}
     for w in range(1, week + 1):
         for a, b in games(w):
@@ -256,7 +278,8 @@ def analyze(raw, P, week, cfg=CFG, aliases=None):
         gp = now[rid]["w"] + now[rid]["l"] + now[rid]["t"]
         exp = ap[rid][0] / max(1, sum(ap[rid])) * gp
         row = {"power_rank": prank[rid], "manager": owner[rid], "record": st_by[owner[rid]]["record"],
-               "all_play": f"{ap[rid][0]}-{ap[rid][1]}", "pf": r2(now[rid]["pf"]), "pa": r2(pa[rid]),
+               "all_play": f"{ap[rid][0]}-{ap[rid][1]}", "last3_all_play": f"{ap3[rid][0]}-{ap3[rid][1]}",
+               "power_score": round(pscore[rid] * 100, 1), "pf": r2(now[rid]["pf"]), "pa": r2(pa[rid]),
                "luck": round(now[rid]["w"] - exp, 1)}
         if rid in prev_prank:
             row["prev_power_rank"] = prev_prank[rid]
@@ -410,7 +433,8 @@ MARQUEE:
 and any head_to_head from the facts. Tease it; don't pick a winner.>
 Then the power rankings roasts, one line per team in power_rankings order:
 POWER:
-<power_rank>. <manager> — <roast, max 15 words, drawn from their facts; all_play vs record = luck>
+<power_rank>. <manager> — <roast, max 15 words, drawn from their facts; all_play vs record = luck,
+last3_all_play = current form. Call all_play the "true record", never "all-play".>
 Then one story per game in "results", biggest margin last. For each, exactly this shape:
 ### <one fitting emoji> <punny headline, max 32 characters so it fits on one line>
 <80-140 word story, in 1-2 short paragraphs; the page adds a scorebox, so don't restate the score line>

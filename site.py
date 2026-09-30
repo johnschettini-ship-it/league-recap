@@ -116,7 +116,7 @@ footer{margin-top:36px;border-top:3px double var(--rule);padding-top:10px;font:i
 
 /* ---- tables: fixed, matching columns ---- */
 .st2 table,.pw{table-layout:fixed}
-.c-rk{width:2.4em}.c-rec{width:3.6em}.c-pf{width:5.2em}.c-st{width:3.4em}.c-mg{width:30%}.c-ap{width:6.6em}
+.c-rk{width:2.4em}.c-rec{width:3.6em}.c-pf{width:5.2em}.c-st{width:3.4em}.c-mg{width:30%}.c-ap{width:6.8em}
 td,th{overflow-wrap:anywhere;vertical-align:baseline}
 td.n,th.n{text-align:right;padding-right:14px;font-variant-numeric:tabular-nums lining-nums}
 td.st,th.st{text-align:left;padding-left:8px;font-variant-numeric:tabular-nums}
@@ -338,7 +338,7 @@ def lore_html(f):
         items.append(("🧊", "Coldest", f"{E(l['cold_streak']['manager'])} ({l['cold_streak']['streak']})"))
     for k, i, lab in (("luckiest", "🍀", "Luckiest"), ("unluckiest", "😤", "Unluckiest")):
         p = l[k]
-        items.append((i, lab, f"{E(p['manager'])}: {p['record']} on a {p['all_play']} all-play"))
+        items.append((i, lab, f"{E(p['manager'])}: {p['record']} record, {p['all_play']} true record"))
     v = l["schedule_victim"]
     items.append(("🎯", "Schedule victim", f"{E(v['manager'])}, {v['pa']} points against"))
     rows = "".join(f'<li><span class="orn">{i}</span> <b>{k}</b><span class="aw">{t}</span></li>' for i, k, t in items)
@@ -360,9 +360,10 @@ def power_html(f, md):
         f"<td>{p['record']}</td><td class=n>{p['all_play']}</td><td class=roast>{wa(roast(p['manager']))}</td></tr>"
         for p in pr)
     return (f'<section class="power" id="power"><div class="section-h">Power Rankings</div>'
-            f'<p class="note">Ranked by all-play record: how each team would fare against every team, every week.</p>'
+            f'<p class="note">True Record = how each team would fare against every team, every week. '
+            f'Rank blends True Record (60%), the last 3 weeks (25%) and total points (15%).</p>'
             f'<table class="pw"><colgroup><col class="c-rk"><col class="c-mg"><col class="c-rec"><col class="c-ap"><col></colgroup>'
-            f'<tr><th>#</th><th>Manager</th><th>Rec</th><th class=n>All-play</th><th class=roast>The word on the street</th></tr>{rows}</table></section>')
+            f'<tr><th>#</th><th>Manager</th><th>Rec</th><th class=n>True Rec.</th><th class=roast>The word on the street</th></tr>{rows}</table></section>')
 
 
 def standings(f):
