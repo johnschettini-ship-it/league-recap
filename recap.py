@@ -311,6 +311,12 @@ Then one line on the top and bottom of the table.
 
 PART 2 — Matchup stories for the league newspaper. Start with one line:
 BANNER: <front-page banner headline, a name pun, max 8 words>
+Then the lead column, the hook that makes people read on:
+LEAD:
+<150-220 words, 2-3 short paragraphs: the week in review as one story arc. Open with the
+biggest storyline (upset, streak, blowout, collapse), sweep through the standings shake-up,
+tease two or three of the matchup stories below without spoiling their punchlines, and end on
+a line that pulls the reader into the matchups. Same satire and pun-name rules as the stories.>
 Then one story per game in "results", biggest margin last. For each, exactly this shape:
 ### <one fitting emoji> <punny headline, max 32 characters so it fits on one line>
 <80-140 word story, in 1-2 short paragraphs; the page adds a scorebox, so don't restate the score line>

@@ -40,6 +40,11 @@ h2.head{font:700 clamp(28px,5.4vw,58px)/1.02 'Old Standard TT',Georgia,serif;tex
 .tile .w{font:italic 14px/1.3 'IM Fell English',serif;overflow-wrap:anywhere}
 .orn{filter:grayscale(1) contrast(1.3);font-style:normal}
 .body{margin-top:22px}
+.leadstory{margin:22px 0 8px}
+.lead-cols{column-width:330px;column-gap:32px;column-rule:1px solid var(--rule);font-size:18px;line-height:1.6}
+.lead-cols p{margin:0 0 12px;text-align:justify;hyphens:auto;-webkit-hyphens:auto;text-indent:1.2em}
+.lead-cols p.lede{text-indent:0}
+.lead-cols .lede::first-letter{float:left;font:700 64px/.8 'Old Standard TT',serif;margin:6px 8px 0 0;padding:2px 5px;border:1px solid var(--rule)}
 .cols{display:grid;grid-template-columns:1fr}
 @media(min-width:760px){.cols{grid-template-columns:repeat(2,1fr)}}
 @media(min-width:1150px){.cols{grid-template-columns:repeat(3,1fr)}}
@@ -136,9 +141,25 @@ def banner_of(md):
     return m.group(1).strip(" *") if m else ""
 
 
+def lead_of(md):
+    """Text between 'LEAD:' and the first story heading."""
+    m = re.search(r"^LEAD:\s*\n?(.*?)(?=^###|\Z)", md, flags=re.M | re.S)
+    return m.group(1).strip() if m else ""
+
+
+def lead_html(md):
+    lead = lead_of(md)
+    if not lead:
+        return ""
+    paras = [re.sub(r"\s*\n\s*", " ", p).strip() for p in re.split(r"\n\s*\n", lead) if p.strip()]
+    ps = "".join(f'<p class="{"lede" if n == 0 else ""}">{wa(p)}</p>' for n, p in enumerate(paras))
+    return f'<section class="leadstory"><div class="section-h">The Week in Review</div><div class="lead-cols">{ps}</div></section>'
+
+
 def stories_html(md, f):
     out = []
     md = re.sub(r"^BANNER:.*$", "", md, flags=re.M)
+    md = re.sub(r"^LEAD:.*?(?=^###|\Z)", "", md, flags=re.M | re.S)
     for block in re.split(r"^###\s*", md, flags=re.M):
         block = block.strip()
         if not block:
@@ -214,6 +235,7 @@ def page(f, text, stories, weeks, title_prefix="", others=""):
 <div class="rules"></div>
 <div class="dateline"><span>Vol. {f['season']} · No. {f['week']}</span><i>“All the Scores That Are Fit to Print”</i><span>Late City Final</span></div>
 <section class="lead"><h2 class="head">{E(head)}</h2><p class="deck">{E(deck)}</p>{tiles(f)}</section>
+{lead_html(stories)}
 <div class="body">
 {cols}
 <div class="band">
