@@ -443,6 +443,8 @@ STRIP: <strip title, a pun>
 2. <pose>: <line>
 3. <pose>: <punchline>
 pose is one of: reading, celebrate, shrug, facepalm, sweat, bench, trophy, money.
+Never reuse a strip title from used_pun_names, and never repeat last_strip_poses (last week's
+three poses in order); vary the gag format week to week.
 Match the pose to the joke (bench = bench crime, money = FAAB, trophy = top dog).
 End PART 2 with two lines listing, exactly as written, every pun-name and manager epithet
 you used anywhere this week (they are logged so next week can't repeat them):
@@ -575,6 +577,18 @@ def page_url(site, lid, week):
 
 
 PUN_LINE = re.compile(r"^(?:PUNS|EPITHETS):\s*(.*)$", re.M)
+STRIP_TITLE = re.compile(r"^STRIP:\s*(.+)$", re.M)
+STRIP_POSE = re.compile(r"^\s*[123][.)]\s*([a-z]+)\s*[:—–-]", re.M)
+
+
+def strip_poses(md):
+    m = re.search(r"^STRIP:.*?(?=^(?:PUNS|EPITHETS|###)|\Z)", md, re.M | re.S)
+    return [p.lower() for p in STRIP_POSE.findall(m.group(0))][:3] if m else []
+
+
+def last_strip_poses(lid, week):
+    p = next(iter(POSTS.glob(f"{lid}_*_w{week - 1}_recap.stories.md")), None)
+    return strip_poses(p.read_text(encoding="utf-8")) if p else []
 
 
 def used_puns(lid, week):
@@ -585,6 +599,7 @@ def used_puns(lid, week):
         if not m or int(m.group(1)) >= week:
             continue
         t = p.read_text(encoding="utf-8")
+        seen.update(x.strip(' *"“”') for x in STRIP_TITLE.findall(t) if len(x.strip()) >= 6)
         for line in PUN_LINE.findall(t):
             seen.update(x.strip(" *") for x in line.split("|") if len(x.strip(" *")) >= 6)
         seen.update(n.strip() for _, n, _ in QUOTED_NICK.findall(t) if len(n.strip()) >= 6)
@@ -619,6 +634,9 @@ def finalize(lid):
         sys.exit(f"FAIL {txt.name}: pun-names repeat the real name, fuse them instead: {rep}")
     if stories and not re.search(r"^PUNS:", stories, re.M):
         sys.exit(f"FAIL {txt.name}: stories must end with the PUNS: and EPITHETS: lines")
+    poses, before = strip_poses(stories), last_strip_poses(lid, facts["week"])
+    if poses and poses == before:
+        sys.exit(f"FAIL {txt.name}: comic strip repeats last week's poses {poses}; change the gag")
     again = reused_puns(body + "\n" + stories, used_puns(lid, facts["week"]))
     if again:
         sys.exit(f"FAIL {txt.name}: pun-names/epithets already used in earlier weeks, invent new ones: {again}")
@@ -658,6 +676,9 @@ def main(argv):
         raw = fetch(lid, week)
         check_complete(raw, week)
         facts = analyze(raw, players_db(), week, aliases=league_cfg(lid).get("aliases"))
+        lastp = last_strip_poses(lid, week)
+        if lastp:
+            facts["last_strip_poses"] = lastp
         prior = used_puns(lid, week)
         if prior:
             facts["used_pun_names"] = prior                # the writer must not repeat these

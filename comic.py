@@ -48,7 +48,50 @@ def _props(pose):
     return p.get(pose, "")
 
 
-def rivet(pose):
+ACCESSORIES = ("fedora", "bowtie", "scarf", "tophat", "monocle", "cap")
+SCENES = ("stands", "goalpost", "rain", "night", "scoreboard", "plain")
+
+
+def accessory(kind):
+    k = {
+        "fedora": f'<path d="M64 42 h72 M76 42 q0 -16 24 -16 q24 0 24 16" fill="{PAPER}" stroke="{INK}" stroke-width="3"/>'
+                  f'<rect x="110" y="30" width="12" height="8" fill="{PAPER}" stroke="{INK}" stroke-width="1.5"/>'
+                  f'<text x="116" y="36.5" text-anchor="middle" font-size="5" font-family="Old Standard TT,serif" font-weight="700" fill="{INK}">PRESS</text>',
+        "bowtie": f'<path d="M100 92 l-12 -6 v12z M100 92 l12 -6 v12z" fill="{INK}"/><circle cx="100" cy="92" r="3" fill="{INK}"/>',
+        "scarf": f'<path d="M84 88 h32 v7 h-32z" fill="{PAPER}" stroke="{INK}" stroke-width="2.5"/>'
+                 f'<path d="M110 95 l4 20 h8 l-4 -20" fill="{PAPER}" stroke="{INK}" stroke-width="2.5"/>'
+                 + "".join(f'<line x1="{x}" y1="88" x2="{x}" y2="95" stroke="{INK}" stroke-width="2"/>' for x in (90, 98, 106)),
+        "tophat": f'<rect x="80" y="18" width="40" height="22" fill="{INK}"/><rect x="72" y="38" width="56" height="5" rx="2" fill="{INK}"/>'
+                  f'<rect x="80" y="32" width="40" height="4" fill="{PAPER}"/>',
+        "monocle": f'<circle cx="112" cy="62" r="11" fill="none" stroke="{INK}" stroke-width="2.5"/>'
+                   f'<path d="M122 66 q8 12 4 30" fill="none" stroke="{INK}" stroke-width="1.2"/>',
+        "cap": f'<path d="M74 42 q0 -18 26 -18 q26 0 26 18z" fill="{INK}"/><path d="M122 40 q18 0 22 6 h-24z" fill="{INK}"/>',
+    }
+    return k.get(kind, "")
+
+
+def scene(kind):
+    s = {
+        "stands": "".join(f'<path d="M{x} 150 a7 7 0 0 1 14 0" fill="none" stroke="{INK}" stroke-width="1.3"/>'
+                          f'<circle cx="{x + 7}" cy="138" r="4" fill="none" stroke="{INK}" stroke-width="1.3"/>'
+                          for x in (6, 22, 158, 174, 190) if x < 190) + f'<line x1="0" y1="152" x2="200" y2="152" stroke="{INK}" stroke-width="1"/>',
+        "goalpost": f'<path d="M22 184 v-60 M8 124 h28 M8 124 v-40 M36 124 v-40" fill="none" stroke="{INK}" stroke-width="3"/>',
+        "rain": "".join(f'<line x1="{x}" y1="{y}" x2="{x - 5}" y2="{y + 12}" stroke="{INK}" stroke-width="1.1"/>'
+                        for x, y in ((20, 30), (44, 80), (30, 130), (166, 36), (184, 90), (160, 140), (54, 20), (150, 110))),
+        "night": f'<path d="M168 18 a14 14 0 1 0 12 22 a11 11 0 1 1 -12 -22z" fill="{INK}"/>'
+                 + "".join(f'<path d="M{x} {y} l0 -6 M{x - 3} {y - 3} l6 0" stroke="{INK}" stroke-width="1.5"/>' for x, y in ((24, 30), (40, 70), (150, 70), (20, 110))),
+        "scoreboard": f'<rect x="4" y="100" width="44" height="30" fill="{INK}"/><rect x="10" y="106" width="14" height="18" fill="{PAPER}"/>'
+                      f'<rect x="28" y="106" width="14" height="18" fill="{PAPER}"/><line x1="26" y1="130" x2="26" y2="184" stroke="{INK}" stroke-width="3"/>',
+    }
+    return s.get(kind, "")
+
+
+def look(week, panel=1):
+    """Deterministic per week: costume changes every week, backdrop rotates per week and panel."""
+    return ACCESSORIES[week % len(ACCESSORIES)], SCENES[(week * 2 + panel) % len(SCENES)]
+
+
+def rivet(pose, week=0, panel=1):
     """Rivet: boxy tin head, rivets, spring antenna topped with a football, chest dial, stubby legs."""
     pose = pose if pose in ARMS else "default"
     shocked = pose in ("sweat", "facepalm")
@@ -66,8 +109,9 @@ def rivet(pose):
     brows = (f'<path d="M80 54 l14 -5 M120 54 l-14 -5" stroke="{INK}" stroke-width="2.5"/>' if pose == "shrug" else "")
     rivets = "".join(f'<circle cx="{x}" cy="{y}" r="1.8" fill="{INK}"/>' for x, y in ((75, 45), (125, 45), (75, 83), (125, 83), (76, 97), (124, 97), (76, 141), (124, 141)))
     hatch = "".join(f'<line x1="{x}" y1="94" x2="{x - 10}" y2="144" stroke="{INK}" stroke-width=".8"/>' for x in range(116, 128, 4))
+    acc, bg = look(week, panel)
     return (
-        f'<svg viewBox="0 0 200 200" class="rivet" role="img" aria-label="Rivet the robot, {html.escape(pose)}">'
+        f'<svg viewBox="0 0 200 200" class="rivet" role="img" aria-label="Rivet the robot, {html.escape(pose)}">{scene(bg)}'
         f'<line x1="20" y1="184" x2="180" y2="184" stroke="{INK}" stroke-width="2"/>'
         + "".join(f'<line x1="{x}" y1="186" x2="{x - 6}" y2="192" stroke="{INK}" stroke-width="1"/>' for x in range(30, 180, 14))
         + f'<path d="M100 40 l0 -4 l-5 -3 l10 -4 l-10 -4 l5 -3 l0 -3" fill="none" stroke="{INK}" stroke-width="2.2"/>'
@@ -84,7 +128,7 @@ def rivet(pose):
           f'<rect x="93" y="86" width="14" height="7" fill="{PAPER}" stroke="{INK}" stroke-width="2"/>'
           f'<rect x="72" y="40" width="56" height="46" rx="5" fill="{PAPER}" stroke="{INK}" stroke-width="3"/>'
           f'<rect x="66" y="56" width="6" height="14" fill="{PAPER}" stroke="{INK}" stroke-width="2"/><rect x="128" y="56" width="6" height="14" fill="{PAPER}" stroke="{INK}" stroke-width="2"/>'
-        + rivets + eyes + brows + mouth + "".join(_arm(a) for a in ARMS[pose]) + _props(pose) + "</svg>")
+        + rivets + eyes + brows + mouth + accessory(acc) + "".join(_arm(a) for a in ARMS[pose]) + _props(pose) + "</svg>")
 
 
 def parse(block_text):

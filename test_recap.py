@@ -159,6 +159,31 @@ class T(unittest.TestCase):
         finally:
             recap.POSTS = orig
 
+    def test_comic_changes_every_week(self):
+        import comic, recap, tempfile, json, pathlib
+        looks = [comic.look(w) for w in range(1, 7)]
+        self.assertTrue(all(looks[i][0] != looks[i + 1][0] for i in range(5)))       # new costume weekly
+        self.assertNotEqual(comic.rivet("reading", 3, 1), comic.rivet("reading", 4, 1))
+        d = pathlib.Path(tempfile.mkdtemp())
+        orig, recap.POSTS = recap.POSTS, d
+        try:
+            (d / "L_2026_w1_recap.stories.md").write_text("STRIP: Bench Press\n1. reading: a\n2. bench: b\n3. facepalm: c\nPUNS: x")
+            self.assertEqual(recap.last_strip_poses("L", 2), ["reading", "bench", "facepalm"])
+            self.assertIn("Bench Press", recap.used_puns("L", 2))
+            f = dict(self.f); f["week"] = 2
+            (d / "L_2026_w2_recap.facts.json").write_text(json.dumps(f))
+            (d / "L_2026_w2_recap.txt").write_text("John 90.5")
+            (d / "L_2026_w2_recap.stories.md").write_text("STRIP: Fresh Gag\n1. reading: a\n2. bench: b\n3. facepalm: c\nPUNS: x")
+            with self.assertRaises(SystemExit):                                     # same poses -> blocked
+                recap.finalize("L")
+            (d / "L_2026_w2_recap.stories.md").write_text("STRIP: Bench Press\n1. money: a\n2. sweat: b\n3. trophy: c\nPUNS: x")
+            with self.assertRaises(SystemExit):                                     # reused title -> blocked
+                recap.finalize("L")
+            (d / "L_2026_w2_recap.stories.md").write_text("STRIP: Fresh Gag\n1. money: a\n2. sweat: b\n3. trophy: c\nPUNS: x")
+            recap.finalize("L")
+        finally:
+            recap.POSTS = orig
+
     def test_incomplete_data_refused(self):
         r = raw()
         r["matchups"][2] = r["matchups"][2][:3]

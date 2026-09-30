@@ -392,7 +392,7 @@ def standings(f):
             f'<table>{head}{"".join(rows[half:])}</table></div>')
 
 
-def strip_html(md):
+def strip_html(md, week=0):
     m = re.search(rf"^STRIP:[ \t]*(.*?)\n(.*?){BLOCKS}", md, flags=re.M | re.S)
     if not m:
         return ""
@@ -400,7 +400,7 @@ def strip_html(md):
     if len(panels) < 3:
         return ""
     cells = "".join(
-        f'<figure class="panel"><div class="bubble">{wa(line)}</div>{comic.rivet(pose)}'
+        f'<figure class="panel"><div class="bubble">{wa(line)}</div>{comic.rivet(pose, week, n)}'
         f'<figcaption class="pn">{n}</figcaption></figure>' for n, (pose, line) in enumerate(panels, 1))
     return (f'<section class="funnies" id="funnies"><div class="section-h">The Funnies</div>'
             f'<p class="strip-title">“{wa(title)}” <span>starring Rivet, our robot correspondent</span></p>'
@@ -476,7 +476,7 @@ def page(f, text, stories, weeks, title_prefix="", others="", og_url=""):
 </div>
 </div>
 </div>
-{strip_html(stories)}
+{strip_html(stories, f["week"])}
 <footer>{others}Every figure verified against the Sleeper wire. The jokes are not.</footer>
 </main>
 <script>
