@@ -16,10 +16,10 @@ CSS = """
 @media (prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#0f0d09;--paper:#1d1912;--ink:#e9dfc6;--muted:#a8997c;--rule:#e9dfc6;--soft:#29231a;--accent:#d98a6e;--up:#9cc48f;--down:#d98a6e}}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.5 'Old Standard TT',Georgia,'Times New Roman',serif}
-.sheet{max-width:1240px;margin:0 auto;padding:22px 16px 48px;background:var(--paper);min-height:100vh;
+.sheet{max-width:1680px;margin:0 auto;padding:22px 16px 48px;background:var(--paper);min-height:100vh;
  background-image:radial-gradient(ellipse at 20% 10%,rgba(120,90,40,.07),transparent 60%),radial-gradient(ellipse at 85% 80%,rgba(120,90,40,.09),transparent 55%);
  box-shadow:0 0 0 1px rgba(0,0,0,.08),0 10px 40px rgba(0,0,0,.18)}
-@media(min-width:760px){.sheet{padding:28px 36px 56px}}
+@media(min-width:760px){.sheet{padding:28px 40px 56px}}
 .mast{display:grid;grid-template-columns:1fr;align-items:center;gap:8px;text-align:center;padding-bottom:6px}
 @media(min-width:760px){.mast{grid-template-columns:150px 1fr 150px}}
 .mast a{color:inherit;text-decoration:none}
@@ -42,12 +42,18 @@ h2.head{font:700 clamp(28px,5.4vw,58px)/1.02 'Old Standard TT',Georgia,serif;tex
 .tile .v{font:700 30px/1.15 'Old Standard TT',serif;font-variant-numeric:oldstyle-nums;margin:4px 0 2px}
 .tile .w{font:italic 14px/1.3 'IM Fell English',serif;overflow-wrap:anywhere}
 .orn{filter:grayscale(1) contrast(1.3);font-style:normal}
-.body{display:grid;grid-template-columns:1fr;gap:28px;margin-top:22px}
-@media(min-width:1000px){.body{grid-template-columns:1fr 320px}.body aside{border-left:1px solid var(--rule);padding-left:22px}}
-.cols{column-width:300px;column-gap:28px;column-rule:1px solid var(--rule)}
+.body{margin-top:22px}
+.cols{display:grid;grid-template-columns:1fr}
+@media(min-width:760px){.cols{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1150px){.cols{grid-template-columns:repeat(3,1fr)}}
+.cols .section-h{grid-column:1/-1}
 .section-h{font:700 13px/1 'Old Standard TT',serif;text-transform:uppercase;letter-spacing:3px;text-align:center;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);padding:6px 0;margin:0 0 14px;column-span:all}
-.bout{break-inside:avoid-column;margin:0 0 22px;padding-bottom:18px;border-bottom:1px solid var(--rule)}
-.bout h4{font:700 21px/1.12 'Old Standard TT',serif;text-transform:uppercase;text-align:center;margin:4px 0 4px;letter-spacing:.3px}
+.bout{min-width:0;padding:4px 18px 18px;margin-bottom:22px;border-bottom:1px solid var(--rule)}
+@media(min-width:760px){.bout{border-left:1px solid var(--rule)}.bout:nth-of-type(2n+1){border-left:0;padding-left:0}.bout:nth-of-type(2n){padding-right:0}}
+@media(min-width:1150px){.bout{padding:4px 22px 18px!important;border-left:1px solid var(--rule)!important}.bout:nth-of-type(3n+1){border-left:0!important;padding-left:0!important}.bout:nth-of-type(3n){padding-right:0!important}}
+@media(max-width:759px){.bout{padding:4px 0 18px}}
+.bout h4{font:700 24px/1.12 'Old Standard TT',serif;text-transform:uppercase;text-align:center;margin:4px 0 4px;letter-spacing:.3px;white-space:nowrap;overflow:hidden}
+.fit-wrap{white-space:normal!important}
 .bout .sub{text-align:center;font:italic 14px/1.3 'IM Fell English',serif;color:var(--muted);margin:0 0 10px}
 .bout .sub::before,.bout .sub::after{content:"— "}.bout .sub::after{content:" —"}
 .box{border-top:2px solid var(--rule);border-bottom:2px solid var(--rule);font:15px/1.3 'Old Standard TT',serif;margin:0 0 12px}
@@ -63,8 +69,11 @@ h2.head{font:700 clamp(28px,5.4vw,58px)/1.02 'Old Standard TT',Georgia,serif;tex
 blockquote{margin:12px 6px;padding:8px 0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);text-align:center;font:italic 18px/1.45 'IM Fell English',serif}
 .kicker{font:14px/1.45 'Old Standard TT',serif;margin:8px 0 0;text-align:center;text-indent:0!important}
 .kicker b{font-variant:small-caps;letter-spacing:1px;margin-right:6px;color:var(--accent)}
-aside h3{font:700 13px/1 'Old Standard TT',serif;text-transform:uppercase;letter-spacing:3px;text-align:center;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);padding:6px 0;margin:0 0 10px}
-aside section{margin-bottom:26px}
+.band h3{font:700 13px/1 'Old Standard TT',serif;text-transform:uppercase;letter-spacing:3px;text-align:center;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);padding:6px 0;margin:0 0 10px}
+.band{display:grid;grid-template-columns:1fr;gap:24px;margin-top:8px}
+@media(min-width:900px){.band{grid-template-columns:2fr 1fr}}
+.st2{display:grid;grid-template-columns:1fr;gap:0 28px}@media(min-width:760px){.st2{grid-template-columns:1fr 1fr}}
+.band .side section{margin-bottom:22px}
 table{width:100%;border-collapse:collapse;font:14px/1.25 'Old Standard TT',serif}
 td,th{padding:5px 3px;border-bottom:1px dotted var(--rule);text-align:left}
 th{font-size:11px;text-transform:uppercase;letter-spacing:1px;border-bottom:1px solid var(--rule)}
@@ -92,9 +101,9 @@ def arrow(prev, now):
     return f' <span class="{"up" if d > 0 else "down"}">{"▲" if d > 0 else "▼"}{abs(d)}</span>'
 
 
-def headline(f):
+def headline(f, banner=""):
     c, h, l = f["closest"], f["high"], f["low"]
-    head = f"{h['manager']} Drops {h['pts']}; {l['manager']} Sinks to {l['pts']}"
+    head = banner or f"{h['manager']} Drops {h['pts']}; {l['manager']} Sinks to {l['pts']}"
     deck = f"{c['winner']} survives {c['loser']} by {c['margin']}."
     if f.get("upsets"):
         u = f["upsets"][0]
@@ -125,8 +134,14 @@ def scorebox(g):
     return f'<div class="box">{rows}<div class="foot">{foot}</div></div>'
 
 
+def banner_of(md):
+    m = re.search(r"^BANNER:\s*(.+)$", md, flags=re.M)
+    return m.group(1).strip(" *") if m else ""
+
+
 def stories_html(md, f):
     out = []
+    md = re.sub(r"^BANNER:.*$", "", md, flags=re.M)
     for block in re.split(r"^###\s*", md, flags=re.M):
         block = block.strip()
         if not block:
@@ -169,16 +184,17 @@ def stories_html(md, f):
 
 
 def standings(f):
-    rows = "".join(
-        f"<tr><td>{s['rank']}</td><td>{E(s['manager'])}{arrow(s.get('prev_rank'), s['rank'])}</td><td>{s['record']}</td>"
-        f"<td class=n>{s['pf']}</td><td>{s['streak']}</td></tr>" for s in f["standings"])
-    return ("<table><tr><th>#</th><th>Manager</th><th>Rec</th><th class=n>PF</th><th>Strk</th></tr>"
-            + rows + "</table>")
+    head = "<tr><th>#</th><th>Manager</th><th>Rec</th><th class=n>PF</th><th>Strk</th></tr>"
+    rows = [f"<tr><td>{s['rank']}</td><td>{E(s['manager'])}{arrow(s.get('prev_rank'), s['rank'])}</td><td>{s['record']}</td>"
+            f"<td class=n>{s['pf']}</td><td>{s['streak']}</td></tr>" for s in f["standings"]]
+    half = (len(rows) + 1) // 2
+    return (f'<div class="st2"><table>{head}{"".join(rows[:half])}</table>'
+            f'<table>{head}{"".join(rows[half:])}</table></div>')
 
 
 def page(f, text, stories, weeks, title_prefix=""):
     league = E(f["league"])
-    head, deck = headline(f)
+    head, deck = headline(f, banner_of(stories))
     desc = E(f"{head}. {deck}")
     archive = " · ".join(f'<a href="week-{w}.html">Week {w}</a>' for w in sorted(weeks, reverse=True))
     wa_html = "<br>\n".join(wa(l) for l in text.splitlines())
@@ -202,14 +218,24 @@ def page(f, text, stories, weeks, title_prefix=""):
 <section class="lead"><h2 class="head">{E(head)}</h2><p class="deck">{E(deck)}</p>{tiles(f)}</section>
 <div class="body">
 {cols}
-<aside>
+<div class="band">
 <section><h3>The Standings</h3>{standings(f)}</section>
-<section><details><summary>📱 Wire copy (WhatsApp)</summary><article>{wa_html}</article></details></section>
+<div class="side">
 <section><h3>Back Issues</h3><nav class="archive">{archive}</nav></section>
-</aside>
+<section><details><summary>📱 Wire copy (WhatsApp)</summary><article>{wa_html}</article></details></section>
+</div>
+</div>
 </div>
 <footer>Every figure verified against the Sleeper wire. The jokes are not.</footer>
-</main></body></html>"""
+</main>
+<script>
+/* one-line headlines: shrink until they fit; wrap only as a last resort */
+function fit(){{document.querySelectorAll('.bout h4').forEach(function(h){{
+  h.classList.remove('fit-wrap');h.style.fontSize='';var s=parseFloat(getComputedStyle(h).fontSize);
+  while(h.scrollWidth>h.clientWidth&&s>14){{s-=.5;h.style.fontSize=s+'px';}}
+  if(h.scrollWidth>h.clientWidth)h.classList.add('fit-wrap');}});}}
+document.fonts&&document.fonts.ready.then(fit);fit();addEventListener('resize',fit);
+</script></body></html>"""
 
 
 def build():

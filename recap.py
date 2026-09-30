@@ -294,9 +294,10 @@ Sections, in order (skip if no data): 🏈 WEEK N RECAP, 👑 Top Dog, 💀 Base
 <rank>. <manager> <record> <▲n / ▼n / – from prev_rank> <streak if 2+>
 Then one line on the top and bottom of the table.
 
-PART 2 — Matchup stories for the league newspaper. One per game in "results", biggest
-margin last. For each, exactly this shape:
-### <one fitting emoji> <punny headline>
+PART 2 — Matchup stories for the league newspaper. Start with one line:
+BANNER: <front-page banner headline, a name pun, max 8 words>
+Then one story per game in "results", biggest margin last. For each, exactly this shape:
+### <one fitting emoji> <punny headline, max 32 characters so it fits on one line>
 <80-140 word story, in 1-2 short paragraphs; the page adds a scorebox, so don't restate the score line>
 🎭 <rhyming couplet, line 1>
 <couplet line 2>
@@ -312,6 +313,9 @@ Bucky -> "kicked the Bucky", Love -> "Love hurts". (Style examples only; invent 
 - Every story headline MUST be a pun on a player's (or manager's) name.
 - Every story body needs at least 3 more name puns, each on a different player.
 - The couplet should land a name pun too.
+- Give each manager a satirical newspaper epithet drawn from this week's facts and use it
+  once in their story, e.g. "dookkk the Unbeaten", "Marc 'Bagel' Katz", "CUTHISYR the Winless".
+  Epithets roast fantasy results only.
 - In PART 1, pun on a name in at least half the lines.
 - Pun on the sound or spelling as English wordplay only. Never mock a name as foreign,
   its origin or pronunciation, or anything about the person beyond their fantasy points.
