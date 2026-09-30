@@ -111,7 +111,12 @@ def build():
             issues[(int(m[1]), int(m[2]))] = (json.loads(facts.read_text(encoding="utf-8")), text.strip(),
                                               st.read_text(encoding="utf-8") if st.exists() else "")
     if not issues:
-        print("no issues yet")
+        (SITE / "index.html").write_text(
+            f"<!doctype html><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'>"
+            f"<title>Gazette</title><style>{CSS}</style><main><header class=mast><h1>The Gazette</h1></header>"
+            f"<p class=deck style='text-align:center;margin-top:24px'>First edition hits the stands Wednesday morning.</p></main>",
+            encoding="utf-8")
+        print("no issues yet; placeholder front page")
         return
     latest = max(issues)
     season = latest[0]
