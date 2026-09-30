@@ -404,17 +404,18 @@ def write(facts, cfg=CFG):
 
 
 # ---------------------------------------------------------------- main
-def league_path(lid):
-    """Folder for this league's Gazette ('' = site root). From leagues.json."""
+def league_cfg(lid):
+    """This league's entry in leagues.json: path ('' = site root) and site URL."""
     f = HERE / "leagues.json"
     for lg in json.loads(f.read_text(encoding="utf-8")) if f.exists() else []:
         if lg["id"] == lid:
-            return lg.get("path", "")
-    return ""
+            return lg
+    return {}
 
 
 def page_url(site, lid, week):
-    p = league_path(lid)
+    lg = league_cfg(lid)
+    site, p = lg.get("site") or site, lg.get("path", "")
     return f"{site.rstrip('/')}/{p + '/' if p else ''}week-{week}.html"
 
 
@@ -436,7 +437,7 @@ def finalize(lid):
     bad = unsupported_numbers(body + "\n" + stories, facts)
     if bad:
         sys.exit(f"FAIL {txt.name}: numbers not in facts: {bad}")
-    site = os.environ.get("GAZETTE_URL")
+    site = league_cfg(lid).get("site") or os.environ.get("GAZETTE_URL")
     if site and stories and link not in text:
         text = text.rstrip() + f"\n\n{link} {page_url(site, lid, facts['week'])}"
         txt.write_text(text, encoding="utf-8")
@@ -478,7 +479,7 @@ def main(argv):
         sys.exit(f"Sleeper data not ready/usable: {e}. Nothing generated.")
 
     text, stories, source, usage = write(facts)
-    site = os.environ.get("GAZETTE_URL")
+    site = league_cfg(lid).get("site") or os.environ.get("GAZETTE_URL")
     if site and stories:                              # appended after validation, by code
         text += f"\n\n📰 Full matchup stories: {page_url(site, lid, week)}"
     (POSTS / f"{key}.facts.json").write_text(json.dumps(facts, indent=1, ensure_ascii=False), encoding="utf-8")
