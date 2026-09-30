@@ -271,6 +271,19 @@ def allowed_numbers(facts):
     return ok
 
 
+QUOTED_NICK = re.compile(r"\b([A-Z][\w'.-]*)\s+[\"“‘]([^\"”’\n]+)[\"”’]\s+([A-Z][\w'.-]*)")
+
+
+def repeated_pun_names(text):
+    """Drake "London Bridges" London -> flagged. Marc "Bagel" Katz -> fine."""
+    out = []
+    for first, nick, last in QUOTED_NICK.findall(text):
+        words = set(re.findall(r"[a-z']+", nick.lower()))
+        if first.lower() in words or last.lower() in words:
+            out.append(f'{first} "{nick}" {last}')
+    return out
+
+
 def unsupported_numbers(text, facts):
     ok = allowed_numbers(facts)
     return sorted({n for n in NUM.findall(text) if norm(n) not in ok})
@@ -309,14 +322,17 @@ Style: mock-epic satire, like a 1900s newspaper war correspondent covering a bac
 game. Build the story around the players in winner_lineup / loser_lineup / bench crimes.
 
 NAME PUNS ARE THE HEART OF IT. Bend the player's name itself into a word or phrase:
-Purdy -> "Purdy please", Bijan -> "Bijan-gone", Tuten -> "rootin' Tuten",
-Gibbs -> "Gibbs and takes", Kittle -> "a Kittle bit of magic", Achane -> "a chain of events",
-Bucky -> "kicked the Bucky", Love -> "Love hurts". (Style examples only; invent your own.)
+"Brock Purdy Please", "Drake London Bridges", "Chuba Hubbard Times", "Be-Gone Robinson",
+"Rootin' Tuten", "Gibbs and Takes", "Jeremiyah Love Hurts". (Style examples only; invent your own.)
 - PUN-NAMES (house style): on first mention, rename each featured player by fusing a pun
   INTO the name, always keeping the real last name so readers know who it is. Techniques:
   swap the first name for a sound-alike ("Tee Shirt Higgins", "Territory McMillan"),
   insert a nickname ("TreVeyon 'Muppet Jim' Henderson", "Luther's Lair Burden"),
-  or crown them ("Derrick KING Henry"). The owner's reference paragraph:
+  or crown them ("Derrick KING Henry"). FUSE, DON'T REPEAT: the pun must read as one name
+  and must never repeat a word of the real name. BAD: Drake "London Bridges" London,
+  Brock "Purdy Please" Purdy. GOOD: Drake London Bridges, Brock Purdy Please.
+  A quoted nickname is only OK when it adds new words (TreVeyon "Muppet Jim" Henderson).
+  The owner's reference paragraph:
   "EvanBrand marched from #6 to #3 on the back of Brock Purdy (31.28) and Harold Fannin
   (24.1)... Luther's Lair Burden (19.8) sat the bench while TreVeyon Muppet Jim Henderson
   (3.9) limped through the FLEX slot. jessestern answered with Derrick KING Henry (21.9) and
@@ -439,6 +455,9 @@ def finalize(lid):
     bad = unsupported_numbers(body + "\n" + stories, facts)
     if bad:
         sys.exit(f"FAIL {txt.name}: numbers not in facts: {bad}")
+    rep = repeated_pun_names(body + "\n" + stories)
+    if rep:
+        sys.exit(f"FAIL {txt.name}: pun-names repeat the real name, fuse them instead: {rep}")
     site = league_cfg(lid).get("site") or os.environ.get("GAZETTE_URL")
     if site and stories and link not in text:
         text = text.rstrip() + f"\n\n{link} {page_url(site, lid, facts['week'])}"

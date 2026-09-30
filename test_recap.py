@@ -101,6 +101,13 @@ class T(unittest.TestCase):
         self.assertNotIn('"Mike"', blob)
         self.assertIn("The Nickname", blob)
 
+    def test_repeated_pun_names(self):
+        from recap import repeated_pun_names as rp
+        self.assertEqual(rp('Drake "London Bridges" London caught 28.4'), ['Drake "London Bridges" London'])
+        self.assertEqual(rp('Brock “Purdy Please” Purdy'), ['Brock "Purdy Please" Purdy'])
+        self.assertEqual(rp('TreVeyon "Muppet Jim" Henderson and Drake London Bridges'), [])
+        self.assertEqual(rp('Folding Table Champ "Bagel" Katz'), [])
+
     def test_incomplete_data_refused(self):
         r = raw()
         r["matchups"][2] = r["matchups"][2][:3]
