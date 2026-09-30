@@ -20,7 +20,8 @@ body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.5 'Old Standard 
 .mast{display:grid;grid-template-columns:1fr;align-items:center;gap:8px;text-align:center;padding-bottom:6px}
 @media(min-width:760px){.mast{grid-template-columns:150px 1fr 150px}}
 .mast a{color:inherit;text-decoration:none}
-.mast h1{font:400 clamp(38px,9vw,92px)/1 'UnifrakturMaguntia','Old English Text MT',serif;margin:0;letter-spacing:.5px}
+.mast h1{font:400 clamp(38px,9vw,92px)/1.05 'UnifrakturMaguntia','Old English Text MT',serif;margin:0;letter-spacing:.5px;white-space:nowrap;overflow:hidden}
+.mast a{min-width:0;display:block}.mast h1.fit-wrap{white-space:normal}
 .ear{display:none;border:1px solid var(--rule);padding:6px 8px;font:700 11px/1.35 'Old Standard TT',serif;text-transform:uppercase;letter-spacing:1px}
 @media(min-width:760px){.ear{display:block}}
 .ear small{display:block;font-weight:400;font-style:italic;text-transform:none;letter-spacing:0;font-size:12px}
@@ -96,6 +97,22 @@ details{font:14px/1.5 'Old Standard TT',serif;border:1px solid var(--rule);paddi
 summary{cursor:pointer;font-weight:700;text-transform:uppercase;letter-spacing:1px;font-size:12px}details article{margin-top:8px;font-family:system-ui,sans-serif;font-size:13px}
 .archive{text-align:center}.archive a{display:inline-block;margin:0 8px 6px;color:var(--accent);font-style:italic}
 footer{margin-top:36px;border-top:3px double var(--rule);padding-top:10px;font:italic 13px 'IM Fell English',serif;color:var(--muted);text-align:center}
+
+/* ---- UI pass ---- */
+.mgr{font-family:'Old Standard TT',Georgia,serif;font-style:normal}
+.jump{position:sticky;top:0;z-index:5;display:flex;justify-content:center;gap:4px 22px;flex-wrap:wrap;background:var(--paper);border-bottom:1px solid var(--rule);padding:8px 0;margin:-14px 0 18px;font:700 12px/1.2 'Old Standard TT',serif;text-transform:uppercase;letter-spacing:2px}
+.jump a{color:var(--ink);text-decoration:none;padding:4px 2px}.jump a:hover,.jump a:focus-visible{color:var(--accent);text-decoration:underline}
+[id]{scroll-margin-top:52px}
+.finder{max-width:900px;margin:0 auto 16px;text-align:center;font:15px/1.9 'Old Standard TT',serif}
+.finder b{font-variant:small-caps;letter-spacing:1px;margin-right:4px}
+.finder a{color:var(--accent);text-decoration:none;border-bottom:1px dotted var(--accent);white-space:nowrap}
+.finder a:hover,.finder a:focus-visible{border-bottom-style:solid}
+.bout:target{background:linear-gradient(var(--soft),var(--soft))}
+.ding{font-weight:700;color:var(--accent);font-family:'Old Standard TT',Georgia,serif}
+.box .row.lose{color:var(--muted)}.box .row.lose .pts{font-weight:400}.box .row.win .pts{font-size:20px}
+:root{--muted:#57524a}
+.tm-meta,.box .meta,.box .foot,.bout .sub,.h2h,.tile .w{font-size:14px}
+@media(max-width:759px){.bout p,.lead-cols p,.preview{text-align:left;hyphens:manual;-webkit-hyphens:manual}.jump{gap:4px 14px;letter-spacing:1px}}
 """
 
 
@@ -105,6 +122,40 @@ def wa(text):
     s = re.sub(r"\*\*([^*\n]+)\*\*", r"<strong>\1</strong>", s)
     s = re.sub(r"\*([^*\n]+)\*", r"<strong>\1</strong>", s)
     return re.sub(r"(?<!\w)_([^_\n]+)_(?!\w)", r"<em>\1</em>", s)
+
+
+def n2(x):
+    """Scores always show 2 decimals: 181.2 -> 181.20."""
+    try:
+        return f"{float(x):.2f}"
+    except (TypeError, ValueError):
+        return E(str(x))
+
+
+def slug(name):
+    return "m-" + re.sub(r"[^a-z0-9]+", "-", str(name).lower()).strip("-")
+
+
+def managers(f):
+    return sorted({s["manager"] for s in f.get("standings", [])}, key=len, reverse=True)
+
+
+def upright(html_body, f):
+    """Wrap manager names in text nodes with <span class=mgr> (upright, plain type)."""
+    names = [E(n) for n in managers(f) if n]
+    if not names:
+        return html_body
+    pat = re.compile(r"(?<![\w-])(" + "|".join(re.escape(n) for n in names) + r")(?![\w-])")
+    parts = re.split(r"(<[^>]+>)", html_body)
+    skip = 0
+    for i, p in enumerate(parts):
+        if p.startswith("<"):
+            if re.match(r"<(script|style|title)\b", p): skip += 1
+            elif re.match(r"</(script|style|title)>", p): skip -= 1
+            continue
+        if not skip:
+            parts[i] = pat.sub(r'<span class="mgr">\1</span>', p)
+    return "".join(parts)
 
 
 def arrow(prev, now):
@@ -131,19 +182,19 @@ def tiles(f):
              ("😬 Closest", c["margin"], f"{c['winner']} over {c['loser']}"),
              ("🔨 Blowout", b["margin"], f"{b['winner']} over {b['loser']}")]
     return '<div class="tiles">' + "".join(
-        f'<div class="tile"><div class="k"><span class="orn">{k.split(" ",1)[0]}</span> {k.split(" ",1)[1]}</div><div class="v">{v}</div><div class="w">{E(w)}</div></div>'
+        f'<div class="tile"><div class="k"><span class="orn">{k.split(" ",1)[0]}</span> {k.split(" ",1)[1]}</div><div class="v">{n2(v)}</div><div class="w">{E(w)}</div></div>'
         for k, v, w in items) + "</div>"
 
 
 def scorebox(g):
     rows = ""
-    for side, cls in (("winner", "win"), ("loser", "")):
+    for side, cls in (("winner", "win"), ("loser", "lose")):
         rows += (f'<div class="row {cls}"><span class="tm">{E(g[side])}</span>'
                  f'<span class="meta">{g.get(side + "_record", "")} · #{g.get(side + "_rank", "")}'
                  f'{arrow(g.get(side + "_prev_rank"), g.get(side + "_rank"))}</span>'
-                 f'<span class="pts">{g[side + "_pts"]}</span></div>')
+                 f'<span class="pts">{n2(g[side + "_pts"])}</span></div>')
     star = (g.get("winner_lineup") or {}).get("stars") or []
-    foot = f"Margin {g['margin']}" + (f" · Star: {E(star[0]['player'])} {star[0]['pts']}" if star else "")
+    foot = f"Margin {n2(g['margin'])}" + (f" · Star: {E(star[0]['player'])} {n2(star[0]['pts'])}" if star else "")
     return f'<div class="box">{rows}<div class="foot">{foot}</div></div>'
 
 
@@ -171,7 +222,7 @@ def lead_html(md):
         return ""
     paras = [re.sub(r"\s*\n\s*", " ", p).strip() for p in re.split(r"\n\s*\n", lead) if p.strip()]
     ps = "".join(f'<p class="{"lede" if n == 0 else ""}">{wa(p)}</p>' for n, p in enumerate(paras))
-    return f'<section class="leadstory"><div class="section-h">The Week in Review</div><div class="lead-cols">{ps}</div></section>'
+    return f'<section class="leadstory" id="review"><div class="section-h">The Week in Review</div><div class="lead-cols">{ps}</div></section>'
 
 
 def stories_html(md, f):
@@ -204,7 +255,8 @@ def stories_html(md, f):
         if cur:
             paras.append(" ".join(cur))
         paras = [re.sub(r"[🔥🧊]\s*", "", p) for p in paras]          # decluttered prose
-        orn = lambda h: re.sub(r"([🚑💸🔄])", r'<span class="orn">\1</span>', h)
+        DING = {"🚑": "✚", "💸": "$", "🔄": "⇄"}
+        orn = lambda h: re.sub(r"[🚑💸🔄]\s*", lambda m: f'<span class="ding">{DING[m.group(0).strip()]}</span> ', h)
         html_p = "".join(f'<p class="{"lede" if n == 0 else ""}">{orn(wa(p))}</p>' for n, p in enumerate(paras))
         quote = f"<blockquote>{'<br>'.join(wa(c) for c in couplet)}</blockquote>" if couplet else ""
         kick = f'<p class="kicker"><b>Kicker</b>{wa(kicker)}</p>' if kicker else ""
@@ -214,7 +266,8 @@ def stories_html(md, f):
         if rest and not any(ch.isalnum() for ch in first):             # leading emoji -> woodcut ornament
             orn, t = f'<span class="orn">{first}</span> ', rest
         sub = f'<p class="sub">{E(game["winner"])} vs. {E(game["loser"])}</p>' if game else ""
-        out.append(f'<section class="cell bout"><h4>{orn}{E(t)}</h4>{sub}'
+        aid = f' id="{slug(game["winner"])}"' if game else ""
+        out.append(f'<section class="cell bout"{aid}><h4>{orn}{E(t)}</h4>{sub}'
                    f'{scorebox(game) if game else ""}{html_p}{quote}{kick}</section>')
     return "".join(out)
 
@@ -287,7 +340,7 @@ def power_html(f, md):
         f"<tr><td>{p['power_rank']}</td><td>{E(p['manager'])}{arrow(p.get('prev_power_rank'), p['power_rank'])}</td>"
         f"<td>{p['record']}</td><td class=n>{p['all_play']}</td><td class=roast>{wa(roast(p['manager']))}</td></tr>"
         for p in pr)
-    return (f'<section class="power"><div class="section-h">Power Rankings</div>'
+    return (f'<section class="power" id="power"><div class="section-h">Power Rankings</div>'
             f'<p class="note">Ranked by all-play record: how each team would fare against every team, every week.</p>'
             f'<table><tr><th>#</th><th>Manager</th><th>Rec</th><th class=n>All-play</th><th>The word on the street</th></tr>{rows}</table></section>')
 
@@ -295,13 +348,26 @@ def power_html(f, md):
 def standings(f):
     head = "<tr><th>#</th><th>Manager</th><th>Rec</th><th class=n>PF</th><th>Strk</th></tr>"
     rows = [f"<tr><td>{s['rank']}</td><td>{E(s['manager'])}{arrow(s.get('prev_rank'), s['rank'])}</td><td>{s['record']}</td>"
-            f"<td class=n>{s['pf']}</td><td>{s['streak']}</td></tr>" for s in f["standings"]]
+            f"<td class=n>{n2(s['pf'])}</td><td>{s['streak']}</td></tr>" for s in f["standings"]]
     half = (len(rows) + 1) // 2
     return (f'<div class="st2"><table>{head}{"".join(rows[:half])}</table>'
             f'<table>{head}{"".join(rows[half:])}</table></div>')
 
 
-def page(f, text, stories, weeks, title_prefix="", others=""):
+def finder(f, stories):
+    """'Find your team': each manager links to their matchup story."""
+    links = []
+    for g in f.get("results", []):
+        for side in ("winner", "loser"):
+            links.append((g[side], slug(g["winner"])))
+    if not stories or not links:
+        return ""
+    links.sort(key=lambda x: x[0].lower())
+    return ('<nav class="finder" aria-label="Find your team"><b>Find your team:</b> '
+            + " · ".join(f'<a href="#{a}">{E(n)}</a>' for n, a in links) + "</nav>")
+
+
+def page(f, text, stories, weeks, title_prefix="", others="", og_url=""):
     league = E(f["league"])
     head, deck = headline(f, banner_of(stories))
     desc = E(f"{head}. {deck}")
@@ -313,17 +379,24 @@ def page(f, text, stories, weeks, title_prefix="", others=""):
         empty = (-bouts.count('class="cell bout"')) % 3            # holes in the last row of 3
         fill, rest = feats[:empty], feats[empty:]
         fill = [x.replace('<div class="feat">', '<section class="cell feat">', 1)[:-6] + "</section>" for x in fill]
-        cols = f'<div class="section-h">The Matchups</div><div class="cols">{bouts}{"".join(fill)}</div>'
+        cols = f'<div class="section-h" id="matchups">The Matchups</div><div class="cols">{bouts}{"".join(fill)}</div>'
     else:
         rest = feats
         cols = f'<article>{wa_html}</article>'
     features = f'<div class="features">{"".join(rest)}</div>' if rest else ""
-    return f"""<!doctype html><html lang="en"><head><meta charset="utf-8">
+    og_img = (f'\n<meta property="og:image" content="{og_url}"><meta property="og:image:width" content="1200">'
+              f'<meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image">'
+              if og_url else "")
+    jump = [("#review", "Review") if lead_of(stories) else None, ("#matchups", "Matchups") if stories else None,
+            ("#power", "Power") if f.get("power_rankings") else None, ("#standings", "Standings")]
+    jumpbar = '<nav class="jump" aria-label="Sections">' + "".join(f'<a href="{h}">{t}</a>' for h, t in filter(None, jump)) + "</nav>"
+    return upright_page(f"""<!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow,noarchive">
 <title>{title_prefix}{league} Gazette</title>
 <meta property="og:title" content="{league} Gazette — Week {f['week']}">
 <meta property="og:description" content="{desc}"><meta name="description" content="{desc}">
+<meta property="og:type" content="article">{og_img}
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
 <meta name='color-scheme' content='light'><style>{CSS}</style></head><body><main class="sheet">
@@ -334,14 +407,15 @@ def page(f, text, stories, weeks, title_prefix="", others=""):
 </header>
 <div class="rules"></div>
 <div class="dateline"><span>Vol. {f['season']} · No. {f['week']}</span><i>“All the Scores That Are Fit to Print”</i><span>Late City Final</span></div>
-<section class="lead"><h2 class="head">{E(head)}</h2><p class="deck">{E(deck)}</p>{tiles(f)}</section>
+{jumpbar}
+<section class="lead"><h2 class="head">{E(head)}</h2><p class="deck">{E(deck)}</p>{finder(f, stories)}{tiles(f)}</section>
 {lead_html(stories)}
 <div class="body">
 {cols}
 {features}
 {power_html(f, stories)}
 <div class="band">
-<section><h3>The Official Standings</h3>{standings(f)}</section>
+<section id="standings"><h3>The Official Standings</h3>{standings(f)}</section>
 <div class="side">
 <section><h3>Back Issues</h3><nav class="archive">{archive}</nav></section>
 <section><details><summary>📱 Wire copy (Mobile)</summary><article>{wa_html}</article></details></section>
@@ -352,12 +426,18 @@ def page(f, text, stories, weeks, title_prefix="", others=""):
 </main>
 <script>
 /* one-line headlines: shrink until they fit; wrap only as a last resort */
-function fit(){{document.querySelectorAll('.bout h4').forEach(function(h){{
+function fit(){{document.querySelectorAll('.bout h4,.mast h1').forEach(function(h){{
   h.classList.remove('fit-wrap');h.style.fontSize='';var s=parseFloat(getComputedStyle(h).fontSize);
-  while(h.scrollWidth>h.clientWidth&&s>14){{s-=.5;h.style.fontSize=s+'px';}}
+  var min=h.tagName==='H1'?26:14;
+  while(h.scrollWidth>h.clientWidth&&s>min){{s-=.5;h.style.fontSize=s+'px';}}
   if(h.scrollWidth>h.clientWidth)h.classList.add('fit-wrap');}});}}
 document.fonts&&document.fonts.ready.then(fit);fit();addEventListener('resize',fit);
-</script></body></html>"""
+</script></body></html>""", f)
+
+
+def upright_page(doc, f):
+    head, sep, body = doc.partition("<body>")
+    return head + sep + upright(body, f)
 
 
 def load(lid):
@@ -377,6 +457,70 @@ def placeholder(name):
     return (f"<!doctype html><meta charset=utf-8><meta name=robots content='noindex,nofollow'><meta name=viewport content='width=device-width,initial-scale=1'>"
             f"<title>{E(name)} Gazette</title><style>{CSS}</style><main class=sheet><header class=mast><h1>The {E(name)} Gazette</h1></header>"
             f"<p class=deck style='text-align:center;margin-top:24px'>First edition hits the stands Wednesday morning.</p></main>")
+
+
+FONTS = HERE / "fonts"
+
+
+def og_image(f, head, path):
+    """1200x630 share card: masthead, banner headline, four stat tiles. Skips if Pillow is missing."""
+    try:
+        from PIL import Image, ImageDraw, ImageFont
+    except ImportError:
+        return False
+    W, H, ink, muted, paper = 1200, 630, (28, 27, 25), (87, 82, 74), (255, 254, 251)
+    img = Image.new("RGB", (W, H), paper)
+    d = ImageDraw.Draw(img)
+    font = lambda name, size: ImageFont.truetype(str(FONTS / name), size)
+    def fit(text, name, size, maxw, minsize=20):
+        while size > minsize and d.textlength(text, font=font(name, size)) > maxw:
+            size -= 2
+        return font(name, size)
+    d.rectangle([18, 18, W - 19, H - 19], outline=ink, width=2)
+    title = f"The {f['league']} Gazette"
+    ft = fit(title, "UnifrakturMaguntia-Book.ttf", 96, W - 120)
+    d.text((W / 2, 92), title, font=ft, fill=ink, anchor="mm")
+    d.line([48, 150, W - 48, 150], fill=ink, width=5)
+    d.line([48, 158, W - 48, 158], fill=ink, width=1)
+    dl = font("OldStandard-Bold.ttf", 20)
+    d.text((48, 182), f"VOL. {f['season']} · NO. {f['week']}", font=dl, fill=ink, anchor="lm")
+    d.text((W - 48, 182), "LATE CITY FINAL", font=dl, fill=ink, anchor="rm")
+    d.text((W / 2, 182), "“All the Scores That Are Fit to Print”", font=font("OldStandard-Italic.ttf", 21), fill=muted, anchor="mm")
+    d.line([48, 204, W - 48, 204], fill=ink, width=1)
+    # banner headline: up to 2 lines, shrink to fit
+    words, size = head.upper().split(), 70
+    while True:
+        fh = font("OldStandard-Bold.ttf", size)
+        lines, cur = [], ""
+        for w in words:
+            t = (cur + " " + w).strip()
+            if d.textlength(t, font=fh) <= W - 130 or not cur:
+                cur = t
+            else:
+                lines.append(cur); cur = w
+        lines.append(cur)
+        if (len(lines) <= 2 and all(d.textlength(l, font=fh) <= W - 130 for l in lines)) or size <= 34:
+            break
+        size -= 3
+    y = 322 - (len(lines) - 1) * size * 0.55
+    for l in lines[:3]:
+        d.text((W / 2, y), l, font=fh, fill=ink, anchor="mm"); y += size * 1.1
+    # stat tiles
+    c, b = f["closest"], f["blowout"]
+    tiles = [("HIGH", f["high"]["pts"], f["high"]["manager"]), ("LOW", f["low"]["pts"], f["low"]["manager"]),
+             ("CLOSEST", c["margin"], c["winner"]), ("BLOWOUT", b["margin"], b["winner"])]
+    top, tw = 440, (W - 96) / 4
+    d.line([48, top, W - 48, top], fill=ink, width=2)
+    d.line([48, H - 48, W - 48, H - 48], fill=ink, width=2)
+    for i, (k, v, who) in enumerate(tiles):
+        cx = 48 + tw * i + tw / 2
+        if i:
+            d.line([48 + tw * i, top + 14, 48 + tw * i, H - 62], fill=ink, width=1)
+        d.text((cx, top + 32), k, font=font("OldStandard-Bold.ttf", 18), fill=ink, anchor="mm")
+        d.text((cx, top + 82), n2(v), font=font("OldStandard-Bold.ttf", 50), fill=ink, anchor="mm")
+        d.text((cx, top + 128), who, font=fit(who, "OldStandard-Regular.ttf", 22, tw - 24, 14), fill=muted, anchor="mm")
+    img.save(path, optimize=True)
+    return True
 
 
 def build():
@@ -399,11 +543,16 @@ def build():
             continue
         latest = max(issues)
         weeks = [w for (s, w) in issues if s == latest[0]]
+        base = (lg.get("site") or "").rstrip("/") + ("/" + lg["path"] if lg["path"] else "")
         for (s, w), (f, text, stories) in issues.items():
             if s == latest[0]:
-                (out / f"week-{w}.html").write_text(page(f, text, stories, weeks, f"Week {w} · ", others), encoding="utf-8")
-        f, text, stories = issues[latest]
-        (out / "index.html").write_text(page(f, text, stories, weeks, "", others), encoding="utf-8")
+                img = f"og-week-{w}.png"
+                ok = og_image(f, headline(f, banner_of(stories))[0], out / img)
+                url = f"{base}/{img}" if ok and base else ""
+                html_ = page(f, text, stories, weeks, f"Week {w} · ", others, url)
+                (out / f"week-{w}.html").write_text(html_, encoding="utf-8")
+                if (s, w) == latest:
+                    (out / "index.html").write_text(page(f, text, stories, weeks, "", others, url), encoding="utf-8")
         print(f"{name}: {len(weeks)} issue(s); front page = week {latest[1]}")
 
 
