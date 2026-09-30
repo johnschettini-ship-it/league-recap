@@ -302,9 +302,19 @@ margin last. For each, exactly this shape:
 <couplet line 2>
 🎤 *Kicker:* <one line>
 Icons in the story body: at most 🚑 (bench crime), 💸 (FAAB pickup), 🔄 (trade). No others.
-Style: mock-epic satire, like a war correspondent or a Greek chorus covering a backyard
-game. Build the story around the players in winner_lineup / loser_lineup / bench crimes,
-and pun hard on their names (e.g. a manager who "bet on a Tuten and got stung by a Bijan").
+Style: mock-epic satire, like a 1900s newspaper war correspondent covering a backyard
+game. Build the story around the players in winner_lineup / loser_lineup / bench crimes.
+
+NAME PUNS ARE THE HEART OF IT. Bend the player's name itself into a word or phrase:
+Purdy -> "Purdy please", Bijan -> "Bijan-gone", Tuten -> "rootin' Tuten",
+Gibbs -> "Gibbs and takes", Kittle -> "a Kittle bit of magic", Achane -> "a chain of events",
+Bucky -> "kicked the Bucky", Love -> "Love hurts". (Style examples only; invent your own.)
+- Every story headline MUST be a pun on a player's (or manager's) name.
+- Every story body needs at least 3 more name puns, each on a different player.
+- The couplet should land a name pun too.
+- In PART 1, pun on a name in at least half the lines.
+- Pun on the sound or spelling as English wordplay only. Never mock a name as foreign,
+  its origin or pronunciation, or anything about the person beyond their fantasy points.
 Work each side's record, rank move (prev_rank -> rank) and streak into the story.
 Poetic rhythm welcome.
 
