@@ -53,7 +53,7 @@ h2.head{font:700 clamp(28px,5.4vw,58px)/1.02 'Old Standard TT',Georgia,serif;tex
 .preview{text-align:justify;hyphens:auto;-webkit-hyphens:auto;margin:6px 0 0}
 .power{margin:10px 0 26px}.power .note{text-align:center;font:italic 14px 'IM Fell English',serif;color:var(--muted);margin:-6px 0 10px}
 .power td.roast{font:italic 15px/1.35 'IM Fell English',serif}
-@media(max-width:640px){.power th:nth-child(4),.power td:nth-child(4){display:none}}
+
 .leadstory{margin:22px 0 8px}
 .lead-cols{max-width:760px;margin:0 auto;font-size:19px;line-height:1.65}
 .lead-cols p{margin:0 0 14px;text-align:justify;hyphens:auto;-webkit-hyphens:auto}
@@ -122,7 +122,16 @@ td.n,th.n{text-align:right;padding-right:14px;font-variant-numeric:tabular-nums 
 td.st,th.st{text-align:left;padding-left:8px;font-variant-numeric:tabular-nums}
 .pw th.roast,.pw td.roast{padding-left:14px}
 td .up,td .down{font-size:.8em;margin-left:4px;white-space:nowrap}
-@media(max-width:640px){.c-mg{width:auto}.pw .c-ap{width:0}}
+
+
+@media(max-width:640px){
+ .pw colgroup{display:none}
+ .pw,.pw tbody{display:block;width:100%}
+ .pw tr{display:grid;grid-template-columns:2em minmax(0,1fr) 3em 4.4em;align-items:baseline;border-bottom:1px dotted var(--rule);padding:6px 0}
+ .pw td,.pw th{border:0;padding:2px 3px}
+ .pw th.roast{display:none}
+ .pw td.roast{grid-column:2/-1;padding:2px 3px 2px 3px!important;line-height:1.4}
+}
 """
 
 
