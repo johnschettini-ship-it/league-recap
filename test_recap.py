@@ -82,12 +82,12 @@ class T(unittest.TestCase):
         try:
             (d / "L_2026_w2_recap.facts.json").write_text(json.dumps(self.f))
             (d / "L_2026_w2_recap.txt").write_text("John 90.5")
-            (d / "L_2026_w2_recap.stories.md").write_text("### Hi\nMike by 0.4")
+            (d / "L_2026_w2_recap.stories.md").write_text("### Hi\nMike by 0.4\nPUNS: none yet")
             recap.finalize("L")
             self.assertIn("week-2.html", (d / "L_2026_w2_recap.txt").read_text())
             recap.finalize("L")                                   # idempotent: one link only
             self.assertEqual((d / "L_2026_w2_recap.txt").read_text().count("📰"), 1)
-            (d / "L_2026_w2_recap.stories.md").write_text("### Hi\nMike by 9.9")
+            (d / "L_2026_w2_recap.stories.md").write_text("### Hi\nMike by 9.9\nPUNS: none yet")
             with self.assertRaises(SystemExit):
                 recap.finalize("L")
         finally:
@@ -136,6 +136,28 @@ class T(unittest.TestCase):
         self.assertEqual((m["a"]["manager"], m["b"]["manager"], m["week"]), ("John", "Mike", 3))
         self.assertEqual(m["head_to_head"], [{"week": 1, "winner": "John", "score": "60.0-30.0"}])
         self.assertIsNone(self.f["next_week"])                      # no pairings published -> skip
+
+    def test_pun_names_never_repeat_across_weeks(self):
+        import recap, tempfile, json, pathlib
+        d = pathlib.Path(tempfile.mkdtemp())
+        orig, recap.POSTS = recap.POSTS, d
+        try:
+            (d / "L_2026_w1_recap.stories.md").write_text('### Hi\nDrake "London Bridges" London\nPUNS: Brock Purdy Please | Tee Shirt Higgins\nEPITHETS: John the Unbeaten')
+            self.assertEqual(recap.used_puns("L", 2), ["Brock Purdy Please", "John the Unbeaten", "London Bridges", "Tee Shirt Higgins"])
+            self.assertEqual(recap.used_puns("L", 1), [])                    # only earlier weeks count
+            f = dict(self.f); f["week"] = 2
+            (d / "L_2026_w2_recap.facts.json").write_text(json.dumps(f))
+            (d / "L_2026_w2_recap.txt").write_text("John 90.5")
+            (d / "L_2026_w2_recap.stories.md").write_text("### Hi\nBrock Purdy Please by 0.4\nPUNS: Brock Purdy Please")
+            with self.assertRaises(SystemExit):                              # reused -> blocked
+                recap.finalize("L")
+            (d / "L_2026_w2_recap.stories.md").write_text("### Hi\nPurdy Pleased As Punch by 0.4")
+            with self.assertRaises(SystemExit):                              # missing PUNS line -> blocked
+                recap.finalize("L")
+            (d / "L_2026_w2_recap.stories.md").write_text("### Hi\nPurdy Pleased As Punch by 0.4\nPUNS: Purdy Pleased As Punch")
+            recap.finalize("L")                                              # fresh -> passes
+        finally:
+            recap.POSTS = orig
 
     def test_incomplete_data_refused(self):
         r = raw()

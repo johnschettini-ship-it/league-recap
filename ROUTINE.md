@@ -13,7 +13,8 @@ Follow these steps exactly. Stop and report if a step fails. Never invent a numb
    - overwrite `posts/<key>.txt` with PART 1 (the WhatsApp recap)
    - write PART 2 (banner + matchup stories) to `posts/<key>.stories.md`
 5. `python recap.py --league=<id> --finalize` — checks every number against the facts and
-   pun-names that repeat the real name, then adds the Gazette link. If it fails, fix only what
+   pun-names that repeat the real name or reuse an earlier week's pun-name/epithet, then adds
+   the Gazette link. If it fails, fix only what
    it flags (numbers from the facts; fuse repeated pun-names like "Drake London Bridges") and rerun.
    After 2 failures: delete `posts/<key>.stories.md`, run `python recap.py --league=<id> --regen`
    to restore the plain template, and continue.

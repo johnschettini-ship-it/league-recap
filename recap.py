@@ -435,7 +435,11 @@ Then the power rankings roasts, one line per team in power_rankings order:
 POWER:
 <power_rank>. <manager> — <roast, max 15 words, drawn from their facts; all_play vs record = luck,
 last3_all_play = current form. Call all_play the "true record", never "all-play".>
-Then one story per game in "results", biggest margin last. For each, exactly this shape:
+Then one story per game in "results", biggest margin last.
+End PART 2 with two lines listing, exactly as written, every pun-name and manager epithet
+you used anywhere this week (they are logged so next week can't repeat them):
+PUNS: <pun-name> | <pun-name> | ...
+EPITHETS: <manager + epithet> | ... For each, exactly this shape:
 ### <one fitting emoji> <punny headline, max 32 characters so it fits on one line>
 <80-140 word story, in 1-2 short paragraphs; the page adds a scorebox, so don't restate the score line>
 🎭 <rhyming couplet, line 1>
@@ -461,7 +465,8 @@ NAME PUNS ARE THE HEART OF IT. Bend the player's name itself into a word or phra
   (24.1)... Luther's Lair Burden (19.8) sat the bench while TreVeyon Muppet Jim Henderson
   (3.9) limped through the FLEX slot. jessestern answered with Derrick KING Henry (21.9) and
   Tee Shirt Higgins (21.0), but Territory McMillan (3.7) left the door ajar."
-  Invent fresh pun-names each week; reusing one that fits a player is fine.
+  NEVER reuse a pun-name or epithet listed in used_pun_names (earlier weeks of this league).
+  Every week needs brand-new ones, even for the same player.
 - Every story headline MUST be a pun on a player's (or manager's) name.
 - Every story body needs at least 3 more name puns, each on a different player.
 - The couplet should land a name pun too.
@@ -561,6 +566,28 @@ def page_url(site, lid, week):
     return f"{site.rstrip('/')}/{p + '/' if p else ''}week-{week}.html"
 
 
+PUN_LINE = re.compile(r"^(?:PUNS|EPITHETS):\s*(.*)$", re.M)
+
+
+def used_puns(lid, week):
+    """Pun-names/epithets from this league's earlier weeks (logged lines + quoted nicknames)."""
+    seen = set()
+    for p in POSTS.glob(f"{lid}_*_recap.stories.md"):
+        m = re.search(r"_w(\d+)_recap", p.name)
+        if not m or int(m.group(1)) >= week:
+            continue
+        t = p.read_text(encoding="utf-8")
+        for line in PUN_LINE.findall(t):
+            seen.update(x.strip(" *") for x in line.split("|") if len(x.strip(" *")) >= 6)
+        seen.update(n.strip() for _, n, _ in QUOTED_NICK.findall(t) if len(n.strip()) >= 6)
+    return sorted(seen, key=str.lower)
+
+
+def reused_puns(text, previous):
+    body = PUN_LINE.sub("", text)
+    return [p for p in previous if re.search(r"(?<![\w'])" + re.escape(p) + r"(?![\w'])", body, re.I)]
+
+
 def finalize(lid):
     """Routine mode: Claude wrote the .txt/.stories.md by hand. Check every number
     against the facts, then add the Gazette link. No network. Exit 1 on failure."""
@@ -582,6 +609,11 @@ def finalize(lid):
     rep = repeated_pun_names(body + "\n" + stories)
     if rep:
         sys.exit(f"FAIL {txt.name}: pun-names repeat the real name, fuse them instead: {rep}")
+    if stories and not re.search(r"^PUNS:", stories, re.M):
+        sys.exit(f"FAIL {txt.name}: stories must end with the PUNS: and EPITHETS: lines")
+    again = reused_puns(body + "\n" + stories, used_puns(lid, facts["week"]))
+    if again:
+        sys.exit(f"FAIL {txt.name}: pun-names/epithets already used in earlier weeks, invent new ones: {again}")
     site = league_cfg(lid).get("site") or os.environ.get("GAZETTE_URL")
     if site and stories and link not in text:
         text = text.rstrip() + f"\n\n{link} {page_url(site, lid, facts['week'])}"
@@ -618,6 +650,9 @@ def main(argv):
         raw = fetch(lid, week)
         check_complete(raw, week)
         facts = analyze(raw, players_db(), week, aliases=league_cfg(lid).get("aliases"))
+        prior = used_puns(lid, week)
+        if prior:
+            facts["used_pun_names"] = prior                # the writer must not repeat these
         if league_cfg(lid).get("display_name"):        # masthead override from leagues.json
             facts["league"] = league_cfg(lid)["display_name"]
     except Exception as e:                            # no fabrication on bad data

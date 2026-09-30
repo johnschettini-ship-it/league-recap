@@ -121,7 +121,7 @@ td,th{overflow-wrap:anywhere;vertical-align:baseline}
 td.n,th.n{text-align:right;padding-right:14px;font-variant-numeric:tabular-nums lining-nums}
 td.st,th.st{text-align:left;padding-left:8px;font-variant-numeric:tabular-nums}
 .pw th.roast,.pw td.roast{padding-left:14px}
-td .up,td .down{font-size:.8em;margin-left:4px;white-space:nowrap}
+td .up,td .down{font-size:.8em;margin-left:1px;white-space:nowrap}
 
 
 @media(max-width:640px){
@@ -181,7 +181,7 @@ def arrow(prev, now):
     if prev is None or prev == now:
         return ""
     d = prev - now
-    return f' <span class="{"up" if d > 0 else "down"}">{"▲" if d > 0 else "▼"}{abs(d)}</span>'
+    return f'&nbsp;<span class="{"up" if d > 0 else "down"}">{"▲" if d > 0 else "▼"}{abs(d)}</span>'
 
 
 def headline(f, banner=""):
@@ -222,7 +222,7 @@ def banner_of(md):
     return m.group(1).strip(" *") if m else ""
 
 
-BLOCKS = r"(?=^(?:BANNER|LEAD|MARQUEE|POWER):|^###|\Z)"
+BLOCKS = r"(?=^(?:BANNER|LEAD|MARQUEE|POWER|PUNS|EPITHETS):|^###|\Z)"
 
 
 def block(md, name):
@@ -246,7 +246,7 @@ def lead_html(md):
 
 def stories_html(md, f):
     out = []
-    md = re.sub(r"^BANNER:.*$", "", md, flags=re.M)
+    md = re.sub(r"^(?:BANNER|PUNS|EPITHETS):.*$", "", md, flags=re.M)
     md = re.sub(rf"^(?:LEAD|MARQUEE|POWER):.*?{BLOCKS}", "", md, flags=re.M | re.S)
     for block in re.split(r"^###\s*", md, flags=re.M):
         block = block.strip()
