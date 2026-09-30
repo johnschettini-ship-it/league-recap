@@ -40,6 +40,19 @@ h2.head{font:700 clamp(28px,5.4vw,58px)/1.02 'Old Standard TT',Georgia,serif;tex
 .tile .w{font:italic 14px/1.3 'IM Fell English',serif;overflow-wrap:anywhere}
 .orn{filter:grayscale(1) contrast(1.3);font-style:normal}
 .body{margin-top:22px}
+.features{display:grid;grid-template-columns:1fr;margin:6px 0 18px}
+@media(min-width:900px){.features{grid-template-columns:repeat(3,1fr)}.feat{padding:0 22px;border-left:1px solid var(--rule)}.feat:first-child{border-left:0;padding-left:0}.feat:last-child{padding-right:0}}
+.feat{margin-bottom:18px}
+.list{list-style:none;margin:0;padding:0}.list li{padding:7px 0;border-bottom:1px dotted var(--rule);line-height:1.35}
+.list b{font-variant:small-caps;letter-spacing:.5px;margin-right:6px}.list .aw{display:block}.list i{color:var(--muted);font-size:14px}
+.tape{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;text-align:center;border-top:2px solid var(--rule);border-bottom:2px solid var(--rule);padding:10px 0}
+.tm-name{font:700 17px/1.2 'Old Standard TT',serif;text-transform:uppercase;overflow-wrap:anywhere}.tm-meta{font:italic 13px/1.4 'IM Fell English',serif;color:var(--muted)}
+.vs{font:italic 700 22px 'IM Fell English',serif;padding:0 10px}
+.h2h{text-align:center;font:italic 14px/1.4 'IM Fell English',serif;margin:8px 0}
+.preview{text-align:justify;hyphens:auto;-webkit-hyphens:auto;margin:6px 0 0}
+.power{margin:10px 0 26px}.power .note{text-align:center;font:italic 14px 'IM Fell English',serif;color:var(--muted);margin:-6px 0 10px}
+.power td.roast{font:italic 15px/1.35 'IM Fell English',serif}
+@media(max-width:640px){.power th:nth-child(4),.power td:nth-child(4){display:none}}
 .leadstory{margin:22px 0 8px}
 .lead-cols{column-width:330px;column-gap:32px;column-rule:1px solid var(--rule);font-size:18px;line-height:1.6}
 .lead-cols p{margin:0 0 12px;text-align:justify;hyphens:auto;-webkit-hyphens:auto;text-indent:1.2em}
@@ -141,10 +154,17 @@ def banner_of(md):
     return m.group(1).strip(" *") if m else ""
 
 
-def lead_of(md):
-    """Text between 'LEAD:' and the first story heading."""
-    m = re.search(r"^LEAD:\s*\n?(.*?)(?=^###|\Z)", md, flags=re.M | re.S)
+BLOCKS = r"(?=^(?:BANNER|LEAD|MARQUEE|POWER):|^###|\Z)"
+
+
+def block(md, name):
+    """Text of a 'NAME:' section, up to the next section or story heading."""
+    m = re.search(rf"^{name}:[ \t]*\n?(.*?){BLOCKS}", md, flags=re.M | re.S)
     return m.group(1).strip() if m else ""
+
+
+def lead_of(md):
+    return block(md, "LEAD")
 
 
 def lead_html(md):
@@ -159,7 +179,7 @@ def lead_html(md):
 def stories_html(md, f):
     out = []
     md = re.sub(r"^BANNER:.*$", "", md, flags=re.M)
-    md = re.sub(r"^LEAD:.*?(?=^###|\Z)", "", md, flags=re.M | re.S)
+    md = re.sub(rf"^(?:LEAD|MARQUEE|POWER):.*?{BLOCKS}", "", md, flags=re.M | re.S)
     for block in re.split(r"^###\s*", md, flags=re.M):
         block = block.strip()
         if not block:
@@ -201,6 +221,79 @@ def stories_html(md, f):
     return "".join(out)
 
 
+def awards_html(f):
+    a, items = f.get("awards") or {}, []
+    if a.get("boom"):
+        b = a["boom"]; items.append(("🔥", "Boom of the Week", f"{E(b['player'])} · {b['pts']}", E(b["manager"])))
+    if a.get("dud"):
+        d = a["dud"]; items.append(("🧊", "Dud of the Week", f"{E(d['player'])} · {d['pts']}", E(d["manager"])))
+    if a.get("bench_crime"):
+        c = a["bench_crime"]
+        items.append(("🚑", "Bench Crime", f"{E(c['benched'])} ({c['benched_pts']}) sat for {E(c['started'])} ({c['started_pts']})", E(c["manager"])))
+    if a.get("big_spender"):
+        x = a["big_spender"]; items.append(("💸", "Big Spender", f"${x['faab']} on {E(x['player'])}", E(x["manager"])))
+    elif a.get("most_active"):
+        x = a["most_active"]; items.append(("🔁", "Most Active", f"{x['moves']} moves", E(x["manager"])))
+    rows = "".join(f'<li><span class="orn">{i}</span> <b>{k}</b><span class="aw">{v}</span><i>{m}</i></li>' for i, k, v, m in items)
+    return f'<div class="feat"><div class="section-h">Weekly Awards</div><ul class="list">{rows}</ul></div>' if items else ""
+
+
+def marquee_html(f, md):
+    n = f.get("next_week")
+    if not n:
+        return ""
+    def tape(x):
+        return (f'<div class="tm-side"><div class="tm-name">{E(x["manager"])}</div>'
+                f'<div class="tm-meta">{x["record"]} · #{x["rank"]} · {x["streak"]}</div>'
+                f'<div class="tm-meta">Power #{x["power_rank"]}</div></div>')
+    h = n.get("head_to_head") or []
+    h2h = ("; ".join(f"Week {m['week']}: {E(m['winner'])} won {m['score']}" for m in h)
+           if h else "First meeting this season")
+    text = block(md, "MARQUEE")
+    body = f'<p class="preview">{wa(" ".join(text.split()))}</p>' if text else ""
+    return (f'<div class="feat"><div class="section-h">Week {n["week"]} Marquee</div>'
+            f'<div class="tape">{tape(n["a"])}<div class="vs">vs.</div>{tape(n["b"])}</div>'
+            f'<p class="h2h">{h2h}</p>{body}</div>')
+
+
+def lore_html(f):
+    l = f.get("lore") or {}
+    if not l:
+        return ""
+    items = [("📈", "Season high", f"{E(l['season_high']['manager'])}, {l['season_high']['pts']} in Week {l['season_high']['week']}"),
+             ("📉", "Season low", f"{E(l['season_low']['manager'])}, {l['season_low']['pts']} in Week {l['season_low']['week']}")]
+    if l.get("hot_streak"):
+        items.append(("🔥", "Hottest", f"{E(l['hot_streak']['manager'])} ({l['hot_streak']['streak']})"))
+    if l.get("cold_streak"):
+        items.append(("🧊", "Coldest", f"{E(l['cold_streak']['manager'])} ({l['cold_streak']['streak']})"))
+    for k, i, lab in (("luckiest", "🍀", "Luckiest"), ("unluckiest", "😤", "Unluckiest")):
+        p = l[k]
+        items.append((i, lab, f"{E(p['manager'])}: {p['record']} on a {p['all_play']} all-play"))
+    v = l["schedule_victim"]
+    items.append(("🎯", "Schedule victim", f"{E(v['manager'])}, {v['pa']} points against"))
+    rows = "".join(f'<li><span class="orn">{i}</span> <b>{k}</b><span class="aw">{t}</span></li>' for i, k, t in items)
+    return f'<div class="feat"><div class="section-h">League Lore</div><ul class="list">{rows}</ul></div>'
+
+
+def power_html(f, md):
+    pr = f.get("power_rankings") or []
+    if not pr:
+        return ""
+    lines = block(md, "POWER").splitlines()
+    def roast(name):
+        for l in lines:
+            if name in l:
+                return re.split(r"\s[—–-]\s|:\s", l.split(name, 1)[1], maxsplit=1)[-1].strip()
+        return ""
+    rows = "".join(
+        f"<tr><td>{p['power_rank']}</td><td>{E(p['manager'])}{arrow(p.get('prev_power_rank'), p['power_rank'])}</td>"
+        f"<td>{p['record']}</td><td class=n>{p['all_play']}</td><td class=roast>{wa(roast(p['manager']))}</td></tr>"
+        for p in pr)
+    return (f'<section class="power"><div class="section-h">Power Rankings</div>'
+            f'<p class="note">Ranked by all-play record: how each team would fare against every team, every week.</p>'
+            f'<table><tr><th>#</th><th>Manager</th><th>Rec</th><th class=n>All-play</th><th>The word on the street</th></tr>{rows}</table></section>')
+
+
 def standings(f):
     head = "<tr><th>#</th><th>Manager</th><th>Rec</th><th class=n>PF</th><th>Strk</th></tr>"
     rows = [f"<tr><td>{s['rank']}</td><td>{E(s['manager'])}{arrow(s.get('prev_rank'), s['rank'])}</td><td>{s['record']}</td>"
@@ -238,8 +331,10 @@ def page(f, text, stories, weeks, title_prefix="", others=""):
 {lead_html(stories)}
 <div class="body">
 {cols}
+<div class="features">{awards_html(f)}{marquee_html(f, stories)}{lore_html(f)}</div>
+{power_html(f, stories)}
 <div class="band">
-<section><h3>The Standings</h3>{standings(f)}</section>
+<section><h3>The Official Standings</h3>{standings(f)}</section>
 <div class="side">
 <section><h3>Back Issues</h3><nav class="archive">{archive}</nav></section>
 <section><details><summary>📱 Wire copy (Mobile)</summary><article>{wa_html}</article></details></section>

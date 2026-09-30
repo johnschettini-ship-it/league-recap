@@ -108,6 +108,29 @@ class T(unittest.TestCase):
         self.assertEqual(rp('TreVeyon "Muppet Jim" Henderson and Drake London Bridges'), [])
         self.assertEqual(rp('Folding Table Champ "Bagel" Katz'), [])
 
+    def test_power_rankings_all_play(self):
+        pr = {p["manager"]: p for p in self.f["power_rankings"]}
+        self.assertEqual([p["manager"] for p in self.f["power_rankings"]], ["John", "Steve", "Mike", "Dave"])
+        self.assertEqual((pr["John"]["all_play"], pr["Mike"]["all_play"], pr["Dave"]["all_play"]), ("6-0", "2-4", "1-5"))
+        self.assertEqual((pr["Mike"]["luck"], pr["Dave"]["luck"]), (0.3, -0.3))
+
+    def test_awards_and_lore(self):
+        a, l = self.f["awards"], self.f["lore"]
+        self.assertEqual((a["boom"]["player"], a["boom"]["pts"]), ("WR One", 30.5))
+        self.assertEqual(a["bench_crime"]["manager"], "Dave")
+        self.assertEqual((a["big_spender"]["manager"], a["big_spender"]["faab"]), ("Mike", 30))
+        self.assertEqual((l["season_high"]["manager"], l["season_high"]["week"]), ("John", 2))
+        self.assertEqual((l["hot_streak"]["manager"], l["cold_streak"]["manager"]), ("John", "Dave"))
+
+    def test_marquee_next_week(self):
+        r = raw()
+        r["next"] = [{"roster_id": 1, "matchup_id": 1}, {"roster_id": 2, "matchup_id": 1},
+                     {"roster_id": 3, "matchup_id": 2}, {"roster_id": 4, "matchup_id": 2}]
+        m = analyze(r, P, 2)["next_week"]
+        self.assertEqual((m["a"]["manager"], m["b"]["manager"], m["week"]), ("John", "Mike", 3))
+        self.assertEqual(m["head_to_head"], [{"week": 1, "winner": "John", "score": "60.0-30.0"}])
+        self.assertIsNone(self.f["next_week"])                      # no pairings published -> skip
+
     def test_incomplete_data_refused(self):
         r = raw()
         r["matchups"][2] = r["matchups"][2][:3]

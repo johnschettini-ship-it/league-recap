@@ -55,7 +55,15 @@ def fetch(lid, week):
         "rosters": get(f"/league/{lid}/rosters"),
         "matchups": {w: get(f"/league/{lid}/matchups/{w}") for w in range(1, week + 1)},
         "transactions": get(f"/league/{lid}/transactions/{week}"),
+        "next": next_pairings(lid, week + 1),
     }
+
+
+def next_pairings(lid, week):
+    try:
+        return get(f"/league/{lid}/matchups/{week}") or []
+    except Exception:                                   # season over / not published yet
+        return []
 
 
 # ---------------------------------------------------------------- Layer 1
@@ -226,6 +234,83 @@ def analyze(raw, P, week, cfg=CFG, aliases=None):
             if g[side] in crime_by:
                 g[f"{side}_bench_crime"] = crime_by[g[side]]
 
+    # ---- power rankings: all-play record (vs every team, every week) ----
+    def allplay(upto):
+        ap = {rid: [0, 0] for rid in owner}
+        for w in range(1, upto + 1):
+            pts = {m["roster_id"]: m["points"] or 0 for m in raw["matchups"][w] if m.get("matchup_id") is not None}
+            for rid, p in pts.items():
+                ap[rid][0] += sum(p > q for o, q in pts.items() if o != rid)
+                ap[rid][1] += sum(p < q for o, q in pts.items() if o != rid)
+        order = sorted(ap, key=lambda i: (-(ap[i][0] / max(1, sum(ap[i]))), -now[i]["pf"]))
+        return ap, {rid: n for n, rid in enumerate(order, 1)}
+    ap, prank = allplay(week)
+    _, prev_prank = allplay(week - 1) if week > 1 else (None, {})
+    pa = {rid: 0.0 for rid in owner}
+    for w in range(1, week + 1):
+        for a, b in games(w):
+            pa[a["roster_id"]] += b["points"] or 0
+            pa[b["roster_id"]] += a["points"] or 0
+    power = []
+    for rid in sorted(owner, key=lambda i: prank[i]):
+        gp = now[rid]["w"] + now[rid]["l"] + now[rid]["t"]
+        exp = ap[rid][0] / max(1, sum(ap[rid])) * gp
+        row = {"power_rank": prank[rid], "manager": owner[rid], "record": st_by[owner[rid]]["record"],
+               "all_play": f"{ap[rid][0]}-{ap[rid][1]}", "pf": r2(now[rid]["pf"]), "pa": r2(pa[rid]),
+               "luck": round(now[rid]["w"] - exp, 1)}
+        if rid in prev_prank:
+            row["prev_power_rank"] = prev_prank[rid]
+        power.append(row)
+
+    # ---- next week's marquee matchup ----
+    pairs = {}
+    for m in raw.get("next") or []:
+        if m.get("matchup_id") is not None and m["roster_id"] in owner:
+            pairs.setdefault(m["matchup_id"], []).append(m["roster_id"])
+    pairs = [p for p in pairs.values() if len(p) == 2]
+    marquee = None
+    if pairs:
+        a, b = min(pairs, key=lambda p: (now[p[0]]["rank"] + now[p[1]]["rank"]
+                                         + 0.5 * abs(now[p[0]]["rank"] - now[p[1]]["rank"])))
+        side = lambda rid: {"manager": owner[rid], "record": st_by[owner[rid]]["record"], "rank": now[rid]["rank"],
+                            "streak": st_by[owner[rid]]["streak"], "power_rank": prank[rid], "pf": r2(now[rid]["pf"])}
+        h2h = []
+        for w in range(1, week + 1):
+            for x, y in games(w):
+                if {x["roster_id"], y["roster_id"]} == {a, b}:
+                    win, lose = (x, y) if x["points"] >= y["points"] else (y, x)
+                    h2h.append({"week": w, "winner": owner[win["roster_id"]], "score": f"{r2(win['points'])}-{r2(lose['points'])}"})
+        marquee = {"week": week + 1, "a": side(a), "b": side(b), "head_to_head": h2h}
+
+    # ---- weekly awards ----
+    awards = {"boom": booms[0] if booms else None, "dud": busts[0] if busts else None,
+              "bench_crime": crimes[0] if crimes else None}
+    paid = [x for x in adds if x.get("faab")]
+    if paid:
+        awards["big_spender"] = paid[0]
+    elif adds:
+        cnt = {}
+        for x in adds:
+            cnt[x["manager"]] = cnt.get(x["manager"], 0) + 1
+        top = max(cnt, key=cnt.get)
+        awards["most_active"] = {"manager": top, "moves": cnt[top]}
+
+    # ---- league lore (season to date) ----
+    weekly = [(m["points"] or 0, w, m["roster_id"]) for w in range(1, week + 1)
+              for m in raw["matchups"][w] if m.get("matchup_id") is not None]
+    hi, lo = max(weekly), min(weekly)
+    streak_n = lambda s: int(s[1:]) if s[1:].isdigit() else 0
+    wst = max(standings, key=lambda s: (s["streak"][:1] == "W", streak_n(s["streak"])))
+    lst = max(standings, key=lambda s: (s["streak"][:1] == "L", streak_n(s["streak"])))
+    lore = {"season_high": {"manager": owner[hi[2]], "pts": r2(hi[0]), "week": hi[1]},
+            "season_low": {"manager": owner[lo[2]], "pts": r2(lo[0]), "week": lo[1]},
+            "luckiest": max(power, key=lambda p: p["luck"]), "unluckiest": min(power, key=lambda p: p["luck"]),
+            "schedule_victim": max(power, key=lambda p: p["pa"])}
+    if wst["streak"].startswith("W") and streak_n(wst["streak"]) >= 2:
+        lore["hot_streak"] = {"manager": wst["manager"], "streak": wst["streak"]}
+    if lst["streak"].startswith("L") and streak_n(lst["streak"]) >= 2:
+        lore["cold_streak"] = {"manager": lst["manager"], "streak": lst["streak"]}
+
     by_margin = sorted(results, key=lambda g: g["margin"])
     return {
         "league": lg["name"], "season": lg["season"], "week": week, "teams": len(owner),
@@ -239,6 +324,7 @@ def analyze(raw, P, week, cfg=CFG, aliases=None):
         "adds": adds, "drops": drops, "trades": trades,
         "faab_budget": budget,
         "standings": standings, "movers": movers, "upsets": upsets,
+        "power_rankings": power, "next_week": marquee, "awards": awards, "lore": lore,
     }
 
 
@@ -303,7 +389,8 @@ Using ONLY the JSON facts given, write TWO things separated by a line containing
 PART 1 — WhatsApp recap. 150-350 words. WhatsApp formatting: *bold* headers, emoji, short lines.
 Sections, in order (skip if no data): 🏈 WEEK N RECAP, 👑 Top Dog, 💀 Basement,
 😬 Heartbreaker (closest), 🔨 Blowout, 🚨 Upset, 🚑 Bench Crime, 💥 Booms & Busts,
-💰 FAAB Watch, 🔄 League Activity, 📈 Standings, 🗣️ Commissioner's Desk
+💰 FAAB Watch, 🔄 League Activity, 📈 Standings, 🔮 Next Week (one line on next_week),
+🗣️ Commissioner's Desk
 (one closing joke drawn from the facts).
 📈 Standings = every team, one line each, in rank order:
 <rank>. <manager> <record> <▲n / ▼n / – from prev_rank> <streak if 2+>
@@ -317,6 +404,13 @@ LEAD:
 biggest storyline (upset, streak, blowout, collapse), sweep through the standings shake-up,
 tease two or three of the matchup stories below without spoiling their punchlines, and end on
 a line that pulls the reader into the matchups. Same satire and pun-name rules as the stories.>
+Then the preview of next week's marquee game (skip if next_week is null):
+MARQUEE:
+<60-100 words hyping next_week like a prizefight poster: records, ranks, streaks, power ranks,
+and any head_to_head from the facts. Tease it; don't pick a winner.>
+Then the power rankings roasts, one line per team in power_rankings order:
+POWER:
+<power_rank>. <manager> — <roast, max 15 words, drawn from their facts; all_play vs record = luck>
 Then one story per game in "results", biggest margin last. For each, exactly this shape:
 ### <one fitting emoji> <punny headline, max 32 characters so it fits on one line>
 <80-140 word story, in 1-2 short paragraphs; the page adds a scorebox, so don't restate the score line>
