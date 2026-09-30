@@ -42,7 +42,7 @@ h2.head{font:700 clamp(28px,5.4vw,58px)/1.02 'Old Standard TT',Georgia,serif;tex
 .body{margin-top:22px}
 .features{display:grid;grid-template-columns:1fr;margin:6px 0 18px}
 @media(min-width:900px){.features{grid-template-columns:repeat(3,1fr)}.feat{padding:0 22px;border-left:1px solid var(--rule)}.feat:first-child{border-left:0;padding-left:0}.feat:last-child{padding-right:0}}
-.feat{margin-bottom:18px}
+.features .feat{margin-bottom:18px}
 .list{list-style:none;margin:0;padding:0}.list li{padding:7px 0;border-bottom:1px dotted var(--rule);line-height:1.35}
 .list b{font-variant:small-caps;letter-spacing:.5px;margin-right:6px}.list .aw{display:block}.list i{color:var(--muted);font-size:14px}
 .tape{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;text-align:center;border-top:2px solid var(--rule);border-bottom:2px solid var(--rule);padding:10px 0}
@@ -54,19 +54,17 @@ h2.head{font:700 clamp(28px,5.4vw,58px)/1.02 'Old Standard TT',Georgia,serif;tex
 .power td.roast{font:italic 15px/1.35 'IM Fell English',serif}
 @media(max-width:640px){.power th:nth-child(4),.power td:nth-child(4){display:none}}
 .leadstory{margin:22px 0 8px}
-.lead-cols{column-width:330px;column-gap:32px;column-rule:1px solid var(--rule);font-size:18px;line-height:1.6}
-.lead-cols p{margin:0 0 12px;text-align:justify;hyphens:auto;-webkit-hyphens:auto;text-indent:1.2em}
-.lead-cols p.lede{text-indent:0}
-.lead-cols .lede::first-letter{float:left;font:700 64px/.8 'Old Standard TT',serif;margin:6px 8px 0 0;padding:2px 5px;border:1px solid var(--rule)}
+.lead-cols{max-width:760px;margin:0 auto;font-size:19px;line-height:1.65}
+.lead-cols p{margin:0 0 14px;text-align:justify;hyphens:auto;-webkit-hyphens:auto}
+.lead-cols .lede::first-letter{float:left;font:700 68px/.8 'Old Standard TT',serif;margin:6px 10px 0 0;padding:2px 6px;border:1px solid var(--rule)}
 .cols{display:grid;grid-template-columns:1fr}
 @media(min-width:760px){.cols{grid-template-columns:repeat(2,1fr)}}
 @media(min-width:1150px){.cols{grid-template-columns:repeat(3,1fr)}}
-.cols .section-h{grid-column:1/-1}
-.section-h{font:700 13px/1 'Old Standard TT',serif;text-transform:uppercase;letter-spacing:3px;text-align:center;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);padding:6px 0;margin:0 0 14px;column-span:all}
-.bout{min-width:0;padding:4px 18px 18px;margin-bottom:22px;border-bottom:1px solid var(--rule)}
-@media(min-width:760px){.bout{border-left:1px solid var(--rule)}.bout:nth-of-type(2n+1){border-left:0;padding-left:0}.bout:nth-of-type(2n){padding-right:0}}
-@media(min-width:1150px){.bout{padding:4px 22px 18px!important;border-left:1px solid var(--rule)!important}.bout:nth-of-type(3n+1){border-left:0!important;padding-left:0!important}.bout:nth-of-type(3n){padding-right:0!important}}
-@media(max-width:759px){.bout{padding:4px 0 18px}}
+.section-h{font:700 13px/1 'Old Standard TT',serif;text-transform:uppercase;letter-spacing:3px;text-align:center;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);padding:6px 0;margin:0 0 14px}
+.cell{min-width:0;padding:4px 0 18px;margin-bottom:22px;border-bottom:1px solid var(--rule)}
+@media(min-width:760px) and (max-width:1149px){.cols>.cell{padding:4px 20px 18px;border-left:1px solid var(--rule)}.cols>.cell:nth-child(2n+1){border-left:0;padding-left:0}.cols>.cell:nth-child(2n){padding-right:0}}
+@media(min-width:1150px){.cols>.cell{padding:4px 22px 18px;border-left:1px solid var(--rule)}.cols>.cell:nth-child(3n+1){border-left:0;padding-left:0}.cols>.cell:nth-child(3n){padding-right:0}}
+.cell.feat .section-h{margin-top:4px}
 .bout h4{font:700 24px/1.12 'Old Standard TT',serif;text-transform:uppercase;text-align:center;margin:4px 0 4px;letter-spacing:.3px;white-space:nowrap;overflow:hidden}
 .fit-wrap{white-space:normal!important}
 .bout .sub{text-align:center;font:italic 14px/1.3 'IM Fell English',serif;color:var(--muted);margin:0 0 10px}
@@ -216,7 +214,7 @@ def stories_html(md, f):
         if rest and not any(ch.isalnum() for ch in first):             # leading emoji -> woodcut ornament
             orn, t = f'<span class="orn">{first}</span> ', rest
         sub = f'<p class="sub">{E(game["winner"])} vs. {E(game["loser"])}</p>' if game else ""
-        out.append(f'<section class="bout"><h4>{orn}{E(t)}</h4>{sub}'
+        out.append(f'<section class="cell bout"><h4>{orn}{E(t)}</h4>{sub}'
                    f'{scorebox(game) if game else ""}{html_p}{quote}{kick}</section>')
     return "".join(out)
 
@@ -309,8 +307,17 @@ def page(f, text, stories, weeks, title_prefix="", others=""):
     desc = E(f"{head}. {deck}")
     archive = " · ".join(f'<a href="week-{w}.html">Week {w}</a>' for w in sorted(weeks, reverse=True))
     wa_html = "<br>\n".join(wa(l) for l in text.splitlines())
-    cols = (f'<div class="cols"><div class="section-h">The Matchups</div>{stories_html(stories, f)}</div>'
-            if stories else f'<div class="cols"><article>{wa_html}</article></div>')
+    feats = [x for x in (marquee_html(f, stories), awards_html(f), lore_html(f)) if x]
+    if stories:
+        bouts = stories_html(stories, f)
+        empty = (-bouts.count('class="cell bout"')) % 3            # holes in the last row of 3
+        fill, rest = feats[:empty], feats[empty:]
+        fill = [x.replace('<div class="feat">', '<section class="cell feat">', 1)[:-6] + "</section>" for x in fill]
+        cols = f'<div class="section-h">The Matchups</div><div class="cols">{bouts}{"".join(fill)}</div>'
+    else:
+        rest = feats
+        cols = f'<article>{wa_html}</article>'
+    features = f'<div class="features">{"".join(rest)}</div>' if rest else ""
     return f"""<!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow,noarchive">
@@ -331,7 +338,7 @@ def page(f, text, stories, weeks, title_prefix="", others=""):
 {lead_html(stories)}
 <div class="body">
 {cols}
-<div class="features">{awards_html(f)}{marquee_html(f, stories)}{lore_html(f)}</div>
+{features}
 {power_html(f, stories)}
 <div class="band">
 <section><h3>The Official Standings</h3>{standings(f)}</section>
