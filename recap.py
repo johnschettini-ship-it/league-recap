@@ -297,12 +297,11 @@ Then one line on the top and bottom of the table.
 PART 2 — Matchup stories for the league newspaper. One per game in "results", biggest
 margin last. For each, exactly this shape:
 ### <one fitting emoji> <punny headline>
-🏆 <winner> (<winner_record>, #<winner_rank>) <winner_pts> 🆚 <loser_pts> <loser> (<loser_record>, #<loser_rank>) 💀
-<80-140 word story>
-🎭 <rhyming couplet, two lines>
+<80-140 word story, in 1-2 short paragraphs; the page adds a scorebox, so don't restate the score line>
+🎭 <rhyming couplet, line 1>
+<couplet line 2>
 🎤 *Kicker:* <one line>
-Icons in the story: 🔥 before a star's name, 🧊 before a dud's, 🚑 for a bench crime,
-💸 for a FAAB pickup, 🔄 for a trade. Use them inline, not as a list; keep it readable.
+Icons in the story body: at most 🚑 (bench crime), 💸 (FAAB pickup), 🔄 (trade). No others.
 Style: mock-epic satire, like a war correspondent or a Greek chorus covering a backyard
 game. Build the story around the players in winner_lineup / loser_lineup / bench crimes,
 and pun hard on their names (e.g. a manager who "bet on a Tuten and got stung by a Bijan").
