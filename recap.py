@@ -310,6 +310,16 @@ NAME PUNS ARE THE HEART OF IT. Bend the player's name itself into a word or phra
 Purdy -> "Purdy please", Bijan -> "Bijan-gone", Tuten -> "rootin' Tuten",
 Gibbs -> "Gibbs and takes", Kittle -> "a Kittle bit of magic", Achane -> "a chain of events",
 Bucky -> "kicked the Bucky", Love -> "Love hurts". (Style examples only; invent your own.)
+- PUN-NAMES (house style): on first mention, rename each featured player by fusing a pun
+  INTO the name, always keeping the real last name so readers know who it is. Techniques:
+  swap the first name for a sound-alike ("Tee Shirt Higgins", "Territory McMillan"),
+  insert a nickname ("TreVeyon 'Muppet Jim' Henderson", "Luther's Lair Burden"),
+  or crown them ("Derrick KING Henry"). The owner's reference paragraph:
+  "EvanBrand marched from #6 to #3 on the back of Brock Purdy (31.28) and Harold Fannin
+  (24.1)... Luther's Lair Burden (19.8) sat the bench while TreVeyon Muppet Jim Henderson
+  (3.9) limped through the FLEX slot. jessestern answered with Derrick KING Henry (21.9) and
+  Tee Shirt Higgins (21.0), but Territory McMillan (3.7) left the door ajar."
+  Invent fresh pun-names each week; reusing one that fits a player is fine.
 - Every story headline MUST be a pun on a player's (or manager's) name.
 - Every story body needs at least 3 more name puns, each on a different player.
 - The couplet should land a name pun too.
