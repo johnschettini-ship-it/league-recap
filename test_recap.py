@@ -94,6 +94,13 @@ class T(unittest.TestCase):
             recap.POSTS = orig
             del os.environ["GAZETTE_URL"]
 
+    def test_aliases_replace_names_everywhere(self):
+        import json
+        f = analyze(raw(), P, 2, aliases={"Mike": "The Nickname"})
+        blob = json.dumps(f)
+        self.assertNotIn('"Mike"', blob)
+        self.assertIn("The Nickname", blob)
+
     def test_incomplete_data_refused(self):
         r = raw()
         r["matchups"][2] = r["matchups"][2][:3]

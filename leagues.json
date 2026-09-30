@@ -1,6 +1,45 @@
 [
-  {"id": "1313254837680357376", "path": "", "site": "https://johnschettini-ship-it.github.io/league-recap/"},
-  {"id": "1389359098155270144", "path": "coozeball", "site": "https://johnschettini-ship-it.github.io/league-recap/"},
-  {"id": "1389363044080963584", "path": "uncle-rico", "site": "https://johnschettini-ship-it.github.io/league-recap/"},
-  {"id": "1385827155543334912", "path": "league-4", "display_name": "League Four", "site": "https://johnschettini-ship-it.github.io/league-recap/"}
+  {
+    "id": "1313254837680357376",
+    "path": "",
+    "site": "https://johnschettini-ship-it.github.io/league-recap/",
+    "aliases": {
+      "Marc_Katz": "Folding Table Champ",
+      "jessestern": "Barnacle Boys",
+      "EvanBrand": "The Escape Artist"
+    }
+  },
+  {
+    "id": "1389359098155270144",
+    "path": "coozeball",
+    "site": "https://johnschettini-ship-it.github.io/league-recap/",
+    "aliases": {
+      "eprince": "ArtistFormerlyKnownAs",
+      "askolar88": "Perkis System",
+      "cawills05": "The Carebear Necessities",
+      "kenzink97": "Sunnyvale Green Bastards",
+      "rstott21": "The Mystery Manager"
+    }
+  },
+  {
+    "id": "1389363044080963584",
+    "path": "uncle-rico",
+    "site": "https://johnschettini-ship-it.github.io/league-recap/",
+    "aliases": {
+      "LilPhilWil": "The Immaculate Concepcion",
+      "thonan1": "Mick Mouse Club House",
+      "rudyd6": "Action Jaxson",
+      "shoemake": "The Cobbler"
+    }
+  },
+  {
+    "id": "1385827155543334912",
+    "path": "league-4",
+    "display_name": "League Four",
+    "site": "https://johnschettini-ship-it.github.io/league-recap/",
+    "aliases": {
+      "kenzink97": "The A-Gap A-Team",
+      "rstott21": "Washington Sentinels"
+    }
+  }
 ]

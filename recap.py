@@ -74,10 +74,12 @@ def check_complete(raw, week):
             raise ValueError(f"week {w}: no points yet")
 
 
-def analyze(raw, P, week, cfg=CFG):
+def analyze(raw, P, week, cfg=CFG, aliases=None):
     lg = raw["league"]
     settings = lg.get("settings") or {}
-    uname = {u["user_id"]: u.get("display_name") or u["user_id"] for u in raw["users"]}
+    aliases = aliases or {}                             # privacy: real-looking usernames -> nicknames
+    uname = {u["user_id"]: aliases.get(u.get("display_name"), u.get("display_name") or u["user_id"])
+             for u in raw["users"]}
     owner = {r["roster_id"]: uname.get(r.get("owner_id"), f"Team {r['roster_id']}") for r in raw["rosters"]}
     slots = [s for s in lg["roster_positions"] if s not in BENCH_SLOTS]
     pname = lambda pid: "Empty slot" if pid in (None, "0") else P.get(pid, {}).get("n", pid)
@@ -472,7 +474,7 @@ def main(argv):
     try:
         raw = fetch(lid, week)
         check_complete(raw, week)
-        facts = analyze(raw, players_db(), week)
+        facts = analyze(raw, players_db(), week, aliases=league_cfg(lid).get("aliases"))
         if league_cfg(lid).get("display_name"):        # masthead override from leagues.json
             facts["league"] = league_cfg(lid)["display_name"]
     except Exception as e:                            # no fabrication on bad data
