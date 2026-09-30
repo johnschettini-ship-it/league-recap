@@ -199,6 +199,7 @@ def page(f, text, stories, weeks, title_prefix="", others=""):
             if stories else f'<div class="cols"><article>{wa_html}</article></div>')
     return f"""<!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive">
 <title>{title_prefix}{league} Gazette</title>
 <meta property="og:title" content="{league} Gazette — Week {f['week']}">
 <meta property="og:description" content="{desc}"><meta name="description" content="{desc}">
@@ -249,12 +250,14 @@ def load(lid):
 
 
 def placeholder(name):
-    return (f"<!doctype html><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'>"
+    return (f"<!doctype html><meta charset=utf-8><meta name=robots content='noindex,nofollow'><meta name=viewport content='width=device-width,initial-scale=1'>"
             f"<title>{E(name)} Gazette</title><style>{CSS}</style><main class=sheet><header class=mast><h1>The {E(name)} Gazette</h1></header>"
             f"<p class=deck style='text-align:center;margin-top:24px'>First edition hits the stands Wednesday morning.</p></main>")
 
 
 def build():
+    SITE.mkdir(exist_ok=True)
+    (SITE / "robots.txt").write_text("User-agent: *\nDisallow: /\n", encoding="utf-8")   # keep papers out of search
     lf = HERE / "leagues.json"
     leagues = json.loads(lf.read_text(encoding="utf-8")) if lf.exists() else [{"id": "", "path": ""}]
     papers = []
