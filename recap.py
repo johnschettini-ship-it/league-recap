@@ -301,25 +301,31 @@ def analyze(raw, P, week, cfg=CFG, aliases=None):
             row["prev_power_rank"] = prev_prank[rid]
         power.append(row)
 
-    # ---- next week's marquee matchup ----
+    # ---- next week's card: the top 2 matchups and the bottom one, by standings rank ----
     pairs = {}
     for m in raw.get("next") or []:
         if m.get("matchup_id") is not None and m["roster_id"] in owner:
             pairs.setdefault(m["matchup_id"], []).append(m["roster_id"])
-    pairs = [p for p in pairs.values() if len(p) == 2]
-    marquee = None
-    if pairs:
-        a, b = min(pairs, key=lambda p: (now[p[0]]["rank"] + now[p[1]]["rank"]
-                                         + 0.5 * abs(now[p[0]]["rank"] - now[p[1]]["rank"])))
-        side = lambda rid: {"manager": owner[rid], "record": st_by[owner[rid]]["record"], "rank": now[rid]["rank"],
-                            "streak": st_by[owner[rid]]["streak"], "power_rank": prank[rid], "pf": r2(now[rid]["pf"])}
-        h2h = []
+    pairs = [sorted(p, key=lambda rid: now[rid]["rank"]) for p in pairs.values() if len(p) == 2]
+    rk = lambda p: now[p[0]]["rank"] + now[p[1]]["rank"]              # low = two good teams
+    gap = lambda p: now[p[1]]["rank"] - now[p[0]]["rank"]             # low = evenly matched
+    side = lambda rid: {"manager": owner[rid], "record": st_by[owner[rid]]["record"], "rank": now[rid]["rank"],
+                        "streak": st_by[owner[rid]]["streak"], "power_rank": prank[rid], "pf": r2(now[rid]["pf"])}
+
+    def h2h(a, b):
+        out = []
         for w in range(1, week + 1):
             for x, y in games(w):
                 if {x["roster_id"], y["roster_id"]} == {a, b}:
                     win, lose = (x, y) if x["points"] >= y["points"] else (y, x)
-                    h2h.append({"week": w, "winner": owner[win["roster_id"]], "score": f"{r2(win['points'])}-{r2(lose['points'])}"})
-        marquee = {"week": week + 1, "a": side(a), "b": side(b), "head_to_head": h2h}
+                    out.append({"week": w, "winner": owner[win["roster_id"]], "score": f"{r2(win['points'])}-{r2(lose['points'])}"})
+        return out
+    best = sorted(pairs, key=lambda p: rk(p) + 0.5 * gap(p))
+    billed = list(zip(("Main Event", "Co-Main Event"), best))
+    if best[2:]:
+        billed.append(("Basement Bowl", max(best[2:], key=lambda p: (rk(p), -gap(p)))))
+    card = [{"billing": bill, "week": week + 1, "a": side(x), "b": side(y), "head_to_head": h2h(x, y)}
+            for bill, (x, y) in billed] or None
 
     # ---- weekly awards ----
     awards = {"boom": booms[0] if booms else None, "dud": busts[0] if busts else None,
@@ -379,7 +385,7 @@ def analyze(raw, P, week, cfg=CFG, aliases=None):
         "adds": adds, "drops": drops, "trades": trades,
         "faab_budget": budget,
         "standings": standings, "movers": movers, "upsets": upsets,
-        "power_rankings": power, "next_week": marquee, "awards": awards, "lore": lore,
+        "power_rankings": power, "next_week_card": card, "awards": awards, "lore": lore,
         "playoff_teams": pteams, "playoff_race": race, "bracket": bracket_rows or None, "champion": champion,
     }
 
@@ -445,7 +451,7 @@ Using ONLY the JSON facts given, write TWO things separated by a line containing
 PART 1 — WhatsApp recap. 150-350 words. WhatsApp formatting: *bold* headers, emoji, short lines.
 Sections, in order (skip if no data): 🏈 WEEK N RECAP, 👑 Top Dog, 💀 Basement,
 😬 Heartbreaker (closest), 🔨 Blowout, 🚨 Upset, 🚑 Bench Crime, 💥 Booms & Busts,
-💰 FAAB Watch, 🔄 League Activity, 📈 Standings, 🔮 Next Week (one line on next_week),
+💰 FAAB Watch, 🔄 League Activity, 📈 Standings, 🔮 Next Week (one line on the Main Event in next_week_card),
 🗣️ Commissioner's Desk
 (one closing joke drawn from the facts).
 📈 Standings = every team, one line each, in rank order:
@@ -460,10 +466,13 @@ LEAD:
 biggest storyline (upset, streak, blowout, collapse), sweep through the standings shake-up,
 tease two or three of the matchup stories below without spoiling their punchlines, and end on
 a line that pulls the reader into the matchups. Same satire and pun-name rules as the stories.>
-Then the preview of next week's marquee game (skip if next_week is null):
-MARQUEE:
-<60-100 words hyping next_week like a prizefight poster: records, ranks, streaks, power ranks,
+Then previews of next week's card (skip if next_week_card is null): one numbered entry per
+game, in the same order as next_week_card (Main Event, Co-Main Event, Basement Bowl):
+PREVIEWS:
+1. <35-55 words hyping the game like a prizefight poster: records, ranks, streaks, power ranks,
 and any head_to_head from the facts. Tease it; don't pick a winner.>
+2. <same for the Co-Main Event>
+3. <the Basement Bowl: the two lowest-ranked teams meeting. Play it for laughs; somebody has to win.>
 Then the power rankings roasts, one line per team in power_rankings order:
 POWER:
 <power_rank>. <manager> — <roast, max 15 words, drawn from their facts; all_play vs record = luck,

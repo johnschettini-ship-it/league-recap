@@ -128,14 +128,24 @@ class T(unittest.TestCase):
         self.assertEqual((l["season_high"]["manager"], l["season_high"]["week"]), ("John", 2))
         self.assertEqual((l["hot_streak"]["manager"], l["cold_streak"]["manager"]), ("John", "Dave"))
 
-    def test_marquee_next_week(self):
-        r = raw()
-        r["next"] = [{"roster_id": 1, "matchup_id": 1}, {"roster_id": 2, "matchup_id": 1},
-                     {"roster_id": 3, "matchup_id": 2}, {"roster_id": 4, "matchup_id": 2}]
-        m = analyze(r, P, 2)["next_week"]
-        self.assertEqual((m["a"]["manager"], m["b"]["manager"], m["week"]), ("John", "Mike", 3))
-        self.assertEqual(m["head_to_head"], [{"week": 1, "winner": "John", "score": "60.0-30.0"}])
-        self.assertIsNone(self.f["next_week"])                      # no pairings published -> skip
+    def test_next_week_card_top2_and_bottom1(self):
+        base = raw()
+        base["users"] += [{"user_id": "u5", "display_name": "Evan"}, {"user_id": "u6", "display_name": "Finn"}]
+        base["rosters"] += [{"roster_id": 5, "owner_id": "u5", "settings": {}}, {"roster_id": 6, "owner_id": "u6", "settings": {}}]
+        for w, (p5, p6) in {1: (12, 4), 2: (11, 3)}.items():                 # Evan beats Finn both weeks: Evan 2-0 (rank 2), Finn 0-2 (rank 6)
+            base["matchups"][w] += [m(5, 3, ["q1", "r1", "w1"], [p5, p5, p5]), m(6, 3, ["q2", "r2", "w2"], [p6, p6, p6])]
+        base["next"] = [{"roster_id": a, "matchup_id": i} for i, pr in enumerate([(1, 3), (2, 6), (4, 5)], 1) for a in pr]
+        card = analyze(base, P, 2)["next_week_card"]
+        self.assertEqual([c["billing"] for c in card], ["Main Event", "Co-Main Event", "Basement Bowl"])
+        self.assertEqual([(c["a"]["manager"], c["b"]["manager"]) for c in card],
+                         [("John", "Steve"), ("Evan", "Dave"), ("Mike", "Finn")])   # ranks 1v3, 2v5, then 4v6
+        self.assertEqual([(c["a"]["rank"], c["b"]["rank"]) for c in card], [(1, 3), (2, 5), (4, 6)])
+        self.assertEqual(card[0]["week"], 3)
+        two = raw(); two["next"] = [{"roster_id": a, "matchup_id": i} for i, pr in enumerate([(1, 2), (3, 4)], 1) for a in pr]
+        c2 = analyze(two, P, 2)["next_week_card"]
+        self.assertEqual([c["billing"] for c in c2], ["Main Event", "Co-Main Event"])     # too few games for a third
+        self.assertEqual(c2[0]["head_to_head"], [{"week": 1, "winner": "John", "score": "60.0-30.0"}])
+        self.assertIsNone(self.f["next_week_card"])                                        # no pairings published
 
     def test_pun_names_never_repeat_across_weeks(self):
         import recap, tempfile, json, pathlib

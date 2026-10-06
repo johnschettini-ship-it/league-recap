@@ -44,7 +44,7 @@ h2.head{font:700 clamp(28px,5.4vw,58px)/1.02 'Old Standard TT',Georgia,serif;tex
 .orn{filter:grayscale(1) contrast(1.3);font-style:normal}
 .body{margin-top:22px}
 .features{display:grid;grid-template-columns:1fr;margin:6px 0 18px}
-@media(min-width:900px){.features{grid-template-columns:repeat(3,1fr)}.feat{padding:0 22px;border-left:1px solid var(--rule)}.feat:first-child{border-left:0;padding-left:0}.feat:last-child{padding-right:0}}
+@media(min-width:900px){.features{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}.feat{padding:0 22px;border-left:1px solid var(--rule)}.feat:first-child{border-left:0;padding-left:0}.feat:last-child{padding-right:0}}
 .features .feat{margin-bottom:18px}
 .list{list-style:none;margin:0;padding:0}.list li{padding:7px 0;border-bottom:1px dotted var(--rule);line-height:1.35}
 .list b{font-variant:small-caps;letter-spacing:.5px;margin-right:6px}.list .aw{display:block}.list i{color:var(--muted);font-size:14px}
@@ -164,6 +164,15 @@ tr.cut td{border-bottom:2px dashed var(--accent)}
 .champ{text-align:center;border:3px double var(--ink);padding:14px;margin:0 0 22px;background:color-mix(in srgb,var(--accent) 6%,transparent)}
 .champ .rivet{width:150px}.champ-k{font:700 13px/1 'Old Standard TT',serif;text-transform:uppercase;letter-spacing:3px;color:var(--accent)}
 .champ-n{font:700 clamp(30px,6vw,56px)/1.1 'Old Standard TT',serif;text-transform:uppercase}.ru{font:italic 17px 'IM Fell English',serif;margin:4px 0 0}
+
+/* ---- On Deck: next week's card ---- */
+.ondeck{margin:6px 0 26px}
+.ods{display:grid;grid-template-columns:1fr;gap:22px 0}
+@media(min-width:900px){.ods{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}.od{padding:0 22px;border-left:1px solid var(--rule)}.od:first-child{border-left:0;padding-left:0}.od:last-child{padding-right:0}}
+.od{min-width:0}.od .tm-name{font-size:clamp(12px,3.3vw,16px)}
+@media(min-width:900px) and (max-width:1250px){.od .tm-name{font-size:14px}}
+.bill{text-align:center;font:700 12px/1 'Old Standard TT',serif;text-transform:uppercase;letter-spacing:3px;color:var(--accent);margin:0 0 8px}
+.features .feat:only-child .list{columns:2 320px;column-gap:32px}.features .list li{break-inside:avoid}
 """
 
 
@@ -254,7 +263,7 @@ def banner_of(md):
     return m.group(1).strip(" *") if m else ""
 
 
-BLOCKS = r"(?=^(?:BANNER|LEAD|MARQUEE|POWER|STRIP|PUNS|EPITHETS):|^###|\Z)"
+BLOCKS = r"(?=^(?:BANNER|LEAD|MARQUEE|PREVIEWS|POWER|STRIP|PUNS|EPITHETS):|^###|\Z)"
 
 
 def block(md, name):
@@ -279,7 +288,7 @@ def lead_html(md):
 def stories_html(md, f):
     out = []
     md = re.sub(r"^(?:BANNER|PUNS|EPITHETS):.*$", "", md, flags=re.M)
-    md = re.sub(rf"^(?:LEAD|MARQUEE|POWER|STRIP):.*?{BLOCKS}", "", md, flags=re.M | re.S)
+    md = re.sub(rf"^(?:LEAD|MARQUEE|PREVIEWS|POWER|STRIP):.*?{BLOCKS}", "", md, flags=re.M | re.S)
     for block in re.split(r"^###\s*", md, flags=re.M):
         block = block.strip()
         if not block:
@@ -340,22 +349,32 @@ def awards_html(f):
     return f'<div class="feat"><div class="section-h">Weekly Awards</div><ul class="list">{rows}</ul></div>' if items else ""
 
 
-def marquee_html(f, md):
-    n = f.get("next_week")
-    if not n:
+def card_of(f):
+    """Next week's games to preview. Older issues stored a single marquee game."""
+    return f.get("next_week_card") or ([dict(f["next_week"], billing="Main Event")] if f.get("next_week") else [])
+
+
+def ondeck_html(f, md):
+    card = card_of(f)
+    if not card:
         return ""
+    texts = [" ".join(t.split()) for t in re.split(r"^\s*\d+[.)]\s*", block(md, "PREVIEWS"), flags=re.M) if t.strip()]
+    texts = texts or [" ".join(block(md, "MARQUEE").split())]
     def tape(x):
         return (f'<div class="tm-side"><div class="tm-name">{E(x["manager"])}</div>'
                 f'<div class="tm-meta">{x["record"]} · #{x["rank"]} · {x["streak"]}</div>'
                 f'<div class="tm-meta">Power #{x["power_rank"]}</div></div>')
-    h = n.get("head_to_head") or []
-    h2h = ("; ".join(f"Week {m['week']}: {E(m['winner'])} won {m['score']}" for m in h)
-           if h else "First meeting this season")
-    text = block(md, "MARQUEE")
-    body = f'<p class="preview">{wa(" ".join(text.split()))}</p>' if text else ""
-    return (f'<div class="feat"><div class="section-h">Week {n["week"]} Marquee</div>'
-            f'<div class="tape">{tape(n["a"])}<div class="vs">vs.</div>{tape(n["b"])}</div>'
-            f'<p class="h2h">{h2h}</p>{body}</div>')
+    cells = ""
+    for i, g in enumerate(card):
+        h = g.get("head_to_head") or []
+        h2h = ("; ".join(f"Week {m['week']}: {E(m['winner'])} won {m['score']}" for m in h)
+               if h else "First meeting this season")
+        body = f'<p class="preview">{wa(texts[i])}</p>' if i < len(texts) and texts[i] else ""
+        cells += (f'<div class="od"><div class="bill">{E(g.get("billing", ""))}</div>'
+                  f'<div class="tape">{tape(g["a"])}<div class="vs">vs.</div>{tape(g["b"])}</div>'
+                  f'<p class="h2h">{h2h}</p>{body}</div>')
+    return (f'<section class="ondeck" id="ondeck"><div class="section-h">On Deck: Week {card[0]["week"]}</div>'
+            f'<div class="ods">{cells}</div></section>')
 
 
 def lore_html(f):
@@ -496,7 +515,7 @@ def page(f, text, stories, weeks, title_prefix="", others="", og_url=""):
     desc = E(f"{head}. {deck}")
     archive = " · ".join(f'<a href="week-{w}.html">Week {w}</a>' for w in sorted(weeks, reverse=True))
     wa_html = "<br>\n".join(wa(l) for l in text.splitlines())
-    feats = [x for x in (marquee_html(f, stories), awards_html(f), lore_html(f)) if x]
+    feats = [x for x in (awards_html(f), lore_html(f)) if x]
     if stories:
         bouts = stories_html(stories, f)
         empty = (-bouts.count('class="cell bout"')) % 3            # holes in the last row of 3
@@ -511,6 +530,7 @@ def page(f, text, stories, weeks, title_prefix="", others="", og_url=""):
               f'<meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image">'
               if og_url else "")
     jump = [("#review", "Review") if lead_of(stories) else None, ("#matchups", "Matchups") if stories else None,
+            ("#ondeck", "On Deck") if card_of(f) else None,
             ("#bracket", "Bracket") if f.get("bracket") else None,
             ("#power", "Power") if f.get("power_rankings") else None, ("#standings", "Standings"),
             ("#funnies", "Funnies") if re.search(r"^STRIP:", stories or "", re.M) else None]
@@ -540,6 +560,7 @@ def page(f, text, stories, weeks, title_prefix="", others="", og_url=""):
 <div class="body">
 {cols}
 {features}
+{ondeck_html(f, stories)}
 {bracket_html(f)}
 {power_html(f, stories)}
 <div class="band">
