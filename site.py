@@ -232,7 +232,9 @@ def headline(f, banner=""):
     deck = f"{c['winner']} survives {c['loser']} by {c['margin']}."
     if f.get("upsets"):
         u = f["upsets"][0]
-        deck = f"Upset: No. {u['winner_prev_rank']} {u['winner']} topples No. {u['loser_prev_rank']} {u['loser']}. " + deck
+        up = f"Upset: No. {u['winner_prev_rank']} {u['winner']} topples No. {u['loser_prev_rank']} {u['loser']}"
+        same = (u["winner"], u["loser"]) == (c["winner"], c["loser"])        # upset was also the closest game
+        deck = f"{up} by {c['margin']}." if same else f"{up}. {deck}"
     return head, deck
 
 
