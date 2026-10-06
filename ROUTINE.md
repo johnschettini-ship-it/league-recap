@@ -10,15 +10,20 @@ Follow these steps exactly. Stop and report if a step fails. Never invent a numb
    If it says Sleeper data is not ready, skip this league and report the error.
 4. Open `recap.py`, read the `SYSTEM` prompt (tone: `CFG["tone"]`), and read the new
    `posts/<key>.facts.json`. Following that prompt exactly:
-   - overwrite `posts/<key>.txt` with PART 1 (the WhatsApp recap)
-   - write PART 2 (banner + matchup stories) to `posts/<key>.stories.md`
-5. `python recap.py --league=<id> --finalize` — checks every number against the facts and
-   pun-names that repeat the real name or reuse an earlier week's pun-name/epithet, then adds
-   the Gazette link. If it fails, fix only what
-   it flags (numbers from the facts; fuse repeated pun-names like "Drake London Bridges") and rerun.
+   - overwrite `posts/<key>.txt` with PART 1 (the mobile recap)
+   - write PART 2 (every block, in the prompt's order, ending with the `PUNS:` line) to
+     `posts/<key>.stories.md`
+   Before moving on, reread each story once for flow: every sentence follows from the one
+   before it, and every pun passes the prompt's flow test. Cut any pun that fails.
+5. `python recap.py --league=<id> --finalize` — checks every number against the facts, the
+   `PUNS:` line, pun-names that repeat the real name, and any pun or team-name joke reused from
+   an earlier week, then adds the Gazette link. If it fails, fix only what it flags (numbers
+   from the facts; fuse repeated pun-names like "Drake London Bridges"; invent a new pun for a
+   reused one) and rerun.
    After 2 failures: delete `posts/<key>.stories.md`, run `python recap.py --league=<id> --regen`
    to restore the plain template, and continue.
 6. Next league.
 7. Commit only the `posts/` folder with message `Week <N> recaps` and push to `main`.
 8. Reply with each league's `posts/<key>.txt`, each under a heading with the league name,
-   so each can be pasted into its own WhatsApp group.
+   so each can be pasted into its own group chat. List any league that was skipped or fell
+   back to the plain template, and why.

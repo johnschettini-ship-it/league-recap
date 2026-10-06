@@ -711,7 +711,11 @@ def finalize(lid):
     if rep:
         sys.exit(f"FAIL {txt.name}: pun-names repeat the real name, fuse them instead: {rep}")
     if stories and not re.search(r"^PUNS:", stories, re.M):
-        sys.exit(f"FAIL {txt.name}: stories must end with the PUNS: and EPITHETS: lines")
+        sys.exit(f"FAIL {txt.name}: stories must end with the PUNS: line")
+    teams = {s["manager"].lower() for s in facts["standings"]}
+    bare = [x.strip() for line in PUN_LINE.findall(stories) for x in line.split("|") if x.strip().lower() in teams]
+    if bare:                                          # a logged team name would block that team's name next week
+        sys.exit(f"FAIL {txt.name}: PUNS line lists a bare team name {bare}; log the joke phrase instead")
     poses, before = strip_poses(stories), last_strip_poses(lid, facts["week"])
     if poses and poses == before:
         sys.exit(f"FAIL {txt.name}: comic strip repeats last week's poses {poses}; change the gag")

@@ -174,6 +174,9 @@ class T(unittest.TestCase):
                 recap.finalize("L")
             (d / "L_2026_w2_recap.stories.md").write_text("### Hi\nPurdy Pleased As Punch by 0.4\nPUNS: Purdy Pleased As Punch")
             recap.finalize("L")                                              # fresh -> passes
+            (d / "L_2026_w2_recap.stories.md").write_text("### Hi\nJohn folded by 0.4\nPUNS: John | John folded")
+            with self.assertRaises(SystemExit):                              # bare team name logged -> blocked
+                recap.finalize("L")
         finally:
             recap.POSTS = orig
 
