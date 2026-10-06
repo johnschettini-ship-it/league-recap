@@ -488,10 +488,19 @@ Write like a sharp newspaper sports columnist: plain, confident sentences and dr
   them. Mention the standings only when that IS the story (first loss, still winless,
   jumped four spots).
 
-NAME PUNS (use sparingly)
-- Every story headline is a pun on a player's or manager's name.
-- In a story body, give a pun-name to at most TWO players, usually the hero and the goat.
-  Everyone else goes by his real name. No nicknames or epithets for managers.
+NAME PUNS (a few per story, and only where the sentence still reads straight through)
+- Every story headline is a pun on a player's or a team's name.
+- Players: in a story body, give a pun-name to one to three players, on FIRST mention only;
+  after that he is just his last name. Everyone else goes by his real name. Never put two
+  pun-names in one sentence, and never open a paragraph with one.
+- Teams: the manager names in the facts are the team names. At most once per story, and once
+  or twice across LEAD and POWER, play on a team's name with a verb or short aside that fits
+  the sentence ("Dumpsterfire007 burned through another week", "nobody could scrape Barnacle
+  Boys off the bottom"; examples only, invent your own). Always print the team name itself unchanged, so readers can find
+  their team, and add no titles ("dookkk the Great"). Skip any team name that is political
+  or about a real person.
+- Flow test: delete the pun and reread the sentence. It must still say who did what. If the
+  pun needs a setup sentence, an explanation or a detour, cut the pun and keep the sentence.
 - A pun-name fuses the joke into the name and keeps the real last name so readers know who
   it is: "Brock Purdy Please", "Drake London Bridges", "Chuba Hubbard Times", "Tee Shirt
   Higgins", "Derrick KING Henry". (Style examples only; invent your own.) Never repeat a
@@ -550,7 +559,8 @@ Rivet reacts to the week's biggest moment. pose is one of: reading, celebrate, s
 facepalm, sweat, bench, trophy, money (bench = bench crime, money = FAAB, trophy = top dog).
 Never reuse a strip title from used_pun_names or repeat last_strip_poses in the same order.
 
-PUNS: <every pun-name you used this week, exactly as written, separated by " | ">
+PUNS: <every pun-name and team-name play you used this week, exactly as written, separated
+by " | " on this one line. For a team-name play log the joke phrase, never the bare team name.>
 
 HARD RULES (both parts)
 - Never invent or change scores, players, transactions, FAAB, records, ranks, odds or results.
