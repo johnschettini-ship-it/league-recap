@@ -168,9 +168,10 @@ tr.cut td{border-bottom:2px dashed var(--accent)}
 /* ---- On Deck: next week's card ---- */
 .ondeck{margin:6px 0 26px}
 .ods{display:grid;grid-template-columns:1fr;gap:22px 0}
-@media(min-width:900px){.ods{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}.od{padding:0 22px;border-left:1px solid var(--rule)}.od:first-child{border-left:0;padding-left:0}.od:last-child{padding-right:0}}
-.od{min-width:0}.od .tm-name{font-size:clamp(12px,3.3vw,16px)}
-@media(min-width:900px) and (max-width:1250px){.od .tm-name{font-size:14px}}
+@media(min-width:1250px){.ods{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}.od{padding:0 22px;border-left:1px solid var(--rule)}.od:first-child{border-left:0;padding-left:0}.od:last-child{padding-right:0}}
+@media(max-width:1249px){.od{width:100%;max-width:640px;margin:0 auto}}
+.od,.tm-side{min-width:0}.tm-name.one{white-space:nowrap;overflow:hidden}
+@media(max-width:759px){.od .tm-name{font-size:15px}}
 .bill{text-align:center;font:700 12px/1 'Old Standard TT',serif;text-transform:uppercase;letter-spacing:3px;color:var(--accent);margin:0 0 8px}
 .features .feat:only-child .list{columns:2 320px;column-gap:32px}.features .list li{break-inside:avoid}
 """
@@ -361,7 +362,8 @@ def ondeck_html(f, md):
     texts = [" ".join(t.split()) for t in re.split(r"^\s*\d+[.)]\s*", block(md, "PREVIEWS"), flags=re.M) if t.strip()]
     texts = texts or [" ".join(block(md, "MARQUEE").split())]
     def tape(x):
-        return (f'<div class="tm-side"><div class="tm-name">{E(x["manager"])}</div>'
+        one = "" if " " in x["manager"].strip() else " one"          # one-word names shrink instead of splitting
+        return (f'<div class="tm-side"><div class="tm-name{one}">{E(x["manager"])}</div>'
                 f'<div class="tm-meta">{x["record"]} · #{x["rank"]} · {x["streak"]}</div>'
                 f'<div class="tm-meta">Power #{x["power_rank"]}</div></div>')
     cells = ""
@@ -576,9 +578,9 @@ def page(f, text, stories, weeks, title_prefix="", others="", og_url=""):
 </main>
 <script>
 /* one-line headlines: shrink until they fit; wrap only as a last resort */
-function fit(){{document.querySelectorAll('.bout h4,.mast h1').forEach(function(h){{
+function fit(){{document.querySelectorAll('.bout h4,.mast h1,.tm-name.one').forEach(function(h){{
   h.classList.remove('fit-wrap');h.style.fontSize='';var s=parseFloat(getComputedStyle(h).fontSize);
-  var min=h.tagName==='H1'?26:14;
+  var min=h.tagName==='H1'?26:h.tagName==='H4'?14:9;
   while(h.scrollWidth>h.clientWidth&&s>min){{s-=.5;h.style.fontSize=s+'px';}}
   if(h.scrollWidth>h.clientWidth)h.classList.add('fit-wrap');}});}}
 document.fonts&&document.fonts.ready.then(fit);fit();addEventListener('resize',fit);
