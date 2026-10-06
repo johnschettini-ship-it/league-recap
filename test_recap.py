@@ -135,12 +135,20 @@ class T(unittest.TestCase):
         for w, (p5, p6) in {1: (12, 4), 2: (11, 3)}.items():                 # Evan beats Finn both weeks: Evan 2-0 (rank 2), Finn 0-2 (rank 6)
             base["matchups"][w] += [m(5, 3, ["q1", "r1", "w1"], [p5, p5, p5]), m(6, 3, ["q2", "r2", "w2"], [p6, p6, p6])]
         base["next"] = [{"roster_id": a, "matchup_id": i} for i, pr in enumerate([(1, 3), (2, 6), (4, 5)], 1) for a in pr]
-        card = analyze(base, P, 2)["next_week_card"]
+        f6 = analyze(base, P, 2)
+        card = f6["next_week_card"]
         self.assertEqual([c["billing"] for c in card], ["Main Event", "Co-Main Event", "Basement Bowl"])
         self.assertEqual([(c["a"]["manager"], c["b"]["manager"]) for c in card],
                          [("John", "Steve"), ("Evan", "Dave"), ("Mike", "Finn")])   # ranks 1v3, 2v5, then 4v6
         self.assertEqual([(c["a"]["rank"], c["b"]["rank"]) for c in card], [(1, 3), (2, 5), (4, 6)])
         self.assertEqual(card[0]["week"], 3)
+        o = card[0]["odds"]                                                    # John averages far more than Steve
+        self.assertEqual((o["favorite"], o["underdog"]), ("John", "Steve"))
+        for c in card + f6["next_week_others"] if f6["next_week_others"] else card:
+            self.assertEqual(c["odds"]["favorite_pct"] + c["odds"]["underdog_pct"], 100)
+            self.assertTrue(50 <= c["odds"]["favorite_pct"] <= 95)
+            self.assertEqual(c["odds"]["line"] * 2, int(c["odds"]["line"] * 2))  # half-point lines
+        self.assertIsNone(f6["next_week_others"])                              # 3 games, all on the card
         two = raw(); two["next"] = [{"roster_id": a, "matchup_id": i} for i, pr in enumerate([(1, 2), (3, 4)], 1) for a in pr]
         c2 = analyze(two, P, 2)["next_week_card"]
         self.assertEqual([c["billing"] for c in c2], ["Main Event", "Co-Main Event"])     # too few games for a third

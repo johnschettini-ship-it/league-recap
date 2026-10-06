@@ -174,6 +174,17 @@ tr.cut td{border-bottom:2px dashed var(--accent)}
 @media(max-width:759px){.od .tm-name{font-size:15px}}
 .bill{text-align:center;font:700 12px/1 'Old Standard TT',serif;text-transform:uppercase;letter-spacing:3px;color:var(--accent);margin:0 0 8px}
 .features .feat:only-child .list{columns:2 320px;column-gap:32px}.features .list li{break-inside:avoid}
+
+/* ---- odds ---- */
+.odds{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:10px;margin:10px 0 2px;font:700 16px/1 'Old Standard TT',serif;font-variant-numeric:tabular-nums lining-nums}
+.obar{display:block;height:10px;border:1.5px solid var(--ink);background:var(--paper)}
+.obar i{display:block;height:100%;background:var(--ink)}
+.oline{text-align:center;font:700 12px/1.3 'Old Standard TT',serif;text-transform:uppercase;letter-spacing:1.5px;margin:4px 0 0}
+.slate{max-width:760px;margin:22px auto 0}.slate h4{font:700 12px/1 'Old Standard TT',serif;text-transform:uppercase;letter-spacing:3px;text-align:center;margin:0 0 6px}
+.slate ul{list-style:none;margin:0;padding:0}.slate li{display:flex;flex-wrap:wrap;justify-content:space-between;gap:2px 16px;padding:7px 0;border-bottom:1px dotted var(--rule)}
+.slate .so{color:var(--muted);font-variant-numeric:tabular-nums lining-nums}.slate .sm i{color:var(--muted)}
+.lede::first-letter{text-transform:uppercase}
+.onote{text-align:center;font:italic 14px/1.4 'IM Fell English',serif;color:var(--muted);margin:12px 0 0}
 """
 
 
@@ -368,6 +379,16 @@ def ondeck_html(f, md):
         return (f'<div class="tm-side"><div class="tm-name{one}">{E(x["manager"])}</div>'
                 f'<div class="tm-meta">{x["record"]} · #{x["rank"]} · {x["streak"]}</div>'
                 f'<div class="tm-meta">Power #{x["power_rank"]}</div></div>')
+    def odds_html(g):
+        o = g.get("odds")
+        if not o:
+            return ""
+        pa = o["favorite_pct"] if o["favorite"] == g["a"]["manager"] else o["underdog_pct"]
+        line = "Pick 'em" if not o["line"] else f'{E(o["favorite"])} by {o["line"]:g}'
+        return (f'<div class="odds" role="img" aria-label="Win chance: {E(g["a"]["manager"])} {pa} percent, '
+                f'{E(g["b"]["manager"])} {100 - pa} percent"><b>{pa}%</b>'
+                f'<span class="obar"><i style="width:{pa}%"></i></span><b>{100 - pa}%</b></div>'
+                f'<p class="oline">Line: {line}</p>')
     cells = ""
     for i, g in enumerate(card):
         h = g.get("head_to_head") or []
@@ -376,9 +397,17 @@ def ondeck_html(f, md):
         body = f'<p class="preview">{wa(texts[i])}</p>' if i < len(texts) and texts[i] else ""
         cells += (f'<div class="od"><div class="bill">{E(g.get("billing", ""))}</div>'
                   f'<div class="tape">{tape(g["a"])}<div class="vs">vs.</div>{tape(g["b"])}</div>'
-                  f'<p class="h2h">{h2h}</p>{body}</div>')
+                  f'{odds_html(g)}<p class="h2h">{h2h}</p>{body}</div>')
+    rest = "".join(
+        f'<li><span class="sm">{E(g["a"]["manager"])} <i>vs.</i> {E(g["b"]["manager"])}</span>'
+        f'<span class="so">{E(g["odds"]["favorite"])} {g["odds"]["favorite_pct"]}%'
+        + (f', by {g["odds"]["line"]:g}' if g["odds"]["line"] else ", pick 'em") + "</span></li>"
+        for g in f.get("next_week_others") or [])
+    rest = f'<div class="slate"><h4>Also on the slate</h4><ul>{rest}</ul></div>' if rest else ""
+    note = ('<p class="onote">Gazette odds are for fun. They come from each team\'s scoring average and how much '
+            'scores swing from week to week.</p>') if any(g.get("odds") for g in card) else ""
     return (f'<section class="ondeck" id="ondeck"><div class="section-h">On Deck: Week {card[0]["week"]}</div>'
-            f'<div class="ods">{cells}</div></section>')
+            f'<div class="ods">{cells}</div>{rest}{note}</section>')
 
 
 def lore_html(f):
