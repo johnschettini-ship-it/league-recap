@@ -23,7 +23,7 @@ Follow these steps exactly. Stop and report if a step fails. Never invent a numb
    After 2 failures: delete `posts/<key>.stories.md`, run `python recap.py --league=<id> --regen`
    to restore the plain template, and continue.
 6. Next league.
-7. Commit only the `posts/` folder with message `Week <N> recaps` and push to `main`.
+7. Commit only the `posts/` folder with message `Week <N> recaps` and push directly to `main` (authorized by the owner: the Gazette site deploys only from `main`).
 8. Reply with each league's `posts/<key>.txt`, each under a heading with the league name,
    so each can be pasted into its own group chat. List any league that was skipped or fell
    back to the plain template, and why.
