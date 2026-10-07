@@ -60,6 +60,7 @@ class T(unittest.TestCase):
         a = self.f["adds"][0]
         self.assertEqual((a["faab"], a["faab_left"], a["pts_this_week"]), (30, 70, 20.4))
         self.assertEqual(self.f["drops"], [{"manager": "Mike", "player": "WR Two"}])
+        self.assertEqual(self.f["got_away"], [{"player": "WR Two", "dropped_by": "Mike", "scored_for": "Steve", "pts": 20.0}])
         self.assertEqual(self.f["trades"][0]["receives"]["Steve"], ["RB One", "2027 round 2 pick"])
 
     def test_standings_and_upset(self):
@@ -174,6 +175,9 @@ class T(unittest.TestCase):
                 recap.finalize("L")
             (d / "L_2026_w2_recap.stories.md").write_text("### Hi\nPurdy Pleased As Punch by 0.4\nPUNS: Purdy Pleased As Punch")
             recap.finalize("L")                                              # fresh -> passes
+            (d / "L_2026_w2_recap.stories.md").write_text("### Hi\nJohn is on a W2 streak\nPUNS: Purdy Pleased As Punch")
+            with self.assertRaises(SystemExit):                              # scoreboard code in a sentence -> blocked
+                recap.finalize("L")
             (d / "L_2026_w2_recap.stories.md").write_text("### Hi\nJohn folded by 0.4\nPUNS: John | John folded")
             with self.assertRaises(SystemExit):                              # bare team name logged -> blocked
                 recap.finalize("L")

@@ -187,7 +187,7 @@ def analyze(raw, P, week, cfg=CFG, aliases=None):
 
     # transactions (completed only)
     week_pts = {m["roster_id"]: m.get("players_points") or {} for m in teams}
-    adds, drops, trades = [], [], []
+    adds, drops, trades, dropped = [], [], [], []
     budget = settings.get("waiver_budget") if settings.get("waiver_type") == 2 else None
     used = {r["roster_id"]: (r.get("settings") or {}).get("waiver_budget_used", 0) for r in raw["rosters"]}
     for t in raw["transactions"]:
@@ -213,7 +213,14 @@ def analyze(raw, P, week, cfg=CFG, aliases=None):
             adds.append(row)
         for pid, rid in d.items():
             drops.append({"manager": owner[rid], "player": pname(pid)})
+            dropped.append((rid, pid))
     adds.sort(key=lambda x: -x.get("faab", -1))
+    # the one that got away: dropped by one manager, then started and scored for another this week
+    lineup = {pid: (m["roster_id"], pts) for m in teams
+              for pid, pts in zip(m.get("starters") or [], m.get("starters_points") or [])}
+    got_away = sorted(({"player": pname(pid), "dropped_by": owner[rid], "scored_for": owner[lineup[pid][0]],
+                        "pts": r2(lineup[pid][1])} for rid, pid in dropped
+                       if pid in lineup and lineup[pid][0] != rid and lineup[pid][1] > 0), key=lambda g: -g["pts"])[:3]
 
     # standings
     def streak(res):
@@ -407,7 +414,7 @@ def analyze(raw, P, week, cfg=CFG, aliases=None):
         "closest": by_margin[0], "blowout": by_margin[-1],
         "bench_crimes": crimes[:3], "most_bench_pts": max(bench_totals, key=lambda b: b["bench_pts"]),
         "empty_slots": empty, "booms": booms, "busts": busts,
-        "adds": adds, "drops": drops, "trades": trades,
+        "adds": adds, "drops": drops, "trades": trades, "got_away": got_away or None,
         "faab_budget": budget,
         "standings": standings, "movers": movers, "upsets": upsets,
         "power_rankings": power, "next_week_card": card, "next_week_others": others, "awards": awards, "lore": lore,
@@ -487,6 +494,8 @@ Write like a sharp newspaper sports columnist: plain, confident sentences and dr
 - The page prints each team's record, rank and streak beside the story, so don't recite
   them. Mention the standings only when that IS the story (first loss, still winless,
   jumped four spots).
+- Write streaks in words ("two straight wins", "a third loss in a row"). The codes W2 and L3
+  belong only in the PART 1 standings lines, never in a sentence.
 
 NAME PUNS (a few per story, and only where the sentence still reads straight through)
 - Every story headline is a pun on a player's or a team's name.
@@ -509,6 +518,11 @@ NAME PUNS (a few per story, and only where the sentence still reads straight thr
 - English wordplay on sound or spelling only. Never mock a name as foreign, its origin or
   pronunciation, or anything about the person beyond his fantasy points.
 
+THE ONE THAT GOT AWAY: got_away lists players one manager dropped who then started and scored
+for another manager this week. When it is not null it is a story. Tell it in the game where it
+mattered most (the dropper's loss or the new owner's win), naming who dropped him, who started
+him and his points, and give it one line under 🔄 League Activity in PART 1.
+
 PART 1 — mobile recap for the group chat. 150-350 words. *bold* headers, emoji, short lines.
 Sections, in order (skip any with no data): 🏈 WEEK N RECAP, 👑 Top Dog, 💀 Basement,
 😬 Heartbreaker (closest), 🔨 Blowout, 🚨 Upset, 🚑 Bench Crime, 💥 Booms & Busts,
@@ -524,7 +538,8 @@ PART 2 — the newspaper. Write these blocks in exactly this order.
 BANNER: <front-page headline, a name pun, max 8 words>
 
 LEAD:
-<120-180 words in 2-3 short paragraphs. Open with the week's biggest story, say what it did
+<120-180 words in 2-3 short paragraphs. Open with the week's biggest story (the last unbeaten
+team losing or a first win outranks a high score), name the teams involved, say what it did
 to the standings, then point to two or three of the games below without giving away how the
 stories end.>
 
@@ -543,7 +558,9 @@ record = luck; last3_all_play = current form. Call all_play the "true record".>
 
 Then one story per game in "results", smallest margin first. Each story has exactly this shape:
 ### <one fitting emoji> <headline, a name pun, max 32 characters>
-<Paragraph 1, 40-65 words: who won and why, built on winner_lineup.>
+<Paragraph 1, 40-65 words: who won and why, built on winner_lineup. Vary the first sentence
+from story to story: open on the turning point, the best player, the mistake or the stakes.
+At most two stories in a paper may begin "<team> won because".>
 
 <Paragraph 2, 40-65 words: what went wrong for the loser (loser_lineup, any bench crime),
 and what the result means.>
@@ -719,6 +736,9 @@ def finalize(lid):
     poses, before = strip_poses(stories), last_strip_poses(lid, facts["week"])
     if poses and poses == before:
         sys.exit(f"FAIL {txt.name}: comic strip repeats last week's poses {poses}; change the gag")
+    codes = sorted(set(re.findall(r"\b[WL]\d+\b", stories)))
+    if codes:
+        sys.exit(f"FAIL {txt.name}: streak codes {codes} in the stories; write them in words (\"two straight wins\")")
     again = reused_puns(body + "\n" + stories, used_puns(lid, facts["week"]))
     if again:
         sys.exit(f"FAIL {txt.name}: pun-names/epithets already used in earlier weeks, invent new ones: {again}")
