@@ -1,0 +1,1594 @@
+{
+ "league": "Uncle Rico's Training Grounds",
+ "season": "2026",
+ "week": 6,
+ "teams": 12,
+ "playoff_week_start": 15,
+ "results": [
+  {
+   "winner": "Tbonez420",
+   "winner_pts": 162.95,
+   "loser": "RicoJRoday",
+   "loser_pts": 93.85,
+   "margin": 69.1,
+   "tie": false,
+   "winner_lineup": {
+    "stars": [
+     {
+      "player": "Malik Nabers",
+      "slot": "WR",
+      "pts": 31.5
+     },
+     {
+      "player": "Michael Penix",
+      "slot": "QB",
+      "pts": 25.35
+     }
+    ],
+    "dud": {
+     "player": "Kendre Miller",
+     "slot": "RB",
+     "pts": 10.0
+    }
+   },
+   "loser_lineup": {
+    "stars": [
+     {
+      "player": "Drake Maye",
+      "slot": "QB",
+      "pts": 27.15
+     },
+     {
+      "player": "Romeo Doubs",
+      "slot": "WR",
+      "pts": 11.2
+     }
+    ],
+    "dud": {
+     "player": "Rhamondre Stevenson",
+     "slot": "FLEX",
+     "pts": 3.6
+    }
+   },
+   "winner_record": "5-1",
+   "winner_rank": 1,
+   "winner_streak": "W3",
+   "winner_prev_rank": 2,
+   "loser_record": "2-4",
+   "loser_rank": 11,
+   "loser_streak": "L1",
+   "loser_prev_rank": 9,
+   "loser_bench_crime": {
+    "manager": "RicoJRoday",
+    "benched": "Roschon Johnson",
+    "benched_pts": 14.5,
+    "started": "Rhamondre Stevenson",
+    "started_pts": 3.6,
+    "slot": "FLEX",
+    "gap": 10.9
+   }
+  },
+  {
+   "winner": "Sabrinie",
+   "winner_pts": 119.0,
+   "loser": "mattystitches",
+   "loser_pts": 111.95,
+   "margin": 7.05,
+   "tie": false,
+   "winner_lineup": {
+    "stars": [
+     {
+      "player": "Tre Tucker",
+      "slot": "WR",
+      "pts": 26.7
+     },
+     {
+      "player": "Jordan Love",
+      "slot": "QB",
+      "pts": 23.0
+     }
+    ],
+    "dud": {
+     "player": "Harold Fannin",
+     "slot": "TE",
+     "pts": 1.9
+    }
+   },
+   "loser_lineup": {
+    "stars": [
+     {
+      "player": "Josh Allen",
+      "slot": "QB",
+      "pts": 20.85
+     },
+     {
+      "player": "Stefon Diggs",
+      "slot": "WR",
+      "pts": 16.4
+     }
+    ],
+    "dud": {
+     "player": "Cam Skattebo",
+     "slot": "RB",
+     "pts": 0.0
+    }
+   },
+   "winner_record": "4-2",
+   "winner_rank": 3,
+   "winner_streak": "W2",
+   "winner_prev_rank": 4,
+   "loser_record": "4-2",
+   "loser_rank": 4,
+   "loser_streak": "L2",
+   "loser_prev_rank": 1,
+   "winner_bench_crime": {
+    "manager": "Sabrinie",
+    "benched": "Omar Cooper",
+    "benched_pts": 25.3,
+    "started": "Wan'Dale Robinson",
+    "started_pts": 5.2,
+    "slot": "FLEX",
+    "gap": 20.1
+   },
+   "loser_bench_crime": {
+    "manager": "mattystitches",
+    "benched": "Alvin Kamara",
+    "benched_pts": 14.9,
+    "started": "Cam Skattebo",
+    "started_pts": 0.0,
+    "slot": "RB",
+    "gap": 14.9
+   }
+  },
+  {
+   "winner": "RamsoBamso",
+   "winner_pts": 134.2,
+   "loser": "The Immaculate Concepcion",
+   "loser_pts": 103.55,
+   "margin": 30.65,
+   "tie": false,
+   "winner_lineup": {
+    "stars": [
+     {
+      "player": "Matthew Stafford",
+      "slot": "QB",
+      "pts": 20.1
+     },
+     {
+      "player": "Carnell Tate",
+      "slot": "WRRB_FLEX",
+      "pts": 19.0
+     }
+    ],
+    "dud": {
+     "player": "Rome Odunze",
+     "slot": "WR",
+     "pts": 6.9
+    }
+   },
+   "loser_lineup": {
+    "stars": [
+     {
+      "player": "Chuba Hubbard",
+      "slot": "RB",
+      "pts": 22.1
+     },
+     {
+      "player": "Tyler Bass",
+      "slot": "K",
+      "pts": 20.0
+     }
+    ],
+    "dud": {
+     "player": "Juwan Johnson",
+     "slot": "TE",
+     "pts": 0.0
+    }
+   },
+   "winner_record": "4-2",
+   "winner_rank": 2,
+   "winner_streak": "W4",
+   "winner_prev_rank": 5,
+   "loser_record": "1-5",
+   "loser_rank": 12,
+   "loser_streak": "L5",
+   "loser_prev_rank": 11
+  },
+  {
+   "winner": "Mick Mouse Club House",
+   "winner_pts": 167.55,
+   "loser": "PBJiantsfan",
+   "loser_pts": 113.3,
+   "margin": 54.25,
+   "tie": false,
+   "winner_lineup": {
+    "stars": [
+     {
+      "player": "Christian McCaffrey",
+      "slot": "RB",
+      "pts": 31.7
+     },
+     {
+      "player": "Matthew Golden",
+      "slot": "WR",
+      "pts": 25.4
+     }
+    ],
+    "dud": {
+     "player": "Pat Freiermuth",
+     "slot": "TE",
+     "pts": 3.1
+    }
+   },
+   "loser_lineup": {
+    "stars": [
+     {
+      "player": "DK Metcalf",
+      "slot": "FLEX",
+      "pts": 20.3
+     },
+     {
+      "player": "Dameon Pierce",
+      "slot": "WRRB_FLEX",
+      "pts": 15.0
+     }
+    ],
+    "dud": {
+     "player": "Tyler Higbee",
+     "slot": "TE",
+     "pts": 4.2
+    }
+   },
+   "winner_record": "2-4",
+   "winner_rank": 10,
+   "winner_streak": "W2",
+   "winner_prev_rank": 12,
+   "loser_record": "2-4",
+   "loser_rank": 8,
+   "loser_streak": "L2",
+   "loser_prev_rank": 8
+  },
+  {
+   "winner": "Dumpsterfire007",
+   "winner_pts": 116.3,
+   "loser": "Action Jaxson",
+   "loser_pts": 77.75,
+   "margin": 38.55,
+   "tie": false,
+   "winner_lineup": {
+    "stars": [
+     {
+      "player": "Jaxon Smith-Njigba",
+      "slot": "WR",
+      "pts": 28.4
+     },
+     {
+      "player": "Jayden Daniels",
+      "slot": "QB",
+      "pts": 26.0
+     }
+    ],
+    "dud": {
+     "player": "Mark Andrews",
+     "slot": "TE",
+     "pts": 1.4
+    }
+   },
+   "loser_lineup": {
+    "stars": [
+     {
+      "player": "Isaiah Likely",
+      "slot": "TE",
+      "pts": 23.9
+     },
+     {
+      "player": "CeeDee Lamb",
+      "slot": "WR",
+      "pts": 16.0
+     }
+    ],
+    "dud": {
+     "player": "MarShawn Lloyd",
+     "slot": "RB",
+     "pts": 1.0
+    }
+   },
+   "winner_record": "4-2",
+   "winner_rank": 6,
+   "winner_streak": "W1",
+   "winner_prev_rank": 6,
+   "loser_record": "2-4",
+   "loser_rank": 9,
+   "loser_streak": "L3",
+   "loser_prev_rank": 7,
+   "loser_bench_crime": {
+    "manager": "Action Jaxson",
+    "benched": "Hunter Henry",
+    "benched_pts": 14.8,
+    "started": "Kalif Raymond",
+    "started_pts": 3.8,
+    "slot": "FLEX",
+    "gap": 11.0
+   }
+  },
+  {
+   "winner": "CatchingKelce",
+   "winner_pts": 158.7,
+   "loser": "The Cobbler",
+   "loser_pts": 127.9,
+   "margin": 30.8,
+   "tie": false,
+   "winner_lineup": {
+    "stars": [
+     {
+      "player": "Kenneth Walker",
+      "slot": "RB",
+      "pts": 29.9
+     },
+     {
+      "player": "James Cook",
+      "slot": "RB",
+      "pts": 26.3
+     }
+    ],
+    "dud": {
+     "player": "Jacoby Brissett",
+     "slot": "QB",
+     "pts": 9.1
+    }
+   },
+   "loser_lineup": {
+    "stars": [
+     {
+      "player": "D'Andre Swift",
+      "slot": "RB",
+      "pts": 23.0
+     },
+     {
+      "player": "Brock Purdy",
+      "slot": "QB",
+      "pts": 20.0
+     }
+    ],
+    "dud": {
+     "player": "Michael Wilson",
+     "slot": "WR",
+     "pts": 7.2
+    }
+   },
+   "winner_record": "2-4",
+   "winner_rank": 7,
+   "winner_streak": "W1",
+   "winner_prev_rank": 10,
+   "loser_record": "4-2",
+   "loser_rank": 5,
+   "loser_streak": "L1",
+   "loser_prev_rank": 3,
+   "loser_bench_crime": {
+    "manager": "The Cobbler",
+    "benched": "DeVonta Smith",
+    "benched_pts": 20.5,
+    "started": "Michael Wilson",
+    "started_pts": 7.2,
+    "slot": "WR",
+    "gap": 13.3
+   }
+  }
+ ],
+ "high": {
+  "manager": "Mick Mouse Club House",
+  "pts": 167.55
+ },
+ "low": {
+  "manager": "Action Jaxson",
+  "pts": 77.75
+ },
+ "closest": {
+  "winner": "Sabrinie",
+  "winner_pts": 119.0,
+  "loser": "mattystitches",
+  "loser_pts": 111.95,
+  "margin": 7.05,
+  "tie": false,
+  "winner_lineup": {
+   "stars": [
+    {
+     "player": "Tre Tucker",
+     "slot": "WR",
+     "pts": 26.7
+    },
+    {
+     "player": "Jordan Love",
+     "slot": "QB",
+     "pts": 23.0
+    }
+   ],
+   "dud": {
+    "player": "Harold Fannin",
+    "slot": "TE",
+    "pts": 1.9
+   }
+  },
+  "loser_lineup": {
+   "stars": [
+    {
+     "player": "Josh Allen",
+     "slot": "QB",
+     "pts": 20.85
+    },
+    {
+     "player": "Stefon Diggs",
+     "slot": "WR",
+     "pts": 16.4
+    }
+   ],
+   "dud": {
+    "player": "Cam Skattebo",
+    "slot": "RB",
+    "pts": 0.0
+   }
+  },
+  "winner_record": "4-2",
+  "winner_rank": 3,
+  "winner_streak": "W2",
+  "winner_prev_rank": 4,
+  "loser_record": "4-2",
+  "loser_rank": 4,
+  "loser_streak": "L2",
+  "loser_prev_rank": 1,
+  "winner_bench_crime": {
+   "manager": "Sabrinie",
+   "benched": "Omar Cooper",
+   "benched_pts": 25.3,
+   "started": "Wan'Dale Robinson",
+   "started_pts": 5.2,
+   "slot": "FLEX",
+   "gap": 20.1
+  },
+  "loser_bench_crime": {
+   "manager": "mattystitches",
+   "benched": "Alvin Kamara",
+   "benched_pts": 14.9,
+   "started": "Cam Skattebo",
+   "started_pts": 0.0,
+   "slot": "RB",
+   "gap": 14.9
+  }
+ },
+ "blowout": {
+  "winner": "Tbonez420",
+  "winner_pts": 162.95,
+  "loser": "RicoJRoday",
+  "loser_pts": 93.85,
+  "margin": 69.1,
+  "tie": false,
+  "winner_lineup": {
+   "stars": [
+    {
+     "player": "Malik Nabers",
+     "slot": "WR",
+     "pts": 31.5
+    },
+    {
+     "player": "Michael Penix",
+     "slot": "QB",
+     "pts": 25.35
+    }
+   ],
+   "dud": {
+    "player": "Kendre Miller",
+    "slot": "RB",
+    "pts": 10.0
+   }
+  },
+  "loser_lineup": {
+   "stars": [
+    {
+     "player": "Drake Maye",
+     "slot": "QB",
+     "pts": 27.15
+    },
+    {
+     "player": "Romeo Doubs",
+     "slot": "WR",
+     "pts": 11.2
+    }
+   ],
+   "dud": {
+    "player": "Rhamondre Stevenson",
+    "slot": "FLEX",
+    "pts": 3.6
+   }
+  },
+  "winner_record": "5-1",
+  "winner_rank": 1,
+  "winner_streak": "W3",
+  "winner_prev_rank": 2,
+  "loser_record": "2-4",
+  "loser_rank": 11,
+  "loser_streak": "L1",
+  "loser_prev_rank": 9,
+  "loser_bench_crime": {
+   "manager": "RicoJRoday",
+   "benched": "Roschon Johnson",
+   "benched_pts": 14.5,
+   "started": "Rhamondre Stevenson",
+   "started_pts": 3.6,
+   "slot": "FLEX",
+   "gap": 10.9
+  }
+ },
+ "bench_crimes": [
+  {
+   "manager": "Sabrinie",
+   "benched": "Omar Cooper",
+   "benched_pts": 25.3,
+   "started": "Wan'Dale Robinson",
+   "started_pts": 5.2,
+   "slot": "FLEX",
+   "gap": 20.1
+  },
+  {
+   "manager": "mattystitches",
+   "benched": "Alvin Kamara",
+   "benched_pts": 14.9,
+   "started": "Cam Skattebo",
+   "started_pts": 0.0,
+   "slot": "RB",
+   "gap": 14.9
+  },
+  {
+   "manager": "The Cobbler",
+   "benched": "DeVonta Smith",
+   "benched_pts": 20.5,
+   "started": "Michael Wilson",
+   "started_pts": 7.2,
+   "slot": "WR",
+   "gap": 13.3
+  }
+ ],
+ "most_bench_pts": {
+  "manager": "Sabrinie",
+  "bench_pts": 57.4
+ },
+ "empty_slots": [],
+ "booms": [
+  {
+   "player": "Christian McCaffrey",
+   "pts": 31.7,
+   "manager": "Mick Mouse Club House"
+  },
+  {
+   "player": "Malik Nabers",
+   "pts": 31.5,
+   "manager": "Tbonez420"
+  },
+  {
+   "player": "Kenneth Walker",
+   "pts": 29.9,
+   "manager": "CatchingKelce"
+  }
+ ],
+ "busts": [
+  {
+   "player": "Juwan Johnson",
+   "pts": 0.0,
+   "manager": "The Immaculate Concepcion"
+  },
+  {
+   "player": "Cam Skattebo",
+   "pts": 0.0,
+   "manager": "mattystitches"
+  },
+  {
+   "player": "MarShawn Lloyd",
+   "pts": 1.0,
+   "manager": "Action Jaxson"
+  }
+ ],
+ "adds": [
+  {
+   "manager": "mattystitches",
+   "player": "Keenan Allen",
+   "via": "waiver"
+  },
+  {
+   "manager": "Dumpsterfire007",
+   "player": "Antonio Williams",
+   "via": "waiver"
+  },
+  {
+   "manager": "PBJiantsfan",
+   "player": "Kyler Murray",
+   "via": "waiver",
+   "pts_this_week": 0.0
+  },
+  {
+   "manager": "Mick Mouse Club House",
+   "player": "Michael Mayer",
+   "via": "waiver"
+  },
+  {
+   "manager": "Mick Mouse Club House",
+   "player": "DeMario Douglas",
+   "via": "waiver"
+  },
+  {
+   "manager": "CatchingKelce",
+   "player": "New York Jets",
+   "via": "waiver"
+  },
+  {
+   "manager": "The Cobbler",
+   "player": "Arizona Cardinals",
+   "via": "free_agent",
+   "pts_this_week": 7.0
+  },
+  {
+   "manager": "RicoJRoday",
+   "player": "Roschon Johnson",
+   "via": "free_agent",
+   "pts_this_week": 14.5
+  },
+  {
+   "manager": "RicoJRoday",
+   "player": "KC Concepcion",
+   "via": "free_agent",
+   "pts_this_week": 7.9
+  },
+  {
+   "manager": "mattystitches",
+   "player": "Jordan Addison",
+   "via": "free_agent",
+   "pts_this_week": 0.0
+  },
+  {
+   "manager": "Action Jaxson",
+   "player": "Nick Folk",
+   "via": "free_agent",
+   "pts_this_week": 1.0
+  },
+  {
+   "manager": "mattystitches",
+   "player": "Deebo Samuel",
+   "via": "waiver",
+   "pts_this_week": 0.0
+  },
+  {
+   "manager": "Dumpsterfire007",
+   "player": "Christian Kirk",
+   "via": "free_agent",
+   "pts_this_week": 0.0
+  },
+  {
+   "manager": "PBJiantsfan",
+   "player": "Khalil Shakir",
+   "via": "free_agent",
+   "pts_this_week": 13.4
+  },
+  {
+   "manager": "The Immaculate Concepcion",
+   "player": "Tyler Bass",
+   "via": "free_agent",
+   "pts_this_week": 20.0
+  },
+  {
+   "manager": "Action Jaxson",
+   "player": "Najee Harris",
+   "via": "free_agent",
+   "pts_this_week": 0.2
+  },
+  {
+   "manager": "Action Jaxson",
+   "player": "Tanner McKee",
+   "via": "free_agent",
+   "pts_this_week": 15.75
+  },
+  {
+   "manager": "Tbonez420",
+   "player": "Michael Penix",
+   "via": "free_agent",
+   "pts_this_week": 25.35
+  },
+  {
+   "manager": "Dumpsterfire007",
+   "player": "Jaleel McLaughlin",
+   "via": "free_agent",
+   "pts_this_week": 9.5
+  },
+  {
+   "manager": "CatchingKelce",
+   "player": "Dominic Zvada",
+   "via": "free_agent",
+   "pts_this_week": 10.0
+  },
+  {
+   "manager": "Dumpsterfire007",
+   "player": "Mark Andrews",
+   "via": "free_agent",
+   "pts_this_week": 1.4
+  },
+  {
+   "manager": "Dumpsterfire007",
+   "player": "Kendrick Bourne",
+   "via": "free_agent",
+   "pts_this_week": 9.7
+  },
+  {
+   "manager": "Dumpsterfire007",
+   "player": "San Francisco 49ers",
+   "via": "free_agent",
+   "pts_this_week": 5.0
+  },
+  {
+   "manager": "PBJiantsfan",
+   "player": "Dameon Pierce",
+   "via": "free_agent",
+   "pts_this_week": 15.0
+  },
+  {
+   "manager": "PBJiantsfan",
+   "player": "Dylan Sampson",
+   "via": "free_agent",
+   "pts_this_week": 0.0
+  },
+  {
+   "manager": "The Immaculate Concepcion",
+   "player": "Indianapolis Colts",
+   "via": "free_agent",
+   "pts_this_week": 2.0
+  },
+  {
+   "manager": "PBJiantsfan",
+   "player": "Dameon Pierce",
+   "via": "free_agent",
+   "pts_this_week": 15.0
+  },
+  {
+   "manager": "PBJiantsfan",
+   "player": "Jacory Croskey-Merritt",
+   "via": "free_agent"
+  },
+  {
+   "manager": "PBJiantsfan",
+   "player": "Jameis Winston",
+   "via": "free_agent",
+   "pts_this_week": 8.0
+  }
+ ],
+ "drops": [
+  {
+   "manager": "mattystitches",
+   "player": "Kansas City Chiefs"
+  },
+  {
+   "manager": "Dumpsterfire007",
+   "player": "Mark Andrews"
+  },
+  {
+   "manager": "PBJiantsfan",
+   "player": "Jameis Winston"
+  },
+  {
+   "manager": "Mick Mouse Club House",
+   "player": "Malachi Fields"
+  },
+  {
+   "manager": "Mick Mouse Club House",
+   "player": "Terry McLaurin"
+  },
+  {
+   "manager": "CatchingKelce",
+   "player": "Dontayvion Wicks"
+  },
+  {
+   "manager": "PBJiantsfan",
+   "player": "Keaton Mitchell"
+  },
+  {
+   "manager": "The Cobbler",
+   "player": "Washington Commanders"
+  },
+  {
+   "manager": "Dumpsterfire007",
+   "player": "Emmett Johnson"
+  },
+  {
+   "manager": "Sabrinie",
+   "player": "Nicholas Singleton"
+  },
+  {
+   "manager": "Action Jaxson",
+   "player": "Kyler Murray"
+  },
+  {
+   "manager": "mattystitches",
+   "player": "Keenan Allen"
+  },
+  {
+   "manager": "Dumpsterfire007",
+   "player": "Quentin Johnston"
+  },
+  {
+   "manager": "PBJiantsfan",
+   "player": "Jacory Croskey-Merritt"
+  },
+  {
+   "manager": "RicoJRoday",
+   "player": "Makai Lemon"
+  },
+  {
+   "manager": "The Immaculate Concepcion",
+   "player": "Jake Ferguson"
+  },
+  {
+   "manager": "mattystitches",
+   "player": "Tyreek Hill"
+  },
+  {
+   "manager": "Action Jaxson",
+   "player": "Sam Darnold"
+  },
+  {
+   "manager": "Tbonez420",
+   "player": "Kaelon Black"
+  },
+  {
+   "manager": "Dumpsterfire007",
+   "player": "Deebo Samuel"
+  },
+  {
+   "manager": "CatchingKelce",
+   "player": "Michael Pittman"
+  },
+  {
+   "manager": "Dumpsterfire007",
+   "player": "Tre' Harris"
+  },
+  {
+   "manager": "Dumpsterfire007",
+   "player": "Las Vegas Raiders"
+  },
+  {
+   "manager": "PBJiantsfan",
+   "player": "Dameon Pierce"
+  },
+  {
+   "manager": "The Immaculate Concepcion",
+   "player": "Chicago Bears"
+  },
+  {
+   "manager": "PBJiantsfan",
+   "player": "Khalil Shakir"
+  }
+ ],
+ "trades": [],
+ "got_away": null,
+ "faab_budget": null,
+ "standings": [
+  {
+   "rank": 1,
+   "manager": "Tbonez420",
+   "record": "5-1",
+   "pf": 890.6,
+   "streak": "W3",
+   "prev_rank": 2
+  },
+  {
+   "rank": 2,
+   "manager": "RamsoBamso",
+   "record": "4-2",
+   "pf": 895.85,
+   "streak": "W4",
+   "prev_rank": 5
+  },
+  {
+   "rank": 3,
+   "manager": "Sabrinie",
+   "record": "4-2",
+   "pf": 886.35,
+   "streak": "W2",
+   "prev_rank": 4
+  },
+  {
+   "rank": 4,
+   "manager": "mattystitches",
+   "record": "4-2",
+   "pf": 885.5,
+   "streak": "L2",
+   "prev_rank": 1
+  },
+  {
+   "rank": 5,
+   "manager": "The Cobbler",
+   "record": "4-2",
+   "pf": 841.4,
+   "streak": "L1",
+   "prev_rank": 3
+  },
+  {
+   "rank": 6,
+   "manager": "Dumpsterfire007",
+   "record": "4-2",
+   "pf": 829.55,
+   "streak": "W1",
+   "prev_rank": 6
+  },
+  {
+   "rank": 7,
+   "manager": "CatchingKelce",
+   "record": "2-4",
+   "pf": 846.85,
+   "streak": "W1",
+   "prev_rank": 10
+  },
+  {
+   "rank": 8,
+   "manager": "PBJiantsfan",
+   "record": "2-4",
+   "pf": 784.05,
+   "streak": "L2",
+   "prev_rank": 8
+  },
+  {
+   "rank": 9,
+   "manager": "Action Jaxson",
+   "record": "2-4",
+   "pf": 780.45,
+   "streak": "L3",
+   "prev_rank": 7
+  },
+  {
+   "rank": 10,
+   "manager": "Mick Mouse Club House",
+   "record": "2-4",
+   "pf": 761.8,
+   "streak": "W2",
+   "prev_rank": 12
+  },
+  {
+   "rank": 11,
+   "manager": "RicoJRoday",
+   "record": "2-4",
+   "pf": 678.1,
+   "streak": "L1",
+   "prev_rank": 9
+  },
+  {
+   "rank": 12,
+   "manager": "The Immaculate Concepcion",
+   "record": "1-5",
+   "pf": 790.75,
+   "streak": "L5",
+   "prev_rank": 11
+  }
+ ],
+ "movers": [
+  {
+   "rank": 2,
+   "manager": "RamsoBamso",
+   "record": "4-2",
+   "pf": 895.85,
+   "streak": "W4",
+   "prev_rank": 5
+  },
+  {
+   "rank": 4,
+   "manager": "mattystitches",
+   "record": "4-2",
+   "pf": 885.5,
+   "streak": "L2",
+   "prev_rank": 1
+  },
+  {
+   "rank": 5,
+   "manager": "The Cobbler",
+   "record": "4-2",
+   "pf": 841.4,
+   "streak": "L1",
+   "prev_rank": 3
+  },
+  {
+   "rank": 7,
+   "manager": "CatchingKelce",
+   "record": "2-4",
+   "pf": 846.85,
+   "streak": "W1",
+   "prev_rank": 10
+  },
+  {
+   "rank": 9,
+   "manager": "Action Jaxson",
+   "record": "2-4",
+   "pf": 780.45,
+   "streak": "L3",
+   "prev_rank": 7
+  },
+  {
+   "rank": 10,
+   "manager": "Mick Mouse Club House",
+   "record": "2-4",
+   "pf": 761.8,
+   "streak": "W2",
+   "prev_rank": 12
+  },
+  {
+   "rank": 11,
+   "manager": "RicoJRoday",
+   "record": "2-4",
+   "pf": 678.1,
+   "streak": "L1",
+   "prev_rank": 9
+  }
+ ],
+ "upsets": [
+  {
+   "winner": "Mick Mouse Club House",
+   "winner_prev_rank": 12,
+   "loser": "PBJiantsfan",
+   "loser_prev_rank": 8
+  },
+  {
+   "winner": "CatchingKelce",
+   "winner_prev_rank": 10,
+   "loser": "The Cobbler",
+   "loser_prev_rank": 3
+  }
+ ],
+ "power_rankings": [
+  {
+   "power_rank": 1,
+   "manager": "Tbonez420",
+   "record": "5-1",
+   "all_play": "48-18",
+   "last3_all_play": "29-4",
+   "power_score": 80.5,
+   "pf": 890.6,
+   "pa": 830.7,
+   "luck": 0.6,
+   "prev_power_rank": 3
+  },
+  {
+   "power_rank": 2,
+   "manager": "RamsoBamso",
+   "record": "4-2",
+   "all_play": "43-23",
+   "last3_all_play": "28-5",
+   "power_score": 75.3,
+   "pf": 895.85,
+   "pa": 790.5,
+   "luck": 0.1,
+   "prev_power_rank": 2
+  },
+  {
+   "power_rank": 3,
+   "manager": "Sabrinie",
+   "record": "4-2",
+   "all_play": "43-23",
+   "last3_all_play": "27-6",
+   "power_score": 74.4,
+   "pf": 886.35,
+   "pa": 825.7,
+   "luck": 0.1,
+   "prev_power_rank": 1
+  },
+  {
+   "power_rank": 4,
+   "manager": "CatchingKelce",
+   "record": "2-4",
+   "all_play": "37-29",
+   "last3_all_play": "18-15",
+   "power_score": 61.5,
+   "pf": 846.85,
+   "pa": 836.0,
+   "luck": -1.4,
+   "prev_power_rank": 7
+  },
+  {
+   "power_rank": 5,
+   "manager": "mattystitches",
+   "record": "4-2",
+   "all_play": "41-25",
+   "last3_all_play": "12-21",
+   "power_score": 61.2,
+   "pf": 885.5,
+   "pa": 807.6,
+   "luck": 0.3,
+   "prev_power_rank": 4
+  },
+  {
+   "power_rank": 6,
+   "manager": "The Cobbler",
+   "record": "4-2",
+   "all_play": "32-34",
+   "last3_all_play": "18-15",
+   "power_score": 56.8,
+   "pf": 841.4,
+   "pa": 778.8,
+   "luck": 1.1,
+   "prev_power_rank": 8
+  },
+  {
+   "power_rank": 7,
+   "manager": "Dumpsterfire007",
+   "record": "4-2",
+   "all_play": "32-34",
+   "last3_all_play": "13-20",
+   "power_score": 52.8,
+   "pf": 829.55,
+   "pa": 723.9,
+   "luck": 1.1,
+   "prev_power_rank": 6
+  },
+  {
+   "power_rank": 8,
+   "manager": "Action Jaxson",
+   "record": "2-4",
+   "all_play": "30-36",
+   "last3_all_play": "11-22",
+   "power_score": 48.7,
+   "pf": 780.45,
+   "pa": 858.7,
+   "luck": -0.7,
+   "prev_power_rank": 5
+  },
+  {
+   "power_rank": 9,
+   "manager": "PBJiantsfan",
+   "record": "2-4",
+   "all_play": "28-38",
+   "last3_all_play": "13-20",
+   "power_score": 48.4,
+   "pf": 784.05,
+   "pa": 829.7,
+   "luck": -0.5,
+   "prev_power_rank": 9
+  },
+  {
+   "power_rank": 10,
+   "manager": "Mick Mouse Club House",
+   "record": "2-4",
+   "all_play": "20-46",
+   "last3_all_play": "16-17",
+   "power_score": 43.1,
+   "pf": 761.8,
+   "pa": 814.95,
+   "luck": 0.2,
+   "prev_power_rank": 12
+  },
+  {
+   "power_rank": 11,
+   "manager": "The Immaculate Concepcion",
+   "record": "1-5",
+   "all_play": "27-39",
+   "last3_all_play": "4-29",
+   "power_score": 40.8,
+   "pf": 790.75,
+   "pa": 870.15,
+   "luck": -1.5,
+   "prev_power_rank": 10
+  },
+  {
+   "power_rank": 12,
+   "manager": "RicoJRoday",
+   "record": "2-4",
+   "all_play": "15-51",
+   "last3_all_play": "9-24",
+   "power_score": 31.8,
+   "pf": 678.1,
+   "pa": 904.55,
+   "luck": 0.6,
+   "prev_power_rank": 11
+  }
+ ],
+ "next_week_card": [
+  {
+   "billing": "Main Event",
+   "week": 7,
+   "a": {
+    "manager": "Tbonez420",
+    "record": "5-1",
+    "rank": 1,
+    "streak": "W3",
+    "power_rank": 1,
+    "pf": 890.6
+   },
+   "b": {
+    "manager": "The Cobbler",
+    "record": "4-2",
+    "rank": 5,
+    "streak": "L1",
+    "power_rank": 6,
+    "pf": 841.4
+   },
+   "head_to_head": [],
+   "odds": {
+    "favorite": "Tbonez420",
+    "favorite_pct": 56,
+    "underdog": "The Cobbler",
+    "underdog_pct": 44,
+    "line": 5.5
+   }
+  },
+  {
+   "billing": "Co-Main Event",
+   "week": 7,
+   "a": {
+    "manager": "mattystitches",
+    "record": "4-2",
+    "rank": 4,
+    "streak": "L2",
+    "power_rank": 5,
+    "pf": 885.5
+   },
+   "b": {
+    "manager": "Dumpsterfire007",
+    "record": "4-2",
+    "rank": 6,
+    "streak": "W1",
+    "power_rank": 7,
+    "pf": 829.55
+   },
+   "head_to_head": [],
+   "odds": {
+    "favorite": "mattystitches",
+    "favorite_pct": 57,
+    "underdog": "Dumpsterfire007",
+    "underdog_pct": 43,
+    "line": 6.0
+   }
+  },
+  {
+   "billing": "Basement Bowl",
+   "week": 7,
+   "a": {
+    "manager": "Action Jaxson",
+    "record": "2-4",
+    "rank": 9,
+    "streak": "L3",
+    "power_rank": 8,
+    "pf": 780.45
+   },
+   "b": {
+    "manager": "The Immaculate Concepcion",
+    "record": "1-5",
+    "rank": 12,
+    "streak": "L5",
+    "power_rank": 11,
+    "pf": 790.75
+   },
+   "head_to_head": [],
+   "odds": {
+    "favorite": "The Immaculate Concepcion",
+    "favorite_pct": 51,
+    "underdog": "Action Jaxson",
+    "underdog_pct": 49,
+    "line": 1.0
+   }
+  }
+ ],
+ "next_week_others": [
+  {
+   "week": 7,
+   "a": {
+    "manager": "CatchingKelce",
+    "record": "2-4",
+    "rank": 7,
+    "streak": "W1",
+    "power_rank": 4,
+    "pf": 846.85
+   },
+   "b": {
+    "manager": "PBJiantsfan",
+    "record": "2-4",
+    "rank": 8,
+    "streak": "L2",
+    "power_rank": 9,
+    "pf": 784.05
+   },
+   "odds": {
+    "favorite": "CatchingKelce",
+    "favorite_pct": 58,
+    "underdog": "PBJiantsfan",
+    "underdog_pct": 42,
+    "line": 7.0
+   }
+  },
+  {
+   "week": 7,
+   "a": {
+    "manager": "RamsoBamso",
+    "record": "4-2",
+    "rank": 2,
+    "streak": "W4",
+    "power_rank": 2,
+    "pf": 895.85
+   },
+   "b": {
+    "manager": "Mick Mouse Club House",
+    "record": "2-4",
+    "rank": 10,
+    "streak": "W2",
+    "power_rank": 10,
+    "pf": 761.8
+   },
+   "odds": {
+    "favorite": "RamsoBamso",
+    "favorite_pct": 66,
+    "underdog": "Mick Mouse Club House",
+    "underdog_pct": 34,
+    "line": 15.0
+   }
+  },
+  {
+   "week": 7,
+   "a": {
+    "manager": "Sabrinie",
+    "record": "4-2",
+    "rank": 3,
+    "streak": "W2",
+    "power_rank": 3,
+    "pf": 886.35
+   },
+   "b": {
+    "manager": "RicoJRoday",
+    "record": "2-4",
+    "rank": 11,
+    "streak": "L1",
+    "power_rank": 12,
+    "pf": 678.1
+   },
+   "odds": {
+    "favorite": "Sabrinie",
+    "favorite_pct": 75,
+    "underdog": "RicoJRoday",
+    "underdog_pct": 25,
+    "line": 23.0
+   }
+  }
+ ],
+ "awards": {
+  "boom": {
+   "player": "Christian McCaffrey",
+   "pts": 31.7,
+   "manager": "Mick Mouse Club House"
+  },
+  "dud": {
+   "player": "Juwan Johnson",
+   "pts": 0.0,
+   "manager": "The Immaculate Concepcion"
+  },
+  "bench_crime": {
+   "manager": "Sabrinie",
+   "benched": "Omar Cooper",
+   "benched_pts": 25.3,
+   "started": "Wan'Dale Robinson",
+   "started_pts": 5.2,
+   "slot": "FLEX",
+   "gap": 20.1
+  },
+  "most_active": {
+   "manager": "PBJiantsfan",
+   "moves": 7
+  }
+ },
+ "lore": {
+  "season_high": {
+   "manager": "RamsoBamso",
+   "pts": 197.55,
+   "week": 4
+  },
+  "season_low": {
+   "manager": "Action Jaxson",
+   "pts": 77.75,
+   "week": 6
+  },
+  "luckiest": {
+   "power_rank": 6,
+   "manager": "The Cobbler",
+   "record": "4-2",
+   "all_play": "32-34",
+   "last3_all_play": "18-15",
+   "power_score": 56.8,
+   "pf": 841.4,
+   "pa": 778.8,
+   "luck": 1.1,
+   "prev_power_rank": 8
+  },
+  "unluckiest": {
+   "power_rank": 11,
+   "manager": "The Immaculate Concepcion",
+   "record": "1-5",
+   "all_play": "27-39",
+   "last3_all_play": "4-29",
+   "power_score": 40.8,
+   "pf": 790.75,
+   "pa": 870.15,
+   "luck": -1.5,
+   "prev_power_rank": 10
+  },
+  "schedule_victim": {
+   "power_rank": 12,
+   "manager": "RicoJRoday",
+   "record": "2-4",
+   "all_play": "15-51",
+   "last3_all_play": "9-24",
+   "power_score": 31.8,
+   "pf": 678.1,
+   "pa": 904.55,
+   "luck": 0.6,
+   "prev_power_rank": 11
+  },
+  "hot_streak": {
+   "manager": "RamsoBamso",
+   "streak": "W4"
+  },
+  "cold_streak": {
+   "manager": "The Immaculate Concepcion",
+   "streak": "L5"
+  }
+ },
+ "playoff_teams": 7,
+ "playoff_race": null,
+ "bracket": [
+  {
+   "round": 1,
+   "a": "mattystitches",
+   "b": "The Cobbler",
+   "winner": null,
+   "place": null
+  },
+  {
+   "round": 1,
+   "a": "RamsoBamso",
+   "b": "CatchingKelce",
+   "winner": null,
+   "place": null
+  },
+  {
+   "round": 1,
+   "a": "Sabrinie",
+   "b": "Dumpsterfire007",
+   "winner": null,
+   "place": null
+  },
+  {
+   "round": 2,
+   "a": "Tbonez420",
+   "b": null,
+   "winner": null,
+   "place": null
+  },
+  {
+   "round": 2,
+   "a": null,
+   "b": null,
+   "winner": null,
+   "place": null
+  },
+  {
+   "round": 2,
+   "a": null,
+   "b": null,
+   "winner": null,
+   "place": null
+  },
+  {
+   "round": 3,
+   "a": null,
+   "b": null,
+   "winner": null,
+   "place": 1
+  },
+  {
+   "round": 3,
+   "a": null,
+   "b": null,
+   "winner": null,
+   "place": 3
+  },
+  {
+   "round": 3,
+   "a": null,
+   "b": null,
+   "winner": null,
+   "place": 5
+  }
+ ],
+ "champion": null,
+ "last_strip_poses": [
+  "celebrate",
+  "bench",
+  "shrug"
+ ],
+ "edition_date": "2026-10-21",
+ "edition": {
+  "theme": "regular",
+  "label": "Week 6 Edition",
+  "playoff": null
+ },
+ "used_pun_names": [
+  "Action Jaxson the Streaking",
+  "Ashton Jeanty Fits Like Jeans",
+  "Attic Wilson",
+  "Beam-Up Cousins",
+  "Bee Jam Robinson",
+  "Bijan Robinson Hood Strikes",
+  "Brake Corum",
+  "Breezy Fannin",
+  "Brian Robinson Crusoe",
+  "Broccoli Bowers",
+  "C.J. Stroud Strudel",
+  "Caddie Higgins",
+  "can't find the cheese",
+  "Canyon Sadiq",
+  "CatchingKelce the Butterfingers",
+  "CeeDee Lamb Chop",
+  "Chuba Hubbard Squash",
+  "Cinnamon St. Brown",
+  "Cookie Jar Goff",
+  "Doctor Strange",
+  "Dontcha Wicks",
+  "Duck Prescott",
+  "Dumpsterfire007 the Phoenix",
+  "Egg Fried Rice",
+  "Fizzled Coker",
+  "Goff Big or Go Home",
+  "Head Chef Cook",
+  "Heartache Achane",
+  "Ice Ya Likely",
+  "Indiana Jones",
+  "Jam Tart Chase",
+  "Java Burrow",
+  "Javonte Williams Will Power",
+  "Jesting Jefferson",
+  "Kenneth Walker Texas Ranger",
+  "kept the fire lit",
+  "Kirk Cousins Family Reunion",
+  "Kyle Monangai Flex Appeal",
+  "Loot Her Burden",
+  "Mallard London",
+  "Matinee Golden",
+  "mattystitches the Unbeaten",
+  "Maye Day Rico Day",
+  "McMillan Makes Millions",
+  "Mic Drop Wilson",
+  "Mick Mouse Club House the Winless",
+  "Mighty Gibbs",
+  "Mouse House Squeaks By",
+  "Nacua Matata Cobbler's Last",
+  "Nico Collins Coin",
+  "Oil Rig Henry",
+  "PBJiantsfan the Jelly-Fingered",
+  "Penguin Waddle",
+  "Pretty Purdy",
+  "Rams Home Season High",
+  "Ramso Gibbs the Hunt",
+  "RamsoBamso the Resurgent",
+  "Rashee Rice Pudding",
+  "RicoJRoday the Benched",
+  "Rivet And The Bench Crime",
+  "Rivet And The Bench Press",
+  "Rivet Cobbles It Together",
+  "Rubber Duck Maye",
+  "Runaway McBride",
+  "Sabrinie the Ascendant",
+  "Sabrinie Warren the League",
+  "Salmon Darnold",
+  "Sham LaPorta",
+  "Sticker Price",
+  "Tbonez420 the Dethroned",
+  "Tee Higgins Tees Off Early",
+  "Terror McLaurin",
+  "The Cobbler the Craftsman",
+  "The Immaculate Concepcion the Unlucky",
+  "Tin Can Johnston",
+  "Tough Shough",
+  "Vaunted Adams",
+  "Wanted Johnson",
+  "Warren Gets Warrants",
+  "Wax-On Smith-Njigba",
+  "Whole Lotta Love",
+  "Zay Flowers Bloom In October"
+ ]
+}

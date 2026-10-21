@@ -1,0 +1,1368 @@
+{
+ "league": "Double Fist",
+ "season": "2026",
+ "week": 6,
+ "teams": 10,
+ "playoff_week_start": 15,
+ "results": [
+  {
+   "winner": "GioMeow",
+   "winner_pts": 142.66,
+   "loser": "Dumpsterfire007",
+   "loser_pts": 136.34,
+   "margin": 6.32,
+   "tie": false,
+   "winner_lineup": {
+    "stars": [
+     {
+      "player": "Jaxon Smith-Njigba",
+      "slot": "WR",
+      "pts": 25.4
+     },
+     {
+      "player": "DK Metcalf",
+      "slot": "FLEX",
+      "pts": 20.3
+     }
+    ],
+    "dud": {
+     "player": "Terry McLaurin",
+     "slot": "FLEX",
+     "pts": 3.7
+    }
+   },
+   "loser_lineup": {
+    "stars": [
+     {
+      "player": "Trevor Lawrence",
+      "slot": "QB",
+      "pts": 28.34
+     },
+     {
+      "player": "Germie Bernard",
+      "slot": "FLEX",
+      "pts": 25.7
+     }
+    ],
+    "dud": {
+     "player": "Harold Fannin",
+     "slot": "TE",
+     "pts": 1.9
+    }
+   },
+   "winner_record": "5-1",
+   "winner_rank": 1,
+   "winner_streak": "W5",
+   "winner_prev_rank": 1,
+   "loser_record": "2-4",
+   "loser_rank": 9,
+   "loser_streak": "L3",
+   "loser_prev_rank": 9
+  },
+  {
+   "winner": "CaptainFalcon14",
+   "winner_pts": 154.26,
+   "loser": "Eman8771",
+   "loser_pts": 142.1,
+   "margin": 12.16,
+   "tie": false,
+   "winner_lineup": {
+    "stars": [
+     {
+      "player": "Kenneth Walker",
+      "slot": "RB",
+      "pts": 27.9
+     },
+     {
+      "player": "Tyler Shough",
+      "slot": "QB",
+      "pts": 26.96
+     }
+    ],
+    "dud": {
+     "player": "Cam Skattebo",
+     "slot": "FLEX",
+     "pts": 0.0
+    }
+   },
+   "loser_lineup": {
+    "stars": [
+     {
+      "player": "James Cook",
+      "slot": "RB",
+      "pts": 24.3
+     },
+     {
+      "player": "Drake Maye",
+      "slot": "QB",
+      "pts": 23.8
+     }
+    ],
+    "dud": {
+     "player": "Rashod Bateman",
+     "slot": "WR",
+     "pts": 0.0
+    }
+   },
+   "winner_record": "4-2",
+   "winner_rank": 3,
+   "winner_streak": "W1",
+   "winner_prev_rank": 4,
+   "loser_record": "1-5",
+   "loser_rank": 10,
+   "loser_streak": "L3",
+   "loser_prev_rank": 10,
+   "winner_bench_crime": {
+    "manager": "CaptainFalcon14",
+    "benched": "Tre Tucker",
+    "benched_pts": 26.7,
+    "started": "Cam Skattebo",
+    "started_pts": 0.0,
+    "slot": "FLEX",
+    "gap": 26.7
+   }
+  },
+  {
+   "winner": "Slavyslav",
+   "winner_pts": 134.84,
+   "loser": "Nfin3sol",
+   "loser_pts": 129.5,
+   "margin": 5.34,
+   "tie": false,
+   "winner_lineup": {
+    "stars": [
+     {
+      "player": "Jordan Love",
+      "slot": "QB",
+      "pts": 21.24
+     },
+     {
+      "player": "Michael Mayer",
+      "slot": "FLEX",
+      "pts": 16.5
+     }
+    ],
+    "dud": {
+     "player": "Kalif Raymond",
+     "slot": "WR",
+     "pts": 3.8
+    }
+   },
+   "loser_lineup": {
+    "stars": [
+     {
+      "player": "Colston Loveland",
+      "slot": "TE",
+      "pts": 18.5
+     },
+     {
+      "player": "Josh Allen",
+      "slot": "QB",
+      "pts": 18.3
+     }
+    ],
+    "dud": {
+     "player": "Wan'Dale Robinson",
+     "slot": "WR",
+     "pts": 5.2
+    }
+   },
+   "winner_record": "4-2",
+   "winner_rank": 4,
+   "winner_streak": "W3",
+   "winner_prev_rank": 5,
+   "loser_record": "2-4",
+   "loser_rank": 8,
+   "loser_streak": "L1",
+   "loser_prev_rank": 8
+  },
+  {
+   "winner": "The A-Gap A-Team",
+   "winner_pts": 144.02,
+   "loser": "ZZ2zZzZzZz2ZZ",
+   "loser_pts": 141.8,
+   "margin": 2.22,
+   "tie": false,
+   "winner_lineup": {
+    "stars": [
+     {
+      "player": "D'Andre Swift",
+      "slot": "FLEX",
+      "pts": 23.0
+     },
+     {
+      "player": "Carnell Tate",
+      "slot": "WR",
+      "pts": 19.0
+     }
+    ],
+    "dud": {
+     "player": "Devaughn Vele",
+     "slot": "WR",
+     "pts": 7.2
+    }
+   },
+   "loser_lineup": {
+    "stars": [
+     {
+      "player": "Christian McCaffrey",
+      "slot": "RB",
+      "pts": 30.7
+     },
+     {
+      "player": "Jayden Daniels",
+      "slot": "QB",
+      "pts": 21.0
+     }
+    ],
+    "dud": {
+     "player": "Davante Adams",
+     "slot": "WR",
+     "pts": 6.9
+    }
+   },
+   "winner_record": "3-3",
+   "winner_rank": 6,
+   "winner_streak": "W1",
+   "winner_prev_rank": 7,
+   "loser_record": "3-3",
+   "loser_rank": 5,
+   "loser_streak": "L1",
+   "loser_prev_rank": 3
+  },
+  {
+   "winner": "Washington Sentinels",
+   "winner_pts": 120.88,
+   "loser": "challeywalley666",
+   "loser_pts": 120.38,
+   "margin": 0.5,
+   "tie": false,
+   "winner_lineup": {
+    "stars": [
+     {
+      "player": "C.J. Stroud",
+      "slot": "QB",
+      "pts": 23.98
+     },
+     {
+      "player": "Chuba Hubbard",
+      "slot": "RB",
+      "pts": 19.1
+     }
+    ],
+    "dud": {
+     "player": "MarShawn Lloyd",
+     "slot": "FLEX",
+     "pts": 1.0
+    }
+   },
+   "loser_lineup": {
+    "stars": [
+     {
+      "player": "Malik Nabers",
+      "slot": "WR",
+      "pts": 28.5
+     },
+     {
+      "player": "Bhayshul Tuten",
+      "slot": "RB",
+      "pts": 24.7
+     }
+    ],
+    "dud": {
+     "player": "Juwan Johnson",
+     "slot": "TE",
+     "pts": 0.0
+    }
+   },
+   "winner_record": "4-2",
+   "winner_rank": 2,
+   "winner_streak": "W1",
+   "winner_prev_rank": 2,
+   "loser_record": "2-4",
+   "loser_rank": 7,
+   "loser_streak": "L1",
+   "loser_prev_rank": 6,
+   "winner_bench_crime": {
+    "manager": "Washington Sentinels",
+    "benched": "Jakobi Meyers",
+    "benched_pts": 13.3,
+    "started": "MarShawn Lloyd",
+    "started_pts": 1.0,
+    "slot": "FLEX",
+    "gap": 12.3
+   },
+   "loser_bench_crime": {
+    "manager": "challeywalley666",
+    "benched": "Kyle Pitts",
+    "benched_pts": 23.0,
+    "started": "Juwan Johnson",
+    "started_pts": 0.0,
+    "slot": "TE",
+    "gap": 23.0
+   }
+  }
+ ],
+ "high": {
+  "manager": "CaptainFalcon14",
+  "pts": 154.26
+ },
+ "low": {
+  "manager": "challeywalley666",
+  "pts": 120.38
+ },
+ "closest": {
+  "winner": "Washington Sentinels",
+  "winner_pts": 120.88,
+  "loser": "challeywalley666",
+  "loser_pts": 120.38,
+  "margin": 0.5,
+  "tie": false,
+  "winner_lineup": {
+   "stars": [
+    {
+     "player": "C.J. Stroud",
+     "slot": "QB",
+     "pts": 23.98
+    },
+    {
+     "player": "Chuba Hubbard",
+     "slot": "RB",
+     "pts": 19.1
+    }
+   ],
+   "dud": {
+    "player": "MarShawn Lloyd",
+    "slot": "FLEX",
+    "pts": 1.0
+   }
+  },
+  "loser_lineup": {
+   "stars": [
+    {
+     "player": "Malik Nabers",
+     "slot": "WR",
+     "pts": 28.5
+    },
+    {
+     "player": "Bhayshul Tuten",
+     "slot": "RB",
+     "pts": 24.7
+    }
+   ],
+   "dud": {
+    "player": "Juwan Johnson",
+    "slot": "TE",
+    "pts": 0.0
+   }
+  },
+  "winner_record": "4-2",
+  "winner_rank": 2,
+  "winner_streak": "W1",
+  "winner_prev_rank": 2,
+  "loser_record": "2-4",
+  "loser_rank": 7,
+  "loser_streak": "L1",
+  "loser_prev_rank": 6,
+  "winner_bench_crime": {
+   "manager": "Washington Sentinels",
+   "benched": "Jakobi Meyers",
+   "benched_pts": 13.3,
+   "started": "MarShawn Lloyd",
+   "started_pts": 1.0,
+   "slot": "FLEX",
+   "gap": 12.3
+  },
+  "loser_bench_crime": {
+   "manager": "challeywalley666",
+   "benched": "Kyle Pitts",
+   "benched_pts": 23.0,
+   "started": "Juwan Johnson",
+   "started_pts": 0.0,
+   "slot": "TE",
+   "gap": 23.0
+  }
+ },
+ "blowout": {
+  "winner": "CaptainFalcon14",
+  "winner_pts": 154.26,
+  "loser": "Eman8771",
+  "loser_pts": 142.1,
+  "margin": 12.16,
+  "tie": false,
+  "winner_lineup": {
+   "stars": [
+    {
+     "player": "Kenneth Walker",
+     "slot": "RB",
+     "pts": 27.9
+    },
+    {
+     "player": "Tyler Shough",
+     "slot": "QB",
+     "pts": 26.96
+    }
+   ],
+   "dud": {
+    "player": "Cam Skattebo",
+    "slot": "FLEX",
+    "pts": 0.0
+   }
+  },
+  "loser_lineup": {
+   "stars": [
+    {
+     "player": "James Cook",
+     "slot": "RB",
+     "pts": 24.3
+    },
+    {
+     "player": "Drake Maye",
+     "slot": "QB",
+     "pts": 23.8
+    }
+   ],
+   "dud": {
+    "player": "Rashod Bateman",
+    "slot": "WR",
+    "pts": 0.0
+   }
+  },
+  "winner_record": "4-2",
+  "winner_rank": 3,
+  "winner_streak": "W1",
+  "winner_prev_rank": 4,
+  "loser_record": "1-5",
+  "loser_rank": 10,
+  "loser_streak": "L3",
+  "loser_prev_rank": 10,
+  "winner_bench_crime": {
+   "manager": "CaptainFalcon14",
+   "benched": "Tre Tucker",
+   "benched_pts": 26.7,
+   "started": "Cam Skattebo",
+   "started_pts": 0.0,
+   "slot": "FLEX",
+   "gap": 26.7
+  }
+ },
+ "bench_crimes": [
+  {
+   "manager": "CaptainFalcon14",
+   "benched": "Tre Tucker",
+   "benched_pts": 26.7,
+   "started": "Cam Skattebo",
+   "started_pts": 0.0,
+   "slot": "FLEX",
+   "gap": 26.7
+  },
+  {
+   "manager": "challeywalley666",
+   "benched": "Kyle Pitts",
+   "benched_pts": 23.0,
+   "started": "Juwan Johnson",
+   "started_pts": 0.0,
+   "slot": "TE",
+   "gap": 23.0
+  },
+  {
+   "manager": "Washington Sentinels",
+   "benched": "Jakobi Meyers",
+   "benched_pts": 13.3,
+   "started": "MarShawn Lloyd",
+   "started_pts": 1.0,
+   "slot": "FLEX",
+   "gap": 12.3
+  }
+ ],
+ "most_bench_pts": {
+  "manager": "CaptainFalcon14",
+  "bench_pts": 62.0
+ },
+ "empty_slots": [],
+ "booms": [
+  {
+   "player": "Christian McCaffrey",
+   "pts": 30.7,
+   "manager": "ZZ2zZzZzZz2ZZ"
+  },
+  {
+   "player": "Malik Nabers",
+   "pts": 28.5,
+   "manager": "challeywalley666"
+  },
+  {
+   "player": "Trevor Lawrence",
+   "pts": 28.34,
+   "manager": "Dumpsterfire007"
+  }
+ ],
+ "busts": [
+  {
+   "player": "Cam Skattebo",
+   "pts": 0.0,
+   "manager": "CaptainFalcon14"
+  },
+  {
+   "player": "Juwan Johnson",
+   "pts": 0.0,
+   "manager": "challeywalley666"
+  },
+  {
+   "player": "Rashod Bateman",
+   "pts": 0.0,
+   "manager": "Eman8771"
+  }
+ ],
+ "adds": [
+  {
+   "manager": "ZZ2zZzZzZz2ZZ",
+   "player": "Jaylin Noel",
+   "via": "waiver",
+   "faab": 17,
+   "faab_left": 61
+  },
+  {
+   "manager": "Washington Sentinels",
+   "player": "Omar Cooper",
+   "via": "waiver",
+   "faab": 11,
+   "faab_left": 82
+  },
+  {
+   "manager": "ZZ2zZzZzZz2ZZ",
+   "player": "New York Jets",
+   "via": "waiver",
+   "faab": 3,
+   "faab_left": 61
+  },
+  {
+   "manager": "Slavyslav",
+   "player": "Will Reichard",
+   "via": "waiver",
+   "faab": 1,
+   "faab_left": 23,
+   "pts_this_week": 0.0
+  },
+  {
+   "manager": "Dumpsterfire007",
+   "player": "Kyler Murray",
+   "via": "waiver",
+   "faab": 1,
+   "faab_left": 55,
+   "pts_this_week": 0.0
+  },
+  {
+   "manager": "Eman8771",
+   "player": "Rico Dowdle",
+   "via": "waiver",
+   "faab": 1,
+   "faab_left": 78,
+   "pts_this_week": 7.9
+  },
+  {
+   "manager": "Eman8771",
+   "player": "Pat Freiermuth",
+   "via": "free_agent",
+   "pts_this_week": 3.1
+  },
+  {
+   "manager": "Washington Sentinels",
+   "player": "Rachaad White",
+   "via": "free_agent",
+   "pts_this_week": 15.7
+  },
+  {
+   "manager": "Dumpsterfire007",
+   "player": "Tyler Bass",
+   "via": "free_agent",
+   "pts_this_week": 17.0
+  },
+  {
+   "manager": "ZZ2zZzZzZz2ZZ",
+   "player": "Najee Harris",
+   "via": "free_agent",
+   "pts_this_week": 0.2
+  },
+  {
+   "manager": "Dumpsterfire007",
+   "player": "Philadelphia Eagles",
+   "via": "free_agent",
+   "pts_this_week": 3.0
+  },
+  {
+   "manager": "Dumpsterfire007",
+   "player": "Tyler Allgeier",
+   "via": "free_agent",
+   "pts_this_week": 5.8
+  },
+  {
+   "manager": "Dumpsterfire007",
+   "player": "Darius Cooper",
+   "via": "free_agent"
+  },
+  {
+   "manager": "The A-Gap A-Team",
+   "player": "Aaron Rodgers",
+   "via": "free_agent",
+   "pts_this_week": 17.02
+  },
+  {
+   "manager": "Dumpsterfire007",
+   "player": "Christian Kirk",
+   "via": "free_agent",
+   "pts_this_week": 0.0
+  },
+  {
+   "manager": "CaptainFalcon14",
+   "player": "Samaje Perine",
+   "via": "free_agent",
+   "pts_this_week": 0.0
+  },
+  {
+   "manager": "CaptainFalcon14",
+   "player": "Kenny Gainwell",
+   "via": "free_agent"
+  },
+  {
+   "manager": "Dumpsterfire007",
+   "player": "Jaleel McLaughlin",
+   "via": "free_agent"
+  },
+  {
+   "manager": "Slavyslav",
+   "player": "Dameon Pierce",
+   "via": "free_agent",
+   "pts_this_week": 15.0
+  },
+  {
+   "manager": "Slavyslav",
+   "player": "Kendre Miller",
+   "via": "free_agent",
+   "pts_this_week": 9.0
+  },
+  {
+   "manager": "ZZ2zZzZzZz2ZZ",
+   "player": "Indianapolis Colts",
+   "via": "free_agent",
+   "pts_this_week": 2.0
+  },
+  {
+   "manager": "Eman8771",
+   "player": "Efton Chism",
+   "via": "free_agent"
+  },
+  {
+   "manager": "CaptainFalcon14",
+   "player": "Tyler Shough",
+   "via": "free_agent",
+   "pts_this_week": 26.96
+  },
+  {
+   "manager": "Nfin3sol",
+   "player": "San Francisco 49ers",
+   "via": "free_agent",
+   "pts_this_week": 5.0
+  },
+  {
+   "manager": "The A-Gap A-Team",
+   "player": "Chase McLaughlin",
+   "via": "free_agent",
+   "pts_this_week": 17.0
+  },
+  {
+   "manager": "Dumpsterfire007",
+   "player": "Dominic Zvada",
+   "via": "free_agent"
+  },
+  {
+   "manager": "Dumpsterfire007",
+   "player": "Will Reichard",
+   "via": "free_agent"
+  },
+  {
+   "manager": "Dumpsterfire007",
+   "player": "Trevor Lawrence",
+   "via": "free_agent",
+   "pts_this_week": 28.34
+  }
+ ],
+ "drops": [
+  {
+   "manager": "Washington Sentinels",
+   "player": "C.J. Stroud"
+  },
+  {
+   "manager": "Eman8771",
+   "player": "Pat Freiermuth"
+  },
+  {
+   "manager": "Eman8771",
+   "player": "Rashod Bateman"
+  },
+  {
+   "manager": "Slavyslav",
+   "player": "Kalif Raymond"
+  },
+  {
+   "manager": "ZZ2zZzZzZz2ZZ",
+   "player": "Indianapolis Colts"
+  },
+  {
+   "manager": "ZZ2zZzZzZz2ZZ",
+   "player": "Jake Bates"
+  },
+  {
+   "manager": "Dumpsterfire007",
+   "player": "Tyler Allgeier"
+  },
+  {
+   "manager": "Eman8771",
+   "player": "Efton Chism"
+  },
+  {
+   "manager": "Washington Sentinels",
+   "player": "Tank Dell"
+  },
+  {
+   "manager": "Dumpsterfire007",
+   "player": "Jaleel McLaughlin"
+  },
+  {
+   "manager": "Dumpsterfire007",
+   "player": "Darius Cooper"
+  },
+  {
+   "manager": "Dumpsterfire007",
+   "player": "Alec Pierce"
+  },
+  {
+   "manager": "Dumpsterfire007",
+   "player": "Jacksonville Jaguars"
+  },
+  {
+   "manager": "The A-Gap A-Team",
+   "player": "Rico Dowdle"
+  },
+  {
+   "manager": "Dumpsterfire007",
+   "player": "Dominic Zvada"
+  },
+  {
+   "manager": "Eman8771",
+   "player": "Ja'Kobi Lane"
+  },
+  {
+   "manager": "CaptainFalcon14",
+   "player": "Kenny Gainwell"
+  },
+  {
+   "manager": "CaptainFalcon14",
+   "player": "Jake Ferguson"
+  },
+  {
+   "manager": "Dumpsterfire007",
+   "player": "Will Reichard"
+  },
+  {
+   "manager": "Slavyslav",
+   "player": "Mack Hollins"
+  },
+  {
+   "manager": "Slavyslav",
+   "player": "Will Shipley"
+  },
+  {
+   "manager": "ZZ2zZzZzZz2ZZ",
+   "player": "Houston Texans"
+  },
+  {
+   "manager": "Eman8771",
+   "player": "Roman Wilson"
+  },
+  {
+   "manager": "Nfin3sol",
+   "player": "Jaylen Wright"
+  },
+  {
+   "manager": "ZZ2zZzZzZz2ZZ",
+   "player": "Najee Harris"
+  },
+  {
+   "manager": "Dumpsterfire007",
+   "player": "Tyler Allgeier"
+  },
+  {
+   "manager": "Dumpsterfire007",
+   "player": "Makai Lemon"
+  },
+  {
+   "manager": "Dumpsterfire007",
+   "player": "Bo Nix"
+  }
+ ],
+ "trades": [],
+ "got_away": null,
+ "faab_budget": 100,
+ "standings": [
+  {
+   "rank": 1,
+   "manager": "GioMeow",
+   "record": "5-1",
+   "pf": 926.96,
+   "streak": "W5",
+   "prev_rank": 1
+  },
+  {
+   "rank": 2,
+   "manager": "Washington Sentinels",
+   "record": "4-2",
+   "pf": 938.4,
+   "streak": "W1",
+   "prev_rank": 2
+  },
+  {
+   "rank": 3,
+   "manager": "CaptainFalcon14",
+   "record": "4-2",
+   "pf": 912.04,
+   "streak": "W1",
+   "prev_rank": 4
+  },
+  {
+   "rank": 4,
+   "manager": "Slavyslav",
+   "record": "4-2",
+   "pf": 835.18,
+   "streak": "W3",
+   "prev_rank": 5
+  },
+  {
+   "rank": 5,
+   "manager": "ZZ2zZzZzZz2ZZ",
+   "record": "3-3",
+   "pf": 927.78,
+   "streak": "L1",
+   "prev_rank": 3
+  },
+  {
+   "rank": 6,
+   "manager": "The A-Gap A-Team",
+   "record": "3-3",
+   "pf": 901.84,
+   "streak": "W1",
+   "prev_rank": 7
+  },
+  {
+   "rank": 7,
+   "manager": "challeywalley666",
+   "record": "2-4",
+   "pf": 887.56,
+   "streak": "L1",
+   "prev_rank": 6
+  },
+  {
+   "rank": 8,
+   "manager": "Nfin3sol",
+   "record": "2-4",
+   "pf": 874.06,
+   "streak": "L1",
+   "prev_rank": 8
+  },
+  {
+   "rank": 9,
+   "manager": "Dumpsterfire007",
+   "record": "2-4",
+   "pf": 730.16,
+   "streak": "L3",
+   "prev_rank": 9
+  },
+  {
+   "rank": 10,
+   "manager": "Eman8771",
+   "record": "1-5",
+   "pf": 722.88,
+   "streak": "L3",
+   "prev_rank": 10
+  }
+ ],
+ "movers": [
+  {
+   "rank": 5,
+   "manager": "ZZ2zZzZzZz2ZZ",
+   "record": "3-3",
+   "pf": 927.78,
+   "streak": "L1",
+   "prev_rank": 3
+  }
+ ],
+ "upsets": [
+  {
+   "winner": "The A-Gap A-Team",
+   "winner_prev_rank": 7,
+   "loser": "ZZ2zZzZzZz2ZZ",
+   "loser_prev_rank": 3
+  }
+ ],
+ "power_rankings": [
+  {
+   "power_rank": 1,
+   "manager": "GioMeow",
+   "record": "5-1",
+   "all_play": "36-18",
+   "last3_all_play": "16-11",
+   "power_score": 69.6,
+   "pf": 926.96,
+   "pa": 837.74,
+   "luck": 1.0,
+   "prev_power_rank": 2
+  },
+  {
+   "power_rank": 2,
+   "manager": "CaptainFalcon14",
+   "record": "4-2",
+   "all_play": "34-20",
+   "last3_all_play": "15-12",
+   "power_score": 66.2,
+   "pf": 912.04,
+   "pa": 856.9,
+   "luck": 0.2,
+   "prev_power_rank": 7
+  },
+  {
+   "power_rank": 3,
+   "manager": "ZZ2zZzZzZz2ZZ",
+   "record": "3-3",
+   "all_play": "33-21",
+   "last3_all_play": "15-12",
+   "power_score": 65.4,
+   "pf": 927.78,
+   "pa": 853.94,
+   "luck": -0.7,
+   "prev_power_rank": 3
+  },
+  {
+   "power_rank": 4,
+   "manager": "The A-Gap A-Team",
+   "record": "3-3",
+   "all_play": "32-22",
+   "last3_all_play": "15-12",
+   "power_score": 63.9,
+   "pf": 901.84,
+   "pa": 924.52,
+   "luck": -0.6,
+   "prev_power_rank": 6
+  },
+  {
+   "power_rank": 5,
+   "manager": "Nfin3sol",
+   "record": "2-4",
+   "all_play": "29-25",
+   "last3_all_play": "18-9",
+   "power_score": 62.9,
+   "pf": 874.06,
+   "pa": 938.36,
+   "luck": -1.2,
+   "prev_power_rank": 5
+  },
+  {
+   "power_rank": 6,
+   "manager": "Washington Sentinels",
+   "record": "4-2",
+   "all_play": "30-24",
+   "last3_all_play": "11-16",
+   "power_score": 58.5,
+   "pf": 938.4,
+   "pa": 873.84,
+   "luck": 0.7,
+   "prev_power_rank": 1
+  },
+  {
+   "power_rank": 7,
+   "manager": "challeywalley666",
+   "record": "2-4",
+   "all_play": "26-28",
+   "last3_all_play": "16-11",
+   "power_score": 57.9,
+   "pf": 887.56,
+   "pa": 944.12,
+   "luck": -0.9,
+   "prev_power_rank": 4
+  },
+  {
+   "power_rank": 8,
+   "manager": "Slavyslav",
+   "record": "4-2",
+   "all_play": "21-33",
+   "last3_all_play": "13-14",
+   "power_score": 48.7,
+   "pf": 835.18,
+   "pa": 764.06,
+   "luck": 1.7,
+   "prev_power_rank": 8
+  },
+  {
+   "power_rank": 9,
+   "manager": "Eman8771",
+   "record": "1-5",
+   "all_play": "14-40",
+   "last3_all_play": "11-16",
+   "power_score": 37.3,
+   "pf": 722.88,
+   "pa": 838.24,
+   "luck": -0.6,
+   "prev_power_rank": 10
+  },
+  {
+   "power_rank": 10,
+   "manager": "Dumpsterfire007",
+   "record": "2-4",
+   "all_play": "15-39",
+   "last3_all_play": "5-22",
+   "power_score": 33.0,
+   "pf": 730.16,
+   "pa": 825.14,
+   "luck": 0.3,
+   "prev_power_rank": 9
+  }
+ ],
+ "next_week_card": [
+  {
+   "billing": "Main Event",
+   "week": 7,
+   "a": {
+    "manager": "CaptainFalcon14",
+    "record": "4-2",
+    "rank": 3,
+    "streak": "W1",
+    "power_rank": 2,
+    "pf": 912.04
+   },
+   "b": {
+    "manager": "The A-Gap A-Team",
+    "record": "3-3",
+    "rank": 6,
+    "streak": "W1",
+    "power_rank": 4,
+    "pf": 901.84
+   },
+   "head_to_head": [],
+   "odds": {
+    "favorite": "CaptainFalcon14",
+    "favorite_pct": 51,
+    "underdog": "The A-Gap A-Team",
+    "underdog_pct": 49,
+    "line": 1.0
+   }
+  },
+  {
+   "billing": "Co-Main Event",
+   "week": 7,
+   "a": {
+    "manager": "GioMeow",
+    "record": "5-1",
+    "rank": 1,
+    "streak": "W5",
+    "power_rank": 1,
+    "pf": 926.96
+   },
+   "b": {
+    "manager": "Nfin3sol",
+    "record": "2-4",
+    "rank": 8,
+    "streak": "L1",
+    "power_rank": 5,
+    "pf": 874.06
+   },
+   "head_to_head": [],
+   "odds": {
+    "favorite": "GioMeow",
+    "favorite_pct": 56,
+    "underdog": "Nfin3sol",
+    "underdog_pct": 44,
+    "line": 6.0
+   }
+  },
+  {
+   "billing": "Basement Bowl",
+   "week": 7,
+   "a": {
+    "manager": "ZZ2zZzZzZz2ZZ",
+    "record": "3-3",
+    "rank": 5,
+    "streak": "L1",
+    "power_rank": 3,
+    "pf": 927.78
+   },
+   "b": {
+    "manager": "Dumpsterfire007",
+    "record": "2-4",
+    "rank": 9,
+    "streak": "L3",
+    "power_rank": 10,
+    "pf": 730.16
+   },
+   "head_to_head": [],
+   "odds": {
+    "favorite": "ZZ2zZzZzZz2ZZ",
+    "favorite_pct": 72,
+    "underdog": "Dumpsterfire007",
+    "underdog_pct": 28,
+    "line": 22.0
+   }
+  }
+ ],
+ "next_week_others": [
+  {
+   "week": 7,
+   "a": {
+    "manager": "Slavyslav",
+    "record": "4-2",
+    "rank": 4,
+    "streak": "W3",
+    "power_rank": 8,
+    "pf": 835.18
+   },
+   "b": {
+    "manager": "challeywalley666",
+    "record": "2-4",
+    "rank": 7,
+    "streak": "L1",
+    "power_rank": 7,
+    "pf": 887.56
+   },
+   "odds": {
+    "favorite": "challeywalley666",
+    "favorite_pct": 56,
+    "underdog": "Slavyslav",
+    "underdog_pct": 44,
+    "line": 6.0
+   }
+  },
+  {
+   "week": 7,
+   "a": {
+    "manager": "Washington Sentinels",
+    "record": "4-2",
+    "rank": 2,
+    "streak": "W1",
+    "power_rank": 6,
+    "pf": 938.4
+   },
+   "b": {
+    "manager": "Eman8771",
+    "record": "1-5",
+    "rank": 10,
+    "streak": "L3",
+    "power_rank": 9,
+    "pf": 722.88
+   },
+   "odds": {
+    "favorite": "Washington Sentinels",
+    "favorite_pct": 74,
+    "underdog": "Eman8771",
+    "underdog_pct": 26,
+    "line": 24.0
+   }
+  }
+ ],
+ "awards": {
+  "boom": {
+   "player": "Christian McCaffrey",
+   "pts": 30.7,
+   "manager": "ZZ2zZzZzZz2ZZ"
+  },
+  "dud": {
+   "player": "Cam Skattebo",
+   "pts": 0.0,
+   "manager": "CaptainFalcon14"
+  },
+  "bench_crime": {
+   "manager": "CaptainFalcon14",
+   "benched": "Tre Tucker",
+   "benched_pts": 26.7,
+   "started": "Cam Skattebo",
+   "started_pts": 0.0,
+   "slot": "FLEX",
+   "gap": 26.7
+  },
+  "big_spender": {
+   "manager": "ZZ2zZzZzZz2ZZ",
+   "player": "Jaylin Noel",
+   "via": "waiver",
+   "faab": 17,
+   "faab_left": 61
+  }
+ },
+ "lore": {
+  "season_high": {
+   "manager": "CaptainFalcon14",
+   "pts": 200.76,
+   "week": 1
+  },
+  "season_low": {
+   "manager": "Dumpsterfire007",
+   "pts": 81.92,
+   "week": 5
+  },
+  "luckiest": {
+   "power_rank": 8,
+   "manager": "Slavyslav",
+   "record": "4-2",
+   "all_play": "21-33",
+   "last3_all_play": "13-14",
+   "power_score": 48.7,
+   "pf": 835.18,
+   "pa": 764.06,
+   "luck": 1.7,
+   "prev_power_rank": 8
+  },
+  "unluckiest": {
+   "power_rank": 5,
+   "manager": "Nfin3sol",
+   "record": "2-4",
+   "all_play": "29-25",
+   "last3_all_play": "18-9",
+   "power_score": 62.9,
+   "pf": 874.06,
+   "pa": 938.36,
+   "luck": -1.2,
+   "prev_power_rank": 5
+  },
+  "schedule_victim": {
+   "power_rank": 7,
+   "manager": "challeywalley666",
+   "record": "2-4",
+   "all_play": "26-28",
+   "last3_all_play": "16-11",
+   "power_score": 57.9,
+   "pf": 887.56,
+   "pa": 944.12,
+   "luck": -0.9,
+   "prev_power_rank": 4
+  },
+  "hot_streak": {
+   "manager": "GioMeow",
+   "streak": "W5"
+  },
+  "cold_streak": {
+   "manager": "Dumpsterfire007",
+   "streak": "L3"
+  }
+ },
+ "playoff_teams": 4,
+ "playoff_race": null,
+ "bracket": [
+  {
+   "round": 1,
+   "a": "GioMeow",
+   "b": "Slavyslav",
+   "winner": null,
+   "place": null
+  },
+  {
+   "round": 1,
+   "a": "Washington Sentinels",
+   "b": "CaptainFalcon14",
+   "winner": null,
+   "place": null
+  },
+  {
+   "round": 2,
+   "a": null,
+   "b": null,
+   "winner": null,
+   "place": 1
+  },
+  {
+   "round": 2,
+   "a": null,
+   "b": null,
+   "winner": null,
+   "place": 3
+  }
+ ],
+ "champion": null,
+ "last_strip_poses": [
+  "celebrate",
+  "money",
+  "trophy"
+ ],
+ "edition_date": "2026-10-21",
+ "edition": {
+  "theme": "regular",
+  "label": "Week 6 Edition",
+  "playoff": null
+ },
+ "used_pun_names": [
+  "Allen Key Turns the Lock",
+  "Bench Press Conference",
+  "Bijan-gone Robinson",
+  "Bo Nix Picks",
+  "Brian Thomas Tank",
+  "Brock Bowers And Arrows",
+  "Brock Purdy Please",
+  "CaptainFalcon14 the Unbeaten",
+  "CeeDee Lamb Chop",
+  "Challey Walleye Hooks It",
+  "challeywalley666 the Winless",
+  "Chuba Hubbard Cupboard",
+  "Collins Dictionary",
+  "Dalton Kincaid Kaper",
+  "Dalton Schultz Happens",
+  "Derrick KING Henry",
+  "Devaughn Vele Ton",
+  "Drake London Bridges",
+  "Drake Maye Day",
+  "Dumpsterfire007 smoldered",
+  "Dumpsterfire007 the Phoenix",
+  "Eman8771 the Rising",
+  "Emanuel Wilson Nothing",
+  "George Kittle Sat Still",
+  "GioMeow purred",
+  "GioMeow Roars, Nobody Else Purrs",
+  "GioMeow the Roaring",
+  "Isaiah Likely Story",
+  "Ja'Marr Chase The Dream",
+  "Jadarian Price Tag",
+  "Jakobi Meyers Briefly",
+  "Jam-Ar Gibbs And Takes",
+  "James Cook Book",
+  "Javonte Williams Sonoma",
+  "Jaxon Smith-Njigba Ninja",
+  "Joe Burrow Rabbit Hole",
+  "Joe Burrow The Boat",
+  "Jordan Love Story",
+  "Josh Allen Wrench",
+  "Kayshon Boutte Of Doom",
+  "Kenneth Walker Texas Ranger",
+  "Kenyon Sad-iq Sadiq",
+  "Khalil Shakir Of Duty",
+  "Kirk Cousins Once Removed",
+  "Luther's Lair Burden",
+  "Mack Hollins Back",
+  "Matthew Golden Ticket",
+  "Michael Pittman Stays Put",
+  "Michael Wilson Be Wild",
+  "Nfin3sol could not find a solution",
+  "Nfin3sol the Steady",
+  "Rivet Counts Four Wins",
+  "RJ Harvey Nichols",
+  "Slavy Jefferson Airplane",
+  "Slavyslav the Hoarder",
+  "Tee Higgins Boson",
+  "Tee Shirt Higgins",
+  "Tetairoa McMillan Dollar",
+  "Tetairoa McMillan Happy Meal",
+  "The A-Gap A-Team found a gap",
+  "The A-Gap A-Team the Gapped",
+  "Tyler Shough Enough",
+  "Warren Gets the Cat's Tail",
+  "Washington Sentinels stood guard",
+  "Washington Sentinels the Vigilant",
+  "Watson Rise and Shine",
+  "Xavier Worthy Of Better",
+  "ZZ2zZzZzZz2ZZ could have napped",
+  "ZZ2zZzZzZz2ZZ the Sleepless"
+ ]
+}
