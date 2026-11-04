@@ -1,0 +1,1341 @@
+{
+ "league": "Coozeball ",
+ "season": "2026",
+ "week": 8,
+ "teams": 12,
+ "playoff_week_start": 15,
+ "results": [
+  {
+   "winner": "haze4daze",
+   "winner_pts": 131.0,
+   "loser": "Timoteo",
+   "loser_pts": 104.64,
+   "margin": 26.36,
+   "tie": false,
+   "winner_lineup": {
+    "stars": [
+     {
+      "player": "Chuba Hubbard",
+      "slot": "RB",
+      "pts": 21.4
+     },
+     {
+      "player": "Josh Jacobs",
+      "slot": "RB",
+      "pts": 20.2
+     }
+    ],
+    "dud": {
+     "player": "Zay Flowers",
+     "slot": "WR",
+     "pts": 0.0
+    }
+   },
+   "loser_lineup": {
+    "stars": [
+     {
+      "player": "Patrick Mahomes",
+      "slot": "QB",
+      "pts": 25.44
+     },
+     {
+      "player": "Matthew Golden",
+      "slot": "WR",
+      "pts": 17.4
+     }
+    ],
+    "dud": {
+     "player": "Omar Cooper Jr.",
+     "slot": "FLEX",
+     "pts": 0.0
+    }
+   },
+   "winner_record": "4-4",
+   "winner_rank": 7,
+   "winner_streak": "W2",
+   "winner_prev_rank": 8,
+   "loser_record": "3-5",
+   "loser_rank": 9,
+   "loser_streak": "L3",
+   "loser_prev_rank": 9
+  },
+  {
+   "winner": "ArtistFormerlyKnownAs",
+   "winner_pts": 127.18,
+   "loser": "Dumpsterfire007",
+   "loser_pts": 111.56,
+   "margin": 15.62,
+   "tie": false,
+   "winner_lineup": {
+    "stars": [
+     {
+      "player": "Bucky Irving",
+      "slot": "RB",
+      "pts": 21.0
+     },
+     {
+      "player": "Jaxon Smith-Njigba",
+      "slot": "WR",
+      "pts": 20.8
+     }
+    ],
+    "dud": {
+     "player": "Tyler Warren",
+     "slot": "TE",
+     "pts": 3.8
+    }
+   },
+   "loser_lineup": {
+    "stars": [
+     {
+      "player": "Tee Higgins",
+      "slot": "WR",
+      "pts": 32.5
+     },
+     {
+      "player": "Drake Maye",
+      "slot": "QB",
+      "pts": 22.46
+     }
+    ],
+    "dud": {
+     "player": "Chris Godwin Jr.",
+     "slot": "WR",
+     "pts": 0.0
+    }
+   },
+   "winner_record": "5-3",
+   "winner_rank": 5,
+   "winner_streak": "W2",
+   "winner_prev_rank": 6,
+   "loser_record": "5-3",
+   "loser_rank": 4,
+   "loser_streak": "L1",
+   "loser_prev_rank": 1
+  },
+  {
+   "winner": "LochNessa",
+   "winner_pts": 89.92,
+   "loser": "CaptainFalcon14",
+   "loser_pts": 60.6,
+   "margin": 29.32,
+   "tie": false,
+   "winner_lineup": {
+    "stars": [
+     {
+      "player": "Sam Darnold",
+      "slot": "QB",
+      "pts": 17.52
+     },
+     {
+      "player": "Kyren Williams",
+      "slot": "RB",
+      "pts": 12.4
+     }
+    ],
+    "dud": {
+     "player": "Chig Okonkwo",
+     "slot": "FLEX",
+     "pts": 2.2
+    }
+   },
+   "loser_lineup": {
+    "stars": [
+     {
+      "player": "Malik Washington",
+      "slot": "WR",
+      "pts": 12.5
+     },
+     {
+      "player": "Chase Brown",
+      "slot": "RB",
+      "pts": 12.1
+     }
+    ],
+    "dud": {
+     "player": "Tre Tucker",
+     "slot": "WR",
+     "pts": 0.0
+    }
+   },
+   "winner_record": "3-5",
+   "winner_rank": 10,
+   "winner_streak": "W1",
+   "winner_prev_rank": 10,
+   "loser_record": "4-4",
+   "loser_rank": 8,
+   "loser_streak": "L2",
+   "loser_prev_rank": 7
+  },
+  {
+   "winner": "foe",
+   "winner_pts": 149.66,
+   "loser": "Sunnyvale Green Bastards",
+   "loser_pts": 84.3,
+   "margin": 65.36,
+   "tie": false,
+   "winner_lineup": {
+    "stars": [
+     {
+      "player": "Josh Allen",
+      "slot": "QB",
+      "pts": 26.56
+     },
+     {
+      "player": "Michael Wilson",
+      "slot": "WR",
+      "pts": 22.8
+     }
+    ],
+    "dud": {
+     "player": "Denzel Boston",
+     "slot": "FLEX",
+     "pts": 6.7
+    }
+   },
+   "loser_lineup": {
+    "stars": [
+     {
+      "player": "Jahmyr Gibbs",
+      "slot": "RB",
+      "pts": 23.8
+     },
+     {
+      "player": "Trevor Lawrence",
+      "slot": "QB",
+      "pts": 19.4
+     }
+    ],
+    "dud": {
+     "player": "Emanuel Wilson",
+     "slot": "FLEX",
+     "pts": 0.0
+    }
+   },
+   "winner_record": "5-3",
+   "winner_rank": 2,
+   "winner_streak": "W2",
+   "winner_prev_rank": 4,
+   "loser_record": "2-6",
+   "loser_rank": 12,
+   "loser_streak": "L2",
+   "loser_prev_rank": 12
+  },
+  {
+   "winner": "The Mystery Manager",
+   "winner_pts": 188.48,
+   "loser": "GioMeow",
+   "loser_pts": 76.34,
+   "margin": 112.14,
+   "tie": false,
+   "winner_lineup": {
+    "stars": [
+     {
+      "player": "Joe Burrow",
+      "slot": "QB",
+      "pts": 39.48
+     },
+     {
+      "player": "Bhayshul Tuten",
+      "slot": "RB",
+      "pts": 28.9
+     }
+    ],
+    "dud": {
+     "player": "Kyle Pitts Sr.",
+     "slot": "TE",
+     "pts": 1.6
+    }
+   },
+   "loser_lineup": {
+    "stars": [
+     {
+      "player": "James Cook III",
+      "slot": "FLEX",
+      "pts": 17.1
+     },
+     {
+      "player": "Luther Burden III",
+      "slot": "WR",
+      "pts": 15.1
+     }
+    ],
+    "dud": {
+     "player": "Hunter Henry",
+     "slot": "TE",
+     "pts": 4.5
+    }
+   },
+   "winner_record": "6-2",
+   "winner_rank": 1,
+   "winner_streak": "W4",
+   "winner_prev_rank": 2,
+   "loser_record": "4-4",
+   "loser_rank": 6,
+   "loser_streak": "L2",
+   "loser_prev_rank": 3
+  },
+  {
+   "winner": "The Carebear Necessities",
+   "winner_pts": 151.02,
+   "loser": "Perkis System",
+   "loser_pts": 116.98,
+   "margin": 34.04,
+   "tie": false,
+   "winner_lineup": {
+    "stars": [
+     {
+      "player": "Brock Bowers",
+      "slot": "TE",
+      "pts": 24.7
+     },
+     {
+      "player": "Jordan Love",
+      "slot": "QB",
+      "pts": 21.52
+     }
+    ],
+    "dud": {
+     "player": "Javonte Williams",
+     "slot": "RB",
+     "pts": 6.2
+    }
+   },
+   "loser_lineup": {
+    "stars": [
+     {
+      "player": "Kirk Cousins",
+      "slot": "QB",
+      "pts": 28.18
+     },
+     {
+      "player": "D'Andre Swift",
+      "slot": "RB",
+      "pts": 26.9
+     }
+    ],
+    "dud": {
+     "player": "Parker Washington",
+     "slot": "FLEX",
+     "pts": 3.1
+    }
+   },
+   "winner_record": "5-3",
+   "winner_rank": 3,
+   "winner_streak": "W2",
+   "winner_prev_rank": 5,
+   "loser_record": "2-6",
+   "loser_rank": 11,
+   "loser_streak": "L6",
+   "loser_prev_rank": 11
+  }
+ ],
+ "high": {
+  "manager": "The Mystery Manager",
+  "pts": 188.48
+ },
+ "low": {
+  "manager": "CaptainFalcon14",
+  "pts": 60.6
+ },
+ "closest": {
+  "winner": "ArtistFormerlyKnownAs",
+  "winner_pts": 127.18,
+  "loser": "Dumpsterfire007",
+  "loser_pts": 111.56,
+  "margin": 15.62,
+  "tie": false,
+  "winner_lineup": {
+   "stars": [
+    {
+     "player": "Bucky Irving",
+     "slot": "RB",
+     "pts": 21.0
+    },
+    {
+     "player": "Jaxon Smith-Njigba",
+     "slot": "WR",
+     "pts": 20.8
+    }
+   ],
+   "dud": {
+    "player": "Tyler Warren",
+    "slot": "TE",
+    "pts": 3.8
+   }
+  },
+  "loser_lineup": {
+   "stars": [
+    {
+     "player": "Tee Higgins",
+     "slot": "WR",
+     "pts": 32.5
+    },
+    {
+     "player": "Drake Maye",
+     "slot": "QB",
+     "pts": 22.46
+    }
+   ],
+   "dud": {
+    "player": "Chris Godwin Jr.",
+    "slot": "WR",
+    "pts": 0.0
+   }
+  },
+  "winner_record": "5-3",
+  "winner_rank": 5,
+  "winner_streak": "W2",
+  "winner_prev_rank": 6,
+  "loser_record": "5-3",
+  "loser_rank": 4,
+  "loser_streak": "L1",
+  "loser_prev_rank": 1
+ },
+ "blowout": {
+  "winner": "The Mystery Manager",
+  "winner_pts": 188.48,
+  "loser": "GioMeow",
+  "loser_pts": 76.34,
+  "margin": 112.14,
+  "tie": false,
+  "winner_lineup": {
+   "stars": [
+    {
+     "player": "Joe Burrow",
+     "slot": "QB",
+     "pts": 39.48
+    },
+    {
+     "player": "Bhayshul Tuten",
+     "slot": "RB",
+     "pts": 28.9
+    }
+   ],
+   "dud": {
+    "player": "Kyle Pitts Sr.",
+    "slot": "TE",
+    "pts": 1.6
+   }
+  },
+  "loser_lineup": {
+   "stars": [
+    {
+     "player": "James Cook III",
+     "slot": "FLEX",
+     "pts": 17.1
+    },
+    {
+     "player": "Luther Burden III",
+     "slot": "WR",
+     "pts": 15.1
+    }
+   ],
+   "dud": {
+    "player": "Hunter Henry",
+    "slot": "TE",
+    "pts": 4.5
+   }
+  },
+  "winner_record": "6-2",
+  "winner_rank": 1,
+  "winner_streak": "W4",
+  "winner_prev_rank": 2,
+  "loser_record": "4-4",
+  "loser_rank": 6,
+  "loser_streak": "L2",
+  "loser_prev_rank": 3
+ },
+ "bench_crimes": [],
+ "most_bench_pts": {
+  "manager": "Perkis System",
+  "bench_pts": 32.98
+ },
+ "empty_slots": [],
+ "booms": [
+  {
+   "player": "Joe Burrow",
+   "pts": 39.48,
+   "manager": "The Mystery Manager"
+  },
+  {
+   "player": "Tee Higgins",
+   "pts": 32.5,
+   "manager": "Dumpsterfire007"
+  },
+  {
+   "player": "Bhayshul Tuten",
+   "pts": 28.9,
+   "manager": "The Mystery Manager"
+  }
+ ],
+ "busts": [
+  {
+   "player": "Tre Tucker",
+   "pts": 0.0,
+   "manager": "CaptainFalcon14"
+  },
+  {
+   "player": "Lamar Jackson",
+   "pts": 0.0,
+   "manager": "CaptainFalcon14"
+  },
+  {
+   "player": "Emanuel Wilson",
+   "pts": 0.0,
+   "manager": "Sunnyvale Green Bastards"
+  }
+ ],
+ "adds": [
+  {
+   "manager": "haze4daze",
+   "player": "Emmett Johnson",
+   "via": "waiver"
+  },
+  {
+   "manager": "LochNessa",
+   "player": "Adonai Mitchell",
+   "via": "waiver"
+  },
+  {
+   "manager": "foe",
+   "player": "Tyler Allgeier",
+   "via": "waiver"
+  },
+  {
+   "manager": "Dumpsterfire007",
+   "player": "Chris Rodriguez Jr.",
+   "via": "waiver"
+  },
+  {
+   "manager": "GioMeow",
+   "player": "Mike Gesicki",
+   "via": "waiver"
+  },
+  {
+   "manager": "GioMeow",
+   "player": "Kansas City Chiefs",
+   "via": "waiver"
+  },
+  {
+   "manager": "Dumpsterfire007",
+   "player": "Malachi Fields",
+   "via": "free_agent",
+   "pts_this_week": 0.0
+  },
+  {
+   "manager": "Timoteo",
+   "player": "Seth McGowan",
+   "via": "waiver",
+   "pts_this_week": 2.9
+  },
+  {
+   "manager": "Dumpsterfire007",
+   "player": "Washington Commanders",
+   "via": "free_agent",
+   "pts_this_week": 13.0
+  },
+  {
+   "manager": "ArtistFormerlyKnownAs",
+   "player": "Tampa Bay Buccaneers",
+   "via": "free_agent",
+   "pts_this_week": 18.0
+  },
+  {
+   "manager": "CaptainFalcon14",
+   "player": "Devin Singletary",
+   "via": "free_agent",
+   "pts_this_week": 0.0
+  },
+  {
+   "manager": "Sunnyvale Green Bastards",
+   "player": "Caleb Douglas",
+   "via": "free_agent",
+   "pts_this_week": 6.3
+  },
+  {
+   "manager": "GioMeow",
+   "player": "Khalil Shakir",
+   "via": "free_agent",
+   "pts_this_week": 8.9
+  },
+  {
+   "manager": "GioMeow",
+   "player": "Trey Smack",
+   "via": "free_agent",
+   "pts_this_week": 2.0
+  },
+  {
+   "manager": "The Carebear Necessities",
+   "player": "Courtland Sutton",
+   "via": "free_agent",
+   "pts_this_week": 7.3
+  },
+  {
+   "manager": "The Carebear Necessities",
+   "player": "Tyler Bass",
+   "via": "free_agent",
+   "pts_this_week": 15.9
+  }
+ ],
+ "drops": [
+  {
+   "manager": "haze4daze",
+   "player": "San Francisco 49ers"
+  },
+  {
+   "manager": "LochNessa",
+   "player": "Chris Boswell"
+  },
+  {
+   "manager": "Dumpsterfire007",
+   "player": "Kenyon Sadiq"
+  },
+  {
+   "manager": "Sunnyvale Green Bastards",
+   "player": "Aaron Rodgers"
+  },
+  {
+   "manager": "GioMeow",
+   "player": "Hunter Henry"
+  },
+  {
+   "manager": "GioMeow",
+   "player": "New York Jets"
+  },
+  {
+   "manager": "Dumpsterfire007",
+   "player": "Zonovan Knight"
+  },
+  {
+   "manager": "Dumpsterfire007",
+   "player": "Seth McGowan"
+  },
+  {
+   "manager": "ArtistFormerlyKnownAs",
+   "player": "Baltimore Ravens"
+  },
+  {
+   "manager": "CaptainFalcon14",
+   "player": "Darius Cooper"
+  },
+  {
+   "manager": "Sunnyvale Green Bastards",
+   "player": "Jaylin Noel"
+  },
+  {
+   "manager": "GioMeow",
+   "player": "Tyrone Tracy Jr."
+  },
+  {
+   "manager": "GioMeow",
+   "player": "Eddy Pineiro"
+  },
+  {
+   "manager": "foe",
+   "player": "Geno Smith"
+  },
+  {
+   "manager": "The Carebear Necessities",
+   "player": "Jake Ferguson"
+  },
+  {
+   "manager": "The Carebear Necessities",
+   "player": "Kansas City Chiefs"
+  }
+ ],
+ "trades": [],
+ "got_away": null,
+ "faab_budget": null,
+ "standings": [
+  {
+   "rank": 1,
+   "manager": "The Mystery Manager",
+   "record": "6-2",
+   "pf": 1003.82,
+   "streak": "W4",
+   "prev_rank": 2
+  },
+  {
+   "rank": 2,
+   "manager": "foe",
+   "record": "5-3",
+   "pf": 1016.48,
+   "streak": "W2",
+   "prev_rank": 4
+  },
+  {
+   "rank": 3,
+   "manager": "The Carebear Necessities",
+   "record": "5-3",
+   "pf": 1006.62,
+   "streak": "W2",
+   "prev_rank": 5
+  },
+  {
+   "rank": 4,
+   "manager": "Dumpsterfire007",
+   "record": "5-3",
+   "pf": 952.2,
+   "streak": "L1",
+   "prev_rank": 1
+  },
+  {
+   "rank": 5,
+   "manager": "ArtistFormerlyKnownAs",
+   "record": "5-3",
+   "pf": 951.76,
+   "streak": "W2",
+   "prev_rank": 6
+  },
+  {
+   "rank": 6,
+   "manager": "GioMeow",
+   "record": "4-4",
+   "pf": 976.46,
+   "streak": "L2",
+   "prev_rank": 3
+  },
+  {
+   "rank": 7,
+   "manager": "haze4daze",
+   "record": "4-4",
+   "pf": 970.34,
+   "streak": "W2",
+   "prev_rank": 8
+  },
+  {
+   "rank": 8,
+   "manager": "CaptainFalcon14",
+   "record": "4-4",
+   "pf": 747.88,
+   "streak": "L2",
+   "prev_rank": 7
+  },
+  {
+   "rank": 9,
+   "manager": "Timoteo",
+   "record": "3-5",
+   "pf": 873.36,
+   "streak": "L3",
+   "prev_rank": 9
+  },
+  {
+   "rank": 10,
+   "manager": "LochNessa",
+   "record": "3-5",
+   "pf": 862.42,
+   "streak": "W1",
+   "prev_rank": 10
+  },
+  {
+   "rank": 11,
+   "manager": "Perkis System",
+   "record": "2-6",
+   "pf": 879.92,
+   "streak": "L6",
+   "prev_rank": 11
+  },
+  {
+   "rank": 12,
+   "manager": "Sunnyvale Green Bastards",
+   "record": "2-6",
+   "pf": 840.48,
+   "streak": "L2",
+   "prev_rank": 12
+  }
+ ],
+ "movers": [
+  {
+   "rank": 2,
+   "manager": "foe",
+   "record": "5-3",
+   "pf": 1016.48,
+   "streak": "W2",
+   "prev_rank": 4
+  },
+  {
+   "rank": 3,
+   "manager": "The Carebear Necessities",
+   "record": "5-3",
+   "pf": 1006.62,
+   "streak": "W2",
+   "prev_rank": 5
+  },
+  {
+   "rank": 4,
+   "manager": "Dumpsterfire007",
+   "record": "5-3",
+   "pf": 952.2,
+   "streak": "L1",
+   "prev_rank": 1
+  },
+  {
+   "rank": 6,
+   "manager": "GioMeow",
+   "record": "4-4",
+   "pf": 976.46,
+   "streak": "L2",
+   "prev_rank": 3
+  }
+ ],
+ "upsets": [
+  {
+   "winner": "ArtistFormerlyKnownAs",
+   "winner_prev_rank": 6,
+   "loser": "Dumpsterfire007",
+   "loser_prev_rank": 1
+  }
+ ],
+ "power_rankings": [
+  {
+   "power_rank": 1,
+   "manager": "haze4daze",
+   "record": "4-4",
+   "all_play": "58-30",
+   "last3_all_play": "25-8",
+   "power_score": 72.8,
+   "pf": 970.34,
+   "pa": 922.02,
+   "luck": -1.3,
+   "prev_power_rank": 2
+  },
+  {
+   "power_rank": 2,
+   "manager": "The Mystery Manager",
+   "record": "6-2",
+   "all_play": "51-37",
+   "last3_all_play": "26-7",
+   "power_score": 69.3,
+   "pf": 1003.82,
+   "pa": 864.26,
+   "luck": 1.4,
+   "prev_power_rank": 6
+  },
+  {
+   "power_rank": 3,
+   "manager": "The Carebear Necessities",
+   "record": "5-3",
+   "all_play": "53-35",
+   "last3_all_play": "22-11",
+   "power_score": 67.7,
+   "pf": 1006.62,
+   "pa": 955.9,
+   "luck": 0.2,
+   "prev_power_rank": 5
+  },
+  {
+   "power_rank": 4,
+   "manager": "foe",
+   "record": "5-3",
+   "all_play": "61-27",
+   "last3_all_play": "14-19",
+   "power_score": 67.2,
+   "pf": 1016.48,
+   "pa": 878.94,
+   "luck": -0.5,
+   "prev_power_rank": 4
+  },
+  {
+   "power_rank": 5,
+   "manager": "Dumpsterfire007",
+   "record": "5-3",
+   "all_play": "52-36",
+   "last3_all_play": "23-10",
+   "power_score": 66.9,
+   "pf": 952.2,
+   "pa": 844.16,
+   "luck": 0.3,
+   "prev_power_rank": 1
+  },
+  {
+   "power_rank": 6,
+   "manager": "GioMeow",
+   "record": "4-4",
+   "all_play": "53-35",
+   "last3_all_play": "16-17",
+   "power_score": 62.7,
+   "pf": 976.46,
+   "pa": 1053.56,
+   "luck": -0.8,
+   "prev_power_rank": 3
+  },
+  {
+   "power_rank": 7,
+   "manager": "ArtistFormerlyKnownAs",
+   "record": "5-3",
+   "all_play": "48-40",
+   "last3_all_play": "14-19",
+   "power_score": 57.4,
+   "pf": 951.76,
+   "pa": 926.68,
+   "luck": 0.6,
+   "prev_power_rank": 7
+  },
+  {
+   "power_rank": 8,
+   "manager": "LochNessa",
+   "record": "3-5",
+   "all_play": "36-52",
+   "last3_all_play": "14-19",
+   "power_score": 47.9,
+   "pf": 862.42,
+   "pa": 922.76,
+   "luck": -0.3,
+   "prev_power_rank": 9
+  },
+  {
+   "power_rank": 9,
+   "manager": "Timoteo",
+   "record": "3-5",
+   "all_play": "33-55",
+   "last3_all_play": "13-20",
+   "power_score": 45.2,
+   "pf": 873.36,
+   "pa": 921.56,
+   "luck": 0.0,
+   "prev_power_rank": 10
+  },
+  {
+   "power_rank": 10,
+   "manager": "Sunnyvale Green Bastards",
+   "record": "2-6",
+   "all_play": "32-56",
+   "last3_all_play": "14-19",
+   "power_score": 44.8,
+   "pf": 840.48,
+   "pa": 980.4,
+   "luck": -0.9,
+   "prev_power_rank": 8
+  },
+  {
+   "power_rank": 11,
+   "manager": "Perkis System",
+   "record": "2-6",
+   "all_play": "33-55",
+   "last3_all_play": "12-21",
+   "power_score": 44.6,
+   "pf": 879.92,
+   "pa": 981.88,
+   "luck": -1.0,
+   "prev_power_rank": 11
+  },
+  {
+   "power_rank": 12,
+   "manager": "CaptainFalcon14",
+   "record": "4-4",
+   "all_play": "18-70",
+   "last3_all_play": "5-28",
+   "power_score": 27.1,
+   "pf": 747.88,
+   "pa": 829.62,
+   "luck": 2.4,
+   "prev_power_rank": 12
+  }
+ ],
+ "next_week_card": [
+  {
+   "billing": "Main Event",
+   "week": 9,
+   "a": {
+    "manager": "The Carebear Necessities",
+    "record": "5-3",
+    "rank": 3,
+    "streak": "W2",
+    "power_rank": 3,
+    "pf": 1006.62
+   },
+   "b": {
+    "manager": "ArtistFormerlyKnownAs",
+    "record": "5-3",
+    "rank": 5,
+    "streak": "W2",
+    "power_rank": 7,
+    "pf": 951.76
+   },
+   "head_to_head": [],
+   "odds": {
+    "favorite": "The Carebear Necessities",
+    "favorite_pct": 56,
+    "underdog": "ArtistFormerlyKnownAs",
+    "underdog_pct": 44,
+    "line": 5.0
+   }
+  },
+  {
+   "billing": "Co-Main Event",
+   "week": 9,
+   "a": {
+    "manager": "The Mystery Manager",
+    "record": "6-2",
+    "rank": 1,
+    "streak": "W4",
+    "power_rank": 2,
+    "pf": 1003.82
+   },
+   "b": {
+    "manager": "Timoteo",
+    "record": "3-5",
+    "rank": 9,
+    "streak": "L3",
+    "power_rank": 9,
+    "pf": 873.36
+   },
+   "head_to_head": [],
+   "odds": {
+    "favorite": "The Mystery Manager",
+    "favorite_pct": 64,
+    "underdog": "Timoteo",
+    "underdog_pct": 36,
+    "line": 12.0
+   }
+  },
+  {
+   "billing": "Basement Bowl",
+   "week": 9,
+   "a": {
+    "manager": "haze4daze",
+    "record": "4-4",
+    "rank": 7,
+    "streak": "W2",
+    "power_rank": 1,
+    "pf": 970.34
+   },
+   "b": {
+    "manager": "Perkis System",
+    "record": "2-6",
+    "rank": 11,
+    "streak": "L6",
+    "power_rank": 11,
+    "pf": 879.92
+   },
+   "head_to_head": [],
+   "odds": {
+    "favorite": "haze4daze",
+    "favorite_pct": 60,
+    "underdog": "Perkis System",
+    "underdog_pct": 40,
+    "line": 8.0
+   }
+  }
+ ],
+ "next_week_others": [
+  {
+   "week": 9,
+   "a": {
+    "manager": "Dumpsterfire007",
+    "record": "5-3",
+    "rank": 4,
+    "streak": "L1",
+    "power_rank": 5,
+    "pf": 952.2
+   },
+   "b": {
+    "manager": "CaptainFalcon14",
+    "record": "4-4",
+    "rank": 8,
+    "streak": "L2",
+    "power_rank": 12,
+    "pf": 747.88
+   },
+   "odds": {
+    "favorite": "Dumpsterfire007",
+    "favorite_pct": 71,
+    "underdog": "CaptainFalcon14",
+    "underdog_pct": 29,
+    "line": 18.5
+   }
+  },
+  {
+   "week": 9,
+   "a": {
+    "manager": "foe",
+    "record": "5-3",
+    "rank": 2,
+    "streak": "W2",
+    "power_rank": 4,
+    "pf": 1016.48
+   },
+   "b": {
+    "manager": "LochNessa",
+    "record": "3-5",
+    "rank": 10,
+    "streak": "W1",
+    "power_rank": 8,
+    "pf": 862.42
+   },
+   "odds": {
+    "favorite": "foe",
+    "favorite_pct": 66,
+    "underdog": "LochNessa",
+    "underdog_pct": 34,
+    "line": 14.0
+   }
+  },
+  {
+   "week": 9,
+   "a": {
+    "manager": "GioMeow",
+    "record": "4-4",
+    "rank": 6,
+    "streak": "L2",
+    "power_rank": 6,
+    "pf": 976.46
+   },
+   "b": {
+    "manager": "Sunnyvale Green Bastards",
+    "record": "2-6",
+    "rank": 12,
+    "streak": "L2",
+    "power_rank": 10,
+    "pf": 840.48
+   },
+   "odds": {
+    "favorite": "GioMeow",
+    "favorite_pct": 65,
+    "underdog": "Sunnyvale Green Bastards",
+    "underdog_pct": 35,
+    "line": 12.5
+   }
+  }
+ ],
+ "awards": {
+  "boom": {
+   "player": "Joe Burrow",
+   "pts": 39.48,
+   "manager": "The Mystery Manager"
+  },
+  "dud": {
+   "player": "Tre Tucker",
+   "pts": 0.0,
+   "manager": "CaptainFalcon14"
+  },
+  "bench_crime": null,
+  "most_active": {
+   "manager": "GioMeow",
+   "moves": 4
+  }
+ },
+ "lore": {
+  "season_high": {
+   "manager": "The Mystery Manager",
+   "pts": 188.48,
+   "week": 8
+  },
+  "season_low": {
+   "manager": "CaptainFalcon14",
+   "pts": 60.6,
+   "week": 8
+  },
+  "luckiest": {
+   "power_rank": 12,
+   "manager": "CaptainFalcon14",
+   "record": "4-4",
+   "all_play": "18-70",
+   "last3_all_play": "5-28",
+   "power_score": 27.1,
+   "pf": 747.88,
+   "pa": 829.62,
+   "luck": 2.4,
+   "prev_power_rank": 12
+  },
+  "unluckiest": {
+   "power_rank": 1,
+   "manager": "haze4daze",
+   "record": "4-4",
+   "all_play": "58-30",
+   "last3_all_play": "25-8",
+   "power_score": 72.8,
+   "pf": 970.34,
+   "pa": 922.02,
+   "luck": -1.3,
+   "prev_power_rank": 2
+  },
+  "schedule_victim": {
+   "power_rank": 6,
+   "manager": "GioMeow",
+   "record": "4-4",
+   "all_play": "53-35",
+   "last3_all_play": "16-17",
+   "power_score": 62.7,
+   "pf": 976.46,
+   "pa": 1053.56,
+   "luck": -0.8,
+   "prev_power_rank": 3
+  },
+  "hot_streak": {
+   "manager": "The Mystery Manager",
+   "streak": "W4"
+  },
+  "cold_streak": {
+   "manager": "Perkis System",
+   "streak": "L6"
+  }
+ },
+ "playoff_teams": 6,
+ "playoff_race": null,
+ "bracket": [
+  {
+   "round": 1,
+   "a": "Dumpsterfire007",
+   "b": "ArtistFormerlyKnownAs",
+   "winner": null,
+   "place": null
+  },
+  {
+   "round": 1,
+   "a": "GioMeow",
+   "b": "The Carebear Necessities",
+   "winner": null,
+   "place": null
+  },
+  {
+   "round": 2,
+   "a": "The Mystery Manager",
+   "b": null,
+   "winner": null,
+   "place": null
+  },
+  {
+   "round": 2,
+   "a": "foe",
+   "b": null,
+   "winner": null,
+   "place": null
+  },
+  {
+   "round": 2,
+   "a": null,
+   "b": null,
+   "winner": null,
+   "place": 5
+  },
+  {
+   "round": 3,
+   "a": null,
+   "b": null,
+   "winner": null,
+   "place": 1
+  },
+  {
+   "round": 3,
+   "a": null,
+   "b": null,
+   "winner": null,
+   "place": 3
+  }
+ ],
+ "champion": null,
+ "last_strip_poses": [
+  "reading",
+  "sweat",
+  "celebrate"
+ ],
+ "edition_date": "2026-11-04",
+ "edition": {
+  "theme": "fall",
+  "label": "Autumn Edition",
+  "playoff": null
+ },
+ "used_pun_names": [
+  "Aaron Jones Beach",
+  "ArtistFormerlyKnownAs drew a blank",
+  "ArtistFormerlyKnownAs the Sketchy",
+  "Bare Necessities, Big Win",
+  "Beeline Robinson",
+  "Bench Press Release",
+  "Bhayshul Tuten-Khamun",
+  "Bo Nix Or Nothing",
+  "Bottomless Pitts",
+  "Bowers Bring Bear Hugs",
+  "Brock Purdy Please",
+  "Bryce Young Guns",
+  "Bucky Irving Place",
+  "Bucky Irving the Canvas",
+  "Burrow Digs a Mystery",
+  "C.J. Stroud Sketchbook",
+  "Canyon Sadiq",
+  "CaptainFalcon14 hit turbulence",
+  "CaptainFalcon14 the Grounded",
+  "Carebear Necessities Hug The Spotlight",
+  "Carebears Warren the Den",
+  "Cast Away Wilson",
+  "CeeDee Lamb Chop",
+  "Christian McCaffrey Café",
+  "covered the bare necessities and then some",
+  "Davante Adams Family",
+  "Denzel Boston Tea Party",
+  "DJ Moore Or Less",
+  "Drake London Fog",
+  "Drake Maye Be Right",
+  "Drake Mayeflower Sails On",
+  "Dumpsterfire007 Stays Hot for Halloween",
+  "Dumpsterfire007 the Smoldering",
+  "Eight Teams Tied, Nobody Wins Clean",
+  "Falcon Flies by 0.4",
+  "Foe Faux Pas",
+  "foe the Untouched",
+  "Formerly Known As Winners",
+  "Fox Hole Burrow",
+  "Geno Smith the Blacksmith",
+  "Germie Bernard Shaw",
+  "GioMeow Claws Past Nessa",
+  "GioMeow had its claws clipped",
+  "GioMeow Takes the Cream",
+  "GioMeow the Lionhearted",
+  "Haze Clears The Foe",
+  "haze4daze Hazes the Throne",
+  "haze4daze the Foggy",
+  "Heaven-Sent Godwin",
+  "Hocus Hockenson",
+  "Jack's Smith-Njigba",
+  "Jahmyr Gibbs Me Sunshine",
+  "James Cook Up a Storm",
+  "Jameson Williams Sour Mash",
+  "Javonte Williams Sonoma",
+  "Jaylen Waddle Along",
+  "Jaylen Warren Peace",
+  "Joe Burrowing Owl",
+  "Jonathan Taylor Made Win",
+  "Josh Allen Wrench",
+  "Josh Downs Under",
+  "Kenneth Walker Talkie",
+  "Kenneth Walker Texas Ranger",
+  "Kittle Heats The Kettle",
+  "Lawrence of Sunnyvale",
+  "LochNessa came up for air",
+  "LochNessa stayed out of sight",
+  "LochNessa Surfaces",
+  "LochNessa the Submerged",
+  "Mahomes Alone",
+  "Malik Nabers Knows",
+  "Matinee Golden",
+  "Matthew Staffordshire",
+  "Maye Day, Dumpster Fire Out",
+  "Myers Briggs the Floor",
+  "Perkis System crashed again",
+  "Perkis System the Glitching",
+  "Puka Nacua Matata",
+  "Rashee Rice Cake",
+  "Rivet Gets Benched",
+  "Rivet Rust in Peace",
+  "Rivet Strouds the Bench",
+  "Romeo Doubs Down",
+  "Sunnyvale Green Bastards the Ascendant",
+  "Tea Party Higgins",
+  "Tee Higgins Tournament",
+  "Tetairoa McMillan Dollar Bill",
+  "The Carebear Necessities the Cuddly",
+  "The fire is down to smoke",
+  "The Mystery Manager cracked the case",
+  "The Mystery Manager the Unmasked",
+  "Ties That Bind",
+  "Timoteo the Mercurial",
+  "Timoteo's timing was off",
+  "Tony Pollard Tonic",
+  "Tough Enough Shough",
+  "Tre Tucker Takes Flight",
+  "Trevor Lawrence Welk",
+  "Zay Flowers Power"
+ ]
+}
