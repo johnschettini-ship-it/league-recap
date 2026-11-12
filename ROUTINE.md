@@ -34,6 +34,7 @@ Follow these steps exactly. Stop and report if a step fails. Never invent a numb
    - `python3 tools/publish.py <edition> build/<edition>.mp4`. This puts the video in `posts/` and adds the
      "🎬 Watch the newsreel" line to `posts/<key>.txt`, so the chat post has two links.
    A league whose video fails is reported and keeps its text recap; it does not stop the others.
+   If `./setup.sh` fails, skip all videos, report why, and continue to step 7. The newsreel never blocks the text recaps.
 7. Commit only the `posts/` and `newsreel/scripts/` folders (and `newsreel/pronunciations.json` if it changed) with message `Week <N> recaps` and push directly to `main` (authorized by the owner: the Gazette site deploys only from `main`).
 8. Reply with each league's `posts/<key>.txt`, each under a heading with the league name,
    so each can be pasted into its own group chat. List any league that was skipped or fell
