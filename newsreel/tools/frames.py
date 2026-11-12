@@ -26,7 +26,7 @@ shots.sort(key=lambda x: x["t"])
 out.mkdir(parents=True, exist_ok=True)
 for old in out.glob("*.png"):
     old.unlink()
-subprocess.run(["npx", "--yes", "hyperframes", "snapshot", "--at", ",".join(str(s["t"]) for s in shots), "--no-end", "-o", str(out)],
+subprocess.run(["npx", "--yes", "hyperframes@0.9.38", "snapshot", "--at", ",".join(str(s["t"]) for s in shots), "--no-end", "-o", str(out)],
                cwd=ROOT, check=True, stdout=subprocess.DEVNULL)
 files = sorted(out.glob("frame-*.png"), key=lambda p: int(re.match(r"frame-(\d+)", p.name).group(1)))
 if len(files) != len(shots):

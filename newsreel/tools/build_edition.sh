@@ -14,10 +14,10 @@ python3 tools/narrate.py "$KOKORO_DIR/kokoro-v1.0.onnx" "$KOKORO_DIR/voices-v1.0
 python3 tools/check_voice.py "$WHISPER_DIR" 2>/dev/null > "build/$E.voice.txt"; echo "narration check exit $? (details: build/$E.voice.txt)"; grep -E "voice:" "build/$E.voice.txt"
 python3 tools/build.py --gazette "$GAZETTE" --site "$SITE" || exit 1
 python3 tools/check_screen.py | tail -1
-npx --yes hyperframes check --json > "build/$E.hf.json" 2>/dev/null; python3 -c "
+npx --yes hyperframes@0.9.38 check --json > "build/$E.hf.json" 2>/dev/null; python3 -c "
 import json; d=json.load(open('build/$E.hf.json')); print('hyperframes ok', d['ok'], {k:(v['errorCount'],v['warningCount']) for k,v in d.items() if isinstance(v,dict) and 'errorCount' in v})
 [print('  ', k, f.get('severity'), f.get('code'), str(f.get('message'))[:200]) for k,v in d.items() if isinstance(v,dict) for f in v.get('findings',[]) if f.get('severity')!='info']"
-npx --yes hyperframes render --quality looks -o "renders/full_$E.mp4" --quiet > /dev/null 2>&1 || { echo "render failed"; exit 1; }
+npx --yes hyperframes@0.9.38 render --quality looks -o "renders/full_$E.mp4" --quiet > /dev/null 2>&1 || { echo "render failed"; exit 1; }
 tools/shrink.sh "renders/full_$E.mp4" "$OUT" 10 | tail -1          # 10 MB: the site keeps several weeks
 python3 tools/check_captions.py "$OUT" | tail -2
 python3 tools/frames.py "$FRAMES_DIR/$E" > /dev/null 2>&1; echo "review frames: $FRAMES_DIR/$E"
