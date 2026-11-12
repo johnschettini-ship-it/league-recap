@@ -1,0 +1,1080 @@
+{
+ "_note": "Voice styles that were built and measured with tools/voice_lab.py. \"style\" is the number on the sample reels. pitch_hz is the median pitch. words_right_pct is the share of the test words that a speech recognizer heard correctly. Nobody has compared these by ear on the build machine. To use a style, copy its \"recipe\" into voice.json. Every style is an original voice. None copies a real person or a film.",
+ "test_lines": [
+  "Extra, extra, ladies and gentlemen of the Beer Den!",
+  "Week 8 brings mayhem, and one mislaid quarterback.",
+  "Stop the presses! Top score topples leader!"
+ ],
+ "in_use": "23B",
+ "approved_by_owner": {
+  "style": "23B",
+  "date": "2026-11-11",
+  "note": "confirmed again for the second Week 9 draft"
+ },
+ "styles": [
+  {
+   "style": "1",
+   "label": "High newsreel",
+   "note": "in the video now",
+   "pitch_hz": 202,
+   "seconds_for_test_lines": 8.3,
+   "words_right_pct": 100,
+   "recipe": {
+    "semitones": 4,
+    "formant": "preserved",
+    "hiss_db": -44,
+    "crackle_db": -31,
+    "id": "newsreel-high",
+    "label": "High newsreel",
+    "note": "in the video now",
+    "voices": "am_eric",
+    "speed": 1.15,
+    "chain": ""
+   }
+  },
+  {
+   "style": "2",
+   "label": "Faster",
+   "note": "the same voice, speed 1.27",
+   "pitch_hz": 201,
+   "seconds_for_test_lines": 7.7,
+   "words_right_pct": 92,
+   "recipe": {
+    "semitones": 4,
+    "formant": "preserved",
+    "hiss_db": -44,
+    "crackle_db": -31,
+    "id": "newsreel-faster",
+    "label": "Faster",
+    "note": "the same voice, speed 1.27",
+    "voices": "am_eric",
+    "speed": 1.27,
+    "chain": ""
+   }
+  },
+  {
+   "style": "3",
+   "label": "More radio horn",
+   "note": "higher, a narrow horn",
+   "pitch_hz": 216,
+   "seconds_for_test_lines": 8.0,
+   "words_right_pct": 92,
+   "recipe": {
+    "semitones": 5,
+    "formant": "preserved",
+    "hiss_db": -44,
+    "crackle_db": -31,
+    "id": "newsreel-horn",
+    "label": "More radio horn",
+    "note": "higher, a narrow horn",
+    "voices": "am_eric",
+    "speed": 1.22,
+    "chain": "highpass=f=320,lowpass=f=3300,equalizer=f=1900:t=q:w=1.2:g=9,acompressor=threshold=-22dB:ratio=5:attack=4:release=80:makeup=4,asoftclip=type=tanh"
+   }
+  },
+  {
+   "style": "4",
+   "label": "Mid-Atlantic blend",
+   "note": "one third stage voice",
+   "pitch_hz": 190,
+   "seconds_for_test_lines": 8.8,
+   "words_right_pct": 100,
+   "recipe": {
+    "semitones": 4,
+    "formant": "preserved",
+    "hiss_db": -44,
+    "crackle_db": -31,
+    "id": "mid-atlantic",
+    "label": "Mid-Atlantic blend",
+    "note": "one third stage voice",
+    "voices": {
+     "am_eric": 0.65,
+     "bm_fable": 0.35
+    },
+    "speed": 1.22,
+    "chain": "highpass=f=320,lowpass=f=3300,equalizer=f=1900:t=q:w=1.2:g=9,acompressor=threshold=-22dB:ratio=5:attack=4:release=80:makeup=4,asoftclip=type=tanh"
+   }
+  },
+  {
+   "style": "5",
+   "label": "Two voices blended",
+   "note": "a second American voice",
+   "pitch_hz": 188,
+   "seconds_for_test_lines": 7.9,
+   "words_right_pct": 92,
+   "recipe": {
+    "semitones": 4,
+    "formant": "preserved",
+    "hiss_db": -44,
+    "crackle_db": -31,
+    "id": "two-americans",
+    "label": "Two voices blended",
+    "note": "a second American voice",
+    "voices": {
+     "am_eric": 0.65,
+     "am_liam": 0.35
+    },
+    "speed": 1.22,
+    "chain": ""
+   }
+  },
+  {
+   "style": "6",
+   "label": "Town crier",
+   "note": "deep and slow, in a hall",
+   "pitch_hz": 147,
+   "seconds_for_test_lines": 9.1,
+   "words_right_pct": 96,
+   "recipe": {
+    "id": "town-crier",
+    "label": "Town crier",
+    "note": "deep and slow, in a hall",
+    "voices": "am_fenrir",
+    "speed": 1.0,
+    "semitones": 1,
+    "formant": "preserved",
+    "chain": "highpass=f=180,lowpass=f=4200,equalizer=f=1200:t=q:w=1.0:g=4,aecho=0.8:0.6:55:0.22,acompressor=threshold=-20dB:ratio=4:attack=5:release=90:makeup=3",
+    "hiss_db": -48,
+    "crackle_db": -36
+   }
+  },
+  {
+   "style": "7",
+   "label": "Radio drama host",
+   "note": "low and smooth, AM radio",
+   "pitch_hz": 123,
+   "seconds_for_test_lines": 10.8,
+   "words_right_pct": 100,
+   "recipe": {
+    "id": "radio-drama",
+    "label": "Radio drama host",
+    "note": "low and smooth, AM radio",
+    "voices": {
+     "am_michael": 0.6,
+     "am_onyx": 0.4
+    },
+    "speed": 1.05,
+    "semitones": 0,
+    "formant": "preserved",
+    "chain": "highpass=f=300,lowpass=f=3000,equalizer=f=1400:t=q:w=1.0:g=5,tremolo=f=5:d=0.12,acompressor=threshold=-22dB:ratio=5:attack=4:release=80:makeup=4",
+    "hiss_db": -42,
+    "crackle_db": -34
+   }
+  },
+  {
+   "style": "8",
+   "label": "Racetrack caller",
+   "note": "very fast, loudspeaker horn",
+   "pitch_hz": 178,
+   "seconds_for_test_lines": 7.6,
+   "words_right_pct": 92,
+   "recipe": {
+    "id": "racetrack",
+    "label": "Racetrack caller",
+    "note": "very fast, loudspeaker horn",
+    "voices": {
+     "am_eric": 0.6,
+     "am_liam": 0.4
+    },
+    "speed": 1.3,
+    "semitones": 3,
+    "formant": "preserved",
+    "chain": "highpass=f=500,lowpass=f=2900,equalizer=f=1600:t=q:w=1.0:g=9,acompressor=threshold=-26dB:ratio=8:attack=2:release=60:makeup=6,asoftclip=type=tanh",
+    "hiss_db": -44,
+    "crackle_db": -40
+   }
+  },
+  {
+   "style": "9",
+   "label": "News by wire",
+   "note": "a telephone line",
+   "pitch_hz": 141,
+   "seconds_for_test_lines": 8.7,
+   "words_right_pct": 100,
+   "recipe": {
+    "id": "wire-desk",
+    "label": "News by wire",
+    "note": "a telephone line",
+    "voices": "am_adam",
+    "speed": 1.15,
+    "semitones": 2,
+    "formant": "preserved",
+    "chain": "highpass=f=350,lowpass=f=3300,acrusher=bits=9:mix=0.35,equalizer=f=2000:t=q:w=1.2:g=5,acompressor=threshold=-22dB:ratio=5:attack=4:release=80:makeup=4",
+    "hiss_db": -40,
+    "crackle_db": -38
+   }
+  },
+  {
+   "style": "10",
+   "label": "Gramophone record",
+   "note": "a small horn, more crackle",
+   "pitch_hz": 154,
+   "seconds_for_test_lines": 9.0,
+   "words_right_pct": 71,
+   "recipe": {
+    "id": "gramophone",
+    "label": "Gramophone record",
+    "note": "a small horn, more crackle",
+    "voices": {
+     "am_puck": 0.7,
+     "bm_george": 0.3
+    },
+    "speed": 1.12,
+    "semitones": 3,
+    "formant": "shifted",
+    "chain": "highpass=f=350,lowpass=f=3000,equalizer=f=1500:t=q:w=1.0:g=6,acompressor=threshold=-22dB:ratio=5:attack=4:release=80:makeup=4,asoftclip=type=tanh",
+    "hiss_db": -40,
+    "crackle_db": -27
+   }
+  },
+  {
+   "style": "11",
+   "label": "Bright tenor",
+   "note": "higher with no pitch change",
+   "pitch_hz": 175,
+   "seconds_for_test_lines": 8.3,
+   "words_right_pct": 100,
+   "recipe": {
+    "id": "bright-tenor",
+    "label": "Bright tenor",
+    "note": "higher with no pitch change",
+    "voices": {
+     "am_eric": 0.6,
+     "af_bella": 0.4
+    },
+    "speed": 1.2,
+    "semitones": 0,
+    "formant": "preserved",
+    "chain": "",
+    "hiss_db": -44,
+    "crackle_db": -31
+   }
+  },
+  {
+   "style": "7A",
+   "label": "Radio drama 7A",
+   "note": "speed 1.15, more crackle",
+   "pitch_hz": 121,
+   "seconds_for_test_lines": 10.1,
+   "words_right_pct": 100,
+   "recipe": {
+    "voices": {
+     "am_michael": 0.6,
+     "am_onyx": 0.4
+    },
+    "semitones": 0,
+    "formant": "preserved",
+    "chain": "highpass=f=300,lowpass=f=3000,equalizer=f=1400:t=q:w=1.0:g=5,tremolo=f=5:d=0.12,acompressor=threshold=-22dB:ratio=5:attack=4:release=80:makeup=4",
+    "hiss_db": -42,
+    "id": "radio-7a",
+    "label": "Radio drama 7A",
+    "note": "speed 1.15, more crackle",
+    "speed": 1.15,
+    "crackle_db": -30,
+    "crackle_rate": 7
+   }
+  },
+  {
+   "style": "7B",
+   "label": "Radio drama 7B",
+   "note": "speed 1.22, more crackle",
+   "pitch_hz": 120,
+   "seconds_for_test_lines": 9.7,
+   "words_right_pct": 100,
+   "recipe": {
+    "voices": {
+     "am_michael": 0.6,
+     "am_onyx": 0.4
+    },
+    "semitones": 0,
+    "formant": "preserved",
+    "chain": "highpass=f=300,lowpass=f=3000,equalizer=f=1400:t=q:w=1.0:g=5,tremolo=f=5:d=0.12,acompressor=threshold=-22dB:ratio=5:attack=4:release=80:makeup=4",
+    "hiss_db": -42,
+    "id": "radio-7b",
+    "label": "Radio drama 7B",
+    "note": "speed 1.22, more crackle",
+    "speed": 1.22,
+    "crackle_db": -28,
+    "crackle_rate": 10
+   }
+  },
+  {
+   "style": "7C",
+   "label": "Radio drama 7C",
+   "note": "speed 1.22, heavy crackle",
+   "pitch_hz": 120,
+   "seconds_for_test_lines": 9.7,
+   "words_right_pct": 100,
+   "recipe": {
+    "voices": {
+     "am_michael": 0.6,
+     "am_onyx": 0.4
+    },
+    "semitones": 0,
+    "formant": "preserved",
+    "chain": "highpass=f=300,lowpass=f=3000,equalizer=f=1400:t=q:w=1.0:g=5,tremolo=f=5:d=0.12,acompressor=threshold=-22dB:ratio=5:attack=4:release=80:makeup=4",
+    "hiss_db": -42,
+    "id": "radio-7c",
+    "label": "Radio drama 7C",
+    "note": "speed 1.22, heavy crackle",
+    "speed": 1.22,
+    "crackle_db": -25,
+    "crackle_rate": 16
+   }
+  },
+  {
+   "style": "7D",
+   "label": "Radio drama 7D",
+   "note": "speed 1.30, more crackle",
+   "pitch_hz": 120,
+   "seconds_for_test_lines": 9.1,
+   "words_right_pct": 100,
+   "recipe": {
+    "voices": {
+     "am_michael": 0.6,
+     "am_onyx": 0.4
+    },
+    "semitones": 0,
+    "formant": "preserved",
+    "chain": "highpass=f=300,lowpass=f=3000,equalizer=f=1400:t=q:w=1.0:g=5,tremolo=f=5:d=0.12,acompressor=threshold=-22dB:ratio=5:attack=4:release=80:makeup=4",
+    "hiss_db": -42,
+    "id": "radio-7d",
+    "label": "Radio drama 7D",
+    "note": "speed 1.30, more crackle",
+    "speed": 1.3,
+    "crackle_db": -28,
+    "crackle_rate": 10
+   }
+  },
+  {
+   "style": "7E",
+   "label": "Radio drama 7E",
+   "note": "speed 1.30, heavy crackle",
+   "pitch_hz": 120,
+   "seconds_for_test_lines": 9.1,
+   "words_right_pct": 100,
+   "recipe": {
+    "voices": {
+     "am_michael": 0.6,
+     "am_onyx": 0.4
+    },
+    "semitones": 0,
+    "formant": "preserved",
+    "chain": "highpass=f=300,lowpass=f=3000,equalizer=f=1400:t=q:w=1.0:g=5,tremolo=f=5:d=0.12,acompressor=threshold=-22dB:ratio=5:attack=4:release=80:makeup=4",
+    "hiss_db": -42,
+    "id": "radio-7e",
+    "label": "Radio drama 7E",
+    "note": "speed 1.30, heavy crackle",
+    "speed": 1.3,
+    "crackle_db": -24,
+    "crackle_rate": 20
+   }
+  },
+  {
+   "style": "7F",
+   "label": "Radio drama 7F",
+   "note": "speed 1.38, more crackle",
+   "pitch_hz": 129,
+   "seconds_for_test_lines": 7.7,
+   "words_right_pct": 79,
+   "recipe": {
+    "voices": {
+     "am_michael": 0.6,
+     "am_onyx": 0.4
+    },
+    "semitones": 0,
+    "formant": "preserved",
+    "chain": "highpass=f=300,lowpass=f=3000,equalizer=f=1400:t=q:w=1.0:g=5,tremolo=f=5:d=0.12,acompressor=threshold=-22dB:ratio=5:attack=4:release=80:makeup=4",
+    "hiss_db": -42,
+    "id": "radio-7f",
+    "label": "Radio drama 7F",
+    "note": "speed 1.38, more crackle",
+    "speed": 1.38,
+    "crackle_db": -26,
+    "crackle_rate": 14
+   }
+  },
+  {
+   "style": "12",
+   "label": "Cinema Newsreel",
+   "note": "urgent baritone, film soundtrack",
+   "pitch_hz": 154,
+   "seconds_for_test_lines": 9.1,
+   "words_right_pct": 100,
+   "recipe": {
+    "id": "per-cinema-newsreel",
+    "label": "Cinema Newsreel",
+    "note": "urgent baritone, film soundtrack",
+    "voices": {
+     "am_michael": 0.45,
+     "am_eric": 0.3,
+     "bm_george": 0.25
+    },
+    "speed": 1.2,
+    "semitones": 2,
+    "formant": "preserved",
+    "chain": "highpass=f=160,lowpass=f=4300,equalizer=f=2400:t=q:w=1.2:g=5,bass=g=3:f=200,acompressor=threshold=-24dB:ratio=6:attack=3:release=70:makeup=5,aecho=0.8:0.5:28:0.15,asoftclip=type=tanh",
+    "hiss_db": -42,
+    "crackle_db": -33
+   },
+   "comment": "Opens on the core newsreel sound: quick baritone at 154 Hz, speed 1.2, film soundtrack with a short theatre slap, 100 percent clear."
+  },
+  {
+   "style": "13",
+   "label": "Late Night Bulletin",
+   "note": "low, slow, close to the mike",
+   "pitch_hz": 84,
+   "seconds_for_test_lines": 11.5,
+   "words_right_pct": 100,
+   "recipe": {
+    "id": "per-late-bulletin",
+    "label": "Late Night Bulletin",
+    "note": "low, slow, close to the mike",
+    "voices": {
+     "am_onyx": 0.65,
+     "am_echo": 0.35
+    },
+    "speed": 0.93,
+    "semitones": -2,
+    "formant": "shifted",
+    "chain": "highpass=f=110,lowpass=f=4600,bass=g=5:f=180,equalizer=f=3200:t=q:w=1.0:g=-3,acompressor=threshold=-26dB:ratio=3:attack=8:release=150:makeup=3,asoftclip=type=tanh",
+    "hiss_db": -39,
+    "crackle_db": -38
+   },
+   "comment": "Biggest possible drop from the opener: lowest voice of all at 84 Hz, slow, bass-heavy close microphone, different base voices."
+  },
+  {
+   "style": "14",
+   "label": "Radio News Bulletin",
+   "note": "sober reader, AM set with drift",
+   "pitch_hz": 136,
+   "seconds_for_test_lines": 8.7,
+   "words_right_pct": 100,
+   "recipe": {
+    "id": "per-radio-bulletin",
+    "label": "Radio News Bulletin",
+    "note": "sober reader, AM set with drift",
+    "voices": {
+     "am_fenrir": 0.5,
+     "am_adam": 0.3,
+     "am_puck": 0.2
+    },
+    "speed": 1.06,
+    "semitones": 0,
+    "formant": "preserved",
+    "chain": "highpass=f=320,lowpass=f=3000,equalizer=f=1300:t=q:w=0.9:g=7,treble=g=-4:f=3000,acompressor=threshold=-20dB:ratio=4:attack=5:release=90:makeup=4,aphaser=in_gain=0.6:out_gain=0.8:delay=3:decay=0.25:speed=0.4,asoftclip=type=tanh",
+    "hiss_db": -41,
+    "crackle_db": -45
+   },
+   "comment": "Mid-pitch sober reader at 136 Hz on a boxy AM set with a drifting swirl; a new voice blend and a thin sound after the bass-heavy one."
+  },
+  {
+   "style": "15",
+   "label": "Play By Play",
+   "note": "fast light tenor, hot microphone",
+   "pitch_hz": 185,
+   "seconds_for_test_lines": 8.2,
+   "words_right_pct": 100,
+   "recipe": {
+    "id": "per-sports-playbyplay",
+    "label": "Play By Play",
+    "note": "fast light tenor, hot microphone",
+    "voices": {
+     "am_liam": 0.6,
+     "af_river": 0.4
+    },
+    "speed": 1.2,
+    "semitones": 4,
+    "formant": "preserved",
+    "chain": "highpass=f=420,lowpass=f=3300,equalizer=f=2100:t=q:w=1.1:g=8,acompressor=threshold=-30dB:ratio=9:attack=2:release=50:makeup=7,volume=1.6,asoftclip=type=tanh,alimiter=limit=0.9",
+    "hiss_db": -40,
+    "crackle_db": -44
+   },
+   "comment": "Jumps to the highest male voice at 185 Hz, fast and excited, squashed and overdriven like a hot microphone."
+  },
+  {
+   "style": "16",
+   "label": "Ring Announcer",
+   "note": "Big chest voice, arena slap echo",
+   "pitch_hz": 130,
+   "seconds_for_test_lines": 10.0,
+   "words_right_pct": 96,
+   "recipe": {
+    "id": "chr-ring-announcer",
+    "label": "Ring Announcer",
+    "note": "Big chest voice, arena slap echo",
+    "voices": {
+     "am_fenrir": 0.6,
+     "am_michael": 0.4
+    },
+    "speed": 0.94,
+    "semitones": -2,
+    "formant": "shifted",
+    "chain": "highpass=f=200,lowpass=f=3600,equalizer=f=1600:t=q:w=1.0:g=5,acompressor=threshold=-20dB:ratio=5:attack=4:release=80:makeup=4,aecho=0.8:0.6:95:0.28,asoftclip=type=tanh",
+    "hiss_db": -46,
+    "crackle_db": -34
+   },
+   "comment": "Slow, grand, enlarged chest voice at 130 Hz with an arena slap echo; the opposite of the fast tenor before it. The only pick under 100 percent, at 96."
+  },
+  {
+   "style": "17",
+   "label": "Society Columnist",
+   "note": "Haughty lady, mid Atlantic drawl",
+   "pitch_hz": 183,
+   "seconds_for_test_lines": 10.2,
+   "words_right_pct": 100,
+   "recipe": {
+    "id": "chr-society-columnist",
+    "label": "Society Columnist",
+    "note": "Haughty lady, mid Atlantic drawl",
+    "voices": {
+     "af_bella": 0.65,
+     "bf_emma": 0.35
+    },
+    "speed": 0.93,
+    "semitones": -1,
+    "formant": "preserved",
+    "chain": "highpass=f=220,lowpass=f=3800,equalizer=f=1500:t=q:w=1.0:g=4,acompressor=threshold=-22dB:ratio=4:attack=5:release=90:makeup=3,asoftclip=type=tanh",
+    "hiss_db": -45,
+    "crackle_db": -33
+   },
+   "comment": "First woman's voice: a slow haughty drawl at 183 Hz, dry sound after the arena echo."
+  },
+  {
+   "style": "18",
+   "label": "Auctioneer",
+   "note": "Low rapid patter, no pauses",
+   "pitch_hz": 122,
+   "seconds_for_test_lines": 7.8,
+   "words_right_pct": 100,
+   "recipe": {
+    "id": "chr-auctioneer",
+    "label": "Auctioneer",
+    "note": "Low rapid patter, no pauses",
+    "voices": {
+     "am_liam": 0.7,
+     "am_adam": 0.3
+    },
+    "speed": 1.27,
+    "semitones": -1,
+    "formant": "preserved",
+    "chain": "",
+    "hiss_db": -46,
+    "crackle_db": -34
+   },
+   "comment": "Fastest of all at speed 1.27 and low at 122 Hz, with no added machine effect; sharpest speed contrast with the slow lady before it."
+  },
+  {
+   "style": "19",
+   "label": "Shortwave Relay",
+   "note": "Slow fading and a phasing swirl",
+   "pitch_hz": 173,
+   "seconds_for_test_lines": 9.3,
+   "words_right_pct": 100,
+   "recipe": {
+    "id": "eng-shortwave-relay",
+    "label": "Shortwave Relay",
+    "note": "Slow fading and a phasing swirl",
+    "voices": {
+     "am_michael": 0.5,
+     "am_eric": 0.5
+    },
+    "speed": 1.05,
+    "semitones": 2,
+    "formant": "preserved",
+    "chain": "bandpass=f=1500:width_type=h:w=2200,aphaser=in_gain=0.6:out_gain=0.8:delay=3:decay=0.5:speed=0.25,tremolo=f=0.4:d=0.35,equalizer=f=1800:t=q:w=1.0:g=4,acompressor=threshold=-24dB:ratio=6:attack=4:release=90:makeup=5,asoftclip=type=tanh",
+    "hiss_db": -38,
+    "crackle_db": -50
+   },
+   "comment": "Heaviest machine sound in the set: narrow shortwave band that swirls and fades, at 173 Hz, after the plain auctioneer."
+  },
+  {
+   "style": "20",
+   "label": "Night Desk Baritone",
+   "note": "deep and warm, wide clean band",
+   "pitch_hz": 104,
+   "seconds_for_test_lines": 9.9,
+   "words_right_pct": 100,
+   "recipe": {
+    "id": "clr-night-desk",
+    "label": "Night Desk Baritone",
+    "note": "deep and warm, wide clean band",
+    "voices": {
+     "am_onyx": 0.6,
+     "am_fenrir": 0.4
+    },
+    "speed": 1.04,
+    "semitones": 0,
+    "formant": "preserved",
+    "chain": "highpass=f=140,lowpass=f=5500,equalizer=f=2600:t=q:w=1.2:g=5,acompressor=threshold=-20dB:ratio=3:attack=6:release=120:makeup=3,asoftclip=type=tanh",
+    "hiss_db": -50,
+    "crackle_db": -42
+   },
+   "comment": "Deep, calm reader at 104 Hz with the widest, cleanest band; a clean reference straight after the noisiest effect."
+  },
+  {
+   "style": "21",
+   "label": "Carnival Barker",
+   "note": "Brash nasal pitchman, megaphone",
+   "pitch_hz": 151,
+   "seconds_for_test_lines": 8.5,
+   "words_right_pct": 100,
+   "recipe": {
+    "id": "chr-carnival-barker",
+    "label": "Carnival Barker",
+    "note": "Brash nasal pitchman, megaphone",
+    "voices": {
+     "am_puck": 0.65,
+     "am_fenrir": 0.35
+    },
+    "speed": 1.12,
+    "semitones": 3,
+    "formant": "preserved",
+    "chain": "highpass=f=380,lowpass=f=3200,equalizer=f=1300:t=q:w=1.0:g=7,acompressor=threshold=-24dB:ratio=6:attack=3:release=70:makeup=5,asoftclip=type=tanh",
+    "hiss_db": -44,
+    "crackle_db": -32
+   },
+   "comment": "Brash nasal pitchman at 151 Hz through a tin megaphone, quick at 1.12; a loud character after the calm night desk."
+  },
+  {
+   "style": "22",
+   "label": "Town Hall Speaker",
+   "note": "steady orator, wooden hall",
+   "pitch_hz": 120,
+   "seconds_for_test_lines": 10.8,
+   "words_right_pct": 100,
+   "recipe": {
+    "id": "per-town-hall",
+    "label": "Town Hall Speaker",
+    "note": "steady orator, wooden hall",
+    "voices": {
+     "am_michael": 0.45,
+     "am_onyx": 0.25,
+     "bm_lewis": 0.3
+    },
+    "speed": 0.97,
+    "semitones": 0,
+    "formant": "preserved",
+    "chain": "highpass=f=200,lowpass=f=3800,equalizer=f=900:t=q:w=1.0:g=4,chorus=0.6:0.9:50:0.4:0.25:2,aecho=0.8:0.65:64:0.24,acompressor=threshold=-22dB:ratio=4:attack=6:release=100:makeup=3,asoftclip=type=tanh",
+    "hiss_db": -46,
+    "crackle_db": -42
+   },
+   "comment": "Steady orator at 120 Hz, voice doubled and thickened by a wooden hall; the only chorus effect and the only blend with a British voice in the lead mix."
+  },
+  {
+   "style": "23",
+   "label": "Society Desk Alto",
+   "note": "female lead, low and crisp",
+   "pitch_hz": 185,
+   "seconds_for_test_lines": 9.1,
+   "words_right_pct": 100,
+   "recipe": {
+    "id": "clr-society-alto",
+    "label": "Society Desk Alto",
+    "note": "female lead, low and crisp",
+    "voices": {
+     "af_heart": 0.8,
+     "am_fenrir": 0.2
+    },
+    "speed": 1.07,
+    "semitones": 0,
+    "formant": "preserved",
+    "chain": "highpass=f=220,lowpass=f=5200,equalizer=f=1500:t=q:w=1.0:g=3,bass=g=-3:f=200,acompressor=threshold=-22dB:ratio=4:attack=4:release=90:makeup=4,asoftclip=type=tanh",
+    "hiss_db": -48,
+    "crackle_db": -40
+   },
+   "comment": "Second woman, a different base voice from the columnist: crisp, low alto at 185 Hz, medium pace, clear and forward."
+  },
+  {
+   "style": "24",
+   "label": "Tube Amplifier",
+   "note": "Warm, thick, overdriven tubes",
+   "pitch_hz": 149,
+   "seconds_for_test_lines": 8.9,
+   "words_right_pct": 100,
+   "recipe": {
+    "id": "eng-tube-amp",
+    "label": "Tube Amplifier",
+    "note": "Warm, thick, overdriven tubes",
+    "voices": {
+     "am_michael": 0.5,
+     "am_eric": 0.5
+    },
+    "speed": 1.1,
+    "semitones": 2,
+    "formant": "preserved",
+    "chain": "highpass=f=90,bass=g=5:f=200,treble=g=-7:f=3000,lowpass=f=6500,equalizer=f=1200:t=q:w=0.8:g=3,volume=3.0,asoftclip=type=tanh,acompressor=threshold=-18dB:ratio=3:attack=10:release=150:makeup=2,alimiter=limit=0.9",
+    "hiss_db": -42,
+    "crackle_db": -48
+   },
+   "comment": "Thick, dark, overdriven tube sound with full bass at 149 Hz; the only saturated style, and a strong change from the clear alto."
+  },
+  {
+   "style": "25",
+   "label": "Ballpark Announcer",
+   "note": "slow and deep, stadium echo",
+   "pitch_hz": 109,
+   "seconds_for_test_lines": 11.0,
+   "words_right_pct": 100,
+   "recipe": {
+    "id": "per-ballpark-pa",
+    "label": "Ballpark Announcer",
+    "note": "slow and deep, stadium echo",
+    "voices": {
+     "am_puck": 0.5,
+     "am_onyx": 0.5
+    },
+    "speed": 0.88,
+    "semitones": 0,
+    "formant": "preserved",
+    "chain": "highpass=f=380,lowpass=f=2900,equalizer=f=1100:t=q:w=0.8:g=8,acompressor=threshold=-18dB:ratio=6:attack=3:release=120:makeup=5,asoftclip=type=tanh,aecho=0.8:0.75:115:0.33,alimiter=limit=0.9",
+    "hiss_db": -48,
+    "crackle_db": -50
+   },
+   "comment": "Slowest pace in the set at 0.88, deep at 109 Hz, with the longest single echo off the grandstand."
+  },
+  {
+   "style": "26",
+   "label": "Parlor Gramophone",
+   "note": "steady reader, slow record wow",
+   "pitch_hz": 134,
+   "seconds_for_test_lines": 9.3,
+   "words_right_pct": 100,
+   "recipe": {
+    "id": "clr-parlor-gramophone",
+    "label": "Parlor Gramophone",
+    "note": "steady reader, slow record wow",
+    "voices": {
+     "am_echo": 0.7,
+     "am_adam": 0.3
+    },
+    "speed": 1.1,
+    "semitones": 2,
+    "formant": "preserved",
+    "chain": "highpass=f=260,lowpass=f=4000,equalizer=f=1200:t=q:w=1.2:g=4,equalizer=f=2800:t=q:w=1.5:g=3,tremolo=f=0.8:d=0.1,acompressor=threshold=-22dB:ratio=4:attack=5:release=100:makeup=4,asoftclip=type=tanh",
+    "hiss_db": -44,
+    "crackle_db": -33
+   },
+   "comment": "Ends on a spinning-record sound: steady reader at 134 Hz with slow wow and light crackle, a voice blend not used anywhere else in the list."
+  },
+  {
+   "style": "23A",
+   "label": "Alto 23A",
+   "note": "light radio crackle",
+   "pitch_hz": 185,
+   "seconds_for_test_lines": 9.1,
+   "words_right_pct": 100,
+   "recipe": {
+    "id": "alto-23a",
+    "label": "Alto 23A",
+    "note": "light radio crackle",
+    "voices": {
+     "af_heart": 0.8,
+     "am_fenrir": 0.2
+    },
+    "speed": 1.07,
+    "semitones": 0,
+    "formant": "preserved",
+    "chain": "highpass=f=220,lowpass=f=5200,equalizer=f=1500:t=q:w=1.0:g=3,bass=g=-3:f=200,acompressor=threshold=-22dB:ratio=4:attack=4:release=90:makeup=4,asoftclip=type=tanh",
+    "hiss_db": -42,
+    "crackle_db": -30,
+    "crackle_rate": 9
+   }
+  },
+  {
+   "style": "23B",
+   "label": "Alto 23B",
+   "note": "more radio crackle",
+   "pitch_hz": 185,
+   "seconds_for_test_lines": 9.1,
+   "words_right_pct": 100,
+   "recipe": {
+    "id": "alto-23b",
+    "label": "Alto 23B",
+    "note": "more radio crackle",
+    "voices": {
+     "af_heart": 0.8,
+     "am_fenrir": 0.2
+    },
+    "speed": 1.07,
+    "semitones": 0,
+    "formant": "preserved",
+    "chain": "highpass=f=220,lowpass=f=5200,equalizer=f=1500:t=q:w=1.0:g=3,bass=g=-3:f=200,acompressor=threshold=-22dB:ratio=4:attack=4:release=90:makeup=4,asoftclip=type=tanh",
+    "hiss_db": -40,
+    "crackle_db": -27,
+    "crackle_rate": 13
+   }
+  },
+  {
+   "style": "23C",
+   "label": "Alto 23C",
+   "note": "heavy radio crackle",
+   "pitch_hz": 185,
+   "seconds_for_test_lines": 9.1,
+   "words_right_pct": 100,
+   "recipe": {
+    "id": "alto-23c",
+    "label": "Alto 23C",
+    "note": "heavy radio crackle",
+    "voices": {
+     "af_heart": 0.8,
+     "am_fenrir": 0.2
+    },
+    "speed": 1.07,
+    "semitones": 0,
+    "formant": "preserved",
+    "chain": "highpass=f=220,lowpass=f=5200,equalizer=f=1500:t=q:w=1.0:g=3,bass=g=-3:f=200,acompressor=threshold=-22dB:ratio=4:attack=4:release=90:makeup=4,asoftclip=type=tanh",
+    "hiss_db": -38,
+    "crackle_db": -24,
+    "crackle_rate": 20
+   }
+  },
+  {
+   "style": "27",
+   "label": "Alto 23B, faster and brighter",
+   "note": "card C of the newsreel-or-gangster sample reel",
+   "pitch_hz": 211,
+   "seconds_for_test_lines": 13.4,
+   "words_right_pct": 95,
+   "recipe": {
+    "id": "alto-fast",
+    "label": "Alto 23B, faster and brighter",
+    "note": "card C of the newsreel-or-gangster sample reel",
+    "voices": {
+     "af_heart": 0.8,
+     "am_fenrir": 0.2
+    },
+    "speed": 1.2,
+    "semitones": 2,
+    "formant": "preserved",
+    "chain": "highpass=f=220,lowpass=f=5200,equalizer=f=1500:t=q:w=1.0:g=3,bass=g=-3:f=200,acompressor=threshold=-22dB:ratio=4:attack=4:release=90:makeup=4,asoftclip=type=tanh",
+    "hiss_db": -40,
+    "crackle_db": -27,
+    "crackle_rate": 13
+   }
+  },
+  {
+   "style": "28",
+   "label": "Bright announcer, radio crackle",
+   "note": "card D of the newsreel-or-gangster sample reel",
+   "pitch_hz": 205,
+   "seconds_for_test_lines": 13.2,
+   "words_right_pct": 95,
+   "recipe": {
+    "id": "announcer-radio",
+    "label": "Bright announcer, radio crackle",
+    "note": "card D of the newsreel-or-gangster sample reel",
+    "voices": "am_eric",
+    "speed": 1.15,
+    "semitones": 4,
+    "formant": "preserved",
+    "chain": "highpass=f=220,lowpass=f=5200,equalizer=f=1500:t=q:w=1.0:g=3,bass=g=-3:f=200,acompressor=threshold=-22dB:ratio=4:attack=4:release=90:makeup=4,asoftclip=type=tanh",
+    "hiss_db": -40,
+    "crackle_db": -27,
+    "crackle_rate": 13
+   }
+  }
+ ],
+ "not_on_a_reel": [
+  {
+   "label": "Weary Night Editor",
+   "note": "Deep, slow and tired, dry room",
+   "pitch_hz": 94,
+   "seconds_for_test_lines": 12.0,
+   "words_right_pct": 100,
+   "recipe": {
+    "id": "chr-night-editor",
+    "label": "Weary Night Editor",
+    "note": "Deep, slow and tired, dry room",
+    "voices": {
+     "am_onyx": 0.7,
+     "am_echo": 0.3
+    },
+    "speed": 0.87,
+    "semitones": 0,
+    "formant": "preserved",
+    "chain": "highpass=f=200,lowpass=f=3000,equalizer=f=1500:t=q:w=1.0:g=5,acompressor=threshold=-22dB:ratio=5:attack=4:release=80:makeup=4,asoftclip=type=tanh",
+    "hiss_db": -42,
+    "crackle_db": -33
+   }
+  },
+  {
+   "label": "Cub Reporter",
+   "note": "Young, eager, light and quick",
+   "pitch_hz": 186,
+   "seconds_for_test_lines": 8.1,
+   "words_right_pct": 92,
+   "recipe": {
+    "id": "chr-cub-reporter",
+    "label": "Cub Reporter",
+    "note": "Young, eager, light and quick",
+    "voices": {
+     "am_liam": 0.55,
+     "af_jessica": 0.45
+    },
+    "speed": 1.2,
+    "semitones": 2,
+    "formant": "shifted",
+    "chain": "",
+    "hiss_db": -45,
+    "crackle_db": -34
+   }
+  },
+  {
+   "label": "Optical Film Track",
+   "note": "Sprocket flutter, bright hiss",
+   "pitch_hz": 158,
+   "seconds_for_test_lines": 8.9,
+   "words_right_pct": 100,
+   "recipe": {
+    "id": "eng-optical-film",
+    "label": "Optical Film Track",
+    "note": "Sprocket flutter, bright hiss",
+    "voices": {
+     "am_michael": 0.5,
+     "am_eric": 0.5
+    },
+    "speed": 1.1,
+    "semitones": 2,
+    "formant": "preserved",
+    "chain": "highpass=f=170,lowpass=f=4600,equalizer=f=3000:t=q:w=0.9:g=6,equalizer=f=350:t=q:w=1.0:g=-4,tremolo=f=12:d=0.14,acompressor=threshold=-20dB:ratio=3:attack=6:release=120:makeup=3,asoftclip=type=tanh",
+    "hiss_db": -38,
+    "crackle_db": -38
+   }
+  },
+  {
+   "label": "Shellac Record",
+   "note": "Slow wow, mid honk, crackle",
+   "pitch_hz": 160,
+   "seconds_for_test_lines": 8.9,
+   "words_right_pct": 100,
+   "recipe": {
+    "id": "eng-shellac-record",
+    "label": "Shellac Record",
+    "note": "Slow wow, mid honk, crackle",
+    "voices": {
+     "am_michael": 0.5,
+     "am_eric": 0.5
+    },
+    "speed": 1.1,
+    "semitones": 2,
+    "formant": "preserved",
+    "chain": "highpass=f=240,lowpass=f=2800,equalizer=f=800:t=q:w=1.4:g=8,equalizer=f=2200:t=q:w=2.0:g=-5,tremolo=f=1.3:d=0.2,acompressor=threshold=-24dB:ratio=4:attack=5:release=100:makeup=4,asoftclip=type=tanh",
+    "hiss_db": -46,
+    "crackle_db": -28
+   }
+  },
+  {
+   "label": "Kitchen AM Radio",
+   "note": "Tinny little speaker, driven hard",
+   "pitch_hz": 165,
+   "seconds_for_test_lines": 8.9,
+   "words_right_pct": 100,
+   "recipe": {
+    "id": "eng-kitchen-am-radio",
+    "label": "Kitchen AM Radio",
+    "note": "Tinny little speaker, driven hard",
+    "voices": {
+     "am_michael": 0.5,
+     "am_eric": 0.5
+    },
+    "speed": 1.1,
+    "semitones": 2,
+    "formant": "preserved",
+    "chain": "highpass=f=480,lowpass=f=2700,equalizer=f=2000:t=q:w=1.5:g=7,equalizer=f=700:t=q:w=1.0:g=-3,acompressor=threshold=-30dB:ratio=9:attack=2:release=60:makeup=8,volume=1.6,asoftclip=type=tanh,alimiter=limit=0.9",
+    "hiss_db": -40,
+    "crackle_db": -45
+   }
+  },
+  {
+   "label": "Hall Horn Speaker",
+   "note": "Nasal horn, two wall echoes",
+   "pitch_hz": 171,
+   "seconds_for_test_lines": 9.7,
+   "words_right_pct": 100,
+   "recipe": {
+    "id": "eng-hall-horn",
+    "label": "Hall Horn Speaker",
+    "note": "Nasal horn, two wall echoes",
+    "voices": {
+     "am_michael": 0.5,
+     "am_eric": 0.5
+    },
+    "speed": 1,
+    "semitones": 2,
+    "formant": "preserved",
+    "chain": "highpass=f=420,lowpass=f=3400,equalizer=f=1300:t=q:w=2.0:g=9,equalizer=f=2600:t=q:w=1.5:g=4,acompressor=threshold=-22dB:ratio=6:attack=3:release=70:makeup=4,asoftclip=type=tanh,aecho=0.8:0.9:38:0.3,aecho=0.8:0.9:105:0.28,volume=1.8,alimiter=limit=0.9",
+    "hiss_db": -50,
+    "crackle_db": -60
+   }
+  },
+  {
+   "label": "Ballpark Announcer",
+   "note": "three voice blend, stadium echo",
+   "pitch_hz": 117,
+   "seconds_for_test_lines": 10.7,
+   "words_right_pct": 100,
+   "recipe": {
+    "id": "clr-ballpark-pa",
+    "label": "Ballpark Announcer",
+    "note": "three voice blend, stadium echo",
+    "voices": {
+     "am_onyx": 0.4,
+     "am_echo": 0.4,
+     "af_river": 0.2
+    },
+    "speed": 1,
+    "semitones": 0,
+    "formant": "preserved",
+    "chain": "highpass=f=250,lowpass=f=4800,equalizer=f=2000:t=q:w=1.0:g=5,aecho=0.8:0.7:85:0.16,acompressor=threshold=-22dB:ratio=5:attack=4:release=80:makeup=4,alimiter=limit=0.9",
+    "hiss_db": -48,
+    "crackle_db": -40
+   }
+  },
+  {
+   "label": "Matinee Tenor",
+   "note": "light blend, bright film track",
+   "pitch_hz": 148,
+   "seconds_for_test_lines": 8.3,
+   "words_right_pct": 100,
+   "recipe": {
+    "id": "clr-matinee-tenor",
+    "label": "Matinee Tenor",
+    "note": "light blend, bright film track",
+    "voices": {
+     "am_puck": 0.6,
+     "af_sarah": 0.4
+    },
+    "speed": 1.15,
+    "semitones": 1,
+    "formant": "preserved",
+    "chain": "highpass=f=200,lowpass=f=5000,equalizer=f=2200:t=q:w=1.0:g=4,treble=g=2:f=3000,acompressor=threshold=-24dB:ratio=6:attack=3:release=70:makeup=5,alimiter=limit=0.9",
+    "hiss_db": -47,
+    "crackle_db": -36
+   }
+  },
+  {
+   "label": "Overseas Dispatch",
+   "note": "mid Atlantic, soft shortwave fade",
+   "pitch_hz": 170,
+   "seconds_for_test_lines": 9.6,
+   "words_right_pct": 100,
+   "recipe": {
+    "id": "clr-overseas-dispatch",
+    "label": "Overseas Dispatch",
+    "note": "mid Atlantic, soft shortwave fade",
+    "voices": {
+     "am_michael": 0.45,
+     "am_eric": 0.25,
+     "bm_george": 0.3
+    },
+    "speed": 1.12,
+    "semitones": 3,
+    "formant": "preserved",
+    "chain": "highpass=f=300,lowpass=f=4200,equalizer=f=1900:t=q:w=1.0:g=5,aphaser=in_gain=0.6:out_gain=0.8:delay=3:decay=0.25:speed=0.3,acompressor=threshold=-22dB:ratio=5:attack=4:release=80:makeup=4,asoftclip=type=tanh",
+    "hiss_db": -45,
+    "crackle_db": -38
+   }
+  }
+ ]
+}

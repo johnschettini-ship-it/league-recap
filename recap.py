@@ -720,7 +720,7 @@ def finalize(lid):
     text = txt.read_text(encoding="utf-8")
     stories = st.read_text(encoding="utf-8") if st.exists() else ""
     link = "📰 Full matchup stories:"
-    body = "\n".join(l for l in text.splitlines() if not l.startswith(link))
+    body = "\n".join(l for l in text.splitlines() if not l.startswith((link, "🎬")))      # 🎬: the newsreel link line
     bad = unsupported_numbers(body + "\n" + stories, facts)
     if bad:
         sys.exit(f"FAIL {txt.name}: numbers not in facts: {bad}")

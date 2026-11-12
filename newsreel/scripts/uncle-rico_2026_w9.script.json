@@ -1,0 +1,130 @@
+{
+  "title": "The Uncle Rico's Training Grounds Gazette, Video Edition, Week 9",
+  "league": "Uncle Rico's Training Grounds",
+  "season": "2026",
+  "week": 9,
+  "panel": {
+    "note": "Written in the session by the assistant in the approved newsreel house voice; checked by the code of workflows/script-panel.js and an independent fact and rules check. No judge panel."
+  },
+  "beats": [
+    {
+      "id": "n1",
+      "sentences": [
+        {
+          "cap": "Ladies and gentlemen of Uncle Rico's Training Grounds!"
+        },
+        {
+          "cap": "Week 9 brings a giant upset and power rankings."
+        }
+      ]
+    },
+    {
+      "id": "n2",
+      "sentences": [
+        {
+          "cap": "Upset! Number 11 CatchingKelce storms to 168.5!"
+        },
+        {
+          "cap": "Number 1 The Sackville Bagginses go down by 66.7."
+        }
+      ]
+    },
+    {
+      "id": "n3",
+      "sentences": [
+        {
+          "cap": "RicoJRoday rolls on."
+        },
+        {
+          "cap": "Sabrinie cruises."
+        },
+        {
+          "cap": "And RamsoBamso takes the closest game of the week."
+        }
+      ]
+    },
+    {
+      "id": "n4",
+      "sentences": [
+        {
+          "cap": "Wanted: Dumpsterfire007!"
+        },
+        {
+          "cap": "C.J. Stroud scores 48.2 on the bench."
+        },
+        {
+          "cap": "Jayden Daniels starts and scores 17.3."
+        },
+        {
+          "cap": "The Cobbler wins by 26.5."
+        }
+      ]
+    },
+    {
+      "id": "n5",
+      "sentences": [
+        {
+          "cap": "Boom: Kenneth Walker III rumbles to 38.3!"
+        },
+        {
+          "cap": "Bust: Mike Washington Jr. posts -0.3, for Dumpsterfire007."
+        }
+      ]
+    },
+    {
+      "id": "n6",
+      "sentences": [
+        {
+          "cap": "In the basement: The Sackville Bagginses, with 101.8."
+        },
+        {
+          "cap": "A week ago, Number 1."
+        }
+      ]
+    },
+    {
+      "id": "n7",
+      "sentences": [
+        {
+          "cap": "RamsoBamso leads at 7-2, with seven straight wins!"
+        }
+      ]
+    },
+    {
+      "id": "n7b",
+      "sentences": [
+        {
+          "cap": "Power rankings: Sabrinie takes Number 1, true record 68-31!"
+        },
+        {
+          "cap": "RamsoBamso, in first? Number 5."
+        },
+        {
+          "cap": "Sabrinie also left 85.2 on the bench."
+        }
+      ]
+    },
+    {
+      "id": "n8",
+      "sentences": [
+        {
+          "cap": "Next week's Main Event: RamsoBamso against RicoJRoday."
+        },
+        {
+          "cap": "The odds give RamsoBamso 65 percent."
+        }
+      ]
+    },
+    {
+      "id": "n9",
+      "sentences": [
+        {
+          "cap": "The editors regret all errors, especially at quarterback."
+        },
+        {
+          "cap": "Read the full edition in the Gazette!"
+        }
+      ]
+    }
+  ]
+}

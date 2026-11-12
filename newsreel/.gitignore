@@ -1,0 +1,16 @@
+# generated or machine-local files
+.hyperframes/artifacts/
+.hyperframes/cache/
+.hyperframes/video-state-lock/
+build/
+tools/__pycache__/
+node_modules/
+renders/
+data/
+index.html
+compositions/n*.html
+compositions/captions.html
+compositions/film.html
+.hyperframes/
+*.mp4
+assets/audio/narration.mp3
