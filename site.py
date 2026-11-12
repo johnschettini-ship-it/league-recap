@@ -4,12 +4,13 @@
 Headlines, scoreboxes, tiles and tables come from the verified facts JSON,
 never from the LLM. The LLM only supplies story prose.
 """
-import html, json, re, pathlib
+import html, json, re, pathlib, shutil
 import comic
 import theme
 
 HERE = pathlib.Path(__file__).resolve().parent
 POSTS, SITE = HERE / "posts", HERE / "site"
+NEWSREEL_WEEKS = 3                       # the site keeps the newsreel videos of the newest 3 weeks of each league
 NAME = re.compile(r"_(\d{4})_w(\d+)_recap\.txt$")
 E = html.escape
 
@@ -541,7 +542,7 @@ def finder(f, stories):
             + " · ".join(f'<a href="#{a}">{E(n)}</a>' for n, a in links) + "</nav>")
 
 
-def page(f, text, stories, weeks, title_prefix="", others="", og_url=""):
+def page(f, text, stories, weeks, title_prefix="", others="", og_url="", video=""):
     league = E(f["league"])
     ed = theme.edition(f)
     head, deck = headline(f, banner_of(stories))
@@ -586,6 +587,7 @@ def page(f, text, stories, weeks, title_prefix="", others="", og_url=""):
 <div class="rules"></div>
 <div class="dateline"><span>Vol. {f['season']} · No. {f['week']}</span><i>“{E(ed['tagline'])}”</i><span>{"Late City Final" if ed['key'] == "regular" and not ed['playoff'] else E(ed['label'])}</span></div>
 {ornaments(ed)}
+{f'<p style="text-align:center;margin:10px 0 4px;font:700 18px Old Standard TT,serif"><a href="{E(video)}" style="color:var(--accent)">&#9654; Watch the newsreel</a></p>' if video else ""}
 {jumpbar}
 {champion_html(f)}
 <section class="lead"><h2 class="head">{E(head)}</h2><p class="deck">{E(deck)}</p>{finder(f, stories)}{tiles(f)}</section>
@@ -630,7 +632,7 @@ def load(lid):
         facts = p.with_name(p.name.replace(".txt", ".facts.json"))
         if m and facts.exists():
             st = p.with_name(p.name.replace(".txt", ".stories.md"))
-            text = "\n".join(l for l in p.read_text(encoding="utf-8").splitlines() if not l.startswith("📰"))
+            text = "\n".join(l for l in p.read_text(encoding="utf-8").splitlines() if not l.startswith(("📰", "🎬")))
             issues[(int(m[1]), int(m[2]))] = (json.loads(facts.read_text(encoding="utf-8")), text.strip(),
                                               st.read_text(encoding="utf-8") if st.exists() else "")
     return issues
@@ -732,15 +734,21 @@ def build():
         latest = max(issues)
         weeks = [w for (s, w) in issues if s == latest[0]]
         base = (lg.get("site") or "").rstrip("/") + ("/" + lg["path"] if lg["path"] else "")
+        newest = sorted(w for (s, w) in issues if s == latest[0])[-NEWSREEL_WEEKS:]
         for (s, w), (f, text, stories) in issues.items():
+            video = ""
+            mp4 = POSTS / f"{lg['id']}_{s}_w{w}_recap.newsreel.mp4"
+            if s == latest[0] and w in newest and mp4.exists():      # the newsreel video of the newest weeks only: the site has a size limit
+                video = f"newsreel-week-{w}.mp4"
+                shutil.copyfile(mp4, out / video)
             if s == latest[0]:
                 img = f"og-week-{w}.png"
                 ok = og_image(f, headline(f, banner_of(stories))[0], out / img)
                 url = f"{base}/{img}" if ok and base else ""
-                html_ = page(f, text, stories, weeks, f"Week {w} · ", others, url)
+                html_ = page(f, text, stories, weeks, f"Week {w} · ", others, url, video)
                 (out / f"week-{w}.html").write_text(html_, encoding="utf-8")
                 if (s, w) == latest:
-                    (out / "index.html").write_text(page(f, text, stories, weeks, "", others, url), encoding="utf-8")
+                    (out / "index.html").write_text(page(f, text, stories, weeks, "", others, url, video), encoding="utf-8")
         print(f"{name}: {len(weeks)} issue(s); front page = week {latest[1]}")
 
 

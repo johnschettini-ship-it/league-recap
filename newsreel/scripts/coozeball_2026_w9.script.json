@@ -1,0 +1,125 @@
+{
+  "title": "The Coozeball Gazette, Video Edition, Week 9",
+  "league": "Coozeball",
+  "season": "2026",
+  "week": 9,
+  "panel": {
+    "note": "Written in the session by the assistant in the approved newsreel house voice; checked by the code of workflows/script-panel.js and an independent fact and rules check. No judge panel."
+  },
+  "beats": [
+    {
+      "id": "n1",
+      "sentences": [
+        {
+          "cap": "Hot off the wire, Coozeball."
+        },
+        {
+          "cap": "Week 9 brings two upsets and power rankings."
+        }
+      ]
+    },
+    {
+      "id": "n2",
+      "sentences": [
+        {
+          "cap": "Flash! GioMeow storms to 160.88!"
+        },
+        {
+          "cap": "Sunnyvale Green Bastards take it on the chin, by 69.3."
+        }
+      ]
+    },
+    {
+      "id": "n3",
+      "sentences": [
+        {
+          "cap": "Upset! Number 9 Timoteo nips Number 1 The Mystery Manager by 0.64!"
+        },
+        {
+          "cap": "Number 11 Perkis System topples Number 7 haze4daze."
+        }
+      ]
+    },
+    {
+      "id": "n4",
+      "sentences": [
+        {
+          "cap": "Wanted: The Mystery Manager!"
+        },
+        {
+          "cap": "Tank Dell scores 18.5 on the bench."
+        },
+        {
+          "cap": "Josh Downs starts and scores 3.9.",
+          "tts": "Josh Downs, starts and scores 3.9."
+        }
+      ]
+    },
+    {
+      "id": "n5",
+      "sentences": [
+        {
+          "cap": "Boom: Jordan Love lands 36.18!"
+        },
+        {
+          "cap": "Bust: Mike Washington Jr. posts -0.3 for Timoteo."
+        },
+        {
+          "cap": "Timoteo wins anyway, by a whisker."
+        }
+      ]
+    },
+    {
+      "id": "n6",
+      "sentences": [
+        {
+          "cap": "In the basement: CaptainFalcon14, with 63.32."
+        },
+        {
+          "cap": "Dumpsterfire007 wins in a walk."
+        }
+      ]
+    },
+    {
+      "id": "n7",
+      "sentences": [
+        {
+          "cap": "Four teams sit at 6-3, The Carebear Necessities on top."
+        }
+      ]
+    },
+    {
+      "id": "n7b",
+      "sentences": [
+        {
+          "cap": "Power rankings: The Carebear Necessities climb to Number 1, true record 63-36!"
+        },
+        {
+          "cap": "haze4daze tumbles from first to fourth."
+        }
+      ]
+    },
+    {
+      "id": "n8",
+      "sentences": [
+        {
+          "cap": "Next week's Main Event: foe against GioMeow."
+        },
+        {
+          "cap": "The odds give GioMeow 51 percent, by a hair."
+        }
+      ]
+    },
+    {
+      "id": "n9",
+      "sentences": [
+        {
+          "cap": "The editors regret all errors, and most of your benches."
+        },
+        {
+          "cap": "Read the full edition in the Gazette!"
+        }
+      ]
+    }
+  ]
+}

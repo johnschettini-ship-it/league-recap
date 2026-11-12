@@ -1,0 +1,119 @@
+{
+  "title": "The Beer Den Gazette",
+  "league": "Beer Den 3.0",
+  "season": 2026,
+  "week": 8,
+  "beats": [
+    {
+      "id": "n1",
+      "sentences": [
+        {
+          "cap": "Extra, extra, ladies and gentlemen of the Beer Den!"
+        },
+        {
+          "cap": "Week 8 brings mayhem and one mislaid quarterback."
+        }
+      ]
+    },
+    {
+      "id": "n2",
+      "sentences": [
+        {
+          "cap": "Stop the presses: top score topples leader!"
+        },
+        {
+          "cap": "Dumpsterfire007 blazes to 160.66."
+        },
+        {
+          "cap": "dookkk takes it on the chin."
+        }
+      ]
+    },
+    {
+      "id": "n3",
+      "sentences": [
+        {
+          "cap": "Number 8 DM_Me_to_Collude upsets Number 2."
+        },
+        {
+          "cap": "Number 9 sinking Number 1 made headlines."
+        },
+        {
+          "cap": "Number 10 ChelseaClub traps The Escape Artist."
+        }
+      ]
+    },
+    {
+      "id": "n4",
+      "sentences": [
+        {
+          "cap": "Wanted: stufflydogs, the fallen Number 2!"
+        },
+        {
+          "cap": "Patrick Mahomes, last seen scoring 25.44 on their bench."
+        },
+        {
+          "cap": "They lose by a whisker, 4.14."
+        }
+      ]
+    },
+    {
+      "id": "n5",
+      "sentences": [
+        {
+          "cap": "Boom: Joe Burrow bags 39.48, the week's best."
+        },
+        {
+          "cap": "Bust: Tre Tucker, a goose egg for the top-scoring team."
+        }
+      ]
+    },
+    {
+      "id": "n6",
+      "sentences": [
+        {
+          "cap": "Last-place CUTHISYR regrets to announce the week's low, 87.24.",
+          "tts": "Last place, CUTHISYR, regrets to announce the week's low, 87.24."
+        },
+        {
+          "cap": "In lieu of flowers, points are requested.",
+          "tts": "In lieu, of flowers, points are requested."
+        }
+      ]
+    },
+    {
+      "id": "n7",
+      "sentences": [
+        {
+          "cap": "Correction: toppled dookkk still leads at 6-2."
+        },
+        {
+          "cap": "Standing room only: haze4daze and Folding Table Champ share that record."
+        }
+      ]
+    },
+    {
+      "id": "n8",
+      "sentences": [
+        {
+          "cap": "Next week's Main Event: haze4daze, the winner of five straight, meets stufflydogs!",
+          "tts": "Next week's Main Event: haze4daze, the winner of five straight, meets, stufflydogs!"
+        },
+        {
+          "cap": "At 54 percent, the odds favor the outfit that benched Mahomes."
+        }
+      ]
+    },
+    {
+      "id": "n9",
+      "sentences": [
+        {
+          "cap": "The editors regret all errors, most of them yours."
+        },
+        {
+          "cap": "Read the full edition in the Gazette!"
+        }
+      ]
+    }
+  ]
+}

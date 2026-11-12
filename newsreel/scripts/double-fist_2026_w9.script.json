@@ -1,0 +1,136 @@
+{
+  "title": "The Double Fist Gazette, Video Edition, Week 9",
+  "league": "Double Fist",
+  "season": "2026",
+  "week": 9,
+  "panel": {
+    "note": "Written in the session by the assistant in the approved newsreel house voice; checked by the code of workflows/script-panel.js and an independent fact and rules check. No judge panel."
+  },
+  "beats": [
+    {
+      "id": "n1",
+      "sentences": [
+        {
+          "cap": "Extra, extra, Double Fist!"
+        },
+        {
+          "cap": "Week 9 brings a big upset and power rankings."
+        }
+      ]
+    },
+    {
+      "id": "n2",
+      "sentences": [
+        {
+          "cap": "Flash! CaptainFalcon14 soars to 178.04!"
+        },
+        {
+          "cap": "Nfin3sol puts up 143.96 and still loses."
+        }
+      ]
+    },
+    {
+      "id": "n3",
+      "sentences": [
+        {
+          "cap": "ZZ2zZzZzZz2ZZ wakes up and wins."
+        },
+        {
+          "cap": "The A-Gap A-Team runs wild."
+        },
+        {
+          "cap": "And Washington Sentinels win again."
+        }
+      ]
+    },
+    {
+      "id": "n4",
+      "sentences": [
+        {
+          "cap": "Wanted: Eman8771!"
+        },
+        {
+          "cap": "Caleb Douglas scores 13.0 on the bench."
+        },
+        {
+          "cap": "Ladd McConkey starts and scores nothing."
+        },
+        {
+          "cap": "Eman8771 still beats Number 3 Slavyslav."
+        }
+      ]
+    },
+    {
+      "id": "n5",
+      "sentences": [
+        {
+          "cap": "Boom: C.J. Stroud fires 36.36 for The A-Gap A-Team!"
+        },
+        {
+          "cap": "Bust: Adonai Mitchell, 0.0, for the very same team."
+        },
+        {
+          "cap": "Folks, they win anyway."
+        }
+      ]
+    },
+    {
+      "id": "n6",
+      "sentences": [
+        {
+          "cap": "Handkerchiefs out: GioMeow posts the week's low, 107.48."
+        },
+        {
+          "cap": "Washington Sentinels take the game and first place."
+        }
+      ]
+    },
+    {
+      "id": "n7",
+      "sentences": [
+        {
+          "cap": "The playoffs take 4."
+        },
+        {
+          "cap": "challeywalley666 drops a fourth straight."
+        }
+      ]
+    },
+    {
+      "id": "n7b",
+      "sentences": [
+        {
+          "cap": "Power rankings: Nfin3sol, at 4-5, is Number 1, true record 53-28!"
+        },
+        {
+          "cap": "Washington Sentinels, in first? Number 6."
+        },
+        {
+          "cap": "The rankings and the standings are not on speaking terms."
+        }
+      ]
+    },
+    {
+      "id": "n8",
+      "sentences": [
+        {
+          "cap": "Next week's Main Event: GioMeow against Slavyslav!"
+        },
+        {
+          "cap": "The odds give GioMeow 55 percent."
+        }
+      ]
+    },
+    {
+      "id": "n9",
+      "sentences": [
+        {
+          "cap": "The editors regret all errors, and every zero at Flex."
+        },
+        {
+          "cap": "Read it all in the full edition!"
+        }
+      ]
+    }
+  ]
+}

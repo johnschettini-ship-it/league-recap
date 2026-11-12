@@ -1,0 +1,183 @@
+{
+  "title": "The Beer Den 3.0 Gazette, Video Edition, Week 9",
+  "league": "Beer Den 3.0",
+  "season": "2026",
+  "week": 9,
+  "panel": {
+    "board": [
+      {
+        "letter": "A",
+        "key": "revision",
+        "spoken_words": 231,
+        "seconds": 89.3,
+        "funny": 7,
+        "period_voice": 5.8,
+        "clarity": 8,
+        "overall": 6.5,
+        "firsts": 0
+      },
+      {
+        "letter": "B",
+        "key": "headline-call",
+        "spoken_words": 231,
+        "seconds": 89.3,
+        "funny": 8,
+        "period_voice": 7.3,
+        "clarity": 7.2,
+        "overall": 7.5,
+        "firsts": 2
+      },
+      {
+        "letter": "C",
+        "key": "to-the-crowd",
+        "spoken_words": 232,
+        "seconds": 89.7,
+        "funny": 5.5,
+        "period_voice": 9,
+        "clarity": 8.7,
+        "overall": 7.3,
+        "firsts": 1
+      }
+    ],
+    "verify_rounds": [
+      {
+        "round": 1,
+        "mechanical": 0,
+        "facts": 0,
+        "rules": 0
+      }
+    ],
+    "note": "workflows/script-panel.js; the scores are from AI judges. This is the second Week 9 script. The owner said that the first one (commit a51c4be) felt like a gangster film, and asked for power rankings."
+  },
+  "beats": [
+    {
+      "id": "n1",
+      "sentences": [
+        {
+          "cap": "Hold on to your hats, Beer Den!"
+        },
+        {
+          "cap": "Week 9 delivers an upset, a blunder and power rankings."
+        }
+      ]
+    },
+    {
+      "id": "n2",
+      "sentences": [
+        {
+          "cap": "Upset: Number 7 DM_Me_to_Collude storms to 160.48!"
+        },
+        {
+          "cap": "Number 3 Folding Table Champ folds, and how!"
+        }
+      ]
+    },
+    {
+      "id": "n3",
+      "sentences": [
+        {
+          "cap": "Favored stufflydogs outrun haze4daze.",
+          "tts": "Favored, stufflydogs outrun haze4daze."
+        },
+        {
+          "cap": "dookkk trims Barnacle Boys, the week's closest shave."
+        },
+        {
+          "cap": "Dumpsterfire007 scorches flips390."
+        }
+      ]
+    },
+    {
+      "id": "n4",
+      "sentences": [
+        {
+          "cap": "Wanted: HowDidIOnceWin!"
+        },
+        {
+          "cap": "C.J. Stroud scores 35.36 as a spectator."
+        },
+        {
+          "cap": "Jayden Daniels starts, and ChelseaClub wins."
+        }
+      ]
+    },
+    {
+      "id": "n5",
+      "sentences": [
+        {
+          "cap": "Boom: Kenneth Walker III thunders to 36.3."
+        },
+        {
+          "cap": "Bust: Mike Washington Jr. posts -0.3."
+        },
+        {
+          "cap": "Zero, folks, would have been a raise."
+        }
+      ]
+    },
+    {
+      "id": "n6",
+      "sentences": [
+        {
+          "cap": "Handkerchiefs out: CUTHISYR hits the season's low, 68.3.",
+          "tts": "Handkerchiefs, out: CUTHISYR hits the season's low, 68.3."
+        },
+        {
+          "cap": "The Escape Artist romps: see you next year!"
+        }
+      ]
+    },
+    {
+      "id": "n7",
+      "sentences": [
+        {
+          "cap": "DM_Me_to_Collude wins three straight and stays Number 7.",
+          "tts": "D M, Me to Collude, wins three straight and stays Number 7."
+        },
+        {
+          "cap": "The playoffs take 6."
+        }
+      ]
+    },
+    {
+      "id": "n7b",
+      "sentences": [
+        {
+          "cap": "Power rankings: haze4daze loses and keeps Number 1, true record 67-32.",
+          "tts": "Power rankings: haze4daze loses and keeps Number 1. True record: 67-32."
+        },
+        {
+          "cap": "Leader dookkk tumbles to fifth."
+        },
+        {
+          "cap": "The standings decline to comment."
+        }
+      ]
+    },
+    {
+      "id": "n8",
+      "sentences": [
+        {
+          "cap": "Next week's Main Event: dookkk against stufflydogs!"
+        },
+        {
+          "cap": "The odds give dookkk 56 percent."
+        },
+        {
+          "cap": "The power rankings beg to differ."
+        }
+      ]
+    },
+    {
+      "id": "n9",
+      "sentences": [
+        {
+          "cap": "The editors regret all errors, and several of your lineups."
+        },
+        {
+          "cap": "Now let go of your hats and read the full edition!"
+        }
+      ]
+    }
+  ]
+}
