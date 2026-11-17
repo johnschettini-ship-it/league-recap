@@ -504,7 +504,7 @@ NAME PUNS (a few per story, and only where the sentence still reads straight thr
   pun-names in one sentence, and never open a paragraph with one.
 - Teams: the manager names in the facts are the team names. At most once per story, and once
   or twice across LEAD and POWER, play on a team's name with a verb or short aside that fits
-  the sentence ("Dumpsterfire007 burned through another week", "nobody could scrape Barnacle
+  the sentence ("Folding Table Champ folded again", "nobody could scrape Barnacle
   Boys off the bottom"; examples only, invent your own). Always print the team name itself unchanged, so readers can find
   their team, and add no titles ("dookkk the Great"). Skip any team name that is political
   or about a real person.
