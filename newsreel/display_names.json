@@ -1,7 +1,18 @@
 {
  "_note": "Team names that the video shows and says in place of the name in the gazette facts. A team owner asked for each one. tools/names.py applies them to the copy in data/.",
  "uncle-rico": {
-  "Tbonez420": "The Sackville Bagginses"
+  "Tbonez420": "The Sackville Bagginses",
+  "Dumpsterfire007": "Chubba Missile Crisis"
  },
- "_both_names": "Uncle Rico: the owner of the league said on 11 November 2026 that Tbonez420 and The Sackville Bagginses can be used interchangeably. The video uses the team name."
+ "_both_names": "Uncle Rico: the owner of the league said on 11 November 2026 that Tbonez420 and The Sackville Bagginses can be used interchangeably. The video uses the team name.",
+ "": {
+  "Dumpsterfire007": "Chubba Missile Crisis"
+ },
+ "coozeball": {
+  "Dumpsterfire007": "Chubba Missile Crisis"
+ },
+ "double-fist": {
+  "Dumpsterfire007": "Chubba Missile Crisis"
+ },
+ "_chubba": "All four leagues: the owner asked on 17 November 2026 that Dumpsterfire007 be shown as Chubba Missile Crisis (leagues.json aliases). The entries here rename last week's facts copy so it matches."
 }
