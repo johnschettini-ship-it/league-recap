@@ -275,6 +275,18 @@ class T(unittest.TestCase):
                 recap.llm = orig
             self.assertEqual((src, bool(st)), want)
 
+    def test_owner_puns_only_that_week_and_player(self):
+        from recap import owner_puns, missing_owner_puns
+        want = [{"player": "RB One", "pun": "Arby's One", "season": "2026", "week": 2}]
+        f = {"season": "2026", "week": 2, "top": ["RB One 30.5"], "used_pun_names": []}
+        self.assertEqual(owner_puns(f, want), {"RB One": "Arby's One"})
+        self.assertEqual(owner_puns(f | {"week": 3}, want), {})              # another week: no pun
+        self.assertEqual(owner_puns({"season": "2026", "week": 2, "top": ["WR One"]}, want), {})  # player not in facts
+        f["owner_pun_names"] = owner_puns(f, want)
+        self.assertEqual(missing_owner_puns("### T\nArby's One, RB One, ran wild.", f), [])
+        self.assertEqual(missing_owner_puns("### T\nRB One ran wild.", f), ["Arby's One"])
+        self.assertEqual(missing_owner_puns("anything", {"week": 2}), [])     # no owner pun asked
+
 
 if __name__ == "__main__":
     unittest.main()

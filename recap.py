@@ -21,6 +21,11 @@ CFG = {
     "upset_rank_gap": 4,       # winner ranked this many spots below loser
     "mover_min": 2,            # standings jump worth mentioning
 }
+# Pun-names the owner asked for, one week only (later weeks must not reuse a pun).
+# Used when the player is in that week's facts; finalize fails if the stories leave it out.
+OWNER_PUNS = [
+    {"player": "Chuba Hubbard", "pun": "Chubba Missile Crisis", "season": "2026", "week": 10},  # asked on 2026-11-17
+]
 HERE = pathlib.Path(__file__).resolve().parent
 CACHE, POSTS = HERE / "cache", HERE / "posts"
 API = "https://api.sleeper.app/v1"
@@ -464,6 +469,17 @@ def repeated_pun_names(text):
     return out
 
 
+def owner_puns(facts, wanted=None):
+    """{player: pun} from OWNER_PUNS for this season and week, for players named in the facts."""
+    blob = json.dumps(facts, ensure_ascii=False)
+    return {p["player"]: p["pun"] for p in (OWNER_PUNS if wanted is None else wanted)
+            if (str(p["season"]), p["week"]) == (str(facts.get("season")), facts.get("week")) and p["player"] in blob}
+
+
+def missing_owner_puns(text, facts):
+    return [pun for pun in (facts.get("owner_pun_names") or {}).values() if pun.lower() not in text.lower()]
+
+
 def unsupported_numbers(text, facts):
     ok = allowed_numbers(facts)
     return sorted({n for n in NUM.findall(text) if norm(n) not in ok})
@@ -515,6 +531,11 @@ NAME PUNS (a few per story, and only where the sentence still reads straight thr
   Higgins", "Derrick KING Henry". (Style examples only; invent your own.) Never repeat a
   word of the real name: BAD Drake "London Bridges" London; GOOD Drake London Bridges.
 - Never reuse anything listed in used_pun_names (earlier weeks of this league).
+- owner_pun_names (only when present): pun-names the league owner asked for, player -> pun.
+  Mention each of these players in a story and use his pun exactly as written on his first
+  mention in a story body, with his last name in the same sentence so readers know who
+  ("the Chubba Missile Crisis, Hubbard, ran for ..."). This overrides the keep-the-last-name
+  rule for that pun. It counts as one of the story's pun-names; list it on the PUNS line.
 - English wordplay on sound or spelling only. Never mock a name as foreign, its origin or
   pronunciation, or anything about the person beyond his fantasy points.
 
@@ -742,6 +763,10 @@ def finalize(lid):
     again = reused_puns(body + "\n" + stories, used_puns(lid, facts["week"]))
     if again:
         sys.exit(f"FAIL {txt.name}: pun-names/epithets already used in earlier weeks, invent new ones: {again}")
+    owed = missing_owner_puns(stories, facts) if stories else []
+    if owed:
+        sys.exit(f"FAIL {txt.name}: the owner asked for these pun-names (owner_pun_names in the facts); "
+                 f"use each on the player's first mention in a story: {owed}")
     site = league_cfg(lid).get("site") or os.environ.get("GAZETTE_URL")
     if site and stories and link not in text:
         text = text.rstrip() + f"\n\n{link} {page_url(site, lid, facts['week'])}"
@@ -778,6 +803,9 @@ def main(argv):
         raw = fetch(lid, week)
         check_complete(raw, week)
         facts = analyze(raw, players_db(), week, aliases=league_cfg(lid).get("aliases"))
+        asked = owner_puns(facts)                      # before used_pun_names: old puns contain player names
+        if asked:
+            facts["owner_pun_names"] = asked
         lastp = last_strip_poses(lid, week)
         if lastp:
             facts["last_strip_poses"] = lastp
