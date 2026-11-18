@@ -1,0 +1,129 @@
+{
+  "title": "The Double Fist Gazette, Video Edition, Week 10",
+  "league": "Double Fist",
+  "season": "2026",
+  "week": 10,
+  "beats": [
+    {
+      "id": "n1",
+      "sentences": [
+        {
+          "cap": "Extra, extra, Double Fist!"
+        },
+        {
+          "cap": "Week 10 brings a big score and a stunning upset."
+        }
+      ]
+    },
+    {
+      "id": "n2",
+      "sentences": [
+        {
+          "cap": "Dumpsterfire007 rings the bell with 179.88, best score of the week!"
+        },
+        {
+          "cap": "Eman8771 is left in the dust."
+        }
+      ]
+    },
+    {
+      "id": "n3",
+      "sentences": [
+        {
+          "cap": "GioMeow wins over Slavyslav."
+        },
+        {
+          "cap": "The A-Gap A-Team tops Nfin3sol."
+        },
+        {
+          "cap": "And ZZ2zZzZzZz2ZZ stuns Washington Sentinels!"
+        }
+      ]
+    },
+    {
+      "id": "n4",
+      "sentences": [
+        {
+          "cap": "Wanted: CaptainFalcon14!"
+        },
+        {
+          "cap": "Cam Skattebo sits on the bench with 27.2."
+        },
+        {
+          "cap": "Kenneth Walker starts, and the zero speaks for itself."
+        }
+      ]
+    },
+    {
+      "id": "n5",
+      "sentences": [
+        {
+          "cap": "Boom: Christian McCaffrey blazes to 46.3 for ZZ2zZzZzZz2ZZ!"
+        },
+        {
+          "cap": "Bust: Walker, a flat zero for CaptainFalcon14."
+        },
+        {
+          "cap": "A zero counts, folks."
+        }
+      ]
+    },
+    {
+      "id": "n6",
+      "sentences": [
+        {
+          "cap": "Handkerchiefs out for Eman8771, the low of the week at 99.32.",
+          "tts": "Handkerchiefs, out for Eman8771, the low of the week at 99.32."
+        },
+        {
+          "cap": "Dumpsterfire007 sent them home."
+        }
+      ]
+    },
+    {
+      "id": "n7",
+      "sentences": [
+        {
+          "cap": "GioMeow holds the top of the table at 7-3."
+        },
+        {
+          "cap": "Four teams make the playoffs, folks."
+        }
+      ]
+    },
+    {
+      "id": "n7b",
+      "sentences": [
+        {
+          "cap": "Power rankings: Nfin3sol takes Number 1, true record 56-34.",
+          "tts": "Power rankings: Nfin3sol takes Number 1. True record: 56-34."
+        },
+        {
+          "cap": "The true record has its say."
+        }
+      ]
+    },
+    {
+      "id": "n8",
+      "sentences": [
+        {
+          "cap": "Next week's Main Event: CaptainFalcon14 against Washington Sentinels!"
+        },
+        {
+          "cap": "The odds say fifty-fifty."
+        }
+      ]
+    },
+    {
+      "id": "n9",
+      "sentences": [
+        {
+          "cap": "The editors regret all errors, and several of your lineups."
+        },
+        {
+          "cap": "Now read the full edition, folks!"
+        }
+      ]
+    }
+  ]
+}

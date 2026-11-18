@@ -1,0 +1,40 @@
+{
+  "title": "The Uncle Rico's Training Grounds Gazette, Video Edition, Week 10",
+  "league": "Uncle Rico's Training Grounds",
+  "season": "2026",
+  "week": 10,
+  "beats": [
+    {"id": "n1", "sentences": [
+      {"cap": "Extra, extra, Training Grounds!"},
+      {"cap": "Week 10 brings a record score and two upsets."}]},
+    {"id": "n2", "sentences": [
+      {"cap": "Action Jaxson smashes the season high with 200.35!", "tts": "Action Jackson smashes the season high with 200.35!"},
+      {"cap": "Even so, mattystitches nearly kept pace."}]},
+    {"id": "n3", "sentences": [
+      {"cap": "Number 11 PBJiantsfan topples Dumpsterfire007!"},
+      {"cap": "Number 12 The Immaculate Concepcion stuns The Cobbler!"}]},
+    {"id": "n4", "sentences": [
+      {"cap": "Wanted: The Cobbler!"},
+      {"cap": "Xavier Hutchinson sits on the bench with 15.8."},
+      {"cap": "Michael Wilson starts and posts a goose egg, and The Immaculate Concepcion wins."}]},
+    {"id": "n5", "sentences": [
+      {"cap": "Boom: Christian McCaffrey blazes to 55.3 for Mick Mouse Club House!"},
+      {"cap": "Bust: Xavier Worthy scores a flat 0.0."},
+      {"cap": "A zero counts, folks."}]},
+    {"id": "n6", "sentences": [
+      {"cap": "Handkerchiefs out for The Cobbler, the low of the week at 85.6.", "tts": "Handkerchiefs, out for The Cobbler, the low of the week at 85.6."},
+      {"cap": "The Immaculate Concepcion handed them the loss, by 18.35."}]},
+    {"id": "n7", "sentences": [
+      {"cap": "RamsoBamso holds the top of the table at 8-2."},
+      {"cap": "Seven teams make the playoffs, folks."}]},
+    {"id": "n7b", "sentences": [
+      {"cap": "Power rankings: mattystitches takes Number 1, true record 69-41.", "tts": "Power rankings: mattystitches takes Number 1. True record: 69-41."},
+      {"cap": "The true record has its say."}]},
+    {"id": "n8", "sentences": [
+      {"cap": "Next week's Main Event: RamsoBamso against The Cobbler!"},
+      {"cap": "The odds favor RamsoBamso at 58 percent."}]},
+    {"id": "n9", "sentences": [
+      {"cap": "The editors regret all errors, and several of your lineups."},
+      {"cap": "Now read the full edition, folks!"}]}
+  ]
+}

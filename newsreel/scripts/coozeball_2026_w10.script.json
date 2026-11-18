@@ -1,0 +1,130 @@
+{
+  "title": "The Coozeball Gazette, Video Edition, Week 10",
+  "league": "Coozeball",
+  "season": "2026",
+  "week": 10,
+  "beats": [
+    {
+      "id": "n1",
+      "sentences": [
+        {
+          "cap": "Extra, extra, Coozeball!"
+        },
+        {
+          "cap": "Week 10 brings a runaway and an upset."
+        }
+      ]
+    },
+    {
+      "id": "n2",
+      "sentences": [
+        {
+          "cap": "haze4daze rings the bell with 163.72, best score of the week!"
+        },
+        {
+          "cap": "ArtistFormerlyKnownAs is left in the dust, 90.96."
+        }
+      ]
+    },
+    {
+      "id": "n3",
+      "sentences": [
+        {
+          "cap": "Sunnyvale Green Bastards fall to Timoteo, the closest game."
+        },
+        {
+          "cap": "GioMeow downs foe."
+        },
+        {
+          "cap": "The Carebear Necessities top CaptainFalcon14.",
+          "tts": "The Carebear Necessities top, CaptainFalcon14."
+        }
+      ]
+    },
+    {
+      "id": "n4",
+      "sentences": [
+        {
+          "cap": "Wanted: LochNessa!"
+        },
+        {
+          "cap": "Stefon Diggs sits on the bench with 17.3."
+        },
+        {
+          "cap": "Jalen Coker starts and scores 0.3, yet LochNessa still wins by 35.82."
+        }
+      ]
+    },
+    {
+      "id": "n5",
+      "sentences": [
+        {
+          "cap": "Boom: Christian McCaffrey blazes to 44.3 for LochNessa!"
+        },
+        {
+          "cap": "Bust: Omar Cooper scores a flat 0.0."
+        },
+        {
+          "cap": "A zero counts, folks."
+        }
+      ]
+    },
+    {
+      "id": "n6",
+      "sentences": [
+        {
+          "cap": "Handkerchiefs out for Dumpsterfire007, the low of the week at 72.22.",
+          "tts": "Handkerchiefs, out for Dumpsterfire007, the low of the week at 72.22."
+        },
+        {
+          "cap": "LochNessa sent them home, and what an upset!"
+        }
+      ]
+    },
+    {
+      "id": "n7",
+      "sentences": [
+        {
+          "cap": "The Carebear Necessities hold the top of the table at 7-3."
+        },
+        {
+          "cap": "Six teams make the playoffs, folks."
+        }
+      ]
+    },
+    {
+      "id": "n7b",
+      "sentences": [
+        {
+          "cap": "Power rankings: The Mystery Manager takes Number 1, true record 68-42.",
+          "tts": "Power rankings: The Mystery Manager takes Number 1. True record: 68-42."
+        },
+        {
+          "cap": "The true record has its say."
+        }
+      ]
+    },
+    {
+      "id": "n8",
+      "sentences": [
+        {
+          "cap": "Next week's Main Event: foe against Dumpsterfire007!"
+        },
+        {
+          "cap": "The odds favor foe at 59 percent."
+        }
+      ]
+    },
+    {
+      "id": "n9",
+      "sentences": [
+        {
+          "cap": "The editors regret all errors, and several of your lineups."
+        },
+        {
+          "cap": "Now read the full edition, folks!"
+        }
+      ]
+    }
+  ]
+}
