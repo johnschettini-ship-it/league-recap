@@ -943,7 +943,13 @@
     "rank": 4,
     "streak": "L1",
     "power_rank": 5,
-    "pf": 1231.06
+    "pf": 1231.06,
+    "starters_on_bye": [
+     "Christian Watson",
+     "Denzel Boston",
+     "Seattle Seahawks",
+     "Harold Fannin Jr."
+    ]
    },
    "b": {
     "manager": "Dumpsterfire007",
@@ -951,15 +957,18 @@
     "rank": 5,
     "streak": "L1",
     "power_rank": 8,
-    "pf": 1129.48
+    "pf": 1129.48,
+    "starters_on_bye": [
+     "Konata Mumpfield"
+    ]
    },
    "head_to_head": [],
    "odds": {
-    "favorite": "foe",
-    "favorite_pct": 59,
-    "underdog": "Dumpsterfire007",
-    "underdog_pct": 41,
-    "line": 8.0
+    "favorite": "Dumpsterfire007",
+    "favorite_pct": 62,
+    "underdog": "foe",
+    "underdog_pct": 38,
+    "line": 10.0
    }
   },
   {
@@ -971,7 +980,10 @@
     "rank": 2,
     "streak": "W1",
     "power_rank": 1,
-    "pf": 1272.52
+    "pf": 1272.52,
+    "starters_on_bye": [
+     "Kyle Pitts Sr."
+    ]
    },
    "b": {
     "manager": "ArtistFormerlyKnownAs",
@@ -979,15 +991,19 @@
     "rank": 7,
     "streak": "L2",
     "power_rank": 6,
-    "pf": 1168.08
+    "pf": 1168.08,
+    "starters_on_bye": [
+     "Rhamondre Stevenson",
+     "Jaxon Smith-Njigba"
+    ]
    },
    "head_to_head": [],
    "odds": {
     "favorite": "The Mystery Manager",
-    "favorite_pct": 60,
+    "favorite_pct": 78,
     "underdog": "ArtistFormerlyKnownAs",
-    "underdog_pct": 40,
-    "line": 8.0
+    "underdog_pct": 22,
+    "line": 26.0
    }
   },
   {
@@ -999,7 +1015,10 @@
     "rank": 11,
     "streak": "L1",
     "power_rank": 9,
-    "pf": 1097.54
+    "pf": 1097.54,
+    "starters_on_bye": [
+     "Tucker Kraft"
+    ]
    },
    "b": {
     "manager": "Sunnyvale Green Bastards",
@@ -1007,15 +1026,18 @@
     "rank": 12,
     "streak": "L4",
     "power_rank": 10,
-    "pf": 1065.34
+    "pf": 1065.34,
+    "starters_on_bye": [
+     "Drake London"
+    ]
    },
    "head_to_head": [],
    "odds": {
     "favorite": "Perkis System",
-    "favorite_pct": 53,
+    "favorite_pct": 50,
     "underdog": "Sunnyvale Green Bastards",
-    "underdog_pct": 47,
-    "line": 2.5
+    "underdog_pct": 50,
+    "line": 0.0
    }
   }
  ],
@@ -1028,7 +1050,13 @@
     "rank": 3,
     "streak": "W2",
     "power_rank": 4,
-    "pf": 1267.0
+    "pf": 1267.0,
+    "starters_on_bye": [
+     "Davante Adams",
+     "KC Concepcion Jr.",
+     "Trey Smack",
+     "Quinshon Judkins"
+    ]
    },
    "b": {
     "manager": "Timoteo",
@@ -1036,14 +1064,18 @@
     "rank": 8,
     "streak": "W2",
     "power_rank": 7,
-    "pf": 1140.86
+    "pf": 1140.86,
+    "starters_on_bye": [
+     "Bijan Robinson",
+     "Matthew Golden"
+    ]
    },
    "odds": {
     "favorite": "GioMeow",
-    "favorite_pct": 61,
+    "favorite_pct": 60,
     "underdog": "Timoteo",
-    "underdog_pct": 39,
-    "line": 9.5
+    "underdog_pct": 40,
+    "line": 9.0
    }
   },
   {
@@ -1054,7 +1086,12 @@
     "rank": 1,
     "streak": "W4",
     "power_rank": 2,
-    "pf": 1285.8
+    "pf": 1285.8,
+    "starters_on_bye": [
+     "Jordan Love",
+     "Puka Nacua",
+     "Blake Corum"
+    ]
    },
    "b": {
     "manager": "LochNessa",
@@ -1062,14 +1099,17 @@
     "rank": 9,
     "streak": "W1",
     "power_rank": 11,
-    "pf": 1054.08
+    "pf": 1054.08,
+    "starters_on_bye": [
+     "Kyren Williams"
+    ]
    },
    "odds": {
     "favorite": "The Carebear Necessities",
-    "favorite_pct": 70,
+    "favorite_pct": 59,
     "underdog": "LochNessa",
-    "underdog_pct": 30,
-    "line": 18.0
+    "underdog_pct": 41,
+    "line": 8.0
    }
   },
   {
@@ -1088,14 +1128,18 @@
     "rank": 10,
     "streak": "L4",
     "power_rank": 12,
-    "pf": 894.52
+    "pf": 894.52,
+    "starters_on_bye": [
+     "Matthew Stafford",
+     "New England Patriots"
+    ]
    },
    "odds": {
     "favorite": "haze4daze",
-    "favorite_pct": 77,
+    "favorite_pct": 84,
     "underdog": "CaptainFalcon14",
-    "underdog_pct": 23,
-    "line": 25.0
+    "underdog_pct": 16,
+    "line": 33.5
    }
   }
  ],

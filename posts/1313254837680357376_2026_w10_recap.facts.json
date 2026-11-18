@@ -1382,7 +1382,13 @@
     "rank": 1,
     "streak": "W2",
     "power_rank": 2,
-    "pf": 1531.88
+    "pf": 1531.88,
+    "starters_on_bye": [
+     "Kyren Williams",
+     "Jaxon Smith-Njigba",
+     "Davante Adams",
+     "Denzel Boston"
+    ]
    },
    "b": {
     "manager": "Folding Table Champ",
@@ -1394,11 +1400,11 @@
    },
    "head_to_head": [],
    "odds": {
-    "favorite": "dookkk",
-    "favorite_pct": 70,
-    "underdog": "Folding Table Champ",
-    "underdog_pct": 30,
-    "line": 17.5
+    "favorite": "Folding Table Champ",
+    "favorite_pct": 64,
+    "underdog": "dookkk",
+    "underdog_pct": 36,
+    "line": 12.0
    }
   },
   {
@@ -1410,7 +1416,12 @@
     "rank": 2,
     "streak": "W2",
     "power_rank": 4,
-    "pf": 1378.76
+    "pf": 1378.76,
+    "starters_on_bye": [
+     "Bijan Robinson",
+     "Matthew Golden",
+     "Harold Fannin Jr."
+    ]
    },
    "b": {
     "manager": "DM_Me_to_Collude",
@@ -1422,11 +1433,11 @@
    },
    "head_to_head": [],
    "odds": {
-    "favorite": "The Escape Artist",
-    "favorite_pct": 52,
-    "underdog": "DM_Me_to_Collude",
-    "underdog_pct": 48,
-    "line": 2.0
+    "favorite": "DM_Me_to_Collude",
+    "favorite_pct": 75,
+    "underdog": "The Escape Artist",
+    "underdog_pct": 25,
+    "line": 22.5
    }
   },
   {
@@ -1438,7 +1449,10 @@
     "rank": 8,
     "streak": "L2",
     "power_rank": 9,
-    "pf": 1261.24
+    "pf": 1261.24,
+    "starters_on_bye": [
+     "Christian Watson"
+    ]
    },
    "b": {
     "manager": "Dumpsterfire007",
@@ -1446,15 +1460,19 @@
     "rank": 9,
     "streak": "L1",
     "power_rank": 5,
-    "pf": 1310.18
+    "pf": 1310.18,
+    "starters_on_bye": [
+     "Quinshon Judkins",
+     "Konata Mumpfield"
+    ]
    },
    "head_to_head": [],
    "odds": {
     "favorite": "Dumpsterfire007",
-    "favorite_pct": 54,
+    "favorite_pct": 63,
     "underdog": "HowDidIOnceWin",
-    "underdog_pct": 46,
-    "line": 4.0
+    "underdog_pct": 37,
+    "line": 11.5
    }
   }
  ],
@@ -1467,7 +1485,10 @@
     "rank": 4,
     "streak": "L1",
     "power_rank": 1,
-    "pf": 1435.24
+    "pf": 1435.24,
+    "starters_on_bye": [
+     "Puka Nacua"
+    ]
    },
    "b": {
     "manager": "flips390",
@@ -1475,14 +1496,18 @@
     "rank": 11,
     "streak": "L3",
     "power_rank": 11,
-    "pf": 1125.8
+    "pf": 1125.8,
+    "starters_on_bye": [
+     "Los Angeles Rams",
+     "Hunter Henry"
+    ]
    },
    "odds": {
     "favorite": "stufflydogs",
-    "favorite_pct": 76,
+    "favorite_pct": 78,
     "underdog": "flips390",
-    "underdog_pct": 24,
-    "line": 24.0
+    "underdog_pct": 22,
+    "line": 26.0
    }
   },
   {
@@ -1493,7 +1518,12 @@
     "rank": 7,
     "streak": "W3",
     "power_rank": 8,
-    "pf": 1276.04
+    "pf": 1276.04,
+    "starters_on_bye": [
+     "Blake Corum",
+     "Drake London",
+     "KC Concepcion Jr."
+    ]
    },
    "b": {
     "manager": "Barnacle Boys",
@@ -1504,11 +1534,11 @@
     "pf": 1143.16
    },
    "odds": {
-    "favorite": "ChelseaClub",
-    "favorite_pct": 62,
-    "underdog": "Barnacle Boys",
-    "underdog_pct": 38,
-    "line": 10.0
+    "favorite": "Barnacle Boys",
+    "favorite_pct": 55,
+    "underdog": "ChelseaClub",
+    "underdog_pct": 45,
+    "line": 4.0
    }
   },
   {
@@ -1519,7 +1549,11 @@
     "rank": 5,
     "streak": "L2",
     "power_rank": 6,
-    "pf": 1347.0
+    "pf": 1347.0,
+    "starters_on_bye": [
+     "Jordan Love",
+     "Tucker Kraft"
+    ]
    },
    "b": {
     "manager": "CUTHISYR",
@@ -1527,14 +1561,17 @@
     "rank": 12,
     "streak": "L5",
     "power_rank": 12,
-    "pf": 993.42
+    "pf": 993.42,
+    "starters_on_bye": [
+     "Seattle Seahawks"
+    ]
    },
    "odds": {
     "favorite": "haze4daze",
-    "favorite_pct": 79,
+    "favorite_pct": 63,
     "underdog": "CUTHISYR",
-    "underdog_pct": 21,
-    "line": 27.0
+    "underdog_pct": 37,
+    "line": 10.5
    }
   }
  ],

@@ -156,6 +156,23 @@ class T(unittest.TestCase):
         self.assertEqual(c2[0]["head_to_head"], [{"week": 1, "winner": "John", "score": "60.0-30.0"}])
         self.assertIsNone(self.f["next_week_card"])                                        # no pairings published
 
+    def test_bye_week_starters_lower_the_odds(self):
+        PT = {k: dict(v, t="AAA" if k in ("q1", "r1", "w1") else "BBB") for k, v in P.items()}
+        base = raw()
+        base["schedule"] = {1: {"AAA", "BBB"}, 2: {"AAA", "BBB"}, 3: {"BBB"}}      # AAA is on bye in week 3
+        base["next"] = [{"roster_id": a, "matchup_id": i,
+                         "players": list(P) if a == 1 else ["q2", "r2", "w2", "r3"]}
+                        for i, pr in enumerate([(1, 3), (2, 4)], 1) for a in pr]
+        with_bye = analyze(base, PT, 2)["next_week_card"]
+        base["schedule"] = {1: {"AAA", "BBB"}, 2: {"AAA", "BBB"}, 3: {"AAA", "BBB"}}
+        no_bye = analyze(base, PT, 2)["next_week_card"]
+        self.assertTrue(all("starters_on_bye" not in c[s] for c in no_bye for s in "ab"))
+        self.assertIn("QB One", with_bye[0]["a"]["starters_on_bye"])
+        self.assertNotIn("starters_on_bye", with_bye[0]["b"])                       # Steve has nobody on bye
+        self.assertNotEqual(with_bye[0]["odds"]["line"], no_bye[0]["odds"]["line"])
+        base["schedule"] = {}                                                      # no schedule: byes ignored, no crash
+        self.assertEqual(analyze(base, PT, 2)["next_week_card"][0]["odds"], no_bye[0]["odds"])
+
     def test_pun_names_never_repeat_across_weeks(self):
         import recap, tempfile, json, pathlib
         d = pathlib.Path(tempfile.mkdtemp())

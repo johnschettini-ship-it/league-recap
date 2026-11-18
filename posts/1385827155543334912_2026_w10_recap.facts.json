@@ -906,7 +906,10 @@
     "rank": 3,
     "streak": "W2",
     "power_rank": 3,
-    "pf": 1494.4
+    "pf": 1494.4,
+    "starters_on_bye": [
+     "Los Angeles Rams"
+    ]
    },
    "b": {
     "manager": "Washington Sentinels",
@@ -914,7 +917,10 @@
     "rank": 4,
     "streak": "L1",
     "power_rank": 7,
-    "pf": 1489.06
+    "pf": 1489.06,
+    "starters_on_bye": [
+     "Rhamondre Stevenson"
+    ]
    },
    "head_to_head": [
     {
@@ -924,11 +930,11 @@
     }
    ],
    "odds": {
-    "favorite": "CaptainFalcon14",
-    "favorite_pct": 50,
-    "underdog": "Washington Sentinels",
-    "underdog_pct": 50,
-    "line": 0.5
+    "favorite": "Washington Sentinels",
+    "favorite_pct": 55,
+    "underdog": "CaptainFalcon14",
+    "underdog_pct": 45,
+    "line": 5.0
    }
   },
   {
@@ -940,7 +946,14 @@
     "rank": 5,
     "streak": "W2",
     "power_rank": 4,
-    "pf": 1494.34
+    "pf": 1494.34,
+    "starters_on_bye": [
+     "Blake Corum",
+     "Christian Watson",
+     "Drake London",
+     "Davante Adams",
+     "DeMario Douglas"
+    ]
    },
    "b": {
     "manager": "Slavyslav",
@@ -948,7 +961,12 @@
     "rank": 6,
     "streak": "L3",
     "power_rank": 9,
-    "pf": 1367.04
+    "pf": 1367.04,
+    "starters_on_bye": [
+     "Jordan Love",
+     "Tucker Kraft",
+     "Cleveland Browns"
+    ]
    },
    "head_to_head": [
     {
@@ -959,10 +977,10 @@
    ],
    "odds": {
     "favorite": "ZZ2zZzZzZz2ZZ",
-    "favorite_pct": 61,
+    "favorite_pct": 50,
     "underdog": "Slavyslav",
-    "underdog_pct": 39,
-    "line": 10.0
+    "underdog_pct": 50,
+    "line": 0.5
    }
   },
   {
@@ -974,7 +992,12 @@
     "rank": 7,
     "streak": "W1",
     "power_rank": 6,
-    "pf": 1342.84
+    "pf": 1342.84,
+    "starters_on_bye": [
+     "Konata Mumpfield",
+     "Harold Fannin Jr.",
+     "Denzel Boston"
+    ]
    },
    "b": {
     "manager": "Nfin3sol",
@@ -993,10 +1016,10 @@
    ],
    "odds": {
     "favorite": "Nfin3sol",
-    "favorite_pct": 65,
+    "favorite_pct": 78,
     "underdog": "Dumpsterfire007",
-    "underdog_pct": 35,
-    "line": 13.5
+    "underdog_pct": 22,
+    "line": 28.0
    }
   }
  ],
@@ -1009,7 +1032,11 @@
     "rank": 1,
     "streak": "W1",
     "power_rank": 5,
-    "pf": 1480.22
+    "pf": 1480.22,
+    "starters_on_bye": [
+     "Kyren Williams",
+     "Jaxon Smith-Njigba"
+    ]
    },
    "b": {
     "manager": "Eman8771",
@@ -1017,14 +1044,18 @@
     "rank": 9,
     "streak": "L1",
     "power_rank": 8,
-    "pf": 1235.26
+    "pf": 1235.26,
+    "starters_on_bye": [
+     "Drake Maye",
+     "Matthew Golden"
+    ]
    },
    "odds": {
     "favorite": "GioMeow",
-    "favorite_pct": 70,
+    "favorite_pct": 55,
     "underdog": "Eman8771",
-    "underdog_pct": 30,
-    "line": 19.0
+    "underdog_pct": 45,
+    "line": 5.0
    }
   },
   {
@@ -1035,7 +1066,12 @@
     "rank": 2,
     "streak": "W2",
     "power_rank": 2,
-    "pf": 1515.2
+    "pf": 1515.2,
+    "starters_on_bye": [
+     "Bijan Robinson",
+     "KC Concepcion Jr.",
+     "Seattle Seahawks"
+    ]
    },
    "b": {
     "manager": "challeywalley666",
@@ -1043,14 +1079,20 @@
     "rank": 10,
     "streak": "L5",
     "power_rank": 10,
-    "pf": 1359.9
+    "pf": 1359.9,
+    "starters_on_bye": [
+     "Quinshon Judkins",
+     "Puka Nacua",
+     "Kyle Pitts Sr.",
+     "New England Patriots"
+    ]
    },
    "odds": {
     "favorite": "The A-Gap A-Team",
-    "favorite_pct": 63,
+    "favorite_pct": 65,
     "underdog": "challeywalley666",
-    "underdog_pct": 37,
-    "line": 12.0
+    "underdog_pct": 35,
+    "line": 14.0
    }
   }
  ],

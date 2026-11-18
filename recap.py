@@ -44,12 +44,14 @@ def get(path):
 def players_db():
     """Sleeper asks for /players/nfl (~5MB) at most once a day, so cache a slim copy."""
     f = CACHE / "players.json"
-    if not f.exists() or time.time() - f.stat().st_mtime > 86400:
+    stale = f.exists() and "t" not in next(iter(json.loads(f.read_text(encoding="utf-8")).values()), {"t": 1})
+    if not f.exists() or stale or time.time() - f.stat().st_mtime > 86400:
         CACHE.mkdir(exist_ok=True)
         slim = {}
         for pid, p in get("/players/nfl").items():
             name = p.get("full_name") or f"{p.get('first_name', '')} {p.get('last_name', '')}".strip()
-            slim[pid] = {"n": name or pid, "pos": p.get("fantasy_positions") or [p.get("position")]}
+            slim[pid] = {"n": name or pid, "pos": p.get("fantasy_positions") or [p.get("position")],
+                         "t": p.get("team")}
         f.write_text(json.dumps(slim), encoding="utf-8")
     return json.loads(f.read_text(encoding="utf-8"))
 
@@ -63,7 +65,24 @@ def fetch(lid, week):
         "transactions": get(f"/league/{lid}/transactions/{week}"),
         "next": next_pairings(lid, week + 1),
         "bracket": bracket(lid),
+        "schedule": nfl_schedule(),
     }
+
+
+def nfl_schedule():
+    """Who plays in which NFL week, as {week: set(team)}. Empty if Sleeper has no schedule (byes then ignored)."""
+    try:
+        season = get("/state/nfl")["league_season"]
+        req = urllib.request.Request(f"https://api.sleeper.app/schedule/nfl/regular/{season}",
+                                     headers={"User-Agent": "league-recap/1"})
+        with urllib.request.urlopen(req, timeout=30) as r:
+            games = json.load(r)
+    except Exception:
+        return {}
+    out = {}
+    for g in games:
+        out.setdefault(int(g["week"]), set()).update((g["home"], g["away"]))
+    return out
 
 
 def bracket(lid):
@@ -321,8 +340,12 @@ def analyze(raw, P, week, cfg=CFG, aliases=None):
     pairs = [sorted(p, key=lambda rid: now[rid]["rank"]) for p in pairs.values() if len(p) == 2]
     rk = lambda p: now[p[0]]["rank"] + now[p[1]]["rank"]              # low = two good teams
     gap = lambda p: now[p[1]]["rank"] - now[p[0]]["rank"]             # low = evenly matched
-    side = lambda rid: {"manager": owner[rid], "record": st_by[owner[rid]]["record"], "rank": now[rid]["rank"],
-                        "streak": st_by[owner[rid]]["streak"], "power_rank": prank[rid], "pf": r2(now[rid]["pf"])}
+    def side(rid):
+        d = {"manager": owner[rid], "record": st_by[owner[rid]]["record"], "rank": now[rid]["rank"],
+             "streak": st_by[owner[rid]]["streak"], "power_rank": prank[rid], "pf": r2(now[rid]["pf"])}
+        if bye_names.get(rid):
+            d["starters_on_bye"] = bye_names[rid]       # odds already account for these
+        return d
 
     def h2h(a, b):
         out = []
@@ -346,6 +369,50 @@ def analyze(raw, P, week, cfg=CFG, aliases=None):
     swing = max(10.0, (sum(d * d for d in dev) / dof) ** 0.5) if dof > 0 else 25.0
     trust = reg(week) / (reg(week) + 3)                              # 4 weeks in: 57% team, 43% league
     proj = {rid: lg_avg + trust * (avg[rid] - lg_avg) for rid in owner}
+
+    # ---- bye weeks: what each team loses next week from starters whose NFL team is idle ----
+    # A player's average counts only the weeks his team played. A team's lineup value is the best
+    # legal lineup by those averages; the bye penalty is that value minus the best lineup without
+    # the idle players. The penalty comes off the team's projection before the odds are made.
+    sched = raw.get("schedule") or {}
+    nfl_week = week + 1
+    playing = sched.get(nfl_week)
+    team_of = lambda pid: P.get(pid, {}).get("t") or (pid if pid.isalpha() and pid.isupper() else None)
+    pts_by = {}
+    for w in range(1, reg(week) + 1):
+        for m in raw["matchups"][w]:
+            for pid, v in (m.get("players_points") or {}).items():
+                t = team_of(pid)
+                if sched.get(w) and t and t not in sched[w]:
+                    continue                                             # his team was on bye that week
+                pts_by.setdefault(pid, []).append(v or 0)
+    pavg = {pid: sum(v) / len(v) for pid, v in pts_by.items()}
+
+    def best_lineup(pids):
+        """Greedy by season average: fixed positions first, then flex slots. Returns the chosen players."""
+        left, chosen = sorted(pids, key=lambda p: -pavg.get(p, 0)), []
+        for slot in sorted(slots, key=lambda s: s in FLEX):
+            ok = FLEX.get(slot) or {slot}
+            pick = next((p for p in left if ppos(p) & ok), None)
+            if pick:
+                chosen.append(pick)
+                left.remove(pick)
+        return chosen
+
+    next_roster = {m["roster_id"]: m.get("players") or [] for m in raw.get("next") or [] if m.get("roster_id") in owner}
+    bye_loss, bye_names = {}, {}
+    for rid in owner:
+        mine = next_roster.get(rid) or next((r.get("players") for r in raw["rosters"] if r["roster_id"] == rid), None) or []
+        if not playing or not mine:
+            continue
+        ideal = best_lineup(mine)
+        idle = [p for p in mine if team_of(p) and team_of(p) not in playing]
+        avail = best_lineup([p for p in mine if p not in idle])
+        loss = sum(pavg.get(p, 0) for p in ideal) - sum(pavg.get(p, 0) for p in avail)
+        if loss > 0.05:
+            bye_loss[rid] = loss
+            bye_names[rid] = [pname(p) for p in ideal if p in idle]
+    proj = {rid: proj[rid] - bye_loss.get(rid, 0) for rid in owner}
 
     def odds(a, b):
         diff = proj[a] - proj[b]

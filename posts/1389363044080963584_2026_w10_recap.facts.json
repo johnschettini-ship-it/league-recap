@@ -1011,7 +1011,11 @@
     "rank": 1,
     "streak": "W8",
     "power_rank": 3,
-    "pf": 1484.3
+    "pf": 1484.3,
+    "starters_on_bye": [
+     "Matthew Stafford",
+     "Drake London"
+    ]
    },
    "b": {
     "manager": "The Cobbler",
@@ -1019,15 +1023,18 @@
     "rank": 3,
     "streak": "L1",
     "power_rank": 6,
-    "pf": 1385.3
+    "pf": 1385.3,
+    "starters_on_bye": [
+     "Puka Nacua"
+    ]
    },
    "head_to_head": [],
    "odds": {
     "favorite": "RamsoBamso",
-    "favorite_pct": 58,
+    "favorite_pct": 59,
     "underdog": "The Cobbler",
-    "underdog_pct": 42,
-    "line": 7.5
+    "underdog_pct": 41,
+    "line": 9.5
    }
   },
   {
@@ -1039,7 +1046,11 @@
     "rank": 2,
     "streak": "W1",
     "power_rank": 4,
-    "pf": 1445.5
+    "pf": 1445.5,
+    "starters_on_bye": [
+     "Blake Corum",
+     "Denzel Boston"
+    ]
    },
    "b": {
     "manager": "Sabrinie",
@@ -1047,13 +1058,18 @@
     "rank": 4,
     "streak": "W2",
     "power_rank": 2,
-    "pf": 1450.25
+    "pf": 1450.25,
+    "starters_on_bye": [
+     "Kyren Williams",
+     "Harold Fannin Jr.",
+     "Seattle Seahawks"
+    ]
    },
    "head_to_head": [],
    "odds": {
-    "favorite": "Sabrinie",
+    "favorite": "Tbonez420",
     "favorite_pct": 50,
-    "underdog": "Tbonez420",
+    "underdog": "Sabrinie",
     "underdog_pct": 50,
     "line": 0.5
    }
@@ -1067,7 +1083,12 @@
     "rank": 9,
     "streak": "W1",
     "power_rank": 12,
-    "pf": 1226.8
+    "pf": 1226.8,
+    "starters_on_bye": [
+     "Bijan Robinson",
+     "Cleveland Browns",
+     "Dylan Sampson"
+    ]
    },
    "b": {
     "manager": "The Immaculate Concepcion",
@@ -1075,15 +1096,19 @@
     "rank": 12,
     "streak": "W1",
     "power_rank": 9,
-    "pf": 1253.05
+    "pf": 1253.05,
+    "starters_on_bye": [
+     "Christian Watson",
+     "Davante Adams"
+    ]
    },
    "head_to_head": [],
    "odds": {
     "favorite": "The Immaculate Concepcion",
-    "favorite_pct": 52,
+    "favorite_pct": 61,
     "underdog": "PBJiantsfan",
-    "underdog_pct": 48,
-    "line": 2.0
+    "underdog_pct": 39,
+    "line": 11.5
    }
   }
  ],
@@ -1104,14 +1129,20 @@
     "rank": 8,
     "streak": "L1",
     "power_rank": 10,
-    "pf": 1211.15
+    "pf": 1211.15,
+    "starters_on_bye": [
+     "Rhamondre Stevenson",
+     "KC Concepcion Jr.",
+     "Tucker Kraft",
+     "Los Angeles Rams"
+    ]
    },
    "odds": {
     "favorite": "Action Jaxson",
-    "favorite_pct": 62,
+    "favorite_pct": 85,
     "underdog": "RicoJRoday",
-    "underdog_pct": 38,
-    "line": 12.0
+    "underdog_pct": 15,
+    "line": 40.5
    }
   },
   {
@@ -1122,7 +1153,12 @@
     "rank": 7,
     "streak": "L3",
     "power_rank": 11,
-    "pf": 1271.8
+    "pf": 1271.8,
+    "starters_on_bye": [
+     "Quinshon Judkins",
+     "Jaxon Smith-Njigba",
+     "Konata Mumpfield"
+    ]
    },
    "b": {
     "manager": "CatchingKelce",
@@ -1134,10 +1170,10 @@
    },
    "odds": {
     "favorite": "CatchingKelce",
-    "favorite_pct": 55,
+    "favorite_pct": 83,
     "underdog": "Dumpsterfire007",
-    "underdog_pct": 45,
-    "line": 4.5
+    "underdog_pct": 17,
+    "line": 36.5
    }
   },
   {
@@ -1156,14 +1192,18 @@
     "rank": 11,
     "streak": "L2",
     "power_rank": 8,
-    "pf": 1323.75
+    "pf": 1323.75,
+    "starters_on_bye": [
+     "Matthew Golden",
+     "DeMario Douglas"
+    ]
    },
    "odds": {
     "favorite": "mattystitches",
-    "favorite_pct": 63,
+    "favorite_pct": 78,
     "underdog": "Mick Mouse Club House",
-    "underdog_pct": 37,
-    "line": 13.0
+    "underdog_pct": 22,
+    "line": 30.0
    }
   }
  ],
