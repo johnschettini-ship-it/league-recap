@@ -163,6 +163,15 @@ class Scene:
 OUT = []            # (path, text) of each file. The files are written at the end, so a build that stops leaves the last edition complete.
 
 
+TABLE_END = 1150        # the tables end above the caption strip (top 1184), in the coordinates before the move of the chat layout
+
+
+def table_rows(top, n, gap=0):
+    """The row height of a table of n rows from top: 54 px for 12 rows, larger for a smaller league (at most 66 px), and the font scale."""
+    rowh = max(54, min(66, (TABLE_END - top - gap) // max(1, n)))
+    return rowh, (lambda v: round(v * rowh / 54))
+
+
 def standing(manager):
     return next(s for s in F["standings"] if s["manager"] == manager)
 
@@ -179,7 +188,7 @@ def n1():
     #n1-page-in .ve { font-size: 118px; letter-spacing: 8px; }
     #n1-page-in .tag { font-size: 38px; margin-top: 6px; }
     #n1-stamp-in .tilt { transform: rotate(-11deg); border: 9px solid ACCENT; color: ACCENT; font-size: 100px; padding: 6px 22px 0; display: inline-block; }
-    #n1-leader-in { background: rgba(20, 18, 16, 0.84); }
+    #n1-leader-in { background: radial-gradient(ellipse at 50% 50%, #3b3833 0%, #1c1b19 72%); }      /* opaque, as on a real film leader: the masthead must not show through the count */
     #n1-leader-in svg { position: absolute; left: 0; top: 0; }
 """.replace("INK", INK).replace("ACCENT", ACCENT).replace("M1SIZE", str(fit(f"The {LEAGUE}", 900, 150, 0.5)))
     page = (f'<div class="kick">SEASON {SEASON} · WEEK {WEEK} · {E(ED["label"].upper())}</div>'
@@ -266,12 +275,15 @@ def n3():
     if mode == "scores":                   # the clippings come in the order that the announcer names the games
         rows.sort(key=lambda r: (r[0] is None, r[0] or 0))
     step = max(0.7, min(1.7, (s.dur - 2.4) / max(1, len(rows))))
+    # three clippings fill the space between the title and the caption strip (500 to 1126 px); fewer clippings sit in its middle
+    pitch = 218 if len(rows) >= 3 else 250
+    top0 = 500 if len(rows) >= 3 else 500 + (626 - (190 + (len(rows) - 1) * pitch)) // 2
     prev = 0.0
     for i, (said, inner) in enumerate(rows):
         t = said + 0.1 if said is not None else 0.75 + i * step
         t = max(prev + 0.5, min(t, s.dur - 3.4 - (len(rows) - 1 - i) * 0.5))      # each clipping stays on screen long enough to read
         prev = t
-        at = s.enter(f"u{i}", t, f"left:{84 + i * 14}px;top:{500 + i * 218}px;width:900px;height:190px",
+        at = s.enter(f"u{i}", t, f"left:{84 + i * 14}px;top:{top0 + i * pitch}px;width:900px;height:190px",
                      f'<div class="card n3-tilt" style="transform: rotate({(-2.4, 1.8, -1.3)[i % 3]}deg)">{inner}</div>', kind="drop")
         SFX.append(("pop", s.beat["start"] + at + 0.36, 0.5))
     s.write()
@@ -373,14 +385,16 @@ def n6():
 # ---------------------------------------------------------------- n7: the standings
 def n7():
     s = Scene("n7")
+    cut = F.get("playoff_teams") or 0
+    rowh, k = table_rows(436, len(F["standings"]), 38 if cut else 0)
     s.css = f"""
     #n7-title-in {{ font-size: 150px; }}
     #n7-sub-in {{ font-size: 38px; text-align: right; }}
-    .n7-row {{ display: flex; align-items: center; height: 100%; border-bottom: 2px solid rgba(28, 27, 25, 0.45); font-size: 40px; }}
-    .n7-row .k {{ font-family: "League Gothic", sans-serif; font-size: 50px; width: 78px; }}
+    .n7-row {{ display: flex; align-items: center; height: 100%; border-bottom: 2px solid rgba(28, 27, 25, 0.45); font-size: {k(40)}px; }}
+    .n7-row .k {{ font-family: "League Gothic", sans-serif; font-size: {k(50)}px; width: {k(78)}px; }}
     .n7-row .n {{ flex: 1; font-weight: 700; white-space: nowrap; }}
-    .n7-row .m {{ width: 92px; font-family: "League Gothic", sans-serif; font-size: 38px; text-align: right; padding-right: 26px; }}
-    .n7-row .r {{ font-family: "League Gothic", sans-serif; font-size: 52px; width: 96px; text-align: right; }}
+    .n7-row .m {{ width: {k(92)}px; font-family: "League Gothic", sans-serif; font-size: {k(38)}px; text-align: right; padding-right: 26px; }}
+    .n7-row .r {{ font-family: "League Gothic", sans-serif; font-size: {k(52)}px; width: {k(96)}px; text-align: right; }}
     .n7-top .k, .n7-top .r {{ color: {ACCENT}; }}
     .n7-row .m.up {{ color: {UP}; }}
     .n7-row .m.dn {{ color: {DOWN}; }}
@@ -391,8 +405,7 @@ def n7():
     s.enter("title", 0.1, "left:70px;top:284px;width:660px;height:140px", '<span class="gothic">The Standings</span>', kind="rise")
     s.enter("sub", 0.3, "left:700px;top:350px;width:310px;height:60px", f'<span class="i">after Week {WEEK}</span>')
     best = F["standings"][0]["record"]
-    cut = F.get("playoff_teams") or 0
-    rowh, gap = 54, 38                     # the gap holds the "PLAYOFF LINE" label
+    gap = 38                               # the gap holds the "PLAYOFF LINE" label
     for i, r in enumerate(F["standings"]):
         d = 0 if r.get("prev_rank") is None else r["prev_rank"] - r["rank"]
         move = "" if r.get("prev_rank") is None else ("–" if d == 0 else (f"UP {d}" if d > 0 else f"DN {-d}"))
@@ -412,27 +425,27 @@ def n7():
 def n7b():
     """The power rankings of the gazette: rank, team, move from last week, season record, and true record (the all-play record)."""
     s = Scene("n7b")
+    rowh, k = table_rows(478, len(P["power"]))
     s.css = f"""
     #n7b-title-in {{ font-size: {fit("Power Rankings", 930, 150)}px; }}
     #n7b-note-in {{ display: flex; align-items: flex-end; justify-content: space-between; font-size: 34px; line-height: 1.1; }}
     #n7b-note-in .h {{ font-family: "League Gothic", sans-serif; font-size: 34px; letter-spacing: 2px; color: {ACCENT}; white-space: nowrap; line-height: 1; }}
     #n7b-note-in .h span {{ display: inline-block; text-align: right; }}
-    .n7b-row {{ display: flex; align-items: center; height: 100%; border-bottom: 2px solid rgba(28, 27, 25, 0.45); font-size: 40px; }}
-    .n7b-row .k {{ font-family: "League Gothic", sans-serif; font-size: 50px; width: 78px; }}
+    .n7b-row {{ display: flex; align-items: center; height: 100%; border-bottom: 2px solid rgba(28, 27, 25, 0.45); font-size: {k(40)}px; }}
+    .n7b-row .k {{ font-family: "League Gothic", sans-serif; font-size: {k(50)}px; width: {k(78)}px; }}
     .n7b-row .n {{ flex: 1; font-weight: 700; white-space: nowrap; }}
-    .n7b-row .m {{ width: 92px; font-family: "League Gothic", sans-serif; font-size: 38px; text-align: right; padding-right: 22px; }}
-    .n7b-row .c {{ width: 86px; font-family: "League Gothic", sans-serif; font-size: 44px; text-align: right; color: {MUTED}; }}
-    .n7b-row .r {{ width: 150px; font-family: "League Gothic", sans-serif; font-size: 52px; text-align: right; }}
+    .n7b-row .m {{ width: {k(92)}px; font-family: "League Gothic", sans-serif; font-size: {k(38)}px; text-align: right; padding-right: 22px; }}
+    .n7b-row .c {{ width: {k(86)}px; font-family: "League Gothic", sans-serif; font-size: {k(44)}px; text-align: right; color: {MUTED}; }}
+    .n7b-row .r {{ width: {k(150)}px; font-family: "League Gothic", sans-serif; font-size: {k(52)}px; text-align: right; }}
     .n7b-top .k, .n7b-top .r {{ color: {ACCENT}; }}
     .n7b-row .m.up {{ color: {UP}; }}
     .n7b-row .m.dn {{ color: {DOWN}; }}
 """
     s.html.append(HEADER)
     s.enter("title", 0.1, "left:70px;top:284px;width:940px;height:140px", '<span class="gothic">Power Rankings</span>', kind="rise")
-    note = ('<span class="i">True record: against every team, every week</span>'
-            '<span class="h"><span style="width:86px">REC</span><span style="width:150px">TRUE REC</span></span>')
+    note = (f'<span class="i">True record: against every team, every week</span>'
+            f'<span class="h"><span style="width:{k(86)}px">REC</span><span style="width:{k(150)}px">TRUE REC</span></span>')
     s.enter("note", 0.3, "left:70px;top:432px;width:940px;height:44px", note)
-    rowh = 54
     for i, r in enumerate(P["power"]):
         prev = r.get("prev_power_rank")                 # no value in the first week
         d = 0 if prev is None else prev - r["power_rank"]
@@ -443,7 +456,7 @@ def n7b():
         s.enter(f"r{i}", 0.4 + i * 0.07, f"left:70px;top:{478 + i * rowh}px;width:940px;height:{rowh}px", inner, kind="left")
         said = s.when_re(cue_pattern(r["manager"]))     # the row of a team gets a tint when the announcer names that team
         if said is not None:
-            tint = "rgba({}, {}, {}, 0.13)".format(*(int(ACCENT[k:k + 2], 16) for k in (1, 3, 5)))      # the accent of the edition
+            tint = "rgba({}, {}, {}, 0.13)".format(*(int(ACCENT[j:j + 2], 16) for j in (1, 3, 5)))      # the accent of the edition
             s.js.append(f'tl.to("#n7b-r{i}-in", {{ backgroundColor: "{tint}", duration: 0.25, ease: "power1.out" }}, {round(max(said, 0.4 + i * 0.07 + 0.4), 2)});')
     s.write()
 
@@ -617,6 +630,9 @@ def captions():
 
 
 # ---------------------------------------------------------------- old film overlay
+IRIS_R = 1500           # larger than the distance from the iris centre to each corner of the frame
+
+
 def film():
     rng = random.Random(1938)             # a fixed seed: every build gives the same flicker and scratches
     wrap = lambda rows: "[\n        " + ",\n        ".join(", ".join(json.dumps(r) for r in rows[i:i + 8]) for i in range(0, len(rows), 8)) + "\n      ]"
@@ -630,6 +646,11 @@ def film():
         dust.append([round(t, 2), rng.randint(40, W - 60), rng.randint(200, H - 300), round(rng.uniform(0.5, 1.8), 2)])
         t += rng.uniform(0.35, 1.5)
     cuts = [round(b["start"], 2) for b in TL["beats"][1:]]                             # a white flash on each cut, like a splice
+    # the newsreel closes with an iris on the end card, after the last caption has gone
+    last_cap = TL["beats"][-1]["sentences"][-1]["end"]
+    iris_at = round(max(last_cap + 0.2, DUR - 1.0), 2)
+    iris_d = round(DUR - 0.04 - iris_at, 2)
+    iris_y = 866 + 135 - OFF                                           # the middle of the end card of n9
     js = [
         f"const FLICKER = {wrap(flicker)};",
         f"const SCRATCHES = {wrap(scratches)};",
@@ -640,6 +661,8 @@ def film():
         'DUST.forEach(([t, x, y, k]) => { tl.set("#film-dust", { x: x, y: y, scale: k, opacity: 0.75 }, t); tl.set("#film-dust", { opacity: 0 }, t + 0.07); });',
         'CUTS.forEach((t) => { tl.set("#film-flash", { opacity: 0.6 }, t); tl.to("#film-flash", { opacity: 0, duration: 0.14, ease: "power1.out" }, t + 0.01); });',
     ]
+    if iris_d >= 0.3:
+        js.append(f'tl.set("#film-iris", {{ opacity: 1 }}, {iris_at}); tl.fromTo("#film-iris-c", {{ attr: {{ r: {IRIS_R} }} }}, {{ attr: {{ r: 0 }}, duration: {iris_d}, ease: "power2.in" }}, {iris_at});')
     grain = (ROOT / "compositions" / "components" / "grain-overlay.html").read_text()
     grain = re.sub(r"<!--.*?-->", "", grain, flags=re.S).strip()
     # a lighter and slower grain than the component default: a fast grain makes the video file about three times larger
@@ -667,6 +690,10 @@ def film():
     <div id="film-vignette" class="film-layer" data-layout-ignore></div>
     <div id="film-flicker" class="film-layer" data-layout-ignore></div>
     <div id="film-flash" class="film-layer" data-layout-ignore></div>
+    <svg id="film-iris" class="film-layer" width="{W}" height="{H}" viewBox="0 0 {W} {H}" style="opacity: 0" data-layout-ignore>
+      <defs><mask id="film-iris-m"><rect width="{W}" height="{H}" fill="#fff"/><circle id="film-iris-c" cx="540" cy="{iris_y}" r="{IRIS_R}" fill="#000"/></mask></defs>
+      <rect width="{W}" height="{H}" fill="#14130f" mask="url(#film-iris-m)"/>
+    </svg>
   </div>
   <script>
     (function () {{

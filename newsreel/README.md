@@ -193,6 +193,19 @@ python3 tools/check_captions.py beer-den-gazette-newsreel-${E/_/-}.mp4
 | `tools/shrink.sh` | Makes the chat-size copy. |
 | `index.html`, `compositions/` | The HyperFrames project. `build.py` writes these files again on each build, so edit `build.py`, not these files. |
 
+## Polish, 21 November 2026
+
+A review of the four Week 10 videos found four faults of finish. All four are corrected in `tools/build.py` and `tools/shrink.sh`. They add no render time and no dependency.
+
+| Fault | Correction |
+|---|---|
+| The film leader (3, 2, 1) was 84 percent opaque, so the masthead showed through the count. | The leader is opaque, dark at the edges, as on a real leader. |
+| Two clippings in n3 sat at the top and left about 300 px of empty paper. | Fewer than three clippings sit in the middle of the space between the title and the caption strip. |
+| The tables of n7 and n7b had rows of 54 px in each league, so a league of 10 teams left the lower quarter empty. | The row height fills the space to 1150 px (54 px to 66 px), and the type grows with it. A league of 12 teams is almost the same as before. |
+| The video stopped on a hard cut, with the hiss at about −40 dB in the last frame. | The picture closes with an iris on the end card after the last caption, and the sound fades in (0.25 s) and out (0.85 s). |
+
+Checks on the Beer Den Week 10 render with these corrections: screen check, `npx hyperframes check` (no errors, no warnings), caption check (0 of 2,252 caption frames without the strip), loudness −13.6 LUFS. Builds of Uncle Rico (two clippings) and Double Fist (10 teams) pass the screen check and the HyperFrames check, and their frames were inspected.
+
 ## Verification
 
 ### Week 9, second version (`beer-den-gazette-newsreel-2026-w9.mp4`)
