@@ -13,6 +13,10 @@ src, edition = pathlib.Path(sys.argv[1]), sys.argv[2]
 league = edition.rsplit("_", 2)[0] if edition.count("_") >= 2 else ""
 names = json.loads((ROOT / "display_names.json").read_text()).get(league, {})
 F = json.loads(src.read_text())
+# the pun-names that the gazette printed this week (the PUNS line of its stories file), for the pun-names in the video
+stories = src.with_name(src.name.replace(".facts.json", ".stories.md"))
+puns = next((l[5:] for l in stories.read_text().splitlines() if l.startswith("PUNS:")), "") if stories.exists() else ""
+F["week_puns"] = [p.strip() for p in puns.split("|") if p.strip()]
 count = 0
 
 

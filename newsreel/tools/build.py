@@ -22,7 +22,7 @@ args = ap.parse_args()
 sys.path.insert(0, args.gazette)
 import comic, theme  # noqa: E402  (the gazette's own drawing and edition code)
 sys.path.insert(0, str(pathlib.Path(__file__).parent))
-from plan import plan, surname, verb, result_line, cue_pattern, lead_line  # noqa: E402  (which facts each segment shows)
+from plan import plan, surname, verb, result_line, cue_pattern, lead_line, pun_of  # noqa: E402  (which facts each segment shows)
 
 TL = json.loads((ROOT / "build" / "timeline.json").read_text())
 if not args.facts and not TL.get("edition"):
@@ -339,7 +339,8 @@ def n5():
         room = 872 - len(str(p["pts"])) * 97 - 24            # the width that the score leaves for the name, in px
         size = max(42, fit(p["player"], room, 66, 0.52))     # a long name is smaller; below 42 px it wraps
         return (f'<div class="card n5-c"><div><div class="gothic t" style="color:{colour}">{title}</div><div class="n" style="font-size:{size}px">{E(p["player"])}</div>'
-                f'<div class="i f">for {E(p["manager"])}{extra}</div></div><div class="p" style="color:{colour}">{p["pts"]}</div></div>')
+                + (f'<div class="i f">“{E(pun_of(F, p["player"]))}”</div>' if pun_of(F, p["player"]) else "")
+                + f'<div class="i f">for {E(p["manager"])}{extra}</div></div><div class="p" style="color:{colour}">{p["pts"]}</div></div>')
     s.enter("boom", 0.12, "left:70px;top:296px;width:940px;height:400px", card("Boom", boom, ACCENT), kind="left")
     tb = s.enter("bust", s.when([surname(bust["player"]), str(bust["pts"]), "bust"], 0.5), "left:70px;top:730px;width:940px;height:400px",
                  card("Bust", bust, INK, ", who won anyway" if bust_won else ""), kind="right")
@@ -379,6 +380,50 @@ def n6():
     tg = max(tn + 0.5, min(s.when([other], 0.5), s.dur - 3.0))        # with the sentence that names the other team; on screen for 3 seconds or more
     s.js.append(f'tl.fromTo("#n6-game", {{ opacity: 0, y: 16 }}, {{ opacity: 1, y: 0, duration: 0.34, ease: "power3.out" }}, {round(tg, 2)});')
     s.enter("rivet", tn + 0.5, "left:850px;top:930px;width:180px;height:180px", rivet("sweat", 3), kind="pop", cls="rivet")
+    s.write()
+
+
+# ---------------------------------------------------------------- n6b: moves and trades
+def n6b():
+    """The moves and trades of the week: the first trade (two sides), and the biggest waiver claim, with the gazette's pun-name of that player."""
+    s = Scene("n6b")
+    w = P["wire"]
+    if not w:
+        sys.exit("The script has segment n6b, and the facts have no trade and no waiver bid. Build stopped.")
+    s.css = f"""
+    #n6b-title-in {{ font-size: 150px; }}
+    .n6b-k {{ font-family: "League Gothic", sans-serif; font-size: 44px; letter-spacing: 8px; color: {ACCENT}; border-bottom: 4px solid {INK}; padding-bottom: 6px; }}
+    .n6b-side {{ margin-top: 14px; }}
+    .n6b-side .m {{ font-family: "League Gothic", sans-serif; text-transform: uppercase; font-size: 50px; line-height: 1; white-space: nowrap; }}
+    .n6b-side .m span {{ color: {ACCENT}; }}
+    .n6b-side .p {{ font-weight: 700; white-space: nowrap; margin-top: 2px; }}
+    .n6b-c {{ padding: 22px 34px; height: 100%; }}
+    .n6b-claim {{ display: flex; align-items: center; justify-content: space-between; margin-top: 10px; }}
+    .n6b-claim .n {{ font-weight: 700; white-space: nowrap; line-height: 1.05; }}
+    .n6b-claim .f {{ font-size: 38px; margin-top: 4px; white-space: nowrap; }}
+    .n6b-claim .d {{ font-family: "League Gothic", sans-serif; font-size: 170px; line-height: 0.9; color: {ACCENT}; }}
+"""
+    s.html.append(HEADER)
+    s.enter("title", 0.1, "left:70px;top:284px;width:940px;height:150px", '<span class="gothic">Moves &amp; Trades</span>', kind="rise")
+    top = 460
+    if w["trade"]:
+        sides = "".join(f'<div class="n6b-side"><div class="m">{E(t["manager"])} <span>gets</span></div>'
+                        f'<div class="p" style="font-size:{fit(", ".join(t["players"]), 860, 40, 0.5)}px">{E(", ".join(t["players"]))}</div></div>' for t in w["trade"])
+        s.enter("trade", 0.3, f"left:70px;top:{top}px;width:940px;height:340px", f'<div class="n6b-c"><div class="n6b-k">TRADE</div>{sides}</div>',
+                kind="drop", cls="card")
+        SFX.append(("pop", s.beat["start"] + 0.3 + 0.36, 0.5))
+        top += 380
+    c = w["claim"]
+    if c:
+        pun = pun_of(F, c["player"])
+        room = 860 - len(f"${c['faab']}") * 72 - 30
+        inner = (f'<div class="n6b-c"><div class="n6b-k">TOP WAIVER CLAIM</div><div class="n6b-claim"><div>'
+                 f'<div class="n" style="font-size:{max(40, fit(c["player"], room, 60, 0.52))}px">{E(c["player"])}</div>'
+                 + (f'<div class="i f">“{E(pun)}”</div>' if pun else "")
+                 + f'<div class="i f">to {E(c["manager"])}</div></div><div class="d">${c["faab"]}</div></div></div>')
+        tc = s.enter("claim", max(0.9, s.when([surname(c["player"]), "waiver"], 0.5)), f"left:70px;top:{top}px;width:940px;height:300px", inner,
+                     kind="right", cls="card")
+        SFX.append(("pop", s.beat["start"] + tc + 0.3, 0.45))
     s.write()
 
 
@@ -816,7 +861,7 @@ if __name__ == "__main__":
     SFX.append(("whoosh", BEATS["n2"]["start"] + 0.12, 0.5))
     if TL["beats"][0]["id"] == "n1":
         SFX.append(("beep", 0.8, 0.45))        # the "two-pop" of a film leader: one short tone when the count shows 2
-    scenes = {"n1": n1, "n2": n2, "n3": n3, "n4": n4, "n5": n5, "n6": n6, "n7": n7, "n7b": n7b, "n8": n8, "n9": n9}
+    scenes = {"n1": n1, "n2": n2, "n3": n3, "n4": n4, "n5": n5, "n6": n6, "n6b": n6b, "n7": n7, "n7b": n7b, "n8": n8, "n9": n9}
     for b in TL["beats"]:                  # the script gives the segments and their order
         if b["id"] not in scenes:
             sys.exit(f"The script has a segment {b['id']!r}. The builder has no picture for it.")

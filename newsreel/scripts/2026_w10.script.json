@@ -11,7 +11,7 @@
           "cap": "Extra, extra, Beer Den!"
         },
         {
-          "cap": "Week 10 brings a runaway and a benching blunder."
+          "cap": "Week 10 brings a runaway, trades and a blunder."
         }
       ]
     },
@@ -30,11 +30,12 @@
       "id": "n3",
       "sentences": [
         {
-          "cap": "DM_Me_to_Collude outlasts CUTHISYR.",
-          "tts": "D M, Me to Collude outlasts CUTHISYR."
+          "cap": "DM_Me_to_Collude downs CUTHISYR.",
+          "tts": "D M, Me to Collude downs CUTHISYR."
         },
         {
-          "cap": "stufflydogs fall to dookkk."
+          "cap": "dookkk takes down stufflydogs with the Jahmyr Gibbs Sampler.",
+          "tts": "dookkk takes down stufflydogs, with the Jah-meer Gibbs Sampler."
         },
         {
           "cap": "ChelseaClub tops Dumpsterfire007.",
@@ -52,7 +53,7 @@
           "cap": "Emmett Johnson sits on the bench with 35.1."
         },
         {
-          "cap": "Javonte Williams starts and scores 7.7, yet The Escape Artist still wins by 54.7."
+          "cap": "Javonte Williams scores 7.7, and The Escape Artist still makes its getaway."
         }
       ]
     },
@@ -64,9 +65,6 @@
         },
         {
           "cap": "Bust: Demarcus Robinson scores a flat 0.0."
-        },
-        {
-          "cap": "A zero counts, folks."
         }
       ]
     },
@@ -78,7 +76,20 @@
           "tts": "Handkerchiefs, out for flips390, the low of the week at 97.12."
         },
         {
-          "cap": "Barnacle Boys sent them home, 17.56 behind."
+          "cap": "Barnacle Boys Stay Afloat and win by 17.56.",
+          "tts": "Barnacle Boys, stay afloat, and win by 17.56."
+        }
+      ]
+    },
+    {
+      "id": "n6b",
+      "sentences": [
+        {
+          "cap": "On the trade wire, Folding Table Champ lands Ja'Marr Chase!",
+          "tts": "On the trade wire, Folding Table Champ lands Juh-Mar Chase!"
+        },
+        {
+          "cap": "Top waiver claim: Jordyn Tyson Chicken, for 11 dollars."
         }
       ]
     },
@@ -86,10 +97,10 @@
       "id": "n7",
       "sentences": [
         {
-          "cap": "dookkk holds the top of the table at 8-2."
+          "cap": "dookkk holds the top at 8-2."
         },
         {
-          "cap": "Six teams make the playoffs, folks."
+          "cap": "Six teams make the playoffs."
         }
       ]
     },
@@ -99,9 +110,6 @@
         {
           "cap": "Power rankings: stufflydogs take Number 1, true record 76-34.",
           "tts": "Power rankings: stufflydogs take Number 1. True record: 76-34."
-        },
-        {
-          "cap": "The standings and the true record disagree."
         }
       ]
     },
@@ -109,10 +117,10 @@
       "id": "n8",
       "sentences": [
         {
-          "cap": "Next week's Main Event: dookkk against Folding Table Champ!"
+          "cap": "Next week: dookkk against Folding Table Champ!"
         },
         {
-          "cap": "Byes counted, the odds favor Folding Table Champ at 64 percent."
+          "cap": "The odds favor the Champ at 64 percent."
         }
       ]
     },
@@ -120,7 +128,7 @@
       "id": "n9",
       "sentences": [
         {
-          "cap": "The editors regret all errors, and several of your lineups."
+          "cap": "The editors regret several of your lineups."
         },
         {
           "cap": "Now read the full edition, folks!"

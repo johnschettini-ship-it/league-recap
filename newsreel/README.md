@@ -215,6 +215,13 @@ The owner then asked for two more (22 November 2026):
 - **Projector bed.** `build.py` makes `assets/audio/projector.wav` with ffmpeg on each build: a shutter click 24 times each second over a brown-noise motor hum, in the band of the voice. It measures about −42 LUFS (`PROJECTOR_GAIN`), about 28 dB under the voice, and fades in with the leader and out with the iris. The integrated loudness of the video stays −13.6 LUFS. The "Music: none" row above still holds: this is a sound effect, not music.
 - **Wipes.** At each cut between segments, a dark band with accent edges crosses the frame (about 0.36 s, with a quiet whoosh) and hides the cut. Each wipe stays inside the pause between two captions (a margin of 0.06 s), so it never covers the caption strip. A cut with no room for a wipe keeps the white flash.
 
+Two more segments of content and the site poster (asked for by the owner on 22 November 2026):
+
+- **n6b Moves and trades**, after the basement. A "TRADE" card with the first trade of the week (two sides, from `trades`), and a "TOP WAIVER CLAIM" card (`awards.big_spender`, or the first add with a bid) that enters on the sentence with the player's last name or "waiver". A week with no trade and no waiver bid has no n6b (`plan.order_of`), so the script and the brief leave it out.
+- **Pun-names.** `tools/names.py` copies the gazette's PUNS line of the week (from the stories file) into the facts as `week_puns`. The brief gives them to the writer, with `owner_pun_names`. A card shows the pun-name of its player in italics when the gazette printed one that holds the player's full name (`plan.pun_of`). Puns of earlier weeks (`used_pun_names`) stay forbidden.
+- **Site poster.** `build_edition.sh` writes `build/<edition>.poster.jpg` (the lead headline, without the caption strip, 720 px wide); `publish.py` copies it to `posts/<key>.newsreel.jpg`; `site.py` shows it as the link to the video, with a bar "Watch the newsreel". Without a poster the site keeps the text link.
+- To keep the video under 90 seconds, the Week 10 script lost about 25 words in other segments (231 words by the script check).
+
 Checks on the Beer Den Week 10 render with these corrections: screen check, `npx hyperframes check` (no errors, no warnings), caption check (0 of 2,252 caption frames without the strip), loudness −13.6 LUFS. Builds of Uncle Rico (two clippings) and Double Fist (10 teams) pass the screen check and the HyperFrames check, and their frames were inspected.
 
 ## Verification
