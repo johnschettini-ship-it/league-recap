@@ -193,6 +193,45 @@ python3 tools/check_captions.py beer-den-gazette-newsreel-${E/_/-}.mp4
 | `tools/shrink.sh` | Makes the chat-size copy. |
 | `index.html`, `compositions/` | The HyperFrames project. `build.py` writes these files again on each build, so edit `build.py`, not these files. |
 
+## Polish, 21 November 2026
+
+A review of the four Week 10 videos found four faults of finish. All four are corrected in `tools/build.py` and `tools/shrink.sh`. They add no render time and no dependency.
+
+| Fault | Correction |
+|---|---|
+| The film leader (3, 2, 1) was 84 percent opaque, so the masthead showed through the count. | The leader is opaque, dark at the edges, as on a real leader. |
+| Two clippings in n3 sat at the top and left about 300 px of empty paper. | Fewer than three clippings sit in the middle of the space between the title and the caption strip. |
+| The tables of n7 and n7b had rows of 54 px in each league, so a league of 10 teams left the lower quarter empty. | The row height fills the space to 1150 px (54 px to 66 px), and the type grows with it. A league of 12 teams is almost the same as before. |
+| The video stopped on a hard cut, with the hiss at about −40 dB in the last frame. | The picture closes with an iris on the end card after the last caption, and the sound fades in (0.25 s) and out (0.85 s). |
+
+Three more finishes in the same pass:
+
+- n8: a team with starters on bye has the note "starters on bye" after its record. The odds of the gazette count byes, so without the note a No. 1 team as the underdog looks like a mistake.
+- n1: one short 1 kHz tone (`assets/audio/sfx/beep.wav`, made with ffmpeg) when the leader shows 2, as on a film leader.
+- `build_edition.sh` puts a cover picture (the lead headline) in the MP4 after the caption check. Players and chat apps that read a cover picture show it before play; others show the first frame.
+
+The owner then asked for two more (22 November 2026):
+
+- **Projector bed.** `build.py` makes `assets/audio/projector.wav` with ffmpeg on each build: a shutter click 24 times each second over a brown-noise motor hum, in the band of the voice. It measures about −42 LUFS (`PROJECTOR_GAIN`), about 28 dB under the voice, and fades in with the leader and out with the iris. The integrated loudness of the video stays −13.6 LUFS. The "Music: none" row above still holds: this is a sound effect, not music.
+- **Wipes.** At each cut between segments, a dark band with accent edges crosses the frame (about 0.36 s, with a quiet whoosh) and hides the cut. Each wipe stays inside the pause between two captions (a margin of 0.06 s), so it never covers the caption strip. A cut with no room for a wipe keeps the white flash.
+
+Two more segments of content and the site poster (asked for by the owner on 22 November 2026):
+
+- **n6b Moves and trades**, after the basement. A "TRADE" card with the first trade of the week (two sides, from `trades`), and a "TOP WAIVER CLAIM" card (`awards.big_spender`, or the first add with a bid) that enters on the sentence with the player's last name or "waiver". A week with no trade and no waiver bid has no n6b (`plan.order_of`), so the script and the brief leave it out.
+- **Pun-names.** `tools/names.py` copies the gazette's PUNS line of the week (from the stories file) into the facts as `week_puns`. The brief gives them to the writer, with `owner_pun_names`. A card shows the pun-name of its player in italics when the gazette printed one that holds the player's full name (`plan.pun_of`). Puns of earlier weeks (`used_pun_names`) stay forbidden.
+- **Site poster.** `build_edition.sh` writes `build/<edition>.poster.jpg` (the lead headline, without the caption strip, 720 px wide); `publish.py` copies it to `posts/<key>.newsreel.jpg`; `site.py` shows it as the link to the video, with a bar "Watch the newsreel". Without a poster the site keeps the text link.
+- To keep the video under 90 seconds, the Week 10 script lost about 25 words in other segments (231 words by the script check).
+
+Four reel ideas, approved by the owner on 22 November 2026. Each one uses only facts that the gazette already has, and each one shows only when its fact exists:
+
+- **Streak Watch.** In n7, a pill "WON N STRAIGHT" (green) or "LOST N STRAIGHT" (red) follows the name of a team on a streak of 3 or more (`lore.hot_streak`, `lore.cold_streak`). Not shown in the playoffs.
+- **Luck Meter.** In n7b, a pill "LUCKIEST" or "UNLUCKIEST" follows the team that `lore` names.
+- **Bench points.** The n4 wanted poster adds "N points left on the bench, the most this week" when `awards.most_bench_pts` is the same manager as the blunder.
+- **Last Week's Call.** In n9, a card shows the prediction of last week's next-week card ("favourite at N% over underdog") and the result, "Called it!" or "Missed it!" (`plan.last_call`, from the facts of the week before via `plan.prev_facts`). `check_screen.py` accepts the numbers of that card. Without last week's facts, there is no card.
+- Pills use 28 px type, the floor that a phone can read.
+
+Checks on the Beer Den Week 10 render with these corrections: screen check, `npx hyperframes check` (no errors, no warnings), caption check (0 of 2,246 caption frames without the strip), loudness −13.6 LUFS. Builds of Uncle Rico (two clippings) and Double Fist (10 teams) pass the screen check and the HyperFrames check, and their frames were inspected.
+
 ## Verification
 
 ### Week 9, second version (`beer-den-gazette-newsreel-2026-w9.mp4`)

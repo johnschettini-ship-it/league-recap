@@ -98,6 +98,7 @@ th{font-size:11px;text-transform:uppercase;letter-spacing:1px;border-bottom:1px 
 .up{color:var(--up)}.down{color:var(--down)}
 details{font:14px/1.5 'Old Standard TT',serif;border:1px solid var(--rule);padding:8px 10px}
 summary{cursor:pointer;font-weight:700;text-transform:uppercase;letter-spacing:1px;font-size:12px}details article{margin-top:8px;font-family:system-ui,sans-serif;font-size:13px}
+.reel{display:block;max-width:420px;margin:14px auto 6px;border:3px solid var(--ink);text-decoration:none;box-shadow:6px 7px 0 rgba(28,27,25,.14);background:var(--paper)}.reel img{display:block;width:100%;height:auto}.reel span{display:block;background:var(--ink);color:var(--paper);font:700 20px 'Old Standard TT',Georgia,serif;text-align:center;padding:10px 8px;border-top:4px solid var(--accent)}.reel:hover span,.reel:focus-visible span{background:var(--accent)}
 .archive{text-align:center}.archive a{display:inline-block;margin:0 8px 6px;color:var(--accent);font-style:italic}
 footer{margin-top:36px;border-top:3px double var(--rule);padding-top:10px;font:italic 13px 'IM Fell English',serif;color:var(--muted);text-align:center}
 
@@ -542,7 +543,7 @@ def finder(f, stories):
             + " · ".join(f'<a href="#{a}">{E(n)}</a>' for n, a in links) + "</nav>")
 
 
-def page(f, text, stories, weeks, title_prefix="", others="", og_url="", video=""):
+def page(f, text, stories, weeks, title_prefix="", others="", og_url="", video="", poster=""):
     league = E(f["league"])
     ed = theme.edition(f)
     head, deck = headline(f, banner_of(stories))
@@ -587,7 +588,8 @@ def page(f, text, stories, weeks, title_prefix="", others="", og_url="", video="
 <div class="rules"></div>
 <div class="dateline"><span>Vol. {f['season']} · No. {f['week']}</span><i>“{E(ed['tagline'])}”</i><span>{"Late City Final" if ed['key'] == "regular" and not ed['playoff'] else E(ed['label'])}</span></div>
 {ornaments(ed)}
-{f'<p style="text-align:center;margin:10px 0 4px;font:700 18px Old Standard TT,serif"><a href="{E(video)}" style="color:var(--accent)">&#9654; Watch the newsreel</a></p>' if video else ""}
+{(f'<a class="reel" href="{E(video)}"><img src="{E(poster)}" width="720" height="733" alt="Newsreel, Week {f['week']}: the lead headline"><span>&#9654; Watch the newsreel</span></a>' if poster else
+   f'<p style="text-align:center;margin:10px 0 4px;font:700 18px Old Standard TT,serif"><a href="{E(video)}" style="color:var(--accent)">&#9654; Watch the newsreel</a></p>') if video else ""}
 {jumpbar}
 {champion_html(f)}
 <section class="lead"><h2 class="head">{E(head)}</h2><p class="deck">{E(deck)}</p>{finder(f, stories)}{tiles(f)}</section>
@@ -736,19 +738,23 @@ def build():
         base = (lg.get("site") or "").rstrip("/") + ("/" + lg["path"] if lg["path"] else "")
         newest = sorted(w for (s, w) in issues if s == latest[0])[-NEWSREEL_WEEKS:]
         for (s, w), (f, text, stories) in issues.items():
-            video = ""
+            video = poster = ""
             mp4 = POSTS / f"{lg['id']}_{s}_w{w}_recap.newsreel.mp4"
+            jpg = mp4.with_suffix(".jpg")                          # the poster of the video (the lead headline), from the newsreel build
             if s == latest[0] and w in newest and mp4.exists():      # the newsreel video of the newest weeks only: the site has a size limit
                 video = f"newsreel-week-{w}.mp4"
                 shutil.copyfile(mp4, out / video)
+                if jpg.exists():
+                    poster = f"newsreel-week-{w}.jpg"
+                    shutil.copyfile(jpg, out / poster)
             if s == latest[0]:
                 img = f"og-week-{w}.png"
                 ok = og_image(f, headline(f, banner_of(stories))[0], out / img)
                 url = f"{base}/{img}" if ok and base else ""
-                html_ = page(f, text, stories, weeks, f"Week {w} · ", others, url, video)
+                html_ = page(f, text, stories, weeks, f"Week {w} · ", others, url, video, poster)
                 (out / f"week-{w}.html").write_text(html_, encoding="utf-8")
                 if (s, w) == latest:
-                    (out / "index.html").write_text(page(f, text, stories, weeks, "", others, url, video), encoding="utf-8")
+                    (out / "index.html").write_text(page(f, text, stories, weeks, "", others, url, video, poster), encoding="utf-8")
         print(f"{name}: {len(weeks)} issue(s); front page = week {latest[1]}")
 
 

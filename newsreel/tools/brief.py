@@ -11,7 +11,7 @@ The script panel (workflows/script-panel.js) takes this file as its input.
 import json, pathlib, re, sys
 
 sys.path.insert(0, str(pathlib.Path(__file__).parent))
-from plan import plan, surname, verb, result_line, lead_line, upsets_of, same_game, ORDER
+from plan import plan, surname, verb, result_line, lead_line, upsets_of, same_game, order_of, pun_of
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 edition = sys.argv[1]
@@ -19,6 +19,7 @@ F = json.loads((ROOT / "data" / f"{edition}.facts.json").read_text())
 F["league"] = F["league"].strip()                       # the gazette writes "Coozeball " with a space at the end
 SAY = {k: v for k, v in json.loads((ROOT / "pronunciations.json").read_text()).items() if not k.startswith("_")}
 P = plan(F)
+ORDER = order_of(P)
 WEEK = F["week"]
 prefix = edition[: -len(f"{F['season']}_w{WEEK}")]          # "" for Beer Den 3.0, "coozeball_" for Coozeball, ...
 prev_path = ROOT / "data" / f"{prefix}{F['season']}_w{WEEK - 1}.facts.json"
@@ -85,6 +86,14 @@ G("All results this week, with each team's best two starters: " + " ".join(
 sp = (F.get("awards") or {}).get("big_spender")
 if sp:
     G(f"Biggest waiver spend: {sp['manager']} spent ${sp['faab']} on {sp['player']}.")
+for t in F.get("trades") or []:
+    G("Trade: " + "; ".join(f"{m} gets {', '.join(ps)}" for m, ps in t["receives"].items()) + ".")
+if F.get("week_puns"):
+    G("Pun-names that the gazette printed this week (the video may use them; each keeps the real name so a listener knows who it is): "
+      + " | ".join(F["week_puns"]) + ".")
+if F.get("owner_pun_names"):
+    G("Pun-names that the league owner asked for this week, player: pun. Use each exactly as written if that player is in the script: "
+      + "; ".join(f"{k}: {v}" for k, v in F["owner_pun_names"].items()) + ".")
 if F.get("most_bench_pts"):
     G(f"Most points left on the bench: {F['most_bench_pts']['manager']}, {F['most_bench_pts']['bench_pts']}.")
 lore = F.get("lore") or {}
@@ -157,6 +166,13 @@ segments = "\n".join([
     f"n6  THE BASEMENT. A small sad notice under a cobweb: \"{P['low_label'].upper()}: {P['low']['manager']}, {P['low']['pts']}\", "
     f"with the record and the rank of {P['low']['manager']} below it. Then a line: \"{LINE(P['cellar'], P['low']['manager'])}\". "
     f"If a sentence names the other team of that game, the line enters with that sentence. If not, it enters in the middle of the segment.",
+] + ([
+    f"n6b MOVES AND TRADES. Title \"MOVES & TRADES\". "
+    + (f"A telegram card \"TRADE\": " + " / ".join(f"{t['manager']} gets {', '.join(t['players'])}" for t in P["wire"]["trade"]) + ". It is on screen from the start. " if P["wire"]["trade"] else "")
+    + (f"Then a card \"TOP WAIVER CLAIM: {P['wire']['claim']['player']}, ${P['wire']['claim']['faab']}, to {P['wire']['claim']['manager']}\""
+       + (f", with the gazette's pun-name \"{pun_of(F, P['wire']['claim']['player'])}\" under it" if pun_of(F, P['wire']['claim']['player']) else "")
+       + f". It enters with the sentence that says \"{surname(P['wire']['claim']['player'])}\" or \"waiver\"." if P["wire"]["claim"] else "")
+] if P.get("wire") else []) + [
     f"n7  THE STANDINGS. The full table of {F['teams']} teams with records" + (", the moves up and down" if F["standings"][0].get("prev_rank") is not None else "")
     + (f", and the playoff line after rank {F['playoff_teams']}" if F.get("playoff_teams") else "") + ".",
     f"n7b POWER RANKINGS. Title \"POWER RANKINGS\". A table of all {F['teams']} teams in the order of the power rank: power rank, team, {'move up or down from last week, ' if pw[0].get('prev_power_rank') else ''}record, and true record. "
@@ -166,7 +182,9 @@ segments = "\n".join([
     f"(No. {c['b']['rank']}, {c['b']['record']}). Then a line: \"THE ODDS: {c['odds']['favorite']} {c['odds']['favorite_pct']}%\". "
     f"That line enters with the sentence that says the odds; that sentence must have the word \"odds\" or \"percent\".",
     "n9  SIGN-OFF. The masthead, \"THAT'S THE NEWS\", and an end card \"READ THE FULL EDITION\". One last joke, then the last sentence sends the viewer to the full edition. "
-    "The last sentence must have the word \"Gazette\" or \"edition\".",
+    + ("Before the end card, a card \"LAST WEEK'S CALL\" grades last week's Main Event odds (see the facts line \"Last week's edition billed\"): "
+       "the first sentence may say how that call went. " if PREV and PREV.get("next_week_card") else "")
+    + "The last sentence must have the word \"Gazette\" or \"edition\".",
 ])
 
 hooks = [{"segment": "n2", "any": [lead_other], "picture": "the result line under the front page"}]
@@ -179,6 +197,7 @@ hooks += [
     {"segment": "n4", "any": [surname(bc["started"])], "picture": "the row of the started player"},
     {"segment": "n5", "any": [surname(P["bust"]["player"]), "Bust"], "picture": "the bust card"},
     {"segment": "n7b", "any": [pw[0]["manager"]], "picture": "the first row of the power rankings"},
+] + ([{"segment": "n6b", "any": [surname(P["wire"]["claim"]["player"]), "waiver"], "picture": "the top waiver claim card"}] if P.get("wire") and P["wire"]["claim"] else []) + [
     {"segment": "n8", "any": ["odds", "percent"], "picture": "the odds line"},
     {"segment": "n9", "any": ["Gazette", "edition"], "picture": "the end card", "last_sentence": True},
 ]

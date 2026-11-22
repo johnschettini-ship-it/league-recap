@@ -22,7 +22,7 @@ args = ap.parse_args()
 sys.path.insert(0, args.gazette)
 import comic, theme  # noqa: E402  (the gazette's own drawing and edition code)
 sys.path.insert(0, str(pathlib.Path(__file__).parent))
-from plan import plan, surname, verb, result_line, cue_pattern, lead_line  # noqa: E402  (which facts each segment shows)
+from plan import plan, surname, verb, result_line, cue_pattern, lead_line, pun_of, last_call, prev_facts  # noqa: E402  (which facts each segment shows)
 
 TL = json.loads((ROOT / "build" / "timeline.json").read_text())
 if not args.facts and not TL.get("edition"):
@@ -33,6 +33,8 @@ for key in ("league", "season", "week"):         # the narration and the picture
     if str(F[key]) != str(TL[key]):
         sys.exit(f"The narration is for {key} {TL[key]!r} and the facts file is for {key} {F[key]!r}. Build stopped.")
 P = plan(F)
+CALL = last_call(F, prev_facts(ROOT, TL["edition"], F)) if TL.get("edition") else None      # last week's Main Event odds, graded
+LORE = F.get("lore") or {}
 SAY = {k: v for k, v in json.loads((ROOT / "pronunciations.json").read_text()).items() if not k.startswith("_")}
 ED = theme.edition(F)
 BEATS = {b["id"]: b for b in TL["beats"]}
@@ -163,6 +165,39 @@ class Scene:
 OUT = []            # (path, text) of each file. The files are written at the end, so a build that stops leaves the last edition complete.
 
 
+TABLE_END = 1150        # the tables end above the caption strip (top 1184), in the coordinates before the move of the chat layout
+
+
+def table_rows(top, n, gap=0):
+    """The row height of a table of n rows from top: 54 px for 12 rows, larger for a smaller league (at most 66 px), and the font scale."""
+    rowh = max(54, min(66, (TABLE_END - top - gap) // max(1, n)))
+    return rowh, (lambda v: round(v * rowh / 54))
+
+
+def pill(text, colour, k):
+    return (f' <span style="display:inline-block;vertical-align:middle;margin-left:{k(10)}px;padding:{k(3)}px {k(9)}px 0;border:3px solid {colour};color:{colour};'
+            f'font:{max(28, k(28))}px/1.15 \'League Gothic\',sans-serif;letter-spacing:2px">{text}</span>')
+
+
+def streak_badge(manager, k):
+    """Streak watch: the longest winning and losing streaks of the league (lore of the gazette), on the row of that team. Not in a playoff week."""
+    if F.get("playoff_week_start") and WEEK >= F["playoff_week_start"]:
+        return ""
+    for key, word, colour in (("hot_streak", "WON", UP), ("cold_streak", "LOST", DOWN)):
+        s = LORE.get(key) or {}
+        if s.get("manager") == manager and int(s.get("streak", "X0")[1:] or 0) >= 3:
+            return pill(f"{word} {s['streak'][1:]} STRAIGHT", colour, k)
+    return ""
+
+
+def luck_tag(manager, k):
+    """The luck meter: the luckiest and the unluckiest team of the gazette (record against true record), on its row of the power rankings."""
+    for key, word, colour in (("luckiest", "LUCKIEST", UP), ("unluckiest", "UNLUCKIEST", DOWN)):
+        if (LORE.get(key) or {}).get("manager") == manager:
+            return pill(word, colour, k)
+    return ""
+
+
 def standing(manager):
     return next(s for s in F["standings"] if s["manager"] == manager)
 
@@ -179,7 +214,7 @@ def n1():
     #n1-page-in .ve { font-size: 118px; letter-spacing: 8px; }
     #n1-page-in .tag { font-size: 38px; margin-top: 6px; }
     #n1-stamp-in .tilt { transform: rotate(-11deg); border: 9px solid ACCENT; color: ACCENT; font-size: 100px; padding: 6px 22px 0; display: inline-block; }
-    #n1-leader-in { background: rgba(20, 18, 16, 0.84); }
+    #n1-leader-in { background: radial-gradient(ellipse at 50% 50%, #3b3833 0%, #1c1b19 72%); }      /* opaque, as on a real film leader: the masthead must not show through the count */
     #n1-leader-in svg { position: absolute; left: 0; top: 0; }
 """.replace("INK", INK).replace("ACCENT", ACCENT).replace("M1SIZE", str(fit(f"The {LEAGUE}", 900, 150, 0.5)))
     page = (f'<div class="kick">SEASON {SEASON} · WEEK {WEEK} · {E(ED["label"].upper())}</div>'
@@ -266,12 +301,15 @@ def n3():
     if mode == "scores":                   # the clippings come in the order that the announcer names the games
         rows.sort(key=lambda r: (r[0] is None, r[0] or 0))
     step = max(0.7, min(1.7, (s.dur - 2.4) / max(1, len(rows))))
+    # three clippings fill the space between the title and the caption strip (500 to 1126 px); fewer clippings sit in its middle
+    pitch = 218 if len(rows) >= 3 else 250
+    top0 = 500 if len(rows) >= 3 else 500 + (626 - (190 + (len(rows) - 1) * pitch)) // 2
     prev = 0.0
     for i, (said, inner) in enumerate(rows):
         t = said + 0.1 if said is not None else 0.75 + i * step
         t = max(prev + 0.5, min(t, s.dur - 3.4 - (len(rows) - 1 - i) * 0.5))      # each clipping stays on screen long enough to read
         prev = t
-        at = s.enter(f"u{i}", t, f"left:{84 + i * 14}px;top:{500 + i * 218}px;width:900px;height:190px",
+        at = s.enter(f"u{i}", t, f"left:{84 + i * 14}px;top:{top0 + i * pitch}px;width:900px;height:190px",
                      f'<div class="card n3-tilt" style="transform: rotate({(-2.4, 1.8, -1.3)[i % 3]}deg)">{inner}</div>', kind="drop")
         SFX.append(("pop", s.beat["start"] + at + 0.36, 0.5))
     s.write()
@@ -283,9 +321,10 @@ def n4():
     bc, g = P["crime"], P["crime_game"]
     how, other, margin = result_line(g, bc["manager"])
     lost = how == "Lost to"
+    bench_line = (F.get("most_bench_pts") or {}).get("manager") == bc["manager"]   # the most points on any bench this week, by the same team
     s.css = f"""
     #n4-poster-in {{ text-align: center; padding: 26px 30px; border: 10px double {INK}; background: {CARD}; }}
-    #n4-poster-in .t {{ font-size: 176px; color: {ACCENT}; letter-spacing: 10px; }}
+    #n4-poster-in .t {{ font-size: {126 if bench_line else 176}px; color: {ACCENT}; letter-spacing: 10px; }}   /* the bench line takes the room of 50 px of title */
     #n4-poster-in .w {{ font-size: {fit(bc["manager"].upper(), 840, 104)}px; margin-top: 2px; }}
     #n4-poster-in .s {{ font-size: 38px; margin-top: 4px; }}
     .n4-row {{ display: flex; align-items: center; justify-content: space-between; border-top: 4px solid {INK}; padding: 14px 6px 8px; text-align: left; }}
@@ -296,7 +335,9 @@ def n4():
 """
     s.html.append(HEADER)
     poster = (f'<div class="gothic t">Wanted</div><div class="gothic w">{E(bc["manager"].upper())}</div>'
-              f'<div class="i s">— for a bench crime, Week {WEEK} —</div>')
+              f'<div class="i s">— for a bench crime, Week {WEEK} —</div>'
+              # the most points left on the bench this week, when it is the same team
+              + (f'<div class="i s">{F["most_bench_pts"]["bench_pts"]} points left on the bench, the most this week</div>' if bench_line else ""))
     at = s.enter("poster", 0.1, "left:70px;top:290px;width:940px;height:372px", poster, kind="slam")
     SFX.append(("impact", s.beat["start"] + at + 0.2, 0.45))
     benched = (f'<div class="n4-row"><div><div class="l">LEFT ON THE BENCH</div><div class="n">{E(bc["benched"])}</div></div><div class="p">{bc["benched_pts"]}</div></div>')
@@ -327,11 +368,14 @@ def n5():
         room = 872 - len(str(p["pts"])) * 97 - 24            # the width that the score leaves for the name, in px
         size = max(42, fit(p["player"], room, 66, 0.52))     # a long name is smaller; below 42 px it wraps
         return (f'<div class="card n5-c"><div><div class="gothic t" style="color:{colour}">{title}</div><div class="n" style="font-size:{size}px">{E(p["player"])}</div>'
-                f'<div class="i f">for {E(p["manager"])}{extra}</div></div><div class="p" style="color:{colour}">{p["pts"]}</div></div>')
+                + (f'<div class="i f">“{E(pun_of(F, p["player"]))}”</div>' if pun_of(F, p["player"]) else "")
+                + f'<div class="i f">for {E(p["manager"])}{extra}</div></div><div class="p" style="color:{colour}">{p["pts"]}</div></div>')
     s.enter("boom", 0.12, "left:70px;top:296px;width:940px;height:400px", card("Boom", boom, ACCENT), kind="left")
     tb = s.enter("bust", s.when([surname(bust["player"]), str(bust["pts"]), "bust"], 0.5), "left:70px;top:730px;width:940px;height:400px",
                  card("Bust", bust, INK, ", who won anyway" if bust_won else ""), kind="right")
     s.enter("rivet", tb + 0.4, "left:452px;top:628px;width:176px;height:176px", rivet("money", 2), kind="pop", cls="rivet")
+    if tb > 2.2:                      # a slow push-in on the boom card while it is read, so the frame never stands still for 3 s
+        s.js.append(f'tl.to("#n5-boom-in", {{ scale: 1.04, duration: {round(tb - 1.0, 2)}, ease: "sine.inOut" }}, 0.8);')
     s.write()
 
 
@@ -370,17 +414,63 @@ def n6():
     s.write()
 
 
+# ---------------------------------------------------------------- n6b: moves and trades
+def n6b():
+    """The moves and trades of the week: the first trade (two sides), and the biggest waiver claim, with the gazette's pun-name of that player."""
+    s = Scene("n6b")
+    w = P["wire"]
+    if not w:
+        sys.exit("The script has segment n6b, and the facts have no trade and no waiver bid. Build stopped.")
+    s.css = f"""
+    #n6b-title-in {{ font-size: 150px; }}
+    .n6b-k {{ font-family: "League Gothic", sans-serif; font-size: 44px; letter-spacing: 8px; color: {ACCENT}; border-bottom: 4px solid {INK}; padding-bottom: 6px; }}
+    .n6b-side {{ margin-top: 14px; }}
+    .n6b-side .m {{ font-family: "League Gothic", sans-serif; text-transform: uppercase; font-size: 50px; line-height: 1; white-space: nowrap; }}
+    .n6b-side .m span {{ color: {ACCENT}; }}
+    .n6b-side .p {{ font-weight: 700; white-space: nowrap; margin-top: 2px; }}
+    .n6b-c {{ padding: 22px 34px; height: 100%; }}
+    .n6b-claim {{ display: flex; align-items: center; justify-content: space-between; margin-top: 10px; }}
+    .n6b-claim .n {{ font-weight: 700; white-space: nowrap; line-height: 1.05; }}
+    .n6b-claim .f {{ font-size: 38px; margin-top: 4px; white-space: nowrap; }}
+    .n6b-claim .d {{ font-family: "League Gothic", sans-serif; font-size: 170px; line-height: 0.9; color: {ACCENT}; }}
+"""
+    s.html.append(HEADER)
+    s.enter("title", 0.1, "left:70px;top:284px;width:940px;height:150px", '<span class="gothic">Moves &amp; Trades</span>', kind="rise")
+    top = 460
+    if w["trade"]:
+        sides = "".join(f'<div class="n6b-side"><div class="m">{E(t["manager"])} <span>gets</span></div>'
+                        f'<div class="p" style="font-size:{fit(", ".join(t["players"]), 860, 40, 0.5)}px">{E(", ".join(t["players"]))}</div></div>' for t in w["trade"])
+        s.enter("trade", 0.3, f"left:70px;top:{top}px;width:940px;height:340px", f'<div class="n6b-c"><div class="n6b-k">TRADE</div>{sides}</div>',
+                kind="drop", cls="card")
+        SFX.append(("pop", s.beat["start"] + 0.3 + 0.36, 0.5))
+        top += 380
+    c = w["claim"]
+    if c:
+        pun = pun_of(F, c["player"])
+        room = 860 - len(f"${c['faab']}") * 72 - 30
+        inner = (f'<div class="n6b-c"><div class="n6b-k">TOP WAIVER CLAIM</div><div class="n6b-claim"><div>'
+                 f'<div class="n" style="font-size:{max(40, fit(c["player"], room, 60, 0.52))}px">{E(c["player"])}</div>'
+                 + (f'<div class="i f">“{E(pun)}”</div>' if pun else "")
+                 + f'<div class="i f">to {E(c["manager"])}</div></div><div class="d">${c["faab"]}</div></div></div>')
+        tc = s.enter("claim", max(0.9, s.when([surname(c["player"]), "waiver"], 0.5)), f"left:70px;top:{top}px;width:940px;height:300px", inner,
+                     kind="right", cls="card")
+        SFX.append(("pop", s.beat["start"] + tc + 0.3, 0.45))
+    s.write()
+
+
 # ---------------------------------------------------------------- n7: the standings
 def n7():
     s = Scene("n7")
+    cut = F.get("playoff_teams") or 0
+    rowh, k = table_rows(436, len(F["standings"]), 38 if cut else 0)
     s.css = f"""
     #n7-title-in {{ font-size: 150px; }}
     #n7-sub-in {{ font-size: 38px; text-align: right; }}
-    .n7-row {{ display: flex; align-items: center; height: 100%; border-bottom: 2px solid rgba(28, 27, 25, 0.45); font-size: 40px; }}
-    .n7-row .k {{ font-family: "League Gothic", sans-serif; font-size: 50px; width: 78px; }}
+    .n7-row {{ display: flex; align-items: center; height: 100%; border-bottom: 2px solid rgba(28, 27, 25, 0.45); font-size: {k(40)}px; }}
+    .n7-row .k {{ font-family: "League Gothic", sans-serif; font-size: {k(50)}px; width: {k(78)}px; }}
     .n7-row .n {{ flex: 1; font-weight: 700; white-space: nowrap; }}
-    .n7-row .m {{ width: 92px; font-family: "League Gothic", sans-serif; font-size: 38px; text-align: right; padding-right: 26px; }}
-    .n7-row .r {{ font-family: "League Gothic", sans-serif; font-size: 52px; width: 96px; text-align: right; }}
+    .n7-row .m {{ width: {k(92)}px; font-family: "League Gothic", sans-serif; font-size: {k(38)}px; text-align: right; padding-right: 26px; }}
+    .n7-row .r {{ font-family: "League Gothic", sans-serif; font-size: {k(52)}px; width: {k(96)}px; text-align: right; }}
     .n7-top .k, .n7-top .r {{ color: {ACCENT}; }}
     .n7-row .m.up {{ color: {UP}; }}
     .n7-row .m.dn {{ color: {DOWN}; }}
@@ -391,14 +481,13 @@ def n7():
     s.enter("title", 0.1, "left:70px;top:284px;width:660px;height:140px", '<span class="gothic">The Standings</span>', kind="rise")
     s.enter("sub", 0.3, "left:700px;top:350px;width:310px;height:60px", f'<span class="i">after Week {WEEK}</span>')
     best = F["standings"][0]["record"]
-    cut = F.get("playoff_teams") or 0
-    rowh, gap = 54, 38                     # the gap holds the "PLAYOFF LINE" label
+    gap = 38                               # the gap holds the "PLAYOFF LINE" label
     for i, r in enumerate(F["standings"]):
         d = 0 if r.get("prev_rank") is None else r["prev_rank"] - r["rank"]
         move = "" if r.get("prev_rank") is None else ("–" if d == 0 else (f"UP {d}" if d > 0 else f"DN {-d}"))
         mcls = "m" if d == 0 else ("m up" if d > 0 else "m dn")
         cls = "n7-row" + (" n7-top" if r["record"] == best else "") + (" n7-line" if cut and r["rank"] == cut else "")
-        inner = (f'<div class="{cls}"><span class="k">{r["rank"]}</span><span class="n">{E(r["manager"])}</span>'
+        inner = (f'<div class="{cls}"><span class="k">{r["rank"]}</span><span class="n">{E(r["manager"])}{streak_badge(r["manager"], k)}</span>'
                  f'<span class="{mcls}">{move}</span><span class="r">{r["record"]}</span></div>')
         top = 436 + i * rowh + (gap if cut and r["rank"] > cut else 0)
         s.enter(f"r{i}", 0.4 + i * 0.07, f"left:70px;top:{top}px;width:940px;height:{rowh}px", inner, kind="left")
@@ -412,38 +501,38 @@ def n7():
 def n7b():
     """The power rankings of the gazette: rank, team, move from last week, season record, and true record (the all-play record)."""
     s = Scene("n7b")
+    rowh, k = table_rows(478, len(P["power"]))
     s.css = f"""
     #n7b-title-in {{ font-size: {fit("Power Rankings", 930, 150)}px; }}
     #n7b-note-in {{ display: flex; align-items: flex-end; justify-content: space-between; font-size: 34px; line-height: 1.1; }}
     #n7b-note-in .h {{ font-family: "League Gothic", sans-serif; font-size: 34px; letter-spacing: 2px; color: {ACCENT}; white-space: nowrap; line-height: 1; }}
     #n7b-note-in .h span {{ display: inline-block; text-align: right; }}
-    .n7b-row {{ display: flex; align-items: center; height: 100%; border-bottom: 2px solid rgba(28, 27, 25, 0.45); font-size: 40px; }}
-    .n7b-row .k {{ font-family: "League Gothic", sans-serif; font-size: 50px; width: 78px; }}
+    .n7b-row {{ display: flex; align-items: center; height: 100%; border-bottom: 2px solid rgba(28, 27, 25, 0.45); font-size: {k(40)}px; }}
+    .n7b-row .k {{ font-family: "League Gothic", sans-serif; font-size: {k(50)}px; width: {k(78)}px; }}
     .n7b-row .n {{ flex: 1; font-weight: 700; white-space: nowrap; }}
-    .n7b-row .m {{ width: 92px; font-family: "League Gothic", sans-serif; font-size: 38px; text-align: right; padding-right: 22px; }}
-    .n7b-row .c {{ width: 86px; font-family: "League Gothic", sans-serif; font-size: 44px; text-align: right; color: {MUTED}; }}
-    .n7b-row .r {{ width: 150px; font-family: "League Gothic", sans-serif; font-size: 52px; text-align: right; }}
+    .n7b-row .m {{ width: {k(92)}px; font-family: "League Gothic", sans-serif; font-size: {k(38)}px; text-align: right; padding-right: 22px; }}
+    .n7b-row .c {{ width: {k(86)}px; font-family: "League Gothic", sans-serif; font-size: {k(44)}px; text-align: right; color: {MUTED}; }}
+    .n7b-row .r {{ width: {k(150)}px; font-family: "League Gothic", sans-serif; font-size: {k(52)}px; text-align: right; }}
     .n7b-top .k, .n7b-top .r {{ color: {ACCENT}; }}
     .n7b-row .m.up {{ color: {UP}; }}
     .n7b-row .m.dn {{ color: {DOWN}; }}
 """
     s.html.append(HEADER)
     s.enter("title", 0.1, "left:70px;top:284px;width:940px;height:140px", '<span class="gothic">Power Rankings</span>', kind="rise")
-    note = ('<span class="i">True record: against every team, every week</span>'
-            '<span class="h"><span style="width:86px">REC</span><span style="width:150px">TRUE REC</span></span>')
+    note = (f'<span class="i">True record: against every team, every week</span>'
+            f'<span class="h"><span style="width:{k(86)}px">REC</span><span style="width:{k(150)}px">TRUE REC</span></span>')
     s.enter("note", 0.3, "left:70px;top:432px;width:940px;height:44px", note)
-    rowh = 54
     for i, r in enumerate(P["power"]):
         prev = r.get("prev_power_rank")                 # no value in the first week
         d = 0 if prev is None else prev - r["power_rank"]
         move = "" if prev is None else ("–" if d == 0 else (f"UP {d}" if d > 0 else f"DN {-d}"))
         mcls = "m" if d == 0 else ("m up" if d > 0 else "m dn")
-        inner = (f'<div class="n7b-row{" n7b-top" if r["power_rank"] == 1 else ""}"><span class="k">{r["power_rank"]}</span><span class="n">{E(r["manager"])}</span>'
+        inner = (f'<div class="n7b-row{" n7b-top" if r["power_rank"] == 1 else ""}"><span class="k">{r["power_rank"]}</span><span class="n">{E(r["manager"])}{luck_tag(r["manager"], k)}</span>'
                  f'<span class="{mcls}">{move}</span><span class="c">{r["record"]}</span><span class="r">{r["all_play"]}</span></div>')
         s.enter(f"r{i}", 0.4 + i * 0.07, f"left:70px;top:{478 + i * rowh}px;width:940px;height:{rowh}px", inner, kind="left")
         said = s.when_re(cue_pattern(r["manager"]))     # the row of a team gets a tint when the announcer names that team
         if said is not None:
-            tint = "rgba({}, {}, {}, 0.13)".format(*(int(ACCENT[k:k + 2], 16) for k in (1, 3, 5)))      # the accent of the edition
+            tint = "rgba({}, {}, {}, 0.13)".format(*(int(ACCENT[j:j + 2], 16) for j in (1, 3, 5)))      # the accent of the edition
             s.js.append(f'tl.to("#n7b-r{i}-in", {{ backgroundColor: "{tint}", duration: 0.25, ease: "power1.out" }}, {round(max(said, 0.4 + i * 0.07 + 0.4), 2)});')
     s.write()
 
@@ -469,7 +558,9 @@ def n8():
     def fighter(t):
         nm = t["manager"].upper()
         return (f'<div class="n8-f"><div class="gothic n" style="font-size:{fit(nm, 900, 122)}px">{E(nm)}</div>'
-                f'<div class="r">No. {t["rank"]} · <span class="b">{t["record"]}</span></div></div>')
+                f'<div class="r">No. {t["rank"]} · <span class="b">{t["record"]}</span>'
+                # the odds of the gazette count byes: say so, or a No. 1 team as the underdog looks like a mistake
+                + (' · <span class="i accent">starters on bye</span>' if t.get("starters_on_bye") else "") + '</div></div>')
     s.enter("a", 0.8, "left:70px;top:578px;width:940px;height:166px", fighter(a), kind="left")
     s.enter("vs", 1.1, "left:486px;top:752px;width:108px;height:108px", '<span class="gothic">vs</span>', kind="pop")
     s.enter("b", 1.3, "left:70px;top:868px;width:940px;height:166px", fighter(b), kind="right")
@@ -497,6 +588,15 @@ def n9():
     s.enter("news", 0.15, "left:70px;top:490px;width:940px;height:160px", '<span class="gothic">That’s the news</span>', kind="slam")
     s.enter("rivet", 0.6, "left:440px;top:650px;width:200px;height:200px", rivet("celebrate", 3), kind="pop", cls="rivet")
     last = s.beat["sentences"][-1]
+    if CALL and len(s.beat["sentences"]) > 1:
+        # last week's call: on screen until the end card comes in its place
+        verdict = "Called it!" if CALL["hit"] else "Missed it!"
+        call = (f'<div class="gothic" style="font-size:44px;letter-spacing:8px;color:{ACCENT}">Last week’s call</div>'
+                f'<div style="font-size:42px;margin-top:8px"><span class="b">{E(CALL["favorite"])}</span> at {CALL["pct"]}% over {E(CALL["underdog"])}</div>'
+                f'<div class="gothic" style="font-size:84px;margin-top:6px">{verdict}</div>')
+        t_end = s.sentence(len(s.beat["sentences"]) - 1)
+        s.enter("call", 0.4, "left:70px;top:866px;width:940px;height:270px", f'<div style="text-align:center;padding:20px">{call}</div>',
+                kind="pop", cls="card", dur=round(t_end - 0.4, 2))
     site = E(args.site) if len(args.site) <= 46 else E(args.site).replace("/league-recap/", "/league-recap/<br>")      # a long address breaks at a slash, not inside a word
     end = (f'<div class="gothic a">Read the full edition</div><div class="u">{site}</div><div class="t">— 30 —</div>')
     s.enter("end", s.sentence(len(s.beat["sentences"]) - 1) if len(s.beat["sentences"]) > 1 else 1.2,
@@ -585,6 +685,9 @@ def caption_groups():
     return groups
 
 
+CAP_SPANS = []      # (start, end) of each caption clip, for the wipes of the film overlay
+
+
 def captions():
     rows, n = [], 0
     # A caption starts and ends in the middle between two video frames. Then no frame is on the border of two captions:
@@ -592,6 +695,7 @@ def captions():
     snap = lambda t: (int(t * FPS) + 0.5) / FPS
     for start, end, text in caption_groups():
         start, end = snap(start), snap(end)
+        CAP_SPANS.append((start, start + max(2 / FPS, end - start)))
         size = 56 if len(text) <= 32 else max(40, int(920 / (len(text) * 0.51)))      # one size; only a very long caption is smaller
         rows.append(f'<div id="cap-{n}" class="clip" data-start="{start:.4f}" data-duration="{max(2 / FPS, end - start):.4f}" '
                     f'style="left:70px;top:{1184 - OFF}px;width:940px;height:124px"><div class="cap" style="font-size:{size}px"><span>{E(text)}</span></div></div>')
@@ -617,6 +721,9 @@ def captions():
 
 
 # ---------------------------------------------------------------- old film overlay
+IRIS_R = 1500           # larger than the distance from the iris centre to each corner of the frame
+
+
 def film():
     rng = random.Random(1938)             # a fixed seed: every build gives the same flicker and scratches
     wrap = lambda rows: "[\n        " + ",\n        ".join(", ".join(json.dumps(r) for r in rows[i:i + 8]) for i in range(0, len(rows), 8)) + "\n      ]"
@@ -629,17 +736,46 @@ def film():
     while t < DUR - 1:                    # a speck shows for two frames
         dust.append([round(t, 2), rng.randint(40, W - 60), rng.randint(200, H - 300), round(rng.uniform(0.5, 1.8), 2)])
         t += rng.uniform(0.35, 1.5)
-    cuts = [round(b["start"], 2) for b in TL["beats"][1:]]                             # a white flash on each cut, like a splice
+    # a wipe at each cut, as in a newsreel of the time: a dark band with the accent at its edges crosses the frame and hides the cut.
+    # It stays inside the pause between two captions, so the caption strip is never covered. A cut with no room for it keeps the white flash.
+    wipes, cuts = [], []
+    for b in TL["beats"][1:]:
+        c = b["start"]
+        before = max([e for _, e in CAP_SPANS if e <= c + 1e-6], default=0.0)
+        after = min([a for a, _ in CAP_SPANS if a >= c - 1e-6], default=DUR)
+        half = round(min(0.22, c - before - 0.06, after - c - 0.06), 3)
+        if half >= 0.12:
+            wipes.append([round(c - half, 3), round(2 * half, 3)])
+            if b["id"] != "n2":                                                      # n2 has its own whoosh
+                SFX.append(("whoosh", c - half, 0.22))
+        else:
+            cuts.append(round(c, 2))                                                 # a white flash on the cut, like a splice
+    # the cover picture and the site poster: a moment of the lead after the front page has landed, with no scratch and no speck on the frame
+    n2 = BEATS.get("n2")
+    if n2:
+        clear = lambda t: (not any(t0 - 0.05 <= t <= t1 + 0.05 for t0, _, _, _, t1 in scratches)
+                           and not any(t0 - 0.05 <= t <= t0 + 0.12 for t0, _, _, _ in dust))
+        tries = [round(n2["start"] + 2.5 + k * 0.1, 2) for k in range(int((n2["end"] - n2["start"] - 2.8) / 0.1))]
+        OUT.append((ROOT / "build" / "cover_time.txt", str(next((t for t in tries if clear(t)), round(n2["start"] + 2.5, 2))) + "\n"))
+    # the newsreel closes with an iris on the end card, after the last caption has gone
+    last_cap = TL["beats"][-1]["sentences"][-1]["end"]
+    iris_at = round(max(last_cap + 0.2, DUR - 1.0), 2)
+    iris_d = round(DUR - 0.04 - iris_at, 2)
+    iris_y = 866 + 135 - OFF                                           # the middle of the end card of n9
     js = [
         f"const FLICKER = {wrap(flicker)};",
         f"const SCRATCHES = {wrap(scratches)};",
         f"const DUST = {wrap(dust)};",
         f"const CUTS = {json.dumps(cuts)};",
+        f"const WIPES = {json.dumps(wipes)};",
+        f'WIPES.forEach(([t, d]) => {{ tl.fromTo("#film-wipe", {{ x: {-(W + 750)}, skewX: -10 }}, {{ x: {W + 250}, skewX: -10, duration: d, ease: "power1.inOut", immediateRender: false }}, t); }});',
         f'tl.to("#film-flicker", {{ keyframes: {{ opacity: FLICKER, easeEach: "none" }}, duration: {DUR}, ease: "none" }}, 0);',
         'SCRATCHES.forEach(([t, which, x, o, end]) => { tl.set("#film-scratch-" + which, { x: x, opacity: o }, t); tl.set("#film-scratch-" + which, { opacity: 0 }, end); });',
         'DUST.forEach(([t, x, y, k]) => { tl.set("#film-dust", { x: x, y: y, scale: k, opacity: 0.75 }, t); tl.set("#film-dust", { opacity: 0 }, t + 0.07); });',
         'CUTS.forEach((t) => { tl.set("#film-flash", { opacity: 0.6 }, t); tl.to("#film-flash", { opacity: 0, duration: 0.14, ease: "power1.out" }, t + 0.01); });',
     ]
+    if iris_d >= 0.3:
+        js.append(f'tl.set("#film-iris", {{ opacity: 1 }}, {iris_at}); tl.fromTo("#film-iris-c", {{ attr: {{ r: {IRIS_R} }} }}, {{ attr: {{ r: 0 }}, duration: {iris_d}, ease: "power2.in" }}, {iris_at});')
     grain = (ROOT / "compositions" / "components" / "grain-overlay.html").read_text()
     grain = re.sub(r"<!--.*?-->", "", grain, flags=re.S).strip()
     # a lighter and slower grain than the component default: a fast grain makes the video file about three times larger
@@ -654,6 +790,8 @@ def film():
     #film-vignette {{ background: radial-gradient(ellipse at 50% 46%, rgba(0, 0, 0, 0) 70%, rgba(0, 0, 0, 0.04) 100%); }}
     #film-flicker {{ background: #000; opacity: 0; }}
     #film-flash {{ background: #fff; opacity: 0; }}
+    #film-wipe {{ position: absolute; top: 0; left: 0; width: {W + 500}px; height: {H}px; transform: translateX({-(W + 750)}px) skewX(-10deg);
+                 background: linear-gradient(90deg, {ACCENT} 0 44px, {INK} 44px calc(100% - 44px), {ACCENT} calc(100% - 44px)); }}
     .film-scratch {{ position: absolute; top: 0; left: 0; width: 3px; height: {H}px; background: rgba(28, 27, 25, 0.5); opacity: 0; }}
     #film-scratch-b {{ width: 2px; background: rgba(20, 20, 20, 0.8); }}
     #film-dust {{ position: absolute; left: 0; top: 0; width: 16px; height: 11px; border-radius: 50%; background: rgba(15, 15, 15, 0.9); opacity: 0; }}
@@ -667,6 +805,11 @@ def film():
     <div id="film-vignette" class="film-layer" data-layout-ignore></div>
     <div id="film-flicker" class="film-layer" data-layout-ignore></div>
     <div id="film-flash" class="film-layer" data-layout-ignore></div>
+    <div id="film-wipe" data-layout-ignore></div>
+    <svg id="film-iris" class="film-layer" width="{W}" height="{H}" viewBox="0 0 {W} {H}" style="opacity: 0" data-layout-ignore>
+      <defs><mask id="film-iris-m"><rect width="{W}" height="{H}" fill="#fff"/><circle id="film-iris-c" cx="540" cy="{iris_y}" r="{IRIS_R}" fill="#000"/></mask></defs>
+      <rect width="{W}" height="{H}" fill="#14130f" mask="url(#film-iris-m)"/>
+    </svg>
   </div>
   <script>
     (function () {{
@@ -682,7 +825,7 @@ def film():
 
 # ---------------------------------------------------------------- sound effects and the root file
 SFX = []            # (kind, absolute time, volume), filled by the scenes
-SFX_SRC = {"whoosh": "whoosh.mp3", "pop": "pop.mp3", "impact": "impact-bass-1.mp3"}
+SFX_SRC = {"whoosh": "whoosh.mp3", "pop": "pop.mp3", "impact": "impact-bass-1.mp3", "beep": None}      # beep.wav: a 1 kHz tone of 0.07 s, made with ffmpeg, in the repository
 
 
 def sfx_files(skill_dir):
@@ -692,12 +835,25 @@ def sfx_files(skill_dir):
     durs = {}
     for kind, name in SFX_SRC.items():
         dst = out / f"{kind}.wav"
-        if not dst.exists():
+        if not dst.exists() and name:
             subprocess.run(["ffmpeg", "-nostdin", "-y", "-loglevel", "error", "-i", str(pathlib.Path(skill_dir) / name),
                             "-af", "highpass=f=250,lowpass=f=3600,aresample=44100", "-ac", "1", str(dst)], check=True)
         p = subprocess.run(["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", str(dst)], capture_output=True, text=True, check=True)
         durs[kind] = float(p.stdout.strip())
     return durs
+
+
+def projector():
+    """A quiet bed of a film projector under the whole edition, made with ffmpeg: the shutter clicks 24 times each second over a motor hum.
+    It has the narrow band of the voice. It fades in with the leader and out with the iris. The file is made again on each build."""
+    tick = "0.5*sin(2*PI*1400*t)*exp(-mod(t\\,1/24)*380)"
+    graph = (f"aevalsrc='{tick}':s=44100:d={DUR}[k];anoisesrc=c=brown:a=0.5:r=44100:d={DUR},bandpass=f=420:w=300[m];"
+             f"[k][m]amix=inputs=2:weights='0.35 1':normalize=0,highpass=f=220,lowpass=f=3600,volume={PROJECTOR_GAIN}dB,"
+             f"afade=t=in:d=1.2,afade=t=out:st={max(0, DUR - 1.0)}:d=0.95")
+    subprocess.run(["ffmpeg", "-nostdin", "-y", "-loglevel", "error", "-filter_complex", graph, "-ac", "1", str(ROOT / "assets" / "audio" / "projector.wav")], check=True)
+
+
+PROJECTOR_GAIN = -10        # the bed measures about -42 LUFS, about 28 dB under the voice (-13.6 LUFS), near the hiss of the voice chain
 
 
 def index(durs):
@@ -706,7 +862,8 @@ def index(durs):
         hosts.append(f'<div id="{b["id"]}" data-composition-id="{b["id"]}" data-composition-src="compositions/{b["id"]}.html" '
                      f'data-start="{b["start"]}" data-duration="{round(b["end"] - b["start"], 3)}" data-track-index="1" data-track-kind="graphics" '
                      f'data-width="{W}" data-height="{H}" style="z-index:1"></div>')
-    audio = [f'<audio id="vo" class="clip" data-start="0" data-duration="{DUR}" data-track-index="4" data-volume="1" src="assets/audio/narration.mp3"></audio>']
+    audio = [f'<audio id="vo" class="clip" data-start="0" data-duration="{DUR}" data-track-index="4" data-volume="1" src="assets/audio/narration.mp3"></audio>',
+             f'<audio id="projector" class="clip" data-start="0" data-duration="{DUR}" data-track-index="7" data-volume="1" src="assets/audio/projector.wav"></audio>']
     for n, (kind, at, vol) in enumerate(sorted(SFX, key=lambda x: x[1])):
         d = min(durs[kind], DUR - at - 0.05)
         audio.append(f'<audio id="sfx-{n}-{kind}" class="clip" data-start="{round(at, 2)}" data-duration="{round(d, 2)}" data-track-index="{5 + n % 2}" '
@@ -749,7 +906,9 @@ def index(durs):
 if __name__ == "__main__":
     (ROOT / "compositions").mkdir(exist_ok=True)
     SFX.append(("whoosh", BEATS["n2"]["start"] + 0.12, 0.5))
-    scenes = {"n1": n1, "n2": n2, "n3": n3, "n4": n4, "n5": n5, "n6": n6, "n7": n7, "n7b": n7b, "n8": n8, "n9": n9}
+    if TL["beats"][0]["id"] == "n1":
+        SFX.append(("beep", 0.8, 0.45))        # the "two-pop" of a film leader: one short tone when the count shows 2
+    scenes = {"n1": n1, "n2": n2, "n3": n3, "n4": n4, "n5": n5, "n6": n6, "n6b": n6b, "n7": n7, "n7b": n7b, "n8": n8, "n9": n9}
     for b in TL["beats"]:                  # the script gives the segments and their order
         if b["id"] not in scenes:
             sys.exit(f"The script has a segment {b['id']!r}. The builder has no picture for it.")
@@ -757,6 +916,7 @@ if __name__ == "__main__":
     n_caps = captions()
     film()
     skill_sfx = ROOT.parent / ".claude" / "skills" / "media-use" / "audio" / "assets" / "sfx"
+    projector()
     index(sfx_files(skill_sfx))
     for path, text in OUT:                 # every scene is built: write the files now
         path.write_text(text)

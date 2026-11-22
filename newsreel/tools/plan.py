@@ -81,6 +81,49 @@ def season_mark(F, key, row):
     return m.get("week") == F["week"] and m.get("manager") == row["manager"] and m.get("pts") == row["pts"]
 
 
+def pun_of(F, player):
+    """The pun-name of a player that the gazette printed this week: a pun that the owner asked for, or a pun of the PUNS line that holds the full name."""
+    import re
+    own = (F.get("owner_pun_names") or {}).get(player)
+    if own:
+        return own
+    return next((p for p in F.get("week_puns") or [] if re.search(rf"(?<![A-Za-z]){re.escape(player)}(?![A-Za-z])", p) and p != player), None)
+
+
+def wire_of(F):
+    """The moves and trades of the week (segment n6b): the first trade, and the biggest waiver claim. None when the week has neither."""
+    trade = next((t["receives"] for t in F.get("trades") or [] if len(t.get("receives") or {}) == 2), None)
+    claim = (F.get("awards") or {}).get("big_spender") or next((a for a in F.get("adds") or [] if a.get("faab")), None)
+    if not trade and not claim:
+        return None
+    return {"trade": [{"manager": m, "players": p} for m, p in trade.items()] if trade else None, "claim": claim}
+
+
+def last_call(F, PREV):
+    """The grade of last week's Main Event odds: {"favorite", "pct", "a", "b", "hit"}; None without last week's facts, that game, or for a tie."""
+    if not PREV or not PREV.get("next_week_card"):
+        return None
+    c = PREV["next_week_card"][0]
+    r = next((r for r in F["results"] if {r["winner"], r["loser"]} == {c["a"]["manager"], c["b"]["manager"]}), None)
+    if not r or r.get("tie"):
+        return None
+    o = c["odds"]
+    return {"favorite": o["favorite"], "pct": o["favorite_pct"], "underdog": o["underdog"], "winner": r["winner"], "hit": r["winner"] == o["favorite"]}
+
+
+def prev_facts(root, edition, F):
+    """The facts of the week before (data/<edition of the week before>.facts.json), or None."""
+    import json
+    prefix = edition[: -len(f"{F['season']}_w{F['week']}")]
+    p = root / "data" / f"{prefix}{F['season']}_w{F['week'] - 1}.facts.json"
+    return json.loads(p.read_text()) if p.exists() else None
+
+
+def order_of(P):
+    """The segments of this edition. n6b (moves and trades) is in the edition only when the week has a trade or a waiver claim with a bid."""
+    return [s for s in ORDER if s != "n6b" or P.get("wire")]
+
+
 def plan(F):
     high, low = need(F, "high", "n2"), need(F, "low", "n6")
     lead, cellar = game_of(F, high["manager"]), game_of(F, low["manager"])
@@ -106,8 +149,10 @@ def plan(F):
         "low": low, "cellar": cellar, "low_label": "Lowest score of the season" if season_mark(F, "season_low", low) else "Lowest score of the week",
         "card": need(F, "next_week_card", "n8")[0],
         "power": need(F, "power_rankings", "n7b"),
+        "wire": wire_of(F),
     }
 
 
 # The segments in the order of the video. "n7b" is the power rankings; the Week 8 edition was made before that segment.
-ORDER = ["n1", "n2", "n3", "n4", "n5", "n6", "n7", "n7b", "n8", "n9"]
+# "n6b" is the moves and trades (asked for by the owner on 22 November 2026); it is left out in a week with no trade and no waiver bid.
+ORDER = ["n1", "n2", "n3", "n4", "n5", "n6", "n6b", "n7", "n7b", "n8", "n9"]
