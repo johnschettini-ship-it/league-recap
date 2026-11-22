@@ -311,3 +311,9 @@ The owner approved this file. It was built before the tools changed for Week 9, 
 - Sound effects: three effects that the HyperFrames skill bundles, from Pixabay under the Pixabay Content License.
 - Fonts: UnifrakturMaguntia and Old Standard TT, from the gazette repository. League Gothic, bundled with HyperFrames.
 - Robot: Rivet, from the gazette repository.
+
+More pun-names and full wipes (22 November 2026, asked by the owner):
+
+- **Pun-names on cards.** `build.pun_name` prints a player's pun-name the way the gazette does: the real name, then the pun part in accent italics ("Christian McCaffrey *Carry-On*"). It is used on the n4 bench rows, the n5 boom and bust cards, and the n6b trade and claim cards. A pun that does not hold the name follows it in quotes.
+- **Week 10.** Four new pun-names are in the Beer Den stories and its PUNS line (Ja'Marr Chase Bank, Emmett Johnson & Johnson, Demarcus Robinson Goose Egg, Christian McCaffrey Carry-On). `recap.py --finalize` passes. The script says them in n4, n5 and n6b.
+- **A wipe at every cut.** The last caption of a segment now ends 0.24 s before the cut. Before, a long script shortened the pauses, the caption hold filled the pause, and 9 of 10 cuts fell back to the white flash. Now all 10 cuts wipe.
