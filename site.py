@@ -124,6 +124,13 @@ footer{margin-top:36px;border-top:3px double var(--rule);padding-top:10px;font:i
 td,th{overflow-wrap:anywhere;vertical-align:baseline}
 td.n,th.n{text-align:right;padding-right:14px;font-variant-numeric:tabular-nums lining-nums}
 td.st,th.st{text-align:left;padding-left:8px;font-variant-numeric:tabular-nums}
+td.st.hot{color:var(--up);font-weight:700}td.st.cold{color:var(--down);font-weight:700}
+.tag{display:inline-block;margin-left:6px;padding:0 5px;border:1.5px solid;font:700 11px/1.5 Old Standard TT,serif;letter-spacing:1px;text-transform:uppercase;vertical-align:2px}
+.tag.hot{color:var(--up)}.tag.cold{color:var(--down)}
+.pun{color:var(--muted);font-size:.92em}
+.call{margin:18px 0 6px;padding:10px 14px;border:2px solid var(--ink);border-left:8px solid var(--accent);font-size:17px;line-height:1.4}
+.call .ck{font-variant:small-caps;letter-spacing:1px;font-weight:700;color:var(--accent);margin-right:4px}
+.call.miss{border-left-color:#555}
 .pw th.roast,.pw td.roast{padding-left:14px}
 td .up,td .down{font-size:.8em;margin-left:1px;white-space:nowrap}
 
@@ -157,6 +164,7 @@ td .up,td .down{font-size:.8em;margin-left:1px;white-space:nowrap}
 .sheet{border-top:6px solid var(--accent)}
 tr.cut td{border-bottom:2px dashed var(--accent)}
 .cutnote{font:italic 14px 'IM Fell English',serif;margin:8px 0 0;display:flex;align-items:center;gap:8px}
+.watch{font:italic 14px 'IM Fell English',serif;margin:6px 0 0;line-height:1.5}
 .cutkey{display:inline-block;width:28px;border-top:2px dashed var(--accent)}
 .bracket{margin:6px 0 26px}.brs{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(180px,1fr);gap:18px;overflow-x:auto;padding-bottom:6px}
 .br h4{font:700 13px/1 'Old Standard TT',serif;text-transform:uppercase;letter-spacing:2px;text-align:center;margin:0 0 10px}
@@ -348,18 +356,100 @@ def stories_html(md, f):
     return "".join(out)
 
 
-def awards_html(f):
+def week_puns(md):
+    """The PUNS line of the week's stories, as a list."""
+    m = re.search(r"^PUNS:(.*)$", md or "", re.M)
+    return [p.strip() for p in m[1].split("|") if p.strip()] if m else []
+
+
+def pun_of(f, md, player):
+    """The pun-name the gazette printed for a player this week: an owner pun, or a pun of the PUNS line that holds the full name (as in the newsreel)."""
+    own = (f.get("owner_pun_names") or {}).get(player)
+    if own:
+        return own
+    return next((p for p in week_puns(md) if p != player and re.search(rf"(?<![A-Za-z]){re.escape(player)}(?![A-Za-z])", p)), None)
+
+
+def pun_html(f, md, player):
+    p = pun_of(f, md, player)
+    return f' <i class="pun">“{E(p)}”</i>' if p else ""
+
+
+def in_playoffs(f):
+    return bool(f.get("playoff_week_start")) and f["week"] >= f["playoff_week_start"]
+
+
+def streak_watch(f, manager):
+    """Streak Watch: the league's hottest and coldest streak (lore), 3 games or more, regular season only. Returns ("hot"|"cold", text) or None."""
+    if in_playoffs(f):
+        return None
+    l = f.get("lore") or {}
+    for key, kind, word in (("hot_streak", "hot", "Won"), ("cold_streak", "cold", "Lost")):
+        x = l.get(key) or {}
+        n = int((x.get("streak") or "X0")[1:] or 0)
+        if x.get("manager") == manager and n >= 3:
+            return kind, f"{word} {n} straight"
+    return None
+
+
+def luck_tag(f, manager):
+    """Luck Meter: the luckiest and unluckiest team (record against true record), from lore."""
+    l = f.get("lore") or {}
+    for key, kind, word in (("luckiest", "hot", "Luckiest"), ("unluckiest", "cold", "Unluckiest")):
+        if (l.get(key) or {}).get("manager") == manager:
+            return f' <span class="tag {kind}">{word}</span>'
+    return ""
+
+
+def last_call(f, prev):
+    """Last Week's Call: last week's Main Event odds against this week's result. None without last week's issue, that game, or for a tie."""
+    card = card_of(prev) if prev else []
+    if not card or not card[0].get("odds"):
+        return None
+    c = card[0]
+    r = next((r for r in f.get("results") or [] if {r["winner"], r["loser"]} == {c["a"]["manager"], c["b"]["manager"]}), None)
+    if not r or r.get("tie"):
+        return None
+    o = c["odds"]
+    return {"favorite": o["favorite"], "pct": o["favorite_pct"], "underdog": o["underdog"], "winner": r["winner"], "hit": r["winner"] == o["favorite"]}
+
+
+def call_html(f, prev):
+    c = last_call(f, prev)
+    if not c:
+        return ""
+    verdict = "Called it!" if c["hit"] else "Missed it!"
+    tail = f'{E(c["favorite"])} delivered.' if c["hit"] else f'{E(c["winner"])} pulled the upset.'
+    return (f'<div class="call {"hit" if c["hit"] else "miss"}"><span class="ck">Last Week’s Call</span> '
+            f'{E(c["favorite"])} at {c["pct"]}% over {E(c["underdog"])}. <b>{verdict}</b> {tail}</div>')
+
+
+def moves_html(f, md):
+    """Moves & Trades: every trade of the week, and the top waiver claim (as in the newsreel)."""
+    items = []
+    for t in f.get("trades") or []:
+        sides = [f"{E(m)} gets {', '.join(E(x) + pun_html(f, md, x) for x in pl)}" for m, pl in (t.get("receives") or {}).items()]
+        if sides:
+            items.append(("🤝", "Trade", "; ".join(sides), ""))
+    claim = (f.get("awards") or {}).get("big_spender") or max((a for a in f.get("adds") or [] if a.get("faab")), key=lambda a: a["faab"], default=None)
+    if claim:
+        items.append(("📋", "Top Waiver Claim", f"{E(claim['player'])}{pun_html(f, md, claim['player'])} · ${claim['faab']}", E(claim["manager"])))
+    rows = "".join(f'<li><span class="orn">{i}</span> <b>{k}</b><span class="aw">{v}</span><i>{m}</i></li>' for i, k, v, m in items)
+    return f'<div class="feat" id="moves"><div class="section-h">Moves &amp; Trades</div><ul class="list">{rows}</ul></div>' if items else ""
+
+
+def awards_html(f, md=""):
     a, items = f.get("awards") or {}, []
     if a.get("boom"):
-        b = a["boom"]; items.append(("🔥", "Boom of the Week", f"{E(b['player'])} · {b['pts']}", E(b["manager"])))
+        b = a["boom"]; items.append(("🔥", "Boom of the Week", f"{E(b['player'])}{pun_html(f, md, b['player'])} · {b['pts']}", E(b["manager"])))
     if a.get("dud"):
-        d = a["dud"]; items.append(("🧊", "Dud of the Week", f"{E(d['player'])} · {d['pts']}", E(d["manager"])))
+        d = a["dud"]; items.append(("🧊", "Dud of the Week", f"{E(d['player'])}{pun_html(f, md, d['player'])} · {d['pts']}", E(d["manager"])))
     if a.get("bench_crime"):
         c = a["bench_crime"]
         items.append(("🚑", "Bench Crime", f"{E(c['benched'])} ({c['benched_pts']}) sat for {E(c['started'])} ({c['started_pts']})", E(c["manager"])))
-    if a.get("big_spender"):
-        x = a["big_spender"]; items.append(("💸", "Big Spender", f"${x['faab']} on {E(x['player'])}", E(x["manager"])))
-    elif a.get("most_active"):
+    if f.get("most_bench_pts"):
+        x = f["most_bench_pts"]; items.append(("🪑", "Most Bench Points", f"{x['bench_pts']} points left on the bench", E(x["manager"])))
+    if a.get("most_active") and not a.get("big_spender"):          # the big spender is the top waiver claim in Moves & Trades
         x = a["most_active"]; items.append(("🔁", "Most Active", f"{x['moves']} moves", E(x["manager"])))
     rows = "".join(f'<li><span class="orn">{i}</span> <b>{k}</b><span class="aw">{v}</span><i>{m}</i></li>' for i, k, v, m in items)
     return f'<div class="feat"><div class="section-h">Weekly Awards</div><ul class="list">{rows}</ul></div>' if items else ""
@@ -442,7 +532,7 @@ def power_html(f, md):
                 return re.split(r"\s[—–-]\s|:\s", l.split(name, 1)[1], maxsplit=1)[-1].strip()
         return ""
     rows = "".join(
-        f"<tr><td>{p['power_rank']}</td><td>{E(p['manager'])}{arrow(p.get('prev_power_rank'), p['power_rank'])}</td>"
+        f"<tr><td>{p['power_rank']}</td><td>{E(p['manager'])}{luck_tag(f, p['manager'])}{arrow(p.get('prev_power_rank'), p['power_rank'])}</td>"
         f"<td>{p['record']}</td><td class=n>{p['all_play']}</td><td class=roast>{wa(roast(p['manager']))}</td></tr>"
         for p in pr)
     return (f'<section class="power" id="power"><div class="section-h">Power Rankings</div>'
@@ -452,13 +542,22 @@ def power_html(f, md):
             f'<tr><th>#</th><th>Manager</th><th>Rec</th><th class=n>True Rec.</th><th class=roast>The word on the street</th></tr>{rows}</table></section>')
 
 
+def streak_cell(f, s):
+    w = streak_watch(f, s["manager"])
+    if not w:
+        return f"<td class=st>{s['streak']}</td>"
+    return f'<td class="st {w[0]}" title="{w[1]}">{s["streak"]}</td>'          # the Streak Watch line under the table names it
+
+
 def standings(f):
+    streaks = [(s["manager"], w) for s in f["standings"] if (w := streak_watch(f, s["manager"]))]
+    watch = (f'<p class="watch"><b>Streak Watch:</b> ' + " ".join(f'{"🔥" if w[0] == "hot" else "🧊"} {E(m)} has {w[1][0].lower() + w[1][1:]}.' for m, w in streaks) + "</p>") if streaks else ""
     head = ('<colgroup><col class="c-rk"><col><col class="c-rec"><col class="c-pf"><col class="c-st"></colgroup>'
             "<tr><th>#</th><th>Manager</th><th>Rec</th><th class=n>PF</th><th class=st>Strk</th></tr>")
     race = f.get("playoff_race")
     cut = (race or {}).get("playoff_teams")
     rows = [f"<tr{' class=cut' if cut and s['rank'] == cut else ''}><td>{s['rank']}</td><td>{E(s['manager'])}{arrow(s.get('prev_rank'), s['rank'])}</td><td>{s['record']}</td>"
-            f"<td class=n>{n2(s['pf'])}</td><td class=st>{s['streak']}</td></tr>" for s in f["standings"]]
+            f"<td class=n>{n2(s['pf'])}</td>{streak_cell(f, s)}</tr>" for s in f["standings"]]
     half = (len(rows) + 1) // 2
     note = ""
     if race:
@@ -466,7 +565,7 @@ def standings(f):
         when = "The field is set." if left == 0 else f"{left} week{'s' if left > 1 else ''} left in the regular season."
         note = f'<p class="cutnote"><span class="cutkey"></span> Playoff line: top {cut} advance. {when}</p>'
     return (f'<div class="st2"><table>{head}{"".join(rows[:half])}</table>'
-            f'<table>{head}{"".join(rows[half:])}</table></div>{note}')
+            f'<table>{head}{"".join(rows[half:])}</table></div>{note}{watch}')
 
 
 def bracket_html(f):
@@ -543,14 +642,14 @@ def finder(f, stories):
             + " · ".join(f'<a href="#{a}">{E(n)}</a>' for n, a in links) + "</nav>")
 
 
-def page(f, text, stories, weeks, title_prefix="", others="", og_url="", video="", poster=""):
+def page(f, text, stories, weeks, title_prefix="", others="", og_url="", video="", poster="", prev=None):
     league = E(f["league"])
     ed = theme.edition(f)
     head, deck = headline(f, banner_of(stories))
     desc = E(f"{head}. {deck}")
     archive = " · ".join(f'<a href="week-{w}.html">Week {w}</a>' for w in sorted(weeks, reverse=True))
     wa_html = "<br>\n".join(wa(l) for l in text.splitlines())
-    feats = [x for x in (awards_html(f), lore_html(f)) if x]
+    feats = [x for x in (awards_html(f, stories), moves_html(f, stories), lore_html(f)) if x]
     if stories:
         bouts = stories_html(stories, f)
         empty = (-bouts.count('class="cell bout"')) % 3            # holes in the last row of 3
@@ -565,6 +664,7 @@ def page(f, text, stories, weeks, title_prefix="", others="", og_url="", video="
               f'<meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image">'
               if og_url else "")
     jump = [("#review", "Review") if lead_of(stories) else None, ("#matchups", "Matchups") if stories else None,
+            ("#moves", "Moves") if moves_html(f, stories) else None,
             ("#ondeck", "On Deck") if card_of(f) else None,
             ("#bracket", "Bracket") if f.get("bracket") else None,
             ("#power", "Power") if f.get("power_rankings") else None, ("#standings", "Standings"),
@@ -597,6 +697,7 @@ def page(f, text, stories, weeks, title_prefix="", others="", og_url="", video="
 <div class="body">
 {cols}
 {features}
+{call_html(f, prev)}
 {ondeck_html(f, stories)}
 {bracket_html(f)}
 {power_html(f, stories)}
@@ -751,10 +852,11 @@ def build():
                 img = f"og-week-{w}.png"
                 ok = og_image(f, headline(f, banner_of(stories))[0], out / img)
                 url = f"{base}/{img}" if ok and base else ""
-                html_ = page(f, text, stories, weeks, f"Week {w} · ", others, url, video, poster)
+                prev = (issues.get((s, w - 1)) or (None,))[0]         # last week's issue, for Last Week's Call
+                html_ = page(f, text, stories, weeks, f"Week {w} · ", others, url, video, poster, prev)
                 (out / f"week-{w}.html").write_text(html_, encoding="utf-8")
                 if (s, w) == latest:
-                    (out / "index.html").write_text(page(f, text, stories, weeks, "", others, url, video, poster), encoding="utf-8")
+                    (out / "index.html").write_text(page(f, text, stories, weeks, "", others, url, video, poster, prev), encoding="utf-8")
         print(f"{name}: {len(weeks)} issue(s); front page = week {latest[1]}")
 
 
