@@ -710,6 +710,13 @@ def film():
                 SFX.append(("whoosh", c - half, 0.22))
         else:
             cuts.append(round(c, 2))                                                 # a white flash on the cut, like a splice
+    # the cover picture and the site poster: a moment of the lead after the front page has landed, with no scratch and no speck on the frame
+    n2 = BEATS.get("n2")
+    if n2:
+        clear = lambda t: (not any(t0 - 0.05 <= t <= t1 + 0.05 for t0, _, _, _, t1 in scratches)
+                           and not any(t0 - 0.05 <= t <= t0 + 0.12 for t0, _, _, _ in dust))
+        tries = [round(n2["start"] + 2.5 + k * 0.1, 2) for k in range(int((n2["end"] - n2["start"] - 2.8) / 0.1))]
+        OUT.append((ROOT / "build" / "cover_time.txt", str(next((t for t in tries if clear(t)), round(n2["start"] + 2.5, 2))) + "\n"))
     # the newsreel closes with an iris on the end card, after the last caption has gone
     last_cap = TL["beats"][-1]["sentences"][-1]["end"]
     iris_at = round(max(last_cap + 0.2, DUR - 1.0), 2)
