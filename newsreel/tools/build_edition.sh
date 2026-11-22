@@ -20,4 +20,9 @@ import json; d=json.load(open('build/$E.hf.json')); print('hyperframes ok', d['o
 npx --yes hyperframes@0.9.38 render --quality looks -o "renders/full_$E.mp4" --quiet > /dev/null 2>&1 || { echo "render failed"; exit 1; }
 tools/shrink.sh "renders/full_$E.mp4" "$OUT" 10 | tail -1          # 10 MB: the site keeps several weeks
 python3 tools/check_captions.py "$OUT" | tail -2
+# the cover picture of the file (the lead headline), for players and chat apps that show it before play; the video stream does not change
+T=$(python3 -c "import json; b={x['id']: x for x in json.load(open('build/timeline.json'))['beats']}; print(round(b['n2']['start'] + 2.5, 2))")
+ffmpeg -nostdin -v error -y -ss "$T" -i "renders/full_$E.mp4" -frames:v 1 -q:v 3 "build/$E.cover.jpg" \
+  && ffmpeg -nostdin -v error -y -i "$OUT" -i "build/$E.cover.jpg" -map 0 -map 1 -c copy -disposition:v:1 attached_pic -movflags +faststart "build/$E.cover.mp4" \
+  && mv "build/$E.cover.mp4" "$OUT" && echo "cover picture: build/$E.cover.jpg (at ${T} s)"
 python3 tools/frames.py "$FRAMES_DIR/$E" > /dev/null 2>&1; echo "review frames: $FRAMES_DIR/$E"

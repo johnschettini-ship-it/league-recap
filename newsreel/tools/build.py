@@ -482,7 +482,9 @@ def n8():
     def fighter(t):
         nm = t["manager"].upper()
         return (f'<div class="n8-f"><div class="gothic n" style="font-size:{fit(nm, 900, 122)}px">{E(nm)}</div>'
-                f'<div class="r">No. {t["rank"]} · <span class="b">{t["record"]}</span></div></div>')
+                f'<div class="r">No. {t["rank"]} · <span class="b">{t["record"]}</span>'
+                # the odds of the gazette count byes: say so, or a No. 1 team as the underdog looks like a mistake
+                + (' · <span class="i accent">starters on bye</span>' if t.get("starters_on_bye") else "") + '</div></div>')
     s.enter("a", 0.8, "left:70px;top:578px;width:940px;height:166px", fighter(a), kind="left")
     s.enter("vs", 1.1, "left:486px;top:752px;width:108px;height:108px", '<span class="gothic">vs</span>', kind="pop")
     s.enter("b", 1.3, "left:70px;top:868px;width:940px;height:166px", fighter(b), kind="right")
@@ -709,7 +711,7 @@ def film():
 
 # ---------------------------------------------------------------- sound effects and the root file
 SFX = []            # (kind, absolute time, volume), filled by the scenes
-SFX_SRC = {"whoosh": "whoosh.mp3", "pop": "pop.mp3", "impact": "impact-bass-1.mp3"}
+SFX_SRC = {"whoosh": "whoosh.mp3", "pop": "pop.mp3", "impact": "impact-bass-1.mp3", "beep": None}      # beep.wav: a 1 kHz tone of 0.07 s, made with ffmpeg, in the repository
 
 
 def sfx_files(skill_dir):
@@ -719,7 +721,7 @@ def sfx_files(skill_dir):
     durs = {}
     for kind, name in SFX_SRC.items():
         dst = out / f"{kind}.wav"
-        if not dst.exists():
+        if not dst.exists() and name:
             subprocess.run(["ffmpeg", "-nostdin", "-y", "-loglevel", "error", "-i", str(pathlib.Path(skill_dir) / name),
                             "-af", "highpass=f=250,lowpass=f=3600,aresample=44100", "-ac", "1", str(dst)], check=True)
         p = subprocess.run(["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", str(dst)], capture_output=True, text=True, check=True)
@@ -776,6 +778,8 @@ def index(durs):
 if __name__ == "__main__":
     (ROOT / "compositions").mkdir(exist_ok=True)
     SFX.append(("whoosh", BEATS["n2"]["start"] + 0.12, 0.5))
+    if TL["beats"][0]["id"] == "n1":
+        SFX.append(("beep", 0.8, 0.45))        # the "two-pop" of a film leader: one short tone when the count shows 2
     scenes = {"n1": n1, "n2": n2, "n3": n3, "n4": n4, "n5": n5, "n6": n6, "n7": n7, "n7b": n7b, "n8": n8, "n9": n9}
     for b in TL["beats"]:                  # the script gives the segments and their order
         if b["id"] not in scenes:

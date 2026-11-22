@@ -204,6 +204,12 @@ A review of the four Week 10 videos found four faults of finish. All four are co
 | The tables of n7 and n7b had rows of 54 px in each league, so a league of 10 teams left the lower quarter empty. | The row height fills the space to 1150 px (54 px to 66 px), and the type grows with it. A league of 12 teams is almost the same as before. |
 | The video stopped on a hard cut, with the hiss at about −40 dB in the last frame. | The picture closes with an iris on the end card after the last caption, and the sound fades in (0.25 s) and out (0.85 s). |
 
+Three more finishes in the same pass:
+
+- n8: a team with starters on bye has the note "starters on bye" after its record. The odds of the gazette count byes, so without the note a No. 1 team as the underdog looks like a mistake.
+- n1: one short 1 kHz tone (`assets/audio/sfx/beep.wav`, made with ffmpeg) when the leader shows 2, as on a film leader.
+- `build_edition.sh` puts a cover picture (the lead headline) in the MP4 after the caption check. Players and chat apps that read a cover picture show it before play; others show the first frame.
+
 Checks on the Beer Den Week 10 render with these corrections: screen check, `npx hyperframes check` (no errors, no warnings), caption check (0 of 2,252 caption frames without the strip), loudness −13.6 LUFS. Builds of Uncle Rico (two clippings) and Double Fist (10 teams) pass the screen check and the HyperFrames check, and their frames were inspected.
 
 ## Verification
