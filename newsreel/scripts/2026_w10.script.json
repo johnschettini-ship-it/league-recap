@@ -50,7 +50,8 @@
           "cap": "Wanted: The Escape Artist!"
         },
         {
-          "cap": "Emmett Johnson sits on the bench with 35.1."
+          "cap": "Emmett Johnson & Johnson sits on the bench with 35.1.",
+          "tts": "Emmett Johnson and Johnson sits on the bench with 35.1."
         },
         {
           "cap": "Javonte Williams scores 7.7, yet The Escape Artist gets away."
@@ -61,10 +62,10 @@
       "id": "n5",
       "sentences": [
         {
-          "cap": "Boom: Christian McCaffrey blazes to 46.3 for haze4daze!"
+          "cap": "Boom: Christian McCaffrey Carry-On blazes to 46.3!"
         },
         {
-          "cap": "Bust: Demarcus Robinson scores a flat 0.0."
+          "cap": "Bust: Demarcus Robinson Goose Egg, a flat 0.0."
         }
       ]
     },
@@ -85,8 +86,8 @@
       "id": "n6b",
       "sentences": [
         {
-          "cap": "Trade wire: Folding Table Champ lands Ja'Marr Chase!",
-          "tts": "Trade wire: Folding Table Champ lands Juh-Mar Chase!"
+          "cap": "Trade wire: Folding Table Champ lands Ja'Marr Chase Bank!",
+          "tts": "Trade wire: Folding Table Champ lands Juh-Mar Chase Bank!"
         },
         {
           "cap": "Top waiver claim: Jordyn Tyson Chicken, for 11 dollars."

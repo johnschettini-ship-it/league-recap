@@ -79,6 +79,19 @@ def fit(text, max_px, base, ratio=0.42):
     return int(min(base, max_px / (max(1, len(text)) * ratio)))
 
 
+def pun_name(player):
+    """(html, plain) of a player's name with this week's pun-name, as the gazette prints it: "Christian McCaffrey <i>Carry-On</i>".
+    A pun that does not hold the name follows it in quotes. Without a pun: the name."""
+    pun = pun_of(F, player)
+    if not pun:
+        return E(player), player
+    style = f'style="color:{ACCENT};font-style:italic"'
+    if player in pun:
+        a, b = (x.strip() for x in pun.split(player, 1))
+        return ((f'<span {style}>{E(a)}</span> ' if a else "") + E(player) + (f' <span {style}>{E(b)}</span>' if b else "")), pun
+    return f'{E(player)} <span {style}>“{E(pun)}”</span>', f"{player} “{pun}”"
+
+
 def rivet(pose, panel):
     return comic.rivet(pose, WEEK, panel, ED)
 
@@ -340,8 +353,8 @@ def n4():
               + (f'<div class="i s">{F["most_bench_pts"]["bench_pts"]} points left on the bench, the most this week</div>' if bench_line else ""))
     at = s.enter("poster", 0.1, "left:70px;top:290px;width:940px;height:372px", poster, kind="slam")
     SFX.append(("impact", s.beat["start"] + at + 0.2, 0.45))
-    benched = (f'<div class="n4-row"><div><div class="l">LEFT ON THE BENCH</div><div class="n">{E(bc["benched"])}</div></div><div class="p">{bc["benched_pts"]}</div></div>')
-    started = (f'<div class="n4-row"><div><div class="l">STARTED AT {E(bc["slot"])}</div><div class="n">{E(bc["started"])}</div></div><div class="p">{bc["started_pts"]}</div></div>')
+    benched = (f'<div class="n4-row"><div><div class="l">LEFT ON THE BENCH</div><div class="n" style="font-size:{min(62, fit(pun_name(bc["benched"])[1], 640, 62, 0.5))}px">{pun_name(bc["benched"])[0]}</div></div><div class="p">{bc["benched_pts"]}</div></div>')
+    started = (f'<div class="n4-row"><div><div class="l">STARTED AT {E(bc["slot"])}</div><div class="n" style="font-size:{min(62, fit(pun_name(bc["started"])[1], 640, 62, 0.5))}px">{pun_name(bc["started"])[0]}</div></div><div class="p">{bc["started_pts"]}</div></div>')
     t1 = s.enter("benched", s.when([surname(bc["benched"]), str(bc["benched_pts"])], 0.3), "left:90px;top:672px;width:900px;height:172px", benched, kind="left")
     t2 = s.enter("started", max(t1 + 0.5, s.when([surname(bc["started"]), str(bc["started_pts"])], 0.5)), "left:90px;top:846px;width:900px;height:172px", started, kind="right")
     # The poster has the name of the team. The line below gives the other team and the margin of that game.
@@ -366,9 +379,9 @@ def n5():
     s.html.append(HEADER)
     def card(title, p, colour, extra=""):
         room = 872 - len(str(p["pts"])) * 97 - 24            # the width that the score leaves for the name, in px
-        size = max(42, fit(p["player"], room, 66, 0.52))     # a long name is smaller; below 42 px it wraps
-        return (f'<div class="card n5-c"><div><div class="gothic t" style="color:{colour}">{title}</div><div class="n" style="font-size:{size}px">{E(p["player"])}</div>'
-                + (f'<div class="i f">“{E(pun_of(F, p["player"]))}”</div>' if pun_of(F, p["player"]) else "")
+        html_, plain = pun_name(p["player"])
+        size = max(42, fit(plain, room, 66, 0.52))           # a long name is smaller; below 42 px it wraps
+        return (f'<div class="card n5-c"><div><div class="gothic t" style="color:{colour}">{title}</div><div class="n" style="font-size:{size}px">{html_}</div>'
                 + f'<div class="i f">for {E(p["manager"])}{extra}</div></div><div class="p" style="color:{colour}">{p["pts"]}</div></div>')
     s.enter("boom", 0.12, "left:70px;top:296px;width:940px;height:400px", card("Boom", boom, ACCENT), kind="left")
     tb = s.enter("bust", s.when([surname(bust["player"]), str(bust["pts"]), "bust"], 0.5), "left:70px;top:730px;width:940px;height:400px",
@@ -439,18 +452,17 @@ def n6b():
     top = 460
     if w["trade"]:
         sides = "".join(f'<div class="n6b-side"><div class="m">{E(t["manager"])} <span>gets</span></div>'
-                        f'<div class="p" style="font-size:{fit(", ".join(t["players"]), 860, 40, 0.5)}px">{E(", ".join(t["players"]))}</div></div>' for t in w["trade"])
+                        f'<div class="p" style="font-size:{fit(", ".join(pun_name(x)[1] for x in t["players"]), 860, 40, 0.5)}px">{", ".join(pun_name(x)[0] for x in t["players"])}</div></div>' for t in w["trade"])
         s.enter("trade", 0.3, f"left:70px;top:{top}px;width:940px;height:340px", f'<div class="n6b-c"><div class="n6b-k">TRADE</div>{sides}</div>',
                 kind="drop", cls="card")
         SFX.append(("pop", s.beat["start"] + 0.3 + 0.36, 0.5))
         top += 380
     c = w["claim"]
     if c:
-        pun = pun_of(F, c["player"])
+        html_, plain = pun_name(c["player"])
         room = 860 - len(f"${c['faab']}") * 72 - 30
         inner = (f'<div class="n6b-c"><div class="n6b-k">TOP WAIVER CLAIM</div><div class="n6b-claim"><div>'
-                 f'<div class="n" style="font-size:{max(40, fit(c["player"], room, 60, 0.52))}px">{E(c["player"])}</div>'
-                 + (f'<div class="i f">“{E(pun)}”</div>' if pun else "")
+                 f'<div class="n" style="font-size:{max(40, fit(plain, room, 60, 0.52))}px">{html_}</div>'
                  + f'<div class="i f">to {E(c["manager"])}</div></div><div class="d">${c["faab"]}</div></div></div>')
         tc = s.enter("claim", max(0.9, s.when([surname(c["player"]), "waiver"], 0.5)), f"left:70px;top:{top}px;width:940px;height:300px", inner,
                      kind="right", cls="card")
@@ -638,8 +650,8 @@ def spoken_len(word):
 def caption_groups():
     units = names_in_facts() + ["true record", "True record", "power rankings", "Power rankings", "Main Event"]      # a name or a fixed term stays in one caption
     text_of = lambda ch: " ".join(ch).replace(GLUE, " ")
-    groups = []
-    for b in TL["beats"]:
+    groups, cut_after = [], {}          # cut_after: index of the last caption of a segment -> the time of the cut after it
+    for bi, b in enumerate(TL["beats"]):
         for sen in b["sentences"]:
             cap = sen["cap"]
             for u in units:
@@ -679,9 +691,14 @@ def caption_groups():
                 d = share(ch)
                 groups.append([t, t + d, text_of(ch)])
                 t += d
+        if bi + 1 < len(TL["beats"]):
+            cut_after[len(groups) - 1] = TL["beats"][bi + 1]["start"]
     for i, g in enumerate(groups):            # hold each group until the next one when the pause is short
         nxt = groups[i + 1][0] if i + 1 < len(groups) else DUR
-        g[1] = nxt if nxt - g[1] <= 0.7 else g[1] + 0.25
+        if i in cut_after:                    # the last caption of a segment leaves room before the cut for the wipe (0.24 s), but never ends before its words
+            g[1] = max(g[1], min(g[1] + 0.25, cut_after[i] - 0.24))
+        else:
+            g[1] = nxt if nxt - g[1] <= 0.7 else g[1] + 0.25
     return groups
 
 

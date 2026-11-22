@@ -127,7 +127,8 @@ td.st,th.st{text-align:left;padding-left:8px;font-variant-numeric:tabular-nums}
 td.st.hot{color:var(--up);font-weight:700}td.st.cold{color:var(--down);font-weight:700}
 .tag{display:inline-block;margin-left:6px;padding:0 5px;border:1.5px solid;font:700 11px/1.5 Old Standard TT,serif;letter-spacing:1px;text-transform:uppercase;vertical-align:2px}
 .tag.hot{color:var(--up)}.tag.cold{color:var(--down)}
-.pun{color:var(--muted);font-size:.92em}
+.pun{color:var(--accent)}
+.list.puns li{font-style:italic;padding:5px 0}
 .call{margin:18px 0 6px;padding:10px 14px;border:2px solid var(--ink);border-left:8px solid var(--accent);font-size:17px;line-height:1.4}
 .call .ck{font-variant:small-caps;letter-spacing:1px;font-weight:700;color:var(--accent);margin-right:4px}
 .call.miss{border-left-color:#555}
@@ -371,8 +372,14 @@ def pun_of(f, md, player):
 
 
 def pun_html(f, md, player):
+    """A player's name with this week's pun-name: "Christian McCaffrey <i>Carry-On</i>" when the pun holds the name, else name + the pun in quotes."""
     p = pun_of(f, md, player)
-    return f' <i class="pun">“{E(p)}”</i>' if p else ""
+    if not p:
+        return E(player)
+    if player in p:
+        a, b = p.split(player, 1)
+        return (f'<i class="pun">{E(a.strip())}</i> ' if a.strip() else "") + E(player) + (f' <i class="pun">{E(b.strip())}</i>' if b.strip() else "")
+    return f'{E(player)} <i class="pun">“{E(p)}”</i>'
 
 
 def in_playoffs(f):
@@ -428,25 +435,34 @@ def moves_html(f, md):
     """Moves & Trades: every trade of the week, and the top waiver claim (as in the newsreel)."""
     items = []
     for t in f.get("trades") or []:
-        sides = [f"{E(m)} gets {', '.join(E(x) + pun_html(f, md, x) for x in pl)}" for m, pl in (t.get("receives") or {}).items()]
+        sides = [f"{E(m)} gets {', '.join(pun_html(f, md, x) for x in pl)}" for m, pl in (t.get("receives") or {}).items()]
         if sides:
             items.append(("🤝", "Trade", "; ".join(sides), ""))
     claim = (f.get("awards") or {}).get("big_spender") or max((a for a in f.get("adds") or [] if a.get("faab")), key=lambda a: a["faab"], default=None)
     if claim:
-        items.append(("📋", "Top Waiver Claim", f"{E(claim['player'])}{pun_html(f, md, claim['player'])} · ${claim['faab']}", E(claim["manager"])))
+        items.append(("📋", "Top Waiver Claim", f"{pun_html(f, md, claim['player'])} · ${claim['faab']}", E(claim["manager"])))
     rows = "".join(f'<li><span class="orn">{i}</span> <b>{k}</b><span class="aw">{v}</span><i>{m}</i></li>' for i, k, v, m in items)
     return f'<div class="feat" id="moves"><div class="section-h">Moves &amp; Trades</div><ul class="list">{rows}</ul></div>' if items else ""
+
+
+def puns_html(md):
+    """Pun-Names of the Week: the PUNS line of the stories, the same list the newsreel draws from."""
+    puns = week_puns(md)
+    if not puns:
+        return ""
+    rows = "".join(f"<li>{E(p)}</li>" for p in puns)
+    return f'<div class="feat" id="puns"><div class="section-h">Pun-Names of the Week</div><ul class="list puns">{rows}</ul></div>'
 
 
 def awards_html(f, md=""):
     a, items = f.get("awards") or {}, []
     if a.get("boom"):
-        b = a["boom"]; items.append(("🔥", "Boom of the Week", f"{E(b['player'])}{pun_html(f, md, b['player'])} · {b['pts']}", E(b["manager"])))
+        b = a["boom"]; items.append(("🔥", "Boom of the Week", f"{pun_html(f, md, b['player'])} · {b['pts']}", E(b["manager"])))
     if a.get("dud"):
-        d = a["dud"]; items.append(("🧊", "Dud of the Week", f"{E(d['player'])}{pun_html(f, md, d['player'])} · {d['pts']}", E(d["manager"])))
+        d = a["dud"]; items.append(("🧊", "Dud of the Week", f"{pun_html(f, md, d['player'])} · {d['pts']}", E(d["manager"])))
     if a.get("bench_crime"):
         c = a["bench_crime"]
-        items.append(("🚑", "Bench Crime", f"{E(c['benched'])} ({c['benched_pts']}) sat for {E(c['started'])} ({c['started_pts']})", E(c["manager"])))
+        items.append(("🚑", "Bench Crime", f"{pun_html(f, md, c['benched'])} ({c['benched_pts']}) sat for {pun_html(f, md, c['started'])} ({c['started_pts']})", E(c["manager"])))
     if f.get("most_bench_pts"):
         x = f["most_bench_pts"]; items.append(("🪑", "Most Bench Points", f"{x['bench_pts']} points left on the bench", E(x["manager"])))
     if a.get("most_active") and not a.get("big_spender"):          # the big spender is the top waiver claim in Moves & Trades
@@ -649,7 +665,7 @@ def page(f, text, stories, weeks, title_prefix="", others="", og_url="", video="
     desc = E(f"{head}. {deck}")
     archive = " · ".join(f'<a href="week-{w}.html">Week {w}</a>' for w in sorted(weeks, reverse=True))
     wa_html = "<br>\n".join(wa(l) for l in text.splitlines())
-    feats = [x for x in (awards_html(f, stories), moves_html(f, stories), lore_html(f)) if x]
+    feats = [x for x in (awards_html(f, stories), moves_html(f, stories), lore_html(f), puns_html(stories)) if x]
     if stories:
         bouts = stories_html(stories, f)
         empty = (-bouts.count('class="cell bout"')) % 3            # holes in the last row of 3
