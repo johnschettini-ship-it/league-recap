@@ -99,6 +99,26 @@ def wire_of(F):
     return {"trade": [{"manager": m, "players": p} for m, p in trade.items()] if trade else None, "claim": claim}
 
 
+def last_call(F, PREV):
+    """The grade of last week's Main Event odds: {"favorite", "pct", "a", "b", "hit"}; None without last week's facts, that game, or for a tie."""
+    if not PREV or not PREV.get("next_week_card"):
+        return None
+    c = PREV["next_week_card"][0]
+    r = next((r for r in F["results"] if {r["winner"], r["loser"]} == {c["a"]["manager"], c["b"]["manager"]}), None)
+    if not r or r.get("tie"):
+        return None
+    o = c["odds"]
+    return {"favorite": o["favorite"], "pct": o["favorite_pct"], "underdog": o["underdog"], "winner": r["winner"], "hit": r["winner"] == o["favorite"]}
+
+
+def prev_facts(root, edition, F):
+    """The facts of the week before (data/<edition of the week before>.facts.json), or None."""
+    import json
+    prefix = edition[: -len(f"{F['season']}_w{F['week']}")]
+    p = root / "data" / f"{prefix}{F['season']}_w{F['week'] - 1}.facts.json"
+    return json.loads(p.read_text()) if p.exists() else None
+
+
 def order_of(P):
     """The segments of this edition. n6b (moves and trades) is in the edition only when the week has a trade or a waiver claim with a bid."""
     return [s for s in ORDER if s != "n6b" or P.get("wire")]

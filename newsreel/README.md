@@ -222,7 +222,15 @@ Two more segments of content and the site poster (asked for by the owner on 22 N
 - **Site poster.** `build_edition.sh` writes `build/<edition>.poster.jpg` (the lead headline, without the caption strip, 720 px wide); `publish.py` copies it to `posts/<key>.newsreel.jpg`; `site.py` shows it as the link to the video, with a bar "Watch the newsreel". Without a poster the site keeps the text link.
 - To keep the video under 90 seconds, the Week 10 script lost about 25 words in other segments (231 words by the script check).
 
-Checks on the Beer Den Week 10 render with these corrections: screen check, `npx hyperframes check` (no errors, no warnings), caption check (0 of 2,252 caption frames without the strip), loudness −13.6 LUFS. Builds of Uncle Rico (two clippings) and Double Fist (10 teams) pass the screen check and the HyperFrames check, and their frames were inspected.
+Four reel ideas, approved by the owner on 22 November 2026. Each one uses only facts that the gazette already has, and each one shows only when its fact exists:
+
+- **Streak Watch.** In n7, a pill "WON N STRAIGHT" (green) or "LOST N STRAIGHT" (red) follows the name of a team on a streak of 3 or more (`lore.hot_streak`, `lore.cold_streak`). Not shown in the playoffs.
+- **Luck Meter.** In n7b, a pill "LUCKIEST" or "UNLUCKIEST" follows the team that `lore` names.
+- **Bench points.** The n4 wanted poster adds "N points left on the bench, the most this week" when `awards.most_bench_pts` is the same manager as the blunder.
+- **Last Week's Call.** In n9, a card shows the prediction of last week's next-week card ("favourite at N% over underdog") and the result, "Called it!" or "Missed it!" (`plan.last_call`, from the facts of the week before via `plan.prev_facts`). `check_screen.py` accepts the numbers of that card. Without last week's facts, there is no card.
+- Pills use 28 px type, the floor that a phone can read.
+
+Checks on the Beer Den Week 10 render with these corrections: screen check, `npx hyperframes check` (no errors, no warnings), caption check (0 of 2,246 caption frames without the strip), loudness −13.6 LUFS. Builds of Uncle Rico (two clippings) and Double Fist (10 teams) pass the screen check and the HyperFrames check, and their frames were inspected.
 
 ## Verification
 

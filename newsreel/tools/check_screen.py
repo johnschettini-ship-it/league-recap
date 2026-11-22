@@ -40,6 +40,11 @@ def walk(node, path=""):
 where = {}
 for value, path in walk(F):
     where.setdefault(value, []).append(path)
+sys.path.insert(0, str(ROOT / "tools"))
+from plan import prev_facts  # noqa: E402
+PREV = prev_facts(ROOT, TL["edition"], F)
+for value, path in walk((PREV or {}).get("next_week_card") or [], "last week's next_week_card"):      # the card "Last week's call" in n9
+    where.setdefault(value, []).append(path)
 teams = [s["manager"] for s in F["standings"]]
 
 

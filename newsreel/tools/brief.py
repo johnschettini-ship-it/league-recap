@@ -182,7 +182,9 @@ segments = "\n".join([
     f"(No. {c['b']['rank']}, {c['b']['record']}). Then a line: \"THE ODDS: {c['odds']['favorite']} {c['odds']['favorite_pct']}%\". "
     f"That line enters with the sentence that says the odds; that sentence must have the word \"odds\" or \"percent\".",
     "n9  SIGN-OFF. The masthead, \"THAT'S THE NEWS\", and an end card \"READ THE FULL EDITION\". One last joke, then the last sentence sends the viewer to the full edition. "
-    "The last sentence must have the word \"Gazette\" or \"edition\".",
+    + ("Before the end card, a card \"LAST WEEK'S CALL\" grades last week's Main Event odds (see the facts line \"Last week's edition billed\"): "
+       "the first sentence may say how that call went. " if PREV and PREV.get("next_week_card") else "")
+    + "The last sentence must have the word \"Gazette\" or \"edition\".",
 ])
 
 hooks = [{"segment": "n2", "any": [lead_other], "picture": "the result line under the front page"}]

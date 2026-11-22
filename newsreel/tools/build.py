@@ -22,7 +22,7 @@ args = ap.parse_args()
 sys.path.insert(0, args.gazette)
 import comic, theme  # noqa: E402  (the gazette's own drawing and edition code)
 sys.path.insert(0, str(pathlib.Path(__file__).parent))
-from plan import plan, surname, verb, result_line, cue_pattern, lead_line, pun_of  # noqa: E402  (which facts each segment shows)
+from plan import plan, surname, verb, result_line, cue_pattern, lead_line, pun_of, last_call, prev_facts  # noqa: E402  (which facts each segment shows)
 
 TL = json.loads((ROOT / "build" / "timeline.json").read_text())
 if not args.facts and not TL.get("edition"):
@@ -33,6 +33,8 @@ for key in ("league", "season", "week"):         # the narration and the picture
     if str(F[key]) != str(TL[key]):
         sys.exit(f"The narration is for {key} {TL[key]!r} and the facts file is for {key} {F[key]!r}. Build stopped.")
 P = plan(F)
+CALL = last_call(F, prev_facts(ROOT, TL["edition"], F)) if TL.get("edition") else None      # last week's Main Event odds, graded
+LORE = F.get("lore") or {}
 SAY = {k: v for k, v in json.loads((ROOT / "pronunciations.json").read_text()).items() if not k.startswith("_")}
 ED = theme.edition(F)
 BEATS = {b["id"]: b for b in TL["beats"]}
@@ -172,6 +174,30 @@ def table_rows(top, n, gap=0):
     return rowh, (lambda v: round(v * rowh / 54))
 
 
+def pill(text, colour, k):
+    return (f' <span style="display:inline-block;vertical-align:middle;margin-left:{k(10)}px;padding:{k(3)}px {k(9)}px 0;border:3px solid {colour};color:{colour};'
+            f'font:{max(28, k(28))}px/1.15 \'League Gothic\',sans-serif;letter-spacing:2px">{text}</span>')
+
+
+def streak_badge(manager, k):
+    """Streak watch: the longest winning and losing streaks of the league (lore of the gazette), on the row of that team. Not in a playoff week."""
+    if F.get("playoff_week_start") and WEEK >= F["playoff_week_start"]:
+        return ""
+    for key, word, colour in (("hot_streak", "WON", UP), ("cold_streak", "LOST", DOWN)):
+        s = LORE.get(key) or {}
+        if s.get("manager") == manager and int(s.get("streak", "X0")[1:] or 0) >= 3:
+            return pill(f"{word} {s['streak'][1:]} STRAIGHT", colour, k)
+    return ""
+
+
+def luck_tag(manager, k):
+    """The luck meter: the luckiest and the unluckiest team of the gazette (record against true record), on its row of the power rankings."""
+    for key, word, colour in (("luckiest", "LUCKIEST", UP), ("unluckiest", "UNLUCKIEST", DOWN)):
+        if (LORE.get(key) or {}).get("manager") == manager:
+            return pill(word, colour, k)
+    return ""
+
+
 def standing(manager):
     return next(s for s in F["standings"] if s["manager"] == manager)
 
@@ -295,9 +321,10 @@ def n4():
     bc, g = P["crime"], P["crime_game"]
     how, other, margin = result_line(g, bc["manager"])
     lost = how == "Lost to"
+    bench_line = (F.get("most_bench_pts") or {}).get("manager") == bc["manager"]   # the most points on any bench this week, by the same team
     s.css = f"""
     #n4-poster-in {{ text-align: center; padding: 26px 30px; border: 10px double {INK}; background: {CARD}; }}
-    #n4-poster-in .t {{ font-size: 176px; color: {ACCENT}; letter-spacing: 10px; }}
+    #n4-poster-in .t {{ font-size: {126 if bench_line else 176}px; color: {ACCENT}; letter-spacing: 10px; }}   /* the bench line takes the room of 50 px of title */
     #n4-poster-in .w {{ font-size: {fit(bc["manager"].upper(), 840, 104)}px; margin-top: 2px; }}
     #n4-poster-in .s {{ font-size: 38px; margin-top: 4px; }}
     .n4-row {{ display: flex; align-items: center; justify-content: space-between; border-top: 4px solid {INK}; padding: 14px 6px 8px; text-align: left; }}
@@ -308,7 +335,9 @@ def n4():
 """
     s.html.append(HEADER)
     poster = (f'<div class="gothic t">Wanted</div><div class="gothic w">{E(bc["manager"].upper())}</div>'
-              f'<div class="i s">— for a bench crime, Week {WEEK} —</div>')
+              f'<div class="i s">— for a bench crime, Week {WEEK} —</div>'
+              # the most points left on the bench this week, when it is the same team
+              + (f'<div class="i s">{F["most_bench_pts"]["bench_pts"]} points left on the bench, the most this week</div>' if bench_line else ""))
     at = s.enter("poster", 0.1, "left:70px;top:290px;width:940px;height:372px", poster, kind="slam")
     SFX.append(("impact", s.beat["start"] + at + 0.2, 0.45))
     benched = (f'<div class="n4-row"><div><div class="l">LEFT ON THE BENCH</div><div class="n">{E(bc["benched"])}</div></div><div class="p">{bc["benched_pts"]}</div></div>')
@@ -345,6 +374,8 @@ def n5():
     tb = s.enter("bust", s.when([surname(bust["player"]), str(bust["pts"]), "bust"], 0.5), "left:70px;top:730px;width:940px;height:400px",
                  card("Bust", bust, INK, ", who won anyway" if bust_won else ""), kind="right")
     s.enter("rivet", tb + 0.4, "left:452px;top:628px;width:176px;height:176px", rivet("money", 2), kind="pop", cls="rivet")
+    if tb > 2.2:                      # a slow push-in on the boom card while it is read, so the frame never stands still for 3 s
+        s.js.append(f'tl.to("#n5-boom-in", {{ scale: 1.04, duration: {round(tb - 1.0, 2)}, ease: "sine.inOut" }}, 0.8);')
     s.write()
 
 
@@ -456,7 +487,7 @@ def n7():
         move = "" if r.get("prev_rank") is None else ("–" if d == 0 else (f"UP {d}" if d > 0 else f"DN {-d}"))
         mcls = "m" if d == 0 else ("m up" if d > 0 else "m dn")
         cls = "n7-row" + (" n7-top" if r["record"] == best else "") + (" n7-line" if cut and r["rank"] == cut else "")
-        inner = (f'<div class="{cls}"><span class="k">{r["rank"]}</span><span class="n">{E(r["manager"])}</span>'
+        inner = (f'<div class="{cls}"><span class="k">{r["rank"]}</span><span class="n">{E(r["manager"])}{streak_badge(r["manager"], k)}</span>'
                  f'<span class="{mcls}">{move}</span><span class="r">{r["record"]}</span></div>')
         top = 436 + i * rowh + (gap if cut and r["rank"] > cut else 0)
         s.enter(f"r{i}", 0.4 + i * 0.07, f"left:70px;top:{top}px;width:940px;height:{rowh}px", inner, kind="left")
@@ -496,7 +527,7 @@ def n7b():
         d = 0 if prev is None else prev - r["power_rank"]
         move = "" if prev is None else ("–" if d == 0 else (f"UP {d}" if d > 0 else f"DN {-d}"))
         mcls = "m" if d == 0 else ("m up" if d > 0 else "m dn")
-        inner = (f'<div class="n7b-row{" n7b-top" if r["power_rank"] == 1 else ""}"><span class="k">{r["power_rank"]}</span><span class="n">{E(r["manager"])}</span>'
+        inner = (f'<div class="n7b-row{" n7b-top" if r["power_rank"] == 1 else ""}"><span class="k">{r["power_rank"]}</span><span class="n">{E(r["manager"])}{luck_tag(r["manager"], k)}</span>'
                  f'<span class="{mcls}">{move}</span><span class="c">{r["record"]}</span><span class="r">{r["all_play"]}</span></div>')
         s.enter(f"r{i}", 0.4 + i * 0.07, f"left:70px;top:{478 + i * rowh}px;width:940px;height:{rowh}px", inner, kind="left")
         said = s.when_re(cue_pattern(r["manager"]))     # the row of a team gets a tint when the announcer names that team
@@ -557,6 +588,15 @@ def n9():
     s.enter("news", 0.15, "left:70px;top:490px;width:940px;height:160px", '<span class="gothic">That’s the news</span>', kind="slam")
     s.enter("rivet", 0.6, "left:440px;top:650px;width:200px;height:200px", rivet("celebrate", 3), kind="pop", cls="rivet")
     last = s.beat["sentences"][-1]
+    if CALL and len(s.beat["sentences"]) > 1:
+        # last week's call: on screen until the end card comes in its place
+        verdict = "Called it!" if CALL["hit"] else "Missed it!"
+        call = (f'<div class="gothic" style="font-size:44px;letter-spacing:8px;color:{ACCENT}">Last week’s call</div>'
+                f'<div style="font-size:42px;margin-top:8px"><span class="b">{E(CALL["favorite"])}</span> at {CALL["pct"]}% over {E(CALL["underdog"])}</div>'
+                f'<div class="gothic" style="font-size:84px;margin-top:6px">{verdict}</div>')
+        t_end = s.sentence(len(s.beat["sentences"]) - 1)
+        s.enter("call", 0.4, "left:70px;top:866px;width:940px;height:270px", f'<div style="text-align:center;padding:20px">{call}</div>',
+                kind="pop", cls="card", dur=round(t_end - 0.4, 2))
     site = E(args.site) if len(args.site) <= 46 else E(args.site).replace("/league-recap/", "/league-recap/<br>")      # a long address breaks at a slash, not inside a word
     end = (f'<div class="gothic a">Read the full edition</div><div class="u">{site}</div><div class="t">— 30 —</div>')
     s.enter("end", s.sentence(len(s.beat["sentences"]) - 1) if len(s.beat["sentences"]) > 1 else 1.2,
