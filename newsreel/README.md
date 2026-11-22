@@ -210,6 +210,11 @@ Three more finishes in the same pass:
 - n1: one short 1 kHz tone (`assets/audio/sfx/beep.wav`, made with ffmpeg) when the leader shows 2, as on a film leader.
 - `build_edition.sh` puts a cover picture (the lead headline) in the MP4 after the caption check. Players and chat apps that read a cover picture show it before play; others show the first frame.
 
+The owner then asked for two more (22 November 2026):
+
+- **Projector bed.** `build.py` makes `assets/audio/projector.wav` with ffmpeg on each build: a shutter click 24 times each second over a brown-noise motor hum, in the band of the voice. It measures about −42 LUFS (`PROJECTOR_GAIN`), about 28 dB under the voice, and fades in with the leader and out with the iris. The integrated loudness of the video stays −13.6 LUFS. The "Music: none" row above still holds: this is a sound effect, not music.
+- **Wipes.** At each cut between segments, a dark band with accent edges crosses the frame (about 0.36 s, with a quiet whoosh) and hides the cut. Each wipe stays inside the pause between two captions (a margin of 0.06 s), so it never covers the caption strip. A cut with no room for a wipe keeps the white flash.
+
 Checks on the Beer Den Week 10 render with these corrections: screen check, `npx hyperframes check` (no errors, no warnings), caption check (0 of 2,252 caption frames without the strip), loudness −13.6 LUFS. Builds of Uncle Rico (two clippings) and Double Fist (10 teams) pass the screen check and the HyperFrames check, and their frames were inspected.
 
 ## Verification

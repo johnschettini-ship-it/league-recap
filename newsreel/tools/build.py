@@ -600,6 +600,9 @@ def caption_groups():
     return groups
 
 
+CAP_SPANS = []      # (start, end) of each caption clip, for the wipes of the film overlay
+
+
 def captions():
     rows, n = [], 0
     # A caption starts and ends in the middle between two video frames. Then no frame is on the border of two captions:
@@ -607,6 +610,7 @@ def captions():
     snap = lambda t: (int(t * FPS) + 0.5) / FPS
     for start, end, text in caption_groups():
         start, end = snap(start), snap(end)
+        CAP_SPANS.append((start, start + max(2 / FPS, end - start)))
         size = 56 if len(text) <= 32 else max(40, int(920 / (len(text) * 0.51)))      # one size; only a very long caption is smaller
         rows.append(f'<div id="cap-{n}" class="clip" data-start="{start:.4f}" data-duration="{max(2 / FPS, end - start):.4f}" '
                     f'style="left:70px;top:{1184 - OFF}px;width:940px;height:124px"><div class="cap" style="font-size:{size}px"><span>{E(text)}</span></div></div>')
@@ -647,7 +651,20 @@ def film():
     while t < DUR - 1:                    # a speck shows for two frames
         dust.append([round(t, 2), rng.randint(40, W - 60), rng.randint(200, H - 300), round(rng.uniform(0.5, 1.8), 2)])
         t += rng.uniform(0.35, 1.5)
-    cuts = [round(b["start"], 2) for b in TL["beats"][1:]]                             # a white flash on each cut, like a splice
+    # a wipe at each cut, as in a newsreel of the time: a dark band with the accent at its edges crosses the frame and hides the cut.
+    # It stays inside the pause between two captions, so the caption strip is never covered. A cut with no room for it keeps the white flash.
+    wipes, cuts = [], []
+    for b in TL["beats"][1:]:
+        c = b["start"]
+        before = max([e for _, e in CAP_SPANS if e <= c + 1e-6], default=0.0)
+        after = min([a for a, _ in CAP_SPANS if a >= c - 1e-6], default=DUR)
+        half = round(min(0.22, c - before - 0.06, after - c - 0.06), 3)
+        if half >= 0.12:
+            wipes.append([round(c - half, 3), round(2 * half, 3)])
+            if b["id"] != "n2":                                                      # n2 has its own whoosh
+                SFX.append(("whoosh", c - half, 0.22))
+        else:
+            cuts.append(round(c, 2))                                                 # a white flash on the cut, like a splice
     # the newsreel closes with an iris on the end card, after the last caption has gone
     last_cap = TL["beats"][-1]["sentences"][-1]["end"]
     iris_at = round(max(last_cap + 0.2, DUR - 1.0), 2)
@@ -658,6 +675,8 @@ def film():
         f"const SCRATCHES = {wrap(scratches)};",
         f"const DUST = {wrap(dust)};",
         f"const CUTS = {json.dumps(cuts)};",
+        f"const WIPES = {json.dumps(wipes)};",
+        f'WIPES.forEach(([t, d]) => {{ tl.fromTo("#film-wipe", {{ x: {-(W + 750)}, skewX: -10 }}, {{ x: {W + 250}, skewX: -10, duration: d, ease: "power1.inOut", immediateRender: false }}, t); }});',
         f'tl.to("#film-flicker", {{ keyframes: {{ opacity: FLICKER, easeEach: "none" }}, duration: {DUR}, ease: "none" }}, 0);',
         'SCRATCHES.forEach(([t, which, x, o, end]) => { tl.set("#film-scratch-" + which, { x: x, opacity: o }, t); tl.set("#film-scratch-" + which, { opacity: 0 }, end); });',
         'DUST.forEach(([t, x, y, k]) => { tl.set("#film-dust", { x: x, y: y, scale: k, opacity: 0.75 }, t); tl.set("#film-dust", { opacity: 0 }, t + 0.07); });',
@@ -679,6 +698,8 @@ def film():
     #film-vignette {{ background: radial-gradient(ellipse at 50% 46%, rgba(0, 0, 0, 0) 70%, rgba(0, 0, 0, 0.04) 100%); }}
     #film-flicker {{ background: #000; opacity: 0; }}
     #film-flash {{ background: #fff; opacity: 0; }}
+    #film-wipe {{ position: absolute; top: 0; left: 0; width: {W + 500}px; height: {H}px; transform: translateX({-(W + 750)}px) skewX(-10deg);
+                 background: linear-gradient(90deg, {ACCENT} 0 44px, {INK} 44px calc(100% - 44px), {ACCENT} calc(100% - 44px)); }}
     .film-scratch {{ position: absolute; top: 0; left: 0; width: 3px; height: {H}px; background: rgba(28, 27, 25, 0.5); opacity: 0; }}
     #film-scratch-b {{ width: 2px; background: rgba(20, 20, 20, 0.8); }}
     #film-dust {{ position: absolute; left: 0; top: 0; width: 16px; height: 11px; border-radius: 50%; background: rgba(15, 15, 15, 0.9); opacity: 0; }}
@@ -692,6 +713,7 @@ def film():
     <div id="film-vignette" class="film-layer" data-layout-ignore></div>
     <div id="film-flicker" class="film-layer" data-layout-ignore></div>
     <div id="film-flash" class="film-layer" data-layout-ignore></div>
+    <div id="film-wipe" data-layout-ignore></div>
     <svg id="film-iris" class="film-layer" width="{W}" height="{H}" viewBox="0 0 {W} {H}" style="opacity: 0" data-layout-ignore>
       <defs><mask id="film-iris-m"><rect width="{W}" height="{H}" fill="#fff"/><circle id="film-iris-c" cx="540" cy="{iris_y}" r="{IRIS_R}" fill="#000"/></mask></defs>
       <rect width="{W}" height="{H}" fill="#14130f" mask="url(#film-iris-m)"/>
@@ -729,13 +751,27 @@ def sfx_files(skill_dir):
     return durs
 
 
+def projector():
+    """A quiet bed of a film projector under the whole edition, made with ffmpeg: the shutter clicks 24 times each second over a motor hum.
+    It has the narrow band of the voice. It fades in with the leader and out with the iris. The file is made again on each build."""
+    tick = "0.5*sin(2*PI*1400*t)*exp(-mod(t\\,1/24)*380)"
+    graph = (f"aevalsrc='{tick}':s=44100:d={DUR}[k];anoisesrc=c=brown:a=0.5:r=44100:d={DUR},bandpass=f=420:w=300[m];"
+             f"[k][m]amix=inputs=2:weights='0.35 1':normalize=0,highpass=f=220,lowpass=f=3600,volume={PROJECTOR_GAIN}dB,"
+             f"afade=t=in:d=1.2,afade=t=out:st={max(0, DUR - 1.0)}:d=0.95")
+    subprocess.run(["ffmpeg", "-nostdin", "-y", "-loglevel", "error", "-filter_complex", graph, "-ac", "1", str(ROOT / "assets" / "audio" / "projector.wav")], check=True)
+
+
+PROJECTOR_GAIN = -10        # the bed measures about -42 LUFS, about 28 dB under the voice (-13.6 LUFS), near the hiss of the voice chain
+
+
 def index(durs):
     hosts = []
     for i, b in enumerate(TL["beats"]):
         hosts.append(f'<div id="{b["id"]}" data-composition-id="{b["id"]}" data-composition-src="compositions/{b["id"]}.html" '
                      f'data-start="{b["start"]}" data-duration="{round(b["end"] - b["start"], 3)}" data-track-index="1" data-track-kind="graphics" '
                      f'data-width="{W}" data-height="{H}" style="z-index:1"></div>')
-    audio = [f'<audio id="vo" class="clip" data-start="0" data-duration="{DUR}" data-track-index="4" data-volume="1" src="assets/audio/narration.mp3"></audio>']
+    audio = [f'<audio id="vo" class="clip" data-start="0" data-duration="{DUR}" data-track-index="4" data-volume="1" src="assets/audio/narration.mp3"></audio>',
+             f'<audio id="projector" class="clip" data-start="0" data-duration="{DUR}" data-track-index="7" data-volume="1" src="assets/audio/projector.wav"></audio>']
     for n, (kind, at, vol) in enumerate(sorted(SFX, key=lambda x: x[1])):
         d = min(durs[kind], DUR - at - 0.05)
         audio.append(f'<audio id="sfx-{n}-{kind}" class="clip" data-start="{round(at, 2)}" data-duration="{round(d, 2)}" data-track-index="{5 + n % 2}" '
@@ -788,6 +824,7 @@ if __name__ == "__main__":
     n_caps = captions()
     film()
     skill_sfx = ROOT.parent / ".claude" / "skills" / "media-use" / "audio" / "assets" / "sfx"
+    projector()
     index(sfx_files(skill_sfx))
     for path, text in OUT:                 # every scene is built: write the files now
         path.write_text(text)
