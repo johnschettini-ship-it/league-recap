@@ -334,10 +334,11 @@ def n4():
     bc, g = P["crime"], P["crime_game"]
     how, other, margin = result_line(g, bc["manager"])
     lost = how == "Lost to"
-    bench_line = (F.get("most_bench_pts") or {}).get("manager") == bc["manager"]   # the most points on any bench this week, by the same team
+    away = bc.get("away")      # no bench crime this week: the one that got away (plan.crime_of)
+    bench_line = not away and (F.get("most_bench_pts") or {}).get("manager") == bc["manager"]   # the most points on any bench this week, by the same team
     s.css = f"""
     #n4-poster-in {{ text-align: center; padding: 26px 30px; border: 10px double {INK}; background: {CARD}; }}
-    #n4-poster-in .t {{ font-size: {126 if bench_line else 176}px; color: {ACCENT}; letter-spacing: 10px; }}   /* the bench line takes the room of 50 px of title */
+    #n4-poster-in .t {{ font-size: {126 if (bench_line or away) else 176}px; color: {ACCENT}; letter-spacing: 10px; }}   /* the bench line takes the room of 50 px of title */
     #n4-poster-in .w {{ font-size: {fit(bc["manager"].upper(), 840, 104)}px; margin-top: 2px; }}
     #n4-poster-in .s {{ font-size: 38px; margin-top: 4px; }}
     .n4-row {{ display: flex; align-items: center; justify-content: space-between; border-top: 4px solid {INK}; padding: 14px 6px 8px; text-align: left; }}
@@ -348,15 +349,17 @@ def n4():
 """
     s.html.append(HEADER)
     poster = (f'<div class="gothic t">Wanted</div><div class="gothic w">{E(bc["manager"].upper())}</div>'
+              f'<div class="i s">— for letting one get away, Week {WEEK} —</div><div class="i s">{E(bc["scored_for"])} started him</div>' if away else
+              f'<div class="gothic t">Wanted</div><div class="gothic w">{E(bc["manager"].upper())}</div>'
               f'<div class="i s">— for a bench crime, Week {WEEK} —</div>'
               # the most points left on the bench this week, when it is the same team
               + (f'<div class="i s">{F["most_bench_pts"]["bench_pts"]} points left on the bench, the most this week</div>' if bench_line else ""))
     at = s.enter("poster", 0.1, "left:70px;top:290px;width:940px;height:372px", poster, kind="slam")
     SFX.append(("impact", s.beat["start"] + at + 0.2, 0.45))
-    benched = (f'<div class="n4-row"><div><div class="l">LEFT ON THE BENCH</div><div class="n" style="font-size:{min(62, fit(pun_name(bc["benched"])[1], 640, 62, 0.5))}px">{pun_name(bc["benched"])[0]}</div></div><div class="p">{bc["benched_pts"]}</div></div>')
-    started = (f'<div class="n4-row"><div><div class="l">STARTED AT {E(bc["slot"])}</div><div class="n" style="font-size:{min(62, fit(pun_name(bc["started"])[1], 640, 62, 0.5))}px">{pun_name(bc["started"])[0]}</div></div><div class="p">{bc["started_pts"]}</div></div>')
+    benched = (f'<div class="n4-row"><div><div class="l">{"DROPPED" if away else "LEFT ON THE BENCH"}</div><div class="n" style="font-size:{min(62, fit(pun_name(bc["benched"])[1], 640, 62, 0.5))}px">{pun_name(bc["benched"])[0]}</div></div><div class="p">{bc["benched_pts"]}</div></div>')
+    started = away or (f'<div class="n4-row"><div><div class="l">STARTED AT {E(bc["slot"])}</div><div class="n" style="font-size:{min(62, fit(pun_name(bc["started"])[1], 640, 62, 0.5))}px">{pun_name(bc["started"])[0]}</div></div><div class="p">{bc["started_pts"]}</div></div>')
     t1 = s.enter("benched", s.when([surname(bc["benched"]), str(bc["benched_pts"])], 0.3), "left:90px;top:672px;width:900px;height:172px", benched, kind="left")
-    t2 = s.enter("started", max(t1 + 0.5, s.when([surname(bc["started"]), str(bc["started_pts"])], 0.5)), "left:90px;top:846px;width:900px;height:172px", started, kind="right")
+    t2 = t1 if away else s.enter("started", max(t1 + 0.5, s.when([surname(bc["started"]), str(bc["started_pts"])], 0.5)), "left:90px;top:846px;width:900px;height:172px", started, kind="right")
     # The poster has the name of the team. The line below gives the other team and the margin of that game.
     foot = f'{how} <span class="b">{E(other)}</span>' + (f' by <span class="b{" accent" if lost else ""}">{margin}</span>' if margin is not None else "")
     t3 = s.enter("foot", max(t2 + 0.5, s.when([str(g["margin"]), "margin", "lost by", other], 0.75)), "left:70px;top:1042px;width:700px;height:86px", foot)

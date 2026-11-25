@@ -61,9 +61,11 @@ G(f"Highest score of the week: {P['high']['manager']}, {P['high']['pts']}." + ("
 G(f"Lowest score of the week: {P['low']['manager']}, {P['low']['pts']}." + (" It is also the lowest score of the season so far." if "season" in P["low_label"] else ""))
 G(f"Closest game: {game(F['closest'])}.")
 G(f"Biggest win: {game(F['blowout'])}.")
-G("Bench crimes: " + " ".join(
+G("Bench crimes: " + (" ".join(
     f"{b['manager']} started {b['started']} ({b['started_pts']}) at {b['slot']} and left {b['benched']} ({b['benched_pts']}) on the bench; gap {b['gap']}."
-    for b in F["bench_crimes"]))
+    for b in F["bench_crimes"]) or "none this week."))
+G("Got away (a manager dropped a player who then started and scored for another manager): " + ("; ".join(
+    f"{a['dropped_by']} dropped {a['player']}, and {a['scored_for']} started him for {a['pts']}" for a in F.get("got_away") or []) or "none."))
 G("Booms (best single player scores): " + "; ".join(f"{b['player']} scored {b['pts']} for {b['manager']}" for b in F["booms"]) + ".")
 G("Busts (worst starters): " + "; ".join(f"{b['player']} scored {b['pts']} for {b['manager']}" for b in F["busts"]) + ".")
 ups = upsets_of(F)
@@ -158,9 +160,13 @@ segments = "\n".join([
     f"n2  THE LEAD. A front page spins in: \"{P['high']['manager'].upper()}, {P['high']['pts']}, {P['high_label'].upper()}\". Then a line enters below it: "
     f"\"{' '.join(lead_line(F, P['high'], P['lead']))}, {P['lead']['winner_pts']} to {P['lead']['loser_pts']}\". That line enters with the sentence that names {lead_other}.",
     f"n3  {n3_text}",
-    f"n4  THE BENCH CRIME. A \"WANTED\" poster for {bc['manager']}. Two rows slide in: \"LEFT ON THE BENCH: {bc['benched']}, {bc['benched_pts']}\" and "
-    f"\"STARTED AT {bc['slot']}: {bc['started']}, {bc['started_pts']}\". Then a line: \"{LINE(cg, bc['manager'])}\". "
-    f"Each row enters with the sentence that says the player's last name ({surname(bc['benched'])}, {surname(bc['started'])}). Say the two last names in two different sentences if you can.",
+    (f"n4  THE ONE THAT GOT AWAY (the week has no bench crime). A \"WANTED\" poster for {bc['manager']}, \"for letting one get away\", with the line \"{bc['scored_for']} started him\". "
+     f"One row slides in: \"DROPPED: {bc['benched']}, {bc['benched_pts']}\". Then a line: \"{LINE(cg, bc['manager'])}\". "
+     f"The row enters with the sentence that says the player's last name ({surname(bc['benched'])}). Do not call it a bench crime: nobody benched anyone."
+     if bc.get("away") else
+     f"n4  THE BENCH CRIME. A \"WANTED\" poster for {bc['manager']}. Two rows slide in: \"LEFT ON THE BENCH: {bc['benched']}, {bc['benched_pts']}\" and "
+     f"\"STARTED AT {bc['slot']}: {bc['started']}, {bc['started_pts']}\". Then a line: \"{LINE(cg, bc['manager'])}\". "
+     f"Each row enters with the sentence that says the player's last name ({surname(bc['benched'])}, {surname(bc['started'])}). Say the two last names in two different sentences if you can."),
     f"n5  BOOM AND BUST. Two cards: \"BOOM: {P['boom']['player']}, {P['boom']['pts']}, for {P['boom']['manager']}\" and \"BUST: {P['bust']['player']}, {P['bust']['pts']}, for {P['bust']['manager']}\". "
     f"The bust card enters with the sentence that says \"{surname(P['bust']['player'])}\" or \"Bust\".",
     f"n6  THE BASEMENT. A small sad notice under a cobweb: \"{P['low_label'].upper()}: {P['low']['manager']}, {P['low']['pts']}\", "
@@ -194,7 +200,7 @@ else:
     hooks += [{"segment": "n3", "any": [r["winner"], r["loser"]], "picture": f"the clipping of {r['winner']} against {r['loser']}", "own_sentence": True} for r in n3["items"]]
 hooks += [
     {"segment": "n4", "any": [surname(bc["benched"])], "picture": "the row of the benched player"},
-    {"segment": "n4", "any": [surname(bc["started"])], "picture": "the row of the started player"},
+] + ([] if bc.get("away") else [{"segment": "n4", "any": [surname(bc["started"])], "picture": "the row of the started player"}]) + [
     {"segment": "n5", "any": [surname(P["bust"]["player"]), "Bust"], "picture": "the bust card"},
     {"segment": "n7b", "any": [pw[0]["manager"]], "picture": "the first row of the power rankings"},
 ] + ([{"segment": "n6b", "any": [surname(P["wire"]["claim"]["player"]), "waiver"], "picture": "the top waiver claim card"}] if P.get("wire") and P["wire"]["claim"] else []) + [

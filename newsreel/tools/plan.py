@@ -124,10 +124,24 @@ def order_of(P):
     return [s for s in ORDER if s != "n6b" or P.get("wire")]
 
 
+def crime_of(F):
+    """Segment n4: the first bench crime. A week with none (the owner approved this on 25 November 2026) shows the one that got away:
+    a player a manager dropped who then scored for another manager, best of all when that other manager beat the dropper."""
+    if F.get("bench_crimes"):
+        return F["bench_crimes"][0]
+    away = F.get("got_away") or []
+    if not away:
+        need(F, "bench_crimes", "n4")
+    def beat_dropper(a):
+        return any(r["winner"] == a["scored_for"] and r["loser"] == a["dropped_by"] for r in F["results"])
+    a = next((a for a in away if beat_dropper(a)), away[0])
+    return {"manager": a["dropped_by"], "benched": a["player"], "benched_pts": a["pts"], "away": True, "scored_for": a["scored_for"]}
+
+
 def plan(F):
     high, low = need(F, "high", "n2"), need(F, "low", "n6")
     lead, cellar = game_of(F, high["manager"]), game_of(F, low["manager"])
-    crime = need(F, "bench_crimes", "n4")[0]
+    crime = crime_of(F)
     crime_game = game_of(F, crime["manager"])
     ups = upsets_of(F)
     if len(ups) >= 2:
