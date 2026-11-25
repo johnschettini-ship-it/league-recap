@@ -1,0 +1,1566 @@
+{
+ "league": "Beer Den 3.0",
+ "season": "2026",
+ "week": 11,
+ "teams": 12,
+ "playoff_week_start": 15,
+ "results": [
+  {
+   "winner": "dookkk",
+   "winner_pts": 152.7,
+   "loser": "Folding Table Champ",
+   "loser_pts": 133.14,
+   "margin": 19.56,
+   "tie": false,
+   "winner_lineup": {
+    "stars": [
+     {
+      "player": "Dak Prescott",
+      "slot": "QB",
+      "pts": 35.9
+     },
+     {
+      "player": "Jahmyr Gibbs",
+      "slot": "RB",
+      "pts": 27.8
+     }
+    ],
+    "dud": {
+     "player": "Jordan Mason",
+     "slot": "RB",
+     "pts": 4.7
+    }
+   },
+   "loser_lineup": {
+    "stars": [
+     {
+      "player": "George Pickens",
+      "slot": "WR",
+      "pts": 23.8
+     },
+     {
+      "player": "DJ Moore",
+      "slot": "FLEX",
+      "pts": 23.1
+     }
+    ],
+    "dud": {
+     "player": "Isaiah Likely",
+     "slot": "TE",
+     "pts": 4.5
+    }
+   },
+   "winner_record": "9-2",
+   "winner_rank": 1,
+   "winner_streak": "W3",
+   "winner_prev_rank": 1,
+   "loser_record": "7-4",
+   "loser_rank": 4,
+   "loser_streak": "L1",
+   "loser_prev_rank": 3
+  },
+  {
+   "winner": "Dumpsterfire007",
+   "winner_pts": 143.26,
+   "loser": "HowDidIOnceWin",
+   "loser_pts": 126.96,
+   "margin": 16.3,
+   "tie": false,
+   "winner_lineup": {
+    "stars": [
+     {
+      "player": "Ashton Jeanty",
+      "slot": "RB",
+      "pts": 27.9
+     },
+     {
+      "player": "Antonio Williams",
+      "slot": "WR",
+      "pts": 21.2
+     }
+    ],
+    "dud": {
+     "player": "Elic Ayomanor",
+     "slot": "WR",
+     "pts": 5.7
+    }
+   },
+   "loser_lineup": {
+    "stars": [
+     {
+      "player": "Chuba Hubbard",
+      "slot": "RB",
+      "pts": 26.0
+     },
+     {
+      "player": "Ladd McConkey",
+      "slot": "FLEX",
+      "pts": 20.7
+     }
+    ],
+    "dud": {
+     "player": "Tyler Warren",
+     "slot": "TE",
+     "pts": 3.2
+    }
+   },
+   "winner_record": "5-6",
+   "winner_rank": 7,
+   "winner_streak": "W1",
+   "winner_prev_rank": 9,
+   "loser_record": "5-6",
+   "loser_rank": 8,
+   "loser_streak": "L3",
+   "loser_prev_rank": 8
+  },
+  {
+   "winner": "haze4daze",
+   "winner_pts": 129.1,
+   "loser": "CUTHISYR",
+   "loser_pts": 95.26,
+   "margin": 33.84,
+   "tie": false,
+   "winner_lineup": {
+    "stars": [
+     {
+      "player": "CeeDee Lamb",
+      "slot": "WR",
+      "pts": 30.2
+     },
+     {
+      "player": "Travis Kelce",
+      "slot": "TE",
+      "pts": 25.4
+     }
+    ],
+    "dud": {
+     "player": "Makai Lemon",
+     "slot": "WR",
+     "pts": 1.3
+    }
+   },
+   "loser_lineup": {
+    "stars": [
+     {
+      "player": "Mike Evans",
+      "slot": "FLEX",
+      "pts": 22.9
+     },
+     {
+      "player": "Jared Goff",
+      "slot": "QB",
+      "pts": 20.36
+     }
+    ],
+    "dud": {
+     "player": "Xavier Hutchinson",
+     "slot": "WR",
+     "pts": 3.3
+    }
+   },
+   "winner_record": "7-4",
+   "winner_rank": 3,
+   "winner_streak": "W1",
+   "winner_prev_rank": 5,
+   "loser_record": "1-10",
+   "loser_rank": 12,
+   "loser_streak": "L6",
+   "loser_prev_rank": 12
+  },
+  {
+   "winner": "flips390",
+   "winner_pts": 108.28,
+   "loser": "stufflydogs",
+   "loser_pts": 87.56,
+   "margin": 20.72,
+   "tie": false,
+   "winner_lineup": {
+    "stars": [
+     {
+      "player": "Breece Hall",
+      "slot": "RB",
+      "pts": 19.0
+     },
+     {
+      "player": "Chicago Bears",
+      "slot": "DEF",
+      "pts": 16.0
+     }
+    ],
+    "dud": {
+     "player": "DK Metcalf",
+     "slot": "WR",
+     "pts": 1.2
+    }
+   },
+   "loser_lineup": {
+    "stars": [
+     {
+      "player": "Patrick Mahomes",
+      "slot": "QB",
+      "pts": 24.96
+     },
+     {
+      "player": "Zay Flowers",
+      "slot": "WR",
+      "pts": 16.4
+     }
+    ],
+    "dud": {
+     "player": "Jordyn Tyson",
+     "slot": "WR",
+     "pts": 2.0
+    }
+   },
+   "winner_record": "4-7",
+   "winner_rank": 11,
+   "winner_streak": "W1",
+   "winner_prev_rank": 11,
+   "loser_record": "6-5",
+   "loser_rank": 5,
+   "loser_streak": "L2",
+   "loser_prev_rank": 4
+  },
+  {
+   "winner": "DM_Me_to_Collude",
+   "winner_pts": 162.84,
+   "loser": "The Escape Artist",
+   "loser_pts": 99.8,
+   "margin": 63.04,
+   "tie": false,
+   "winner_lineup": {
+    "stars": [
+     {
+      "player": "Jonah Coleman",
+      "slot": "FLEX",
+      "pts": 34.9
+     },
+     {
+      "player": "Chris Olave",
+      "slot": "WR",
+      "pts": 19.2
+     }
+    ],
+    "dud": {
+     "player": "Tony Pollard",
+     "slot": "RB",
+     "pts": 11.0
+    }
+   },
+   "loser_lineup": {
+    "stars": [
+     {
+      "player": "Emmett Johnson",
+      "slot": "FLEX",
+      "pts": 24.3
+     },
+     {
+      "player": "Javonte Williams",
+      "slot": "RB",
+      "pts": 24.1
+     }
+    ],
+    "dud": {
+     "player": "Ryan Flournoy",
+     "slot": "WR",
+     "pts": 2.1
+    }
+   },
+   "winner_record": "6-5",
+   "winner_rank": 6,
+   "winner_streak": "W5",
+   "winner_prev_rank": 6,
+   "loser_record": "7-4",
+   "loser_rank": 2,
+   "loser_streak": "L1",
+   "loser_prev_rank": 2
+  },
+  {
+   "winner": "Barnacle Boys",
+   "winner_pts": 118.68,
+   "loser": "ChelseaClub",
+   "loser_pts": 104.9,
+   "margin": 13.78,
+   "tie": false,
+   "winner_lineup": {
+    "stars": [
+     {
+      "player": "Derrick Henry",
+      "slot": "RB",
+      "pts": 19.1
+     },
+     {
+      "player": "Tetairoa McMillan",
+      "slot": "WR",
+      "pts": 19.1
+     }
+    ],
+    "dud": {
+     "player": "Michael Mayer",
+     "slot": "TE",
+     "pts": 1.4
+    }
+   },
+   "loser_lineup": {
+    "stars": [
+     {
+      "player": "Joe Burrow",
+      "slot": "QB",
+      "pts": 19.9
+     },
+     {
+      "player": "James Cook III",
+      "slot": "RB",
+      "pts": 17.2
+     }
+    ],
+    "dud": {
+     "player": "Kyle Monangai",
+     "slot": "FLEX",
+     "pts": 1.8
+    }
+   },
+   "winner_record": "4-7",
+   "winner_rank": 10,
+   "winner_streak": "W2",
+   "winner_prev_rank": 10,
+   "loser_record": "5-6",
+   "loser_rank": 9,
+   "loser_streak": "L1",
+   "loser_prev_rank": 7
+  }
+ ],
+ "high": {
+  "manager": "DM_Me_to_Collude",
+  "pts": 162.84
+ },
+ "low": {
+  "manager": "stufflydogs",
+  "pts": 87.56
+ },
+ "closest": {
+  "winner": "Barnacle Boys",
+  "winner_pts": 118.68,
+  "loser": "ChelseaClub",
+  "loser_pts": 104.9,
+  "margin": 13.78,
+  "tie": false,
+  "winner_lineup": {
+   "stars": [
+    {
+     "player": "Derrick Henry",
+     "slot": "RB",
+     "pts": 19.1
+    },
+    {
+     "player": "Tetairoa McMillan",
+     "slot": "WR",
+     "pts": 19.1
+    }
+   ],
+   "dud": {
+    "player": "Michael Mayer",
+    "slot": "TE",
+    "pts": 1.4
+   }
+  },
+  "loser_lineup": {
+   "stars": [
+    {
+     "player": "Joe Burrow",
+     "slot": "QB",
+     "pts": 19.9
+    },
+    {
+     "player": "James Cook III",
+     "slot": "RB",
+     "pts": 17.2
+    }
+   ],
+   "dud": {
+    "player": "Kyle Monangai",
+    "slot": "FLEX",
+    "pts": 1.8
+   }
+  },
+  "winner_record": "4-7",
+  "winner_rank": 10,
+  "winner_streak": "W2",
+  "winner_prev_rank": 10,
+  "loser_record": "5-6",
+  "loser_rank": 9,
+  "loser_streak": "L1",
+  "loser_prev_rank": 7
+ },
+ "blowout": {
+  "winner": "DM_Me_to_Collude",
+  "winner_pts": 162.84,
+  "loser": "The Escape Artist",
+  "loser_pts": 99.8,
+  "margin": 63.04,
+  "tie": false,
+  "winner_lineup": {
+   "stars": [
+    {
+     "player": "Jonah Coleman",
+     "slot": "FLEX",
+     "pts": 34.9
+    },
+    {
+     "player": "Chris Olave",
+     "slot": "WR",
+     "pts": 19.2
+    }
+   ],
+   "dud": {
+    "player": "Tony Pollard",
+    "slot": "RB",
+    "pts": 11.0
+   }
+  },
+  "loser_lineup": {
+   "stars": [
+    {
+     "player": "Emmett Johnson",
+     "slot": "FLEX",
+     "pts": 24.3
+    },
+    {
+     "player": "Javonte Williams",
+     "slot": "RB",
+     "pts": 24.1
+    }
+   ],
+   "dud": {
+    "player": "Ryan Flournoy",
+    "slot": "WR",
+    "pts": 2.1
+   }
+  },
+  "winner_record": "6-5",
+  "winner_rank": 6,
+  "winner_streak": "W5",
+  "winner_prev_rank": 6,
+  "loser_record": "7-4",
+  "loser_rank": 2,
+  "loser_streak": "L1",
+  "loser_prev_rank": 2
+ },
+ "bench_crimes": [],
+ "most_bench_pts": {
+  "manager": "HowDidIOnceWin",
+  "bench_pts": 32.36
+ },
+ "empty_slots": [],
+ "booms": [
+  {
+   "player": "Dak Prescott",
+   "pts": 35.9,
+   "manager": "dookkk"
+  },
+  {
+   "player": "Jonah Coleman",
+   "pts": 34.9,
+   "manager": "DM_Me_to_Collude"
+  },
+  {
+   "player": "CeeDee Lamb",
+   "pts": 30.2,
+   "manager": "haze4daze"
+  }
+ ],
+ "busts": [
+  {
+   "player": "DK Metcalf",
+   "pts": 1.2,
+   "manager": "flips390"
+  },
+  {
+   "player": "Makai Lemon",
+   "pts": 1.3,
+   "manager": "haze4daze"
+  },
+  {
+   "player": "Michael Mayer",
+   "pts": 1.4,
+   "manager": "Barnacle Boys"
+  }
+ ],
+ "adds": [
+  {
+   "manager": "Folding Table Champ",
+   "player": "Dylan Sampson",
+   "via": "waiver",
+   "faab": 5,
+   "faab_left": 17,
+   "pts_this_week": 0.0
+  },
+  {
+   "manager": "dookkk",
+   "player": "Germie Bernard",
+   "via": "waiver",
+   "faab": 5,
+   "faab_left": 72,
+   "pts_this_week": 10.0
+  },
+  {
+   "manager": "dookkk",
+   "player": "Los Angeles Chargers",
+   "via": "waiver",
+   "faab": 4,
+   "faab_left": 72
+  },
+  {
+   "manager": "dookkk",
+   "player": "Jack Bech",
+   "via": "waiver",
+   "faab": 1,
+   "faab_left": 72
+  },
+  {
+   "manager": "CUTHISYR",
+   "player": "RJ Harvey",
+   "via": "waiver",
+   "faab": 0,
+   "faab_left": 13
+  },
+  {
+   "manager": "Dumpsterfire007",
+   "player": "Devaughn Vele",
+   "via": "waiver",
+   "faab": 0,
+   "faab_left": 3
+  },
+  {
+   "manager": "stufflydogs",
+   "player": "Dallas Goedert",
+   "via": "free_agent",
+   "pts_this_week": 4.8
+  },
+  {
+   "manager": "CUTHISYR",
+   "player": "Kenny Gainwell",
+   "via": "free_agent",
+   "pts_this_week": 9.9
+  },
+  {
+   "manager": "Folding Table Champ",
+   "player": "Cincinnati Bengals",
+   "via": "free_agent",
+   "pts_this_week": 0.0
+  },
+  {
+   "manager": "ChelseaClub",
+   "player": "Tre' Harris",
+   "via": "free_agent",
+   "pts_this_week": 4.8
+  },
+  {
+   "manager": "flips390",
+   "player": "Chig Okonkwo",
+   "via": "free_agent",
+   "pts_this_week": 10.6
+  },
+  {
+   "manager": "Barnacle Boys",
+   "player": "Dallas Cowboys",
+   "via": "free_agent",
+   "pts_this_week": 9.0
+  },
+  {
+   "manager": "The Escape Artist",
+   "player": "Mark Andrews",
+   "via": "free_agent",
+   "pts_this_week": 3.4
+  },
+  {
+   "manager": "haze4daze",
+   "player": "Kirk Cousins",
+   "via": "free_agent",
+   "pts_this_week": 7.4
+  },
+  {
+   "manager": "haze4daze",
+   "player": "Michael Pittman Jr.",
+   "via": "free_agent",
+   "pts_this_week": 0.0
+  },
+  {
+   "manager": "HowDidIOnceWin",
+   "player": "Chimere Dike",
+   "via": "free_agent",
+   "pts_this_week": 13.3
+  },
+  {
+   "manager": "Dumpsterfire007",
+   "player": "Jacory Croskey-Merritt",
+   "via": "free_agent",
+   "pts_this_week": 15.7
+  },
+  {
+   "manager": "dookkk",
+   "player": "Dominic Zvada",
+   "via": "free_agent",
+   "pts_this_week": 15.0
+  },
+  {
+   "manager": "flips390",
+   "player": "Samaje Perine",
+   "via": "free_agent",
+   "pts_this_week": 13.7
+  },
+  {
+   "manager": "dookkk",
+   "player": "Detroit Lions",
+   "via": "free_agent",
+   "pts_this_week": 7.0
+  },
+  {
+   "manager": "flips390",
+   "player": "Chicago Bears",
+   "via": "free_agent",
+   "pts_this_week": 16.0
+  },
+  {
+   "manager": "Folding Table Champ",
+   "player": "Chris Rodriguez Jr.",
+   "via": "free_agent",
+   "pts_this_week": 5.1
+  },
+  {
+   "manager": "CUTHISYR",
+   "player": "Chase McLaughlin",
+   "via": "free_agent",
+   "pts_this_week": 3.0
+  }
+ ],
+ "drops": [
+  {
+   "manager": "dookkk",
+   "player": "Detroit Lions"
+  },
+  {
+   "manager": "dookkk",
+   "player": "Rachaad White"
+  },
+  {
+   "manager": "CUTHISYR",
+   "player": "Tre' Harris"
+  },
+  {
+   "manager": "Folding Table Champ",
+   "player": "Ja'Kobi Lane"
+  },
+  {
+   "manager": "Dumpsterfire007",
+   "player": "Aaron Jones Sr."
+  },
+  {
+   "manager": "stufflydogs",
+   "player": "Alvin Kamara"
+  },
+  {
+   "manager": "CUTHISYR",
+   "player": "Pat Bryant"
+  },
+  {
+   "manager": "Folding Table Champ",
+   "player": "Audric Estime"
+  },
+  {
+   "manager": "ChelseaClub",
+   "player": "Jordan Addison"
+  },
+  {
+   "manager": "flips390",
+   "player": "Demarcus Robinson"
+  },
+  {
+   "manager": "Barnacle Boys",
+   "player": "Indianapolis Colts"
+  },
+  {
+   "manager": "The Escape Artist",
+   "player": "Devaughn Vele"
+  },
+  {
+   "manager": "haze4daze",
+   "player": "Alec Pierce"
+  },
+  {
+   "manager": "haze4daze",
+   "player": "Xavier Worthy"
+  },
+  {
+   "manager": "HowDidIOnceWin",
+   "player": "Tutu Atwell"
+  },
+  {
+   "manager": "Dumpsterfire007",
+   "player": "Wan'Dale Robinson"
+  },
+  {
+   "manager": "dookkk",
+   "player": "Riley Patterson"
+  },
+  {
+   "manager": "flips390",
+   "player": "Austin Ekeler"
+  },
+  {
+   "manager": "dookkk",
+   "player": "Baltimore Ravens"
+  },
+  {
+   "manager": "dookkk",
+   "player": "Courtland Sutton"
+  },
+  {
+   "manager": "flips390",
+   "player": "Jacoby Brissett"
+  },
+  {
+   "manager": "Folding Table Champ",
+   "player": "Germie Bernard"
+  },
+  {
+   "manager": "CUTHISYR",
+   "player": "Dylan Sampson"
+  }
+ ],
+ "trades": [
+  {
+   "receives": {
+    "CUTHISYR": [
+     "Tre' Harris"
+    ],
+    "ChelseaClub": [
+     "Mike Evans"
+    ]
+   }
+  }
+ ],
+ "got_away": [
+  {
+   "player": "Germie Bernard",
+   "dropped_by": "Folding Table Champ",
+   "scored_for": "dookkk",
+   "pts": 10.0
+  },
+  {
+   "player": "Tre' Harris",
+   "dropped_by": "CUTHISYR",
+   "scored_for": "ChelseaClub",
+   "pts": 4.8
+  }
+ ],
+ "faab_budget": 130,
+ "standings": [
+  {
+   "rank": 1,
+   "manager": "dookkk",
+   "record": "9-2",
+   "pf": 1684.58,
+   "streak": "W3",
+   "prev_rank": 1
+  },
+  {
+   "rank": 2,
+   "manager": "The Escape Artist",
+   "record": "7-4",
+   "pf": 1478.56,
+   "streak": "L1",
+   "prev_rank": 2
+  },
+  {
+   "rank": 3,
+   "manager": "haze4daze",
+   "record": "7-4",
+   "pf": 1476.1,
+   "streak": "W1",
+   "prev_rank": 5
+  },
+  {
+   "rank": 4,
+   "manager": "Folding Table Champ",
+   "record": "7-4",
+   "pf": 1440.24,
+   "streak": "L1",
+   "prev_rank": 3
+  },
+  {
+   "rank": 5,
+   "manager": "stufflydogs",
+   "record": "6-5",
+   "pf": 1522.8,
+   "streak": "L2",
+   "prev_rank": 4
+  },
+  {
+   "rank": 6,
+   "manager": "DM_Me_to_Collude",
+   "record": "6-5",
+   "pf": 1517.98,
+   "streak": "W5",
+   "prev_rank": 6
+  },
+  {
+   "rank": 7,
+   "manager": "Dumpsterfire007",
+   "record": "5-6",
+   "pf": 1453.44,
+   "streak": "W1",
+   "prev_rank": 9
+  },
+  {
+   "rank": 8,
+   "manager": "HowDidIOnceWin",
+   "record": "5-6",
+   "pf": 1388.2,
+   "streak": "L3",
+   "prev_rank": 8
+  },
+  {
+   "rank": 9,
+   "manager": "ChelseaClub",
+   "record": "5-6",
+   "pf": 1380.94,
+   "streak": "L1",
+   "prev_rank": 7
+  },
+  {
+   "rank": 10,
+   "manager": "Barnacle Boys",
+   "record": "4-7",
+   "pf": 1261.84,
+   "streak": "W2",
+   "prev_rank": 10
+  },
+  {
+   "rank": 11,
+   "manager": "flips390",
+   "record": "4-7",
+   "pf": 1234.08,
+   "streak": "W1",
+   "prev_rank": 11
+  },
+  {
+   "rank": 12,
+   "manager": "CUTHISYR",
+   "record": "1-10",
+   "pf": 1088.68,
+   "streak": "L6",
+   "prev_rank": 12
+  }
+ ],
+ "movers": [
+  {
+   "rank": 3,
+   "manager": "haze4daze",
+   "record": "7-4",
+   "pf": 1476.1,
+   "streak": "W1",
+   "prev_rank": 5
+  },
+  {
+   "rank": 7,
+   "manager": "Dumpsterfire007",
+   "record": "5-6",
+   "pf": 1453.44,
+   "streak": "W1",
+   "prev_rank": 9
+  },
+  {
+   "rank": 9,
+   "manager": "ChelseaClub",
+   "record": "5-6",
+   "pf": 1380.94,
+   "streak": "L1",
+   "prev_rank": 7
+  }
+ ],
+ "upsets": [
+  {
+   "winner": "flips390",
+   "winner_prev_rank": 11,
+   "loser": "stufflydogs",
+   "loser_prev_rank": 4
+  },
+  {
+   "winner": "DM_Me_to_Collude",
+   "winner_prev_rank": 6,
+   "loser": "The Escape Artist",
+   "loser_prev_rank": 2
+  }
+ ],
+ "power_rankings": [
+  {
+   "power_rank": 1,
+   "manager": "dookkk",
+   "record": "9-2",
+   "all_play": "90-31",
+   "last3_all_play": "22-11",
+   "power_score": 76.3,
+   "pf": 1684.58,
+   "pa": 1275.34,
+   "luck": 0.8,
+   "prev_power_rank": 2
+  },
+  {
+   "power_rank": 2,
+   "manager": "DM_Me_to_Collude",
+   "record": "6-5",
+   "all_play": "77-44",
+   "last3_all_play": "29-4",
+   "power_score": 73.7,
+   "pf": 1517.98,
+   "pa": 1498.56,
+   "luck": -1.0,
+   "prev_power_rank": 3
+  },
+  {
+   "power_rank": 3,
+   "manager": "Dumpsterfire007",
+   "record": "5-6",
+   "all_play": "71-49",
+   "last3_all_play": "21-12",
+   "power_score": 64.4,
+   "pf": 1453.44,
+   "pa": 1459.92,
+   "luck": -1.5,
+   "prev_power_rank": 5
+  },
+  {
+   "power_rank": 4,
+   "manager": "The Escape Artist",
+   "record": "7-4",
+   "all_play": "70-51",
+   "last3_all_play": "21-12",
+   "power_score": 63.8,
+   "pf": 1478.56,
+   "pa": 1398.12,
+   "luck": 0.6,
+   "prev_power_rank": 4
+  },
+  {
+   "power_rank": 5,
+   "manager": "Folding Table Champ",
+   "record": "7-4",
+   "all_play": "67-53",
+   "last3_all_play": "22-11",
+   "power_score": 63.0,
+   "pf": 1440.24,
+   "pa": 1275.82,
+   "luck": 0.9,
+   "prev_power_rank": 7
+  },
+  {
+   "power_rank": 6,
+   "manager": "stufflydogs",
+   "record": "6-5",
+   "all_play": "76-45",
+   "last3_all_play": "15-18",
+   "power_score": 62.6,
+   "pf": 1522.8,
+   "pa": 1391.92,
+   "luck": -0.9,
+   "prev_power_rank": 1
+  },
+  {
+   "power_rank": 7,
+   "manager": "haze4daze",
+   "record": "7-4",
+   "all_play": "75-46",
+   "last3_all_play": "14-19",
+   "power_score": 60.9,
+   "pf": 1476.1,
+   "pa": 1539.72,
+   "luck": 0.2,
+   "prev_power_rank": 6
+  },
+  {
+   "power_rank": 8,
+   "manager": "ChelseaClub",
+   "record": "5-6",
+   "all_play": "50-71",
+   "last3_all_play": "19-14",
+   "power_score": 51.5,
+   "pf": 1380.94,
+   "pa": 1373.18,
+   "luck": 0.5,
+   "prev_power_rank": 8
+  },
+  {
+   "power_rank": 9,
+   "manager": "HowDidIOnceWin",
+   "record": "5-6",
+   "all_play": "52-69",
+   "last3_all_play": "12-21",
+   "power_score": 47.2,
+   "pf": 1388.2,
+   "pa": 1405.62,
+   "luck": 0.3,
+   "prev_power_rank": 9
+  },
+  {
+   "power_rank": 10,
+   "manager": "Barnacle Boys",
+   "record": "4-7",
+   "all_play": "45-76",
+   "last3_all_play": "9-24",
+   "power_score": 40.4,
+   "pf": 1261.84,
+   "pa": 1459.88,
+   "luck": -0.1,
+   "prev_power_rank": 10
+  },
+  {
+   "power_rank": 11,
+   "manager": "flips390",
+   "record": "4-7",
+   "all_play": "38-83",
+   "last3_all_play": "9-24",
+   "power_score": 36.6,
+   "pf": 1234.08,
+   "pa": 1396.22,
+   "luck": 0.5,
+   "prev_power_rank": 11
+  },
+  {
+   "power_rank": 12,
+   "manager": "CUTHISYR",
+   "record": "1-10",
+   "all_play": "14-107",
+   "last3_all_play": "5-28",
+   "power_score": 20.4,
+   "pf": 1088.68,
+   "pa": 1453.14,
+   "luck": -0.3,
+   "prev_power_rank": 12
+  }
+ ],
+ "next_week_card": [
+  {
+   "billing": "Main Event",
+   "week": 12,
+   "a": {
+    "manager": "haze4daze",
+    "record": "7-4",
+    "rank": 3,
+    "streak": "W1",
+    "power_rank": 7,
+    "pf": 1476.1
+   },
+   "b": {
+    "manager": "DM_Me_to_Collude",
+    "record": "6-5",
+    "rank": 6,
+    "streak": "W5",
+    "power_rank": 2,
+    "pf": 1517.98
+   },
+   "head_to_head": [
+    {
+     "week": 1,
+     "winner": "DM_Me_to_Collude",
+     "score": "148.2-133.42"
+    }
+   ],
+   "odds": {
+    "favorite": "DM_Me_to_Collude",
+    "favorite_pct": 54,
+    "underdog": "haze4daze",
+    "underdog_pct": 46,
+    "line": 3.0
+   }
+  },
+  {
+   "billing": "Co-Main Event",
+   "week": 12,
+   "a": {
+    "manager": "The Escape Artist",
+    "record": "7-4",
+    "rank": 2,
+    "streak": "L1",
+    "power_rank": 4,
+    "pf": 1478.56
+   },
+   "b": {
+    "manager": "Dumpsterfire007",
+    "record": "5-6",
+    "rank": 7,
+    "streak": "W1",
+    "power_rank": 3,
+    "pf": 1453.44
+   },
+   "head_to_head": [
+    {
+     "week": 1,
+     "winner": "The Escape Artist",
+     "score": "138.4-127.36"
+    }
+   ],
+   "odds": {
+    "favorite": "The Escape Artist",
+    "favorite_pct": 52,
+    "underdog": "Dumpsterfire007",
+    "underdog_pct": 48,
+    "line": 2.0
+   }
+  },
+  {
+   "billing": "Basement Bowl",
+   "week": 12,
+   "a": {
+    "manager": "HowDidIOnceWin",
+    "record": "5-6",
+    "rank": 8,
+    "streak": "L3",
+    "power_rank": 9,
+    "pf": 1388.2
+   },
+   "b": {
+    "manager": "Barnacle Boys",
+    "record": "4-7",
+    "rank": 10,
+    "streak": "W2",
+    "power_rank": 10,
+    "pf": 1261.84
+   },
+   "head_to_head": [
+    {
+     "week": 1,
+     "winner": "HowDidIOnceWin",
+     "score": "161.16-129.52"
+    }
+   ],
+   "odds": {
+    "favorite": "HowDidIOnceWin",
+    "favorite_pct": 61,
+    "underdog": "Barnacle Boys",
+    "underdog_pct": 39,
+    "line": 9.0
+   }
+  }
+ ],
+ "next_week_others": [
+  {
+   "week": 12,
+   "a": {
+    "manager": "stufflydogs",
+    "record": "6-5",
+    "rank": 5,
+    "streak": "L2",
+    "power_rank": 6,
+    "pf": 1522.8
+   },
+   "b": {
+    "manager": "ChelseaClub",
+    "record": "5-6",
+    "rank": 9,
+    "streak": "L1",
+    "power_rank": 8,
+    "pf": 1380.94
+   },
+   "odds": {
+    "favorite": "stufflydogs",
+    "favorite_pct": 62,
+    "underdog": "ChelseaClub",
+    "underdog_pct": 38,
+    "line": 10.0
+   }
+  },
+  {
+   "week": 12,
+   "a": {
+    "manager": "Folding Table Champ",
+    "record": "7-4",
+    "rank": 4,
+    "streak": "L1",
+    "power_rank": 5,
+    "pf": 1440.24
+   },
+   "b": {
+    "manager": "flips390",
+    "record": "4-7",
+    "rank": 11,
+    "streak": "W1",
+    "power_rank": 11,
+    "pf": 1234.08
+   },
+   "odds": {
+    "favorite": "Folding Table Champ",
+    "favorite_pct": 67,
+    "underdog": "flips390",
+    "underdog_pct": 33,
+    "line": 14.5
+   }
+  },
+  {
+   "week": 12,
+   "a": {
+    "manager": "dookkk",
+    "record": "9-2",
+    "rank": 1,
+    "streak": "W3",
+    "power_rank": 1,
+    "pf": 1684.58
+   },
+   "b": {
+    "manager": "CUTHISYR",
+    "record": "1-10",
+    "rank": 12,
+    "streak": "L6",
+    "power_rank": 12,
+    "pf": 1088.68
+   },
+   "odds": {
+    "favorite": "dookkk",
+    "favorite_pct": 90,
+    "underdog": "CUTHISYR",
+    "underdog_pct": 10,
+    "line": 42.5
+   }
+  }
+ ],
+ "awards": {
+  "boom": {
+   "player": "Dak Prescott",
+   "pts": 35.9,
+   "manager": "dookkk"
+  },
+  "dud": {
+   "player": "DK Metcalf",
+   "pts": 1.2,
+   "manager": "flips390"
+  },
+  "bench_crime": null,
+  "big_spender": {
+   "manager": "Folding Table Champ",
+   "player": "Dylan Sampson",
+   "via": "waiver",
+   "faab": 5,
+   "faab_left": 17,
+   "pts_this_week": 0.0
+  }
+ },
+ "lore": {
+  "season_high": {
+   "manager": "dookkk",
+   "pts": 199.08,
+   "week": 2
+  },
+  "season_low": {
+   "manager": "CUTHISYR",
+   "pts": 68.3,
+   "week": 9
+  },
+  "luckiest": {
+   "power_rank": 5,
+   "manager": "Folding Table Champ",
+   "record": "7-4",
+   "all_play": "67-53",
+   "last3_all_play": "22-11",
+   "power_score": 63.0,
+   "pf": 1440.24,
+   "pa": 1275.82,
+   "luck": 0.9,
+   "prev_power_rank": 7
+  },
+  "unluckiest": {
+   "power_rank": 3,
+   "manager": "Dumpsterfire007",
+   "record": "5-6",
+   "all_play": "71-49",
+   "last3_all_play": "21-12",
+   "power_score": 64.4,
+   "pf": 1453.44,
+   "pa": 1459.92,
+   "luck": -1.5,
+   "prev_power_rank": 5
+  },
+  "schedule_victim": {
+   "power_rank": 7,
+   "manager": "haze4daze",
+   "record": "7-4",
+   "all_play": "75-46",
+   "last3_all_play": "14-19",
+   "power_score": 60.9,
+   "pf": 1476.1,
+   "pa": 1539.72,
+   "luck": 0.2,
+   "prev_power_rank": 6
+  },
+  "hot_streak": {
+   "manager": "DM_Me_to_Collude",
+   "streak": "W5"
+  },
+  "cold_streak": {
+   "manager": "CUTHISYR",
+   "streak": "L6"
+  }
+ },
+ "playoff_teams": 6,
+ "playoff_race": {
+  "weeks_left": 3,
+  "playoff_teams": 6,
+  "in": [
+   "dookkk",
+   "The Escape Artist",
+   "haze4daze",
+   "Folding Table Champ",
+   "stufflydogs",
+   "DM_Me_to_Collude"
+  ],
+  "bubble": [
+   {
+    "manager": "stufflydogs",
+    "record": "6-5",
+    "rank": 5
+   },
+   {
+    "manager": "DM_Me_to_Collude",
+    "record": "6-5",
+    "rank": 6
+   },
+   {
+    "manager": "Dumpsterfire007",
+    "record": "5-6",
+    "rank": 7
+   },
+   {
+    "manager": "HowDidIOnceWin",
+    "record": "5-6",
+    "rank": 8
+   }
+  ]
+ },
+ "bracket": [
+  {
+   "round": 1,
+   "a": "Folding Table Champ",
+   "b": "stufflydogs",
+   "winner": null,
+   "place": null
+  },
+  {
+   "round": 1,
+   "a": "DM_Me_to_Collude",
+   "b": "haze4daze",
+   "winner": null,
+   "place": null
+  },
+  {
+   "round": 2,
+   "a": "dookkk",
+   "b": null,
+   "winner": null,
+   "place": null
+  },
+  {
+   "round": 2,
+   "a": "The Escape Artist",
+   "b": null,
+   "winner": null,
+   "place": null
+  },
+  {
+   "round": 2,
+   "a": null,
+   "b": null,
+   "winner": null,
+   "place": 5
+  },
+  {
+   "round": 3,
+   "a": null,
+   "b": null,
+   "winner": null,
+   "place": 1
+  },
+  {
+   "round": 3,
+   "a": null,
+   "b": null,
+   "winner": null,
+   "place": 3
+  }
+ ],
+ "champion": null,
+ "last_strip_poses": [
+  "celebrate",
+  "facepalm",
+  "shrug"
+ ],
+ "edition_date": "2026-11-25",
+ "edition": {
+  "theme": "thanksgiving",
+  "label": "Thanksgiving Edition",
+  "playoff": {
+   "phase": "race",
+   "weeks_left": 3,
+   "playoff_teams": 6,
+   "starts": 15,
+   "label": "Playoff Race: 3 Weeks Left"
+  }
+ },
+ "used_pun_names": [
+  "A Goff Course Win",
+  "A Stroud Awakening",
+  "Achy Breaky De'Von Achane",
+  "Barnacle Boys clung to the hull",
+  "Barnacle Boys Stay Afloat",
+  "Barnacle Boys the Stranded Shellfish",
+  "Bench Pressing Matters",
+  "Bijan Bank Robinson",
+  "Bijan Robinson Crusoe",
+  "Bijan Robinson Hood",
+  "Bo Nix Fix",
+  "Bo Nix the Competition",
+  "Braelon Allen Wrench",
+  "Brissett Flips the Script",
+  "Brock Bow-Tie Bowers",
+  "Brock Purdy Good",
+  "Bryce Young Blood",
+  "Bryce Young Guns",
+  "Bucky Irving Berlin",
+  "Bucky Kicks the Table Over",
+  "Burrow Digs In for the Win",
+  "Burrow Leaves the Pack",
+  "California Kalif Raymond",
+  "CeeDee Lamb Chop",
+  "CeeDee Lamb Shank Redemption",
+  "Chase Brown Sugar",
+  "Chase Lights the Match",
+  "Chase Scene Ends in Flames",
+  "ChelseaClub the Rebounder Royale",
+  "Chris Olive-Oil Olave",
+  "Christian Espresso McCaffrey",
+  "Christian McCaffrey Carry-On",
+  "Christian McCaffrey Roll",
+  "Christian Watson Me Now",
+  "Chuba Hubbard Gets It Done",
+  "Chuba Mother Hubbard",
+  "Chubba Missile Crisis",
+  "Colston Loveland Locked",
+  "CUTHISYR cut its own points",
+  "CUTHISYR the Perpetually Pending",
+  "Dak Attack Prescott",
+  "Dak Rx Prescott",
+  "David Montgomery Wards",
+  "Demarcus Robinson Goose Egg",
+  "Derrick Henry the Eighth",
+  "DeVonta Smithereens",
+  "DM_Me_to_Collude left the win on read",
+  "DM_Me_to_Collude the Benchwarming Schemer",
+  "Dontayvion Candlelight Wicks",
+  "dookkk the Undefeated Overlord",
+  "Doubs and Doubts",
+  "Drake London Calling",
+  "Drake Maye Not Today",
+  "Dumpsterfire007 burned through another week",
+  "Dumpsterfire007 lit the match on its own lineup",
+  "Dumpsterfire007 the Arsonist Turned Hero",
+  "Emmett Johnson & Johnson",
+  "Escape Artist Slips the Cuffs",
+  "flips390 the Flip-Side Sensation",
+  "Folding Table Champ did not fold",
+  "Folding Table Champ got folded and leaned against the wall",
+  "Folding Table Champ Sets Up",
+  "Folding Table Champ the Collapsible King",
+  "Folding Table Takes a Seat",
+  "Four Teams Tied, Basement Evans Up",
+  "Four-Way Tie Breaker",
+  "Garrett Woodrow Wilson",
+  "Georgie Porgie Pickens",
+  "Germie Bernard Shaw",
+  "Gibbs Fits the Bill",
+  "Golden Hour, Purdy Picture",
+  "Harold Fanning Flames",
+  "haze4daze Rolls In Like Fog",
+  "haze4daze the Fogbound",
+  "Hazy Shade of McCaffrey",
+  "HowDidIOnceWin the Lucky Duck",
+  "Hunter Gatherer Henry",
+  "Isaiah Likely Suspect",
+  "Ja'Marr Chase Bank",
+  "Ja'Marr Chase Down",
+  "Jadarian Price Tag",
+  "Jahmyr Gibbs Free Ride",
+  "Jahmyr Gibbs Sampler",
+  "Jakobi Meyers-Briggs",
+  "Jalen Diet Coker",
+  "James Cook Book",
+  "Jameson Williams on the Rocks",
+  "Jared Goff Course",
+  "Javonte Williams Wonka",
+  "Jaxon Smith-Njigba Jam",
+  "Jaylen Waddle Along",
+  "Jeremiyah Love Actually",
+  "Joe Burrow Cage",
+  "Joe Wheel Burrow",
+  "Jonah Coleman Stove",
+  "Jonathan Taylor-Made",
+  "Jordyn Tyson Chicken",
+  "Josh Allen Key",
+  "Josh Downs the Hatches",
+  "Kenyon Bench-Warmer Sadiq",
+  "Kirk Cousins and Effect",
+  "Kyren Williams-Sonoma",
+  "Lamb Chop Cuts It Close",
+  "Leaves Fall, and So Does Folding Table",
+  "Likely Story, Table Folds",
+  "Luther Burden Lifted",
+  "Luther Burden of Proof",
+  "Mahomes Sweet Mahomes",
+  "Malik Next-Door Nabers",
+  "Mark My Words Andrews",
+  "Matthew Golden Goose",
+  "Matthew Golden Rule",
+  "Maye Day, Maye Day",
+  "Maye the Fog Never Lift",
+  "Michael Mic-Drop Wilson",
+  "Mike Evans It Up",
+  "Nacua Matata Reloaded",
+  "Nacua Matata, Say the Dogs",
+  "Nico Collins Dictionary",
+  "nobody could scrape the team off the bottom",
+  "Ollie Gordon Blue",
+  "Parker Washington Post",
+  "Patrick Mahomes Alone",
+  "Pickens Up the Pieces",
+  "Puka Nacua Matata",
+  "Quinshon Jury Judkins",
+  "Rashee Rice Krispies",
+  "Rice Krispies Fall Flat",
+  "Rivet Bolts Upright",
+  "Rivet Boo-Hoo Report",
+  "Rivet Rakes It In",
+  "Rivet Rust Never Sleeps",
+  "Rivet Table Talk",
+  "so the fire only smoldered",
+  "Stefon Diggs a Hole",
+  "stufflydogs fetched",
+  "stufflydogs the Fallen Favorite",
+  "Sutton Death for Barnacle Boys",
+  "Tee Time Higgins",
+  "The Escape Artist Golden Exit",
+  "The Escape Artist made its latest getaway",
+  "The Escape Artist the Houdini of the Standings",
+  "The fire is spreading",
+  "The Mahomes was not at home",
+  "the question in its name is getting harder to answer",
+  "Tony Pollard Pole Vault",
+  "Tre Tucker Out",
+  "Trevor Lawrence Live",
+  "Trevor Lawrence Welk",
+  "Trey McBride of Frankenstein",
+  "Trey-Vexin Henderson",
+  "Tuten-Khamun Rises",
+  "Walker Takes the Dogs Out",
+  "Watson Jackpot Slot",
+  "where it still could not cut it",
+  "Woody Marks the Spot",
+  "Zay Flowers Power"
+ ]
+}
